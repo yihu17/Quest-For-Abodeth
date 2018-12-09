@@ -3,7 +3,6 @@ import org.jsfml.window.Keyboard;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.WindowStyle;
 import org.jsfml.window.event.Event;
-import org.jsfml.window.event.KeyEvent;
 
 public class Main
 {
