@@ -16,15 +16,7 @@ public class Main
 
     public void run()
     {
-        VideoMode mode = null;
-        for (VideoMode m: VideoMode.getFullscreenModes()) {
-            if (m.width == 1920) {
-                mode = m;
-                break;
-            }
-        }
-        this.window.create(mode, Settings.WINDOW_TITLE, WindowStyle.FULLSCREEN);
-        //this.window.create(new VideoMode(700, 700), Settings.WINDOW_TITLE, WindowStyle.DEFAULT);
+        this.window.create(VideoMode.getDesktopMode(), Settings.WINDOW_TITLE, WindowStyle.FULLSCREEN);
 
         while (window.isOpen()) {
             window.clear();
