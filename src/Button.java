@@ -17,6 +17,7 @@ public class Button implements Drawable
     }
     private RectangleShape rectangleShape;
     private Text text;
+    private EventHandler onPress;
 
     public Button(int width, int height, int x, int y)
     {
@@ -63,9 +64,14 @@ public class Button implements Drawable
         return rectangleShape.getGlobalBounds();
     }
 
+    public void setOnPress(EventHandler handle)
+    {
+        this.onPress = handle;
+    }
+
     public void press()
     {
-        System.out.println("Pressed button: " + this);
+        onPress.run();
     }
 
     @Override

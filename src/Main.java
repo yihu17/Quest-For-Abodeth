@@ -25,6 +25,13 @@ public class Main
         b.setText("Hello");
         b.setTextXOffset(14);
         b.setTextYOffset(5);
+        b.setOnPress(new EventHandler() {
+            @Override
+            public void run()
+            {
+                System.out.println("Hello World");
+            }
+        });
     }
 
     public void run()
