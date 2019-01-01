@@ -7,30 +7,31 @@ import org.jsfml.system.Vector2f;
  * Binding an EventHandler to a button allows it to perform
  * an action when clicked
  */
-public class Button implements Drawable
+public class Button extends RectangleShape implements Drawable
 {
-    private final RectangleShape rectangleShape;
     private Color normalColor = Settings.LIGHT_GREY;
     private Color outlineColor = Settings.DARK_GREY;
     private Color onPressColor = Settings.GREY;
+    private int borderThickness = 5;
+
     private final Text text;
     private EventHandler onPress = null;
 
     public Button(int width, int height, int x, int y)
     {
         // Create the button background
-        rectangleShape = new RectangleShape();
-        rectangleShape.setSize(new Vector2f(width, height));
-        rectangleShape.setPosition(new Vector2f(x, y));
+        super();
+        this.setSize(new Vector2f(width, height));
+        this.setPosition(new Vector2f(x, y));
 
-        rectangleShape.setFillColor(normalColor);
-        rectangleShape.setOutlineColor(outlineColor);
-        rectangleShape.setOutlineThickness(5);
+        this.setFillColor(normalColor);
+        this.setOutlineColor(outlineColor);
+        this.setOutlineThickness(borderThickness);
 
 
         // Create the text to go inside the button
         text = new Text("", Settings.ARIAL);
-        text.setPosition(rectangleShape.getPosition());
+        text.setPosition(this.getPosition());
         text.setColor(Color.BLACK);
     }
 
@@ -52,7 +53,7 @@ public class Button implements Drawable
     public void setColor(Color color)
     {
         this.normalColor = color;
-        rectangleShape.setFillColor(normalColor);
+        this.setFillColor(normalColor);
     }
 
     /**
@@ -60,10 +61,11 @@ public class Button implements Drawable
      *
      * @param color (Color) New border color
      */
+    @Override
     public void setOutlineColor(Color color)
     {
         this.outlineColor = color;
-        rectangleShape.setOutlineColor(outlineColor);
+        super.setOutlineColor(outlineColor);
     }
 
     /**
@@ -116,8 +118,8 @@ public class Button implements Drawable
      */
     public void press(Vector2f mousePos)
     {
-        if (rectangleShape.getGlobalBounds().contains(mousePos)) {
-            rectangleShape.setFillColor(onPressColor);
+        if (this.getGlobalBounds().contains(mousePos)) {
+            this.setFillColor(onPressColor);
             if (onPress != null) {
                 onPress.run();
             }
@@ -132,8 +134,8 @@ public class Button implements Drawable
      */
     public void release(Vector2f mousePos)
     {
-        if (rectangleShape.getGlobalBounds().contains(mousePos))
-            rectangleShape.setFillColor(normalColor);
+        if (this.getGlobalBounds().contains(mousePos))
+            this.setFillColor(normalColor);
     }
 
     /**
@@ -144,7 +146,7 @@ public class Button implements Drawable
     @Override
     public void draw(RenderTarget renderTarget, RenderStates renderStates)
     {
-        rectangleShape.draw(renderTarget, renderStates);
+        super.draw(renderTarget, renderStates);
         text.draw(renderTarget, renderStates);
     }
 }

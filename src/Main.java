@@ -6,7 +6,6 @@ import org.jsfml.window.VideoMode;
 import org.jsfml.window.event.Event;
 
 import java.util.ArrayList;
-import java.util.function.Consumer;
 
 public class Main
 {
