@@ -3,7 +3,6 @@ import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.VideoMode;
-import org.jsfml.window.WindowStyle;
 import org.jsfml.window.event.Event;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public class Main
     {
         this.window = new RenderWindow();
         this.window.setFramerateLimit(30);
-        buttons.add(new Button(100, 50, 500, 500));
+        buttons.add(new Button(100, 50, 320, 180));
 
         Button b = buttons.get(0);
         b.setText("Hello");
@@ -36,8 +35,8 @@ public class Main
 
     public void run()
     {
-        this.window.create(VideoMode.getDesktopMode(), Settings.WINDOW_TITLE, WindowStyle.FULLSCREEN);
-
+        //this.window.create(VideoMode.getDesktopMode(), Settings.WINDOW_TITLE, WindowStyle.FULLSCREEN);
+        this.window.create(new VideoMode(640, 360, 32), Settings.WINDOW_TITLE);
         while (window.isOpen()) {
             window.clear();
 
@@ -58,17 +57,12 @@ public class Main
                 } else if (event.type == Event.Type.MOUSE_BUTTON_PRESSED) {
                     Vector2i pos = event.asMouseEvent().position;
                     mousePosition = new Vector2f((float)pos.x, (float)pos.y);
+                    buttons.forEach(button -> button.press(mousePosition));
 
-                    buttons.forEach(new Consumer<Button>()
-                    {
-                        @Override
-                        public void accept(Button button)
-                        {
-                            if (button.getGlobalBounds().contains(mousePosition)) {
-                                button.press();
-                            }
-                        }
-                    });
+                } else if (event.type == Event.Type.MOUSE_BUTTON_RELEASED) {
+                    Vector2i pos = event.asMouseEvent().position;
+                    mousePosition = new Vector2f((float) pos.x, (float) pos.y);
+                    buttons.forEach(button -> button.release(mousePosition));
                 }
             }
         }
