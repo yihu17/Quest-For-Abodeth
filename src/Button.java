@@ -35,6 +35,11 @@ public class Button extends RectangleShape implements Drawable
         text.setColor(Color.BLACK);
     }
 
+    public void setTextColor(Color c)
+    {
+        this.text.setColor(c);
+    }
+
     /**
      * Set the text inside the button
      *
@@ -148,5 +153,14 @@ public class Button extends RectangleShape implements Drawable
     {
         super.draw(renderTarget, renderStates);
         text.draw(renderTarget, renderStates);
+    }
+
+    /**
+     * Returns the text on this button object
+     * @return (String) Button text
+     */
+    public String getText()
+    {
+        return this.text.getString();
     }
 }

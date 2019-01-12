@@ -1,14 +1,12 @@
 /**
  * Custom handler for all events that occur and can be bound to
- * specific objects
+ * specific objects.
+ * By making the class abstract it cannot be instantiated normally but can
+ * be used as anonymous classes.
  */
-public class EventHandler
-{
+public abstract class EventHandler {
     /**
-     * By default does nothing. Meant to be overridden
+     * Overridden by the user
      */
-    public void run()
-    {
-        ;
-    }
+    public abstract void run();
 }
