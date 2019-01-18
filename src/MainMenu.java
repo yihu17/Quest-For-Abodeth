@@ -33,7 +33,7 @@ public class MainMenu implements Menu
                 chosenButton = playButton;
             }
         });
-        instructionsButton = new Button(200, 50, 200, 75, "Incstructions");
+        instructionsButton = new Button(200, 50, 200, 75, "Instructions");
         instructionsButton.setOnPress(new EventHandler()
         {
             @Override
@@ -93,7 +93,7 @@ public class MainMenu implements Menu
     public void displayMenu()
     {
         menuOpen = true;
-        while (menuOpen) {
+        while (menuOpen && window.isOpen()) {
             // Clear the window
             window.clear();
 
@@ -118,7 +118,6 @@ public class MainMenu implements Menu
         return chosenButton;
     }
 
-    @Override
     public void setBackground(String filename)
     {
         // Open the background and load it in

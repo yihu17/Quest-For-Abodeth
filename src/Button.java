@@ -40,6 +40,11 @@ public class Button extends RectangleShape implements Drawable
         this.text.setColor(Color.BLACK);
     }
 
+    /**
+     * Changes the color of the Text inside the button
+     *
+     * @param c (Color) Color of the text
+     */
     public void setTextColor(Color c)
     {
         this.text.setColor(c);

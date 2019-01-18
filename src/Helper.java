@@ -8,6 +8,12 @@ import java.util.List;
 
 public class Helper
 {
+    /**
+     * Checks the given event to check whether or not the user is interacting with any of the button on the screen
+     *
+     * @param e       (Event) Generated event object
+     * @param buttons (List) List of buttons to check
+     */
     public static void checkButtons(Event e, List<Button> buttons)
     {
         Vector2f mousePosition;
@@ -22,6 +28,11 @@ public class Helper
         }
     }
 
+    /**
+     * Checks the event for any form of close operation and closes the window
+     * @param e (Event) Generated event object
+     * @param window (RenderWindow) Window object to close
+     */
     public static void checkCloseEvents(Event e, RenderWindow window)
     {
         if (e.type == Event.Type.CLOSED) {
