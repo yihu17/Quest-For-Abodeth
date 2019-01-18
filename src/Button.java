@@ -19,6 +19,11 @@ public class Button extends RectangleShape implements Drawable
 
     public Button(int width, int height, int x, int y)
     {
+        this(width, height, x, y, "");
+    }
+
+    public Button(int width, int height, int x, int y, String text)
+    {
         // Create the button background
         super();
         this.setSize(new Vector2f(width, height));
@@ -30,9 +35,9 @@ public class Button extends RectangleShape implements Drawable
 
 
         // Create the text to go inside the button
-        text = new Text("", Settings.ARIAL);
-        text.setPosition(this.getPosition());
-        text.setColor(Color.BLACK);
+        this.text = new Text(text, Settings.ARIAL);
+        this.text.setPosition(this.getPosition());
+        this.text.setColor(Color.BLACK);
     }
 
     public void setTextColor(Color c)
