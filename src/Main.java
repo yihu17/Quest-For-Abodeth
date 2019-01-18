@@ -1,12 +1,7 @@
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Vector2f;
-import org.jsfml.system.Vector2i;
-import org.jsfml.window.Keyboard;
 import org.jsfml.window.VideoMode;
-import org.jsfml.window.event.Event;
-
-import java.util.ArrayList;
 
 
 public class Main
@@ -61,42 +56,16 @@ public class Main
     {
         //this.window.create(VideoMode.getDesktopMode(), Settings.WINDOW_TITLE, WindowStyle.FULLSCREEN);
         this.window.create(new VideoMode(640, 360, 32), Settings.WINDOW_TITLE);
-        // Create a list so we can easily iterate over the buttons
-        ArrayList<Button> buttons = new ArrayList<>();
-        buttons.add(playButton);
-        buttons.add(instructionsButton);
-        buttons.add(quitButton);
+
 
         // As long as the window is open run the game loop
         while (window.isOpen()) {
             window.clear(Color.BLACK);
-
-            // Draw all the buttons
-            buttons.forEach(window::draw);
-
-            // Update the window
             window.display();
 
-            // Poll for events
-            for (Event e: window.pollEvents()) {
-                if (e.type == Event.Type.CLOSED) {
-                    window.close();
-                } else if (e.type == Event.Type.KEY_PRESSED) {
-                    if (e.asKeyEvent().key == Keyboard.Key.ESCAPE) {
-                        window.close();
-                    }
-                }
-
-                if (e.type == Event.Type.MOUSE_BUTTON_PRESSED) {
-                    Vector2i pos = e.asMouseEvent().position;
-                    mousePosition = new Vector2f((float)pos.x, (float)pos.y);
-                    buttons.forEach(button -> button.press(mousePosition));
-                } else if (e.type == Event.Type.MOUSE_BUTTON_RELEASED) {
-                    Vector2i pos = e.asMouseEvent().position;
-                    mousePosition = new Vector2f((float) pos.x, (float) pos.y);
-                    buttons.forEach(button -> button.release(mousePosition));
-                }
-            }
+            // Display the main menu
+            MainMenu menu = new MainMenu(window);
+            menu.displayMenu();
         }
     }
 
