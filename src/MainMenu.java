@@ -7,7 +7,7 @@ import java.util.List;
 public class MainMenu implements Menu
 {
     private ArrayList<Clickable> buttons = new ArrayList<>();
-    private Button chosenButton;
+    private Clickable chosenButton;
     private boolean menuOpen = false;
     private RenderWindow window;
     private Image background;
@@ -44,6 +44,18 @@ public class MainMenu implements Menu
             i++;
         }
 
+        ClickableImage settings = new ClickableImage(1850, 6, "res/temp-ico.png", "settings");
+        settings.setOnPress(new EventHandler()
+        {
+            @Override
+            public void run()
+            {
+                menuOpen = false;
+                chosenButton = settings;
+            }
+        });
+        buttons.add(settings);
+
         this.background = new Image(0, 0, "res/mainmenu.png");
     }
 
@@ -78,7 +90,7 @@ public class MainMenu implements Menu
     }
 
     @Override
-    public Button getChosenButton()
+    public Clickable getChosenButton()
     {
         return chosenButton;
     }

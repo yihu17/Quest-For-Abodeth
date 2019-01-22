@@ -151,10 +151,7 @@ public class Button extends RectangleShape implements Clickable
         text.draw(renderTarget, renderStates);
     }
 
-    /**
-     * Returns the text on this button object
-     * @return (String) Button text
-     */
+    @Override
     public String getText()
     {
         return this.text.getString();

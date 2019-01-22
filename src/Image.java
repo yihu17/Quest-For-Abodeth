@@ -37,6 +37,11 @@ public class Image implements Drawable
         image.setScale(scaleFactor);
     }
 
+    public FloatRect getGlobalBounds()
+    {
+        return image.getGlobalBounds();
+    }
+
     @Override
     public void draw(RenderTarget renderTarget, RenderStates renderStates)
     {

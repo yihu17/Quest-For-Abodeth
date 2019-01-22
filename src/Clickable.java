@@ -26,4 +26,11 @@ public interface Clickable extends Drawable
      * @param mousePosition (Vector2f) Position of the mouse
      */
     void release(Vector2f mousePosition);
+
+    /**
+     * Returns the text on this clickable object
+     *
+     * @return (String) Button text
+     */
+    String getText();
 }

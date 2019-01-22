@@ -6,7 +6,7 @@ public interface Menu
 
     void displayMenu();
 
-    Button getChosenButton();
+    Clickable getChosenButton();
 
     Image getBackground();
 }
