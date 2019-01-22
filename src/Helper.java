@@ -14,7 +14,7 @@ public class Helper
      * @param e       (Event) Generated event object
      * @param buttons (List) List of buttons to check
      */
-    public static void checkButtons(Event e, List<Button> buttons)
+    public static void checkButtons(Event e, List<Clickable> buttons)
     {
         Vector2f mousePosition;
         if (e.type == Event.Type.MOUSE_BUTTON_PRESSED) {

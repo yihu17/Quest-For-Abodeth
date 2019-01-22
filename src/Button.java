@@ -7,7 +7,7 @@ import org.jsfml.system.Vector2f;
  * Binding an EventHandler to a button allows it to perform
  * an action when clicked
  */
-public class Button extends RectangleShape implements Drawable
+public class Button extends RectangleShape implements Clickable
 {
     private Color normalColor = Settings.LIGHT_GREY;
     private Color outlineColor = Settings.DARK_GREY;
@@ -115,22 +115,13 @@ public class Button extends RectangleShape implements Drawable
         text.setPosition(new Vector2f(f.x, f.y + offset));
     }
 
-    /**
-     * Bind a function to the button so that it runs when this button
-     * is pressed
-     * @param handle (EventHandler) Function to run on click
-     */
+    @Override
     public void setOnPress(EventHandler handle)
     {
         this.onPress = handle;
     }
 
-    /**
-     * Determines whether or not the button is being pressed. If the mouse is within
-     * the bounds of the buttons rectangle object then the bound function is run
-     *
-     * @param mousePos (Vector2f) Position of the mouse
-     */
+    @Override
     public void press(Vector2f mousePos)
     {
         if (this.getGlobalBounds().contains(mousePos)) {
@@ -141,12 +132,7 @@ public class Button extends RectangleShape implements Drawable
         }
     }
 
-    /**
-     * If the button has been pressed, the background clor has changed and so
-     * when the mouse is released, change it back to the original color
-     *
-     * @param mousePos (Vector2f) Position of the mouse
-     */
+    @Override
     public void release(Vector2f mousePos)
     {
         if (this.getGlobalBounds().contains(mousePos))

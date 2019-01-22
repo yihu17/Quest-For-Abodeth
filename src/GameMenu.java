@@ -7,7 +7,7 @@ import java.util.List;
 public class GameMenu implements Menu
 {
     private RenderWindow window;
-    private ArrayList<Button> buttons = new ArrayList<>();
+    private ArrayList<Clickable> buttons = new ArrayList<>();
     private Button chosenButton = null;
     private boolean menuOpen = true;
 
@@ -28,7 +28,7 @@ public class GameMenu implements Menu
     }
 
     @Override
-    public List<Button> getButtons()
+    public List<Clickable> getButtons()
     {
         return buttons;
     }

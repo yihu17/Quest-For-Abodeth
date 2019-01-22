@@ -6,7 +6,7 @@ import java.util.List;
 
 public class MainMenu implements Menu
 {
-    private ArrayList<Button> buttons = new ArrayList<>();
+    private ArrayList<Clickable> buttons = new ArrayList<>();
     private Button chosenButton;
     private boolean menuOpen = false;
     private RenderWindow window;
@@ -48,7 +48,7 @@ public class MainMenu implements Menu
     }
 
     @Override
-    public List<Button> getButtons()
+    public List<Clickable> getButtons()
     {
         return this.buttons;
     }
