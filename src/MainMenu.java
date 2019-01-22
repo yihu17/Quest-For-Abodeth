@@ -1,4 +1,3 @@
-import org.jsfml.graphics.Image;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.window.event.Event;
 
@@ -74,6 +73,8 @@ public class MainMenu implements Menu
             }
         });
 
+        this.background = new Image(0, 0, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT, "res/mainmenu.png");
+
         buttons.addAll(Arrays.asList(
                 playButton,
                 instructionsButton,
@@ -99,6 +100,7 @@ public class MainMenu implements Menu
 
             // Draw window objets
             // Draw background
+            window.draw(background);
             buttons.forEach(window::draw);
 
             // Update the display
@@ -118,9 +120,9 @@ public class MainMenu implements Menu
         return chosenButton;
     }
 
-    public void setBackground(String filename)
+    @Override
+    public Image getBackground()
     {
-        // Open the background and load it in
-        this.background = null;
+        return null;
     }
 }

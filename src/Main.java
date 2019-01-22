@@ -1,5 +1,6 @@
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.window.VideoMode;
+import org.jsfml.window.WindowStyle;
 
 
 public class Main
@@ -14,8 +15,8 @@ public class Main
 
     public void run()
     {
-        //this.window.create(VideoMode.getDesktopMode(), Settings.WINDOW_TITLE, WindowStyle.FULLSCREEN);
-        this.window.create(new VideoMode(640, 360, 32), Settings.WINDOW_TITLE);
+        this.window.create(VideoMode.getDesktopMode(), Settings.WINDOW_TITLE, WindowStyle.FULLSCREEN);
+        //this.window.create(new VideoMode(640, 360, 32), Settings.WINDOW_TITLE);
 
         // As long as the window is open run the game loop
         while (window.isOpen()) {
