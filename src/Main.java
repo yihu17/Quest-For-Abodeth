@@ -35,6 +35,8 @@ public class Main
             switch (chosenOption.getText().toLowerCase()) {
                 case "play":
                     System.out.println("Spawning new game instance");
+                    Game game = new Game(window);
+                    game.run();
                     break;
                 case "instructions":
                     System.out.println("Showing instructions menu");

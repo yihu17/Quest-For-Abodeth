@@ -38,7 +38,7 @@ public class Helper
         if (e.type == Event.Type.CLOSED) {
             window.close();
         } else if (e.type == Event.Type.KEY_PRESSED) {
-            if (e.asKeyEvent().key == Keyboard.Key.ESCAPE) {
+            if (e.asKeyEvent().key == Keyboard.Key.F4) {
                 window.close();
             }
         }
