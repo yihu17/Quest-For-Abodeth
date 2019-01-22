@@ -25,7 +25,7 @@ public class Settings
         WINDOW_WIDTH = desktop.width;
         WINDOW_BITS_PER_PIXEL = desktop.bitsPerPixel;
 
-        File f = new File("res/arial.ttf");
+        File f = new File("res/Consolas.ttf");
         try {
             ARIAL.loadFromFile(f.toPath());
         } catch (IOException e) {

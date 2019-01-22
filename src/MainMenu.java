@@ -24,11 +24,13 @@ public class MainMenu implements Menu
                     buttonWidth,
                     buttonHeight,
                     (Settings.WINDOW_WIDTH - Settings.WINDOW_X_PADDING * 2) / 2 - 100,
-                    Settings.WINDOW_Y_PADDING + i * (buttonHeight * 2),
+                    Settings.WINDOW_Y_PADDING + i * (buttonHeight * 2) + 65,
                     s
             );
             b.setTextYOffset(17);
-            System.out.println("Created '" + s + "' button at [" + ((Settings.WINDOW_WIDTH - Settings.WINDOW_X_PADDING * 2) / 2 + 150) + ", " + (Settings.WINDOW_Y_PADDING + i * 100 + 100) + "]");
+            b.setTextXOffset(
+                    buttonWidth / 2 - (s.length() / 2) * 17
+            );
             b.setOnPress(new EventHandler()
             {
                 @Override
@@ -43,7 +45,6 @@ public class MainMenu implements Menu
         }
 
         this.background = new Image(0, 0, "res/mainmenu.png");
-        background.setScale(Helper.getScaleValue(3840.0f, 2160.0f));
     }
 
     @Override

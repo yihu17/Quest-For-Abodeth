@@ -26,25 +26,27 @@ public class Game
 
                 if (e.type == Event.Type.KEY_PRESSED) {
                     if (e.asKeyEvent().key == Keyboard.Key.ESCAPE) {
-                        System.out.println("Spawning in game menu");
-                        GameMenu ingame = new GameMenu(window);
-                        System.out.println("Menu created");
-                        ingame.displayMenu();
-                        System.out.println("Menu hiding");
-                        Button b = ingame.getChosenButton();
-                        if (b == null) {
-                            continue;
-                        }
-                        switch (b.getText().toLowerCase()) {
-                            case "quit to menu":
-                                gameRunning = false;
-                                break;
-                            default:
-                                throw new AssertionError("Unknown button was pressed: " + b.getText());
-                        }
+                        openInGameMenu();
                     }
                 }
             }
+        }
+    }
+
+    private void openInGameMenu()
+    {
+        GameMenu ingame = new GameMenu(window);
+        ingame.displayMenu();
+        Button b = ingame.getChosenButton();
+        if (b == null) {
+            return;
+        }
+        switch (b.getText().toLowerCase()) {
+            case "quit to menu":
+                gameRunning = false;
+                break;
+            default:
+                throw new AssertionError("Unknown button was pressed: " + b.getText());
         }
     }
 }
