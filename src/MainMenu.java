@@ -29,7 +29,7 @@ public class MainMenu implements Menu
             );
             b.setTextYOffset(17);
             b.setTextXOffset(
-                    buttonWidth / 2 - (s.length() / 2) * 17
+                    buttonWidth / 2 - (s.length() / 2) * 14
             );
             b.setOnPress(new EventHandler()
             {

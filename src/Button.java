@@ -17,11 +17,27 @@ public class Button extends RectangleShape implements Clickable
     private final Text text;
     private EventHandler onPress = null;
 
+    /**
+     * Creates a new button object
+     *
+     * @param width  (int) Width of the button
+     * @param height (int) Height of the button
+     * @param x      (int) X position of the top left of the button
+     * @param y      (int) Y position of the top left of the button
+     */
     public Button(int width, int height, int x, int y)
     {
         this(width, height, x, y, "");
     }
 
+    /**
+     * Creates a new button object
+     * @param width (int) Width of the button
+     * @param height (int) Height of the button
+     * @param x (int) X position of the top left of the button
+     * @param y (int) Y position of the top left of the button
+     * @param text (String) Text to place on the button
+     */
     public Button(int width, int height, int x, int y, String text)
     {
         // Create the button background
@@ -35,7 +51,7 @@ public class Button extends RectangleShape implements Clickable
 
 
         // Create the text to go inside the button
-        this.text = new Text(text, Settings.ARIAL);
+        this.text = new Text(text.toUpperCase(), Settings.ARIAL);
         this.text.setPosition(this.getPosition());
         this.text.setColor(Color.BLACK);
     }
