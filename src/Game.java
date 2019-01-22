@@ -6,12 +6,22 @@ public class Game
 {
     private RenderWindow window;
     private boolean gameRunning;
+    private Room[][] rooms;
 
     public Game(RenderWindow window)
     {
         this.window = window;
         this.window.clear();
         this.gameRunning = true;
+
+        // Read the CSV file
+        rooms = new Room[4][4];
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                rooms[i][j] = new Room(Settings.GENERATOR.nextInt(4));
+            }
+        }
+        Helper.printMatrix(rooms);
     }
 
     public void run()

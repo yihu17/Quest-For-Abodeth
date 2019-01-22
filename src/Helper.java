@@ -59,4 +59,15 @@ public class Helper
                 Settings.WINDOW_HEIGHT / height
         );
     }
+
+    public static void printMatrix(Object[][] objects)
+    {
+        for (int i = 0; i < objects.length; i++) {
+            Object[] row = objects[i];
+            for (int j = 0; j < row.length; j++) {
+                System.out.print(objects[i][j] + " ");
+            }
+            System.out.println("\n");
+        }
+    }
 }
