@@ -51,7 +51,7 @@ public class Button extends RectangleShape implements Clickable
 
 
         // Create the text to go inside the button
-        this.text = new Text(text.toUpperCase(), Settings.ARIAL);
+        this.text = new Text(text.toUpperCase(), Settings.MAIN_MENU_FONT);
         this.text.setPosition(this.getPosition());
         this.text.setColor(Color.BLACK);
     }

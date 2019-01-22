@@ -16,7 +16,8 @@
 - Room Interface made so rooms can be made
   - Must be drawable
 
-
+## Notes
+- All loaded images are saved in the static HashMap in the setting file
 
 ## Links
 
