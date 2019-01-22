@@ -24,6 +24,9 @@ public class Main
             MainMenu menu = new MainMenu(window);
             menu.displayMenu();
             Button chosenOption = menu.getChosenButton();
+            if (chosenOption == null) {
+                continue;
+            }
             switch (chosenOption.getText().toLowerCase()) {
                 case "play":
                     System.out.println("Spawning new game instance");

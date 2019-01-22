@@ -23,7 +23,7 @@ public class Image implements Drawable
 
         image = new Sprite(imageTexture);
         image.setPosition(position);
-        image.setScale(0.5f, 0.5f);
+        image.setScale(Helper.getScaleValue(3840.0f, 2160.0f));
     }
 
     @Override

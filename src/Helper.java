@@ -43,4 +43,12 @@ public class Helper
             }
         }
     }
+
+    public static Vector2f getScaleValue(float width, float height)
+    {
+        return new Vector2f(
+                Settings.WINDOW_WIDTH / width,
+                Settings.WINDOW_HEIGHT / height
+        );
+    }
 }
