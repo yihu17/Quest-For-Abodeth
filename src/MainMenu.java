@@ -73,7 +73,8 @@ public class MainMenu implements Menu
             }
         });
 
-        this.background = new Image(0, 0, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT, "res/mainmenu.png");
+        this.background = new Image(0, 0, "res/mainmenu.png");
+        background.setScale(Helper.getScaleValue(3840.0f, 2160.0f));
 
         buttons.addAll(Arrays.asList(
                 playButton,

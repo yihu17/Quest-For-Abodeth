@@ -9,7 +9,14 @@ public class Image implements Drawable
     private Sprite image;
     private Vector2f position;
 
-    public Image(int x, int y, int w, int h, String filename)
+    /**
+     * Creates a new image object
+     *
+     * @param x        (int) X coordinate of the top left of the image
+     * @param y        (int) Y coordinate of the top left of the image
+     * @param filename (String) Image name to load
+     */
+    public Image(int x, int y, String filename)
     {
         position = new Vector2f(x, y);
 
@@ -23,7 +30,11 @@ public class Image implements Drawable
 
         image = new Sprite(imageTexture);
         image.setPosition(position);
-        image.setScale(Helper.getScaleValue(3840.0f, 2160.0f));
+    }
+
+    public void setScale(Vector2f scaleFactor)
+    {
+        image.setScale(scaleFactor);
     }
 
     @Override

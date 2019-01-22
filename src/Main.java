@@ -20,10 +20,15 @@ public class Main
 
         // As long as the window is open run the game loop
         while (window.isOpen()) {
+
             // Display the main menu
             MainMenu menu = new MainMenu(window);
             menu.displayMenu();
             Button chosenOption = menu.getChosenButton();
+
+            // Added this clause to ensure that if the user exits using an escape method
+            // not NullPointerException is thrown when attempting to get the text of a null
+            // button
             if (chosenOption == null) {
                 continue;
             }

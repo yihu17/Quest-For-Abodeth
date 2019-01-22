@@ -44,6 +44,14 @@ public class Helper
         }
     }
 
+    /**
+     * Takes the width and height of an image and calculates the scale
+     * factor required to make it the same size as the screen
+     *
+     * @param width  (float) Width of the image
+     * @param height (float) Height of the image
+     * @return (Vector2f) Scale factor to be applied
+     */
     public static Vector2f getScaleValue(float width, float height)
     {
         return new Vector2f(
