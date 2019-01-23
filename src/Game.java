@@ -7,6 +7,7 @@ public class Game
     private RenderWindow window;
     private boolean gameRunning;
     private Room[][] rooms;
+    private Room currentRoom;
 
     public Game(RenderWindow window)
     {
@@ -21,6 +22,8 @@ public class Game
                 rooms[i][j] = new Room(Settings.GENERATOR.nextInt(4));
             }
         }
+        currentRoom = rooms[0][0];
+
         Helper.printMatrix(rooms);
     }
 
@@ -28,6 +31,10 @@ public class Game
     {
         while (gameRunning) {
             window.clear();
+
+            // Draw the room
+            window.draw(currentRoom);
+
 
             window.display();
 
