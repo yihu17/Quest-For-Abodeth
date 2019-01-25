@@ -69,4 +69,16 @@ public class Image implements Drawable
         }
         renderTarget.draw(this.image);
     }
+
+    public void setXPosition(float x)
+    {
+        float y = this.image.getPosition().y;
+        this.image.setPosition(x, y);
+    }
+
+    public void setYPosition(float y)
+    {
+        float x = this.image.getPosition().x;
+        this.image.setPosition(x, y);
+    }
 }
