@@ -62,6 +62,7 @@ public abstract class Character implements Drawable
     public void moveUp()
     {
         y -= movementSpeed;
+        updatePosition();
     }
 
     /**
@@ -70,6 +71,7 @@ public abstract class Character implements Drawable
     public void moveDown()
     {
         y += movementSpeed;
+        updatePosition();
     }
 
     /**
@@ -78,6 +80,7 @@ public abstract class Character implements Drawable
     public void moveLeft()
     {
         x -= movementSpeed;
+        updatePosition();
     }
 
     /**
@@ -86,6 +89,12 @@ public abstract class Character implements Drawable
     public void moveRight()
     {
         x += movementSpeed;
+        updatePosition();
+    }
+
+    private void updatePosition()
+    {
+        this.image.setPosition(x, y);
     }
 
     /**

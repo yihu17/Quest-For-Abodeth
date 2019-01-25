@@ -1,6 +1,7 @@
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.event.Event;
+import org.jsfml.window.event.KeyEvent;
 
 public class Game
 {
@@ -45,8 +46,25 @@ public class Game
                 Helper.checkCloseEvents(e, window);
 
                 if (e.type == Event.Type.KEY_PRESSED) {
-                    if (e.asKeyEvent().key == Keyboard.Key.ESCAPE) {
-                        openInGameMenu();
+                    KeyEvent ke = e.asKeyEvent();
+                    switch(ke.key) {
+                        case ESCAPE:
+                            openInGameMenu();
+                            break;
+                        case W:
+                            player.moveUp();
+                            break;
+                        case A:
+                            player.moveLeft();
+                            break;
+                        case S:
+                            player.moveDown();
+                            break;
+                        case D:
+                            player.moveRight();
+                            break;
+                        default:
+                            System.err.println("Non-mapped key pressed: " + ke);
                     }
                 }
             }
