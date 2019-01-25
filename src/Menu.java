@@ -2,9 +2,11 @@ import java.util.List;
 
 public interface Menu
 {
-    List<Button> getButtons();
+    List<Clickable> getButtons();
 
     void displayMenu();
 
-    Button getChosenButton();
+    Clickable getChosenButton();
+
+    Image getBackground();
 }

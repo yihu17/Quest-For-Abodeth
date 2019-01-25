@@ -7,7 +7,7 @@ import org.jsfml.system.Vector2f;
  * Binding an EventHandler to a button allows it to perform
  * an action when clicked
  */
-public class Button extends RectangleShape implements Drawable
+public class Button extends RectangleShape implements Clickable
 {
     private Color normalColor = Settings.LIGHT_GREY;
     private Color outlineColor = Settings.DARK_GREY;
@@ -17,11 +17,27 @@ public class Button extends RectangleShape implements Drawable
     private final Text text;
     private EventHandler onPress = null;
 
+    /**
+     * Creates a new button object
+     *
+     * @param width  (int) Width of the button
+     * @param height (int) Height of the button
+     * @param x      (int) X position of the top left of the button
+     * @param y      (int) Y position of the top left of the button
+     */
     public Button(int width, int height, int x, int y)
     {
         this(width, height, x, y, "");
     }
 
+    /**
+     * Creates a new button object
+     * @param width (int) Width of the button
+     * @param height (int) Height of the button
+     * @param x (int) X position of the top left of the button
+     * @param y (int) Y position of the top left of the button
+     * @param text (String) Text to place on the button
+     */
     public Button(int width, int height, int x, int y, String text)
     {
         // Create the button background
@@ -35,7 +51,7 @@ public class Button extends RectangleShape implements Drawable
 
 
         // Create the text to go inside the button
-        this.text = new Text(text, Settings.ARIAL);
+        this.text = new Text(text.toUpperCase(), Settings.MAIN_MENU_FONT);
         this.text.setPosition(this.getPosition());
         this.text.setColor(Color.BLACK);
     }
@@ -115,22 +131,13 @@ public class Button extends RectangleShape implements Drawable
         text.setPosition(new Vector2f(f.x, f.y + offset));
     }
 
-    /**
-     * Bind a function to the button so that it runs when this button
-     * is pressed
-     * @param handle (EventHandler) Function to run on click
-     */
+    @Override
     public void setOnPress(EventHandler handle)
     {
         this.onPress = handle;
     }
 
-    /**
-     * Determines whether or not the button is being pressed. If the mouse is within
-     * the bounds of the buttons rectangle object then the bound function is run
-     *
-     * @param mousePos (Vector2f) Position of the mouse
-     */
+    @Override
     public void press(Vector2f mousePos)
     {
         if (this.getGlobalBounds().contains(mousePos)) {
@@ -141,12 +148,7 @@ public class Button extends RectangleShape implements Drawable
         }
     }
 
-    /**
-     * If the button has been pressed, the background clor has changed and so
-     * when the mouse is released, change it back to the original color
-     *
-     * @param mousePos (Vector2f) Position of the mouse
-     */
+    @Override
     public void release(Vector2f mousePos)
     {
         if (this.getGlobalBounds().contains(mousePos))
@@ -165,10 +167,7 @@ public class Button extends RectangleShape implements Drawable
         text.draw(renderTarget, renderStates);
     }
 
-    /**
-     * Returns the text on this button object
-     * @return (String) Button text
-     */
+    @Override
     public String getText()
     {
         return this.text.getString();

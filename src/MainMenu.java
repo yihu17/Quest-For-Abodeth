@@ -1,90 +1,66 @@
-import org.jsfml.graphics.Image;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.window.event.Event;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MainMenu implements Menu
 {
-    private ArrayList<Button> buttons = new ArrayList<>();
-    private Button playButton;
-    private Button instructionsButton;
-    private Button highscoreButton;
-    private Button creditsButton;
-    private Button quitButton;
-
-    private Button chosenButton;
+    private ArrayList<Clickable> buttons = new ArrayList<>();
+    private Clickable chosenButton;
     private boolean menuOpen = false;
     private RenderWindow window;
     private Image background;
+    private int buttonWidth = 400;
+    private int buttonHeight = 75;
 
     public MainMenu(RenderWindow window)
     {
         this.window = window;
-        playButton = new Button(200, 50, 200, 0, "Play");
-        playButton.setOnPress(new EventHandler()
-        {
-            @Override
-            public void run()
+        String[] ops = new String[]{"Play", "Instructions", "Highscores", "Credits", "Quit"};
+        int i = 0;
+        for (String s : ops) {
+            Button b = new Button(
+                    buttonWidth,
+                    buttonHeight,
+                    (Settings.WINDOW_WIDTH - Settings.WINDOW_X_PADDING * 2) / 2 - 100,
+                    Settings.WINDOW_Y_PADDING + i * (buttonHeight * 2) + 65,
+                    s
+            );
+            b.setTextYOffset(17);
+            b.setTextXOffset(
+                    buttonWidth / 2 - (s.length() / 2) * 14
+            );
+            b.setOnPress(new EventHandler()
             {
-                menuOpen = false;
-                chosenButton = playButton;
-            }
-        });
-        instructionsButton = new Button(200, 50, 200, 75, "Instructions");
-        instructionsButton.setOnPress(new EventHandler()
-        {
-            @Override
-            public void run()
-            {
-                menuOpen = false;
-                chosenButton = instructionsButton;
-            }
-        });
-        highscoreButton = new Button(200, 50, 200, 150, "Highscores");
-        highscoreButton.setOnPress(new EventHandler()
-        {
-            @Override
-            public void run()
-            {
-                menuOpen = false;
-                chosenButton = highscoreButton;
-            }
-        });
-        creditsButton = new Button(200, 50, 200, 225, "Credits");
-        creditsButton.setOnPress(new EventHandler()
-        {
-            @Override
-            public void run()
-            {
-                menuOpen = false;
-                chosenButton = highscoreButton;
-            }
-        });
-        quitButton = new Button(200, 50, 200, 300, "Quit");
-        quitButton.setOnPress(new EventHandler()
-        {
-            @Override
-            public void run()
-            {
-                menuOpen = false;
-                chosenButton = quitButton;
-            }
-        });
+                @Override
+                public void run()
+                {
+                    menuOpen = false;
+                    chosenButton = b;
+                }
+            });
+            buttons.add(b);
+            i++;
+        }
 
-        buttons.addAll(Arrays.asList(
-                playButton,
-                instructionsButton,
-                highscoreButton,
-                creditsButton,
-                quitButton
-        ));
+        ClickableImage settings = new ClickableImage(1850, 6, "res/temp-ico.png", "settings");
+        settings.setOnPress(new EventHandler()
+        {
+            @Override
+            public void run()
+            {
+                menuOpen = false;
+                chosenButton = settings;
+            }
+        });
+        buttons.add(settings);
+
+        this.background = new Image(0, 0, "res/mainmenu.png");
     }
 
     @Override
-    public List<Button> getButtons()
+    public List<Clickable> getButtons()
     {
         return this.buttons;
     }
@@ -99,6 +75,7 @@ public class MainMenu implements Menu
 
             // Draw window objets
             // Draw background
+            window.draw(background);
             buttons.forEach(window::draw);
 
             // Update the display
@@ -113,14 +90,14 @@ public class MainMenu implements Menu
     }
 
     @Override
-    public Button getChosenButton()
+    public Clickable getChosenButton()
     {
         return chosenButton;
     }
 
-    public void setBackground(String filename)
+    @Override
+    public Image getBackground()
     {
-        // Open the background and load it in
-        this.background = null;
+        return null;
     }
 }
