@@ -10,7 +10,7 @@ public class Main
     public Main()
     {
         this.window = new RenderWindow();
-        this.window.setFramerateLimit(30);
+        this.window.setFramerateLimit(Settings.WINDOW_FPS);
     }
 
     public void run()

@@ -19,6 +19,7 @@ public class Settings
     public static final int WINDOW_X_PADDING = 100;
     public static final int WINDOW_Y_PADDING = 100;
     public static final String WINDOW_TITLE = "Quest for the Abodeth";
+    public static final int WINDOW_FPS = 60;
 
     // The fonts used in various menus in the game
     public static final Font MAIN_MENU_FONT = new Font();
