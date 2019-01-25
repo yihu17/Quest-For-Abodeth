@@ -2,6 +2,7 @@ import org.jsfml.graphics.RenderWindow;
 import org.jsfml.window.event.Event;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GameMenu implements Menu
@@ -14,7 +15,7 @@ public class GameMenu implements Menu
     public GameMenu(RenderWindow window)
     {
         this.window = window;
-        Button quit = new Button(200, 50, 100, 200, "Quit to menu");
+        Button quit = new Button(300, 50, 200, 200, "Quit to menu");
         quit.setOnPress(new EventHandler()
         {
             @Override
@@ -24,7 +25,17 @@ public class GameMenu implements Menu
                 chosenButton = quit;
             }
         });
-        buttons.add(quit);
+        Button cont = new Button(300, 50, 200, 300, "Continue");
+        cont.setOnPress(new EventHandler()
+        {
+            @Override
+            public void run()
+            {
+                menuOpen = false;
+                chosenButton = cont;
+            }
+        });
+        buttons.addAll(Arrays.asList(quit, cont));
     }
 
     @Override
