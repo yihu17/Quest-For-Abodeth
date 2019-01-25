@@ -60,6 +60,11 @@ public class Helper
         );
     }
 
+    /**
+     * Print method that takes a 2D array of objects and prints them to the console
+     *
+     * @param objects
+     */
     public static void printMatrix(Object[][] objects)
     {
         for (int i = 0; i < objects.length; i++) {

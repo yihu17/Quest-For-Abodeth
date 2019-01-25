@@ -9,6 +9,11 @@ public class Room implements Drawable
     private int type;
     private ArrayList<Drawable> drawables = new ArrayList<>();
 
+    /**
+     * Creates a new room of the specified type
+     *
+     * @param type (int) Room type
+     */
     public Room(int type)
     {
         this.type = type;

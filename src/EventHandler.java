@@ -3,5 +3,8 @@
  */
 public abstract class EventHandler
 {
+    /**
+     * Code to run whenever the event handler is called
+     */
     public abstract void run();
 }

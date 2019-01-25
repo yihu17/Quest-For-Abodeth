@@ -19,12 +19,21 @@ public class ClickableImage extends Image implements Clickable
         this.text = buttonText;
     }
 
+    /**
+     * The EventHandler to run when the image is clicked
+     *
+     * @param handler (EventHandler) Function to run on click
+     */
     @Override
     public void setOnPress(EventHandler handler)
     {
         this.handler = handler;
     }
 
+    /**
+     * If the image is being clicked, then run the attached EventHndler
+     * @param mousePosition (Vector2f) Position of the mouse
+     */
     @Override
     public void press(Vector2f mousePosition)
     {
@@ -35,12 +44,20 @@ public class ClickableImage extends Image implements Clickable
         }
     }
 
+    /**
+     * Do nothing on realease as the image (by default) does not change
+     * @param mousePosition (Vector2f) Position of the mouse
+     */
     @Override
     public void release(Vector2f mousePosition)
     {
         // No background color to change so do nothing
     }
 
+    /**
+     * Get the text representation of the image
+     * @return (String) String representation of the image
+     */
     @Override
     public String getText()
     {

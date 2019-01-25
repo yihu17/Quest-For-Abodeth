@@ -131,12 +131,21 @@ public class Button extends RectangleShape implements Clickable
         text.setPosition(new Vector2f(f.x, f.y + offset));
     }
 
+    /**
+     * Sets the EventHandler to run when the button is clicked
+     *
+     * @param handle (EventHandler) Function to run
+     */
     @Override
     public void setOnPress(EventHandler handle)
     {
         this.onPress = handle;
     }
 
+    /**
+     * Checks whether or not the button has been pressed
+     * @param mousePos (Vector2f) Current mouse position
+     */
     @Override
     public void press(Vector2f mousePos)
     {
@@ -148,11 +157,17 @@ public class Button extends RectangleShape implements Clickable
         }
     }
 
+    /**
+     * Resets the color of the button back to normal after
+     * it has been clicked
+     * @param mousePos (Vector2f) Current mouse position
+     */
     @Override
     public void release(Vector2f mousePos)
     {
-        if (this.getGlobalBounds().contains(mousePos))
+        if (this.getFillColor() != normalColor) {
             this.setFillColor(normalColor);
+        }
     }
 
     /**
@@ -167,6 +182,10 @@ public class Button extends RectangleShape implements Clickable
         text.draw(renderTarget, renderStates);
     }
 
+    /**
+     * Returns the string description of the button
+     * @return (String) Button text
+     */
     @Override
     public String getText()
     {

@@ -8,11 +8,24 @@ public class MiniMap
     private boolean[][] rooms;
     private int[] currentRoom;
 
+    /**
+     * Creates a new MiniMap of the given size
+     *
+     * @param rows (int) Number of rows
+     * @param cols (int) Number of cols
+     */
     public MiniMap(int rows, int cols)
     {
         this(rows, cols, 0, 0);
     }
 
+    /**
+     * Creates a new MiniMap of the given size
+     * @param rows (int) Number of rows
+     * @param cols (int) Number of cols
+     * @param startX (int) Where the player starts in X
+     * @param startY (int) Where the player start in Y
+     */
     public MiniMap(int rows, int cols, int startX, int startY)
     {
         rooms = new boolean[rows][cols];
@@ -24,9 +37,15 @@ public class MiniMap
             }
         }
 
+        // Call the visit room now so the players position in
+        // the map is updated
         visitRoom();
     }
 
+    /**
+     * The player has moved form one room to the next
+     * @param d (Direction) The direction the player moved in
+     */
     public void move(Directions d)
     {
         switch (d) {
@@ -48,11 +67,17 @@ public class MiniMap
         visitRoom();
     }
 
+    /**
+     * Updates the MiniMap with the room the player is currently in
+     */
     public void visitRoom()
     {
         rooms[currentRoom[0]][currentRoom[1]] = true;
     }
 
+    /**
+     * Dump the minimap to the console
+     */
     public void dumpMinimap()
     {
         for (int i = 0; i < rooms.length; i++) {

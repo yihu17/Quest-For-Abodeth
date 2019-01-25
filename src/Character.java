@@ -1,3 +1,4 @@
+import javafx.beans.property.SimpleIntegerProperty;
 import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.FloatRect;
 
@@ -7,30 +8,55 @@ import org.jsfml.graphics.FloatRect;
  */
 public abstract class Character implements Drawable
 {
-    private int x;
-    private int y;
+    private SimpleIntegerProperty x = new SimpleIntegerProperty();
+    private SimpleIntegerProperty y = new SimpleIntegerProperty();
     private int health;
     private int movementSpeed = 5;
     private Image image;
 
+    /**
+     * Sets up the character
+     *
+     * @param x      (int) Character X position
+     * @param y      (int) Character Y position
+     * @param health (int) Health of the character
+     * @param image  (String) Name of the image to load
+     */
     public Character(int x, int y, int health, String image)
     {
-        this.x = x;
-        this.y = y;
+        this.x.set(x);
+        this.y.set(y);
         this.health = health;
         this.image = new Image(x, y, image);
+        this.x.addListener((observable, oldValue, newValue) -> updatePosition());
+        this.y.addListener((observable, oldValue, newValue) -> updatePosition());
     }
 
+    /**
+     * Sets the image of this character
+     * Overwrites the previous image
+     * @param i (Image) Character image
+     */
     public void setImage(Image i)
     {
         this.image = i;
     }
 
+    /**
+     * Returns the image object for the character
+     * Only accessible in sub classes
+     * @return (Image) Characters images
+     */
     protected Image getImage()
     {
         return this.image;
     }
 
+    /**
+     * Returns the bounds of the character
+     * Useful for checking overlaps and collisions
+     * @return (FloatRect) Global bounds of the character
+     */
     public FloatRect getGlobalBounds()
     {
         return this.image.getGlobalBounds();
@@ -43,7 +69,7 @@ public abstract class Character implements Drawable
      */
     public int getX()
     {
-        return x;
+        return x.getValue();
     }
 
     /**
@@ -53,7 +79,7 @@ public abstract class Character implements Drawable
      */
     public float getY()
     {
-        return y;
+        return y.getValue();
     }
 
     /**
@@ -61,8 +87,7 @@ public abstract class Character implements Drawable
      */
     public void moveUp()
     {
-        y -= movementSpeed;
-        updatePosition();
+        y.subtract(movementSpeed);
     }
 
     /**
@@ -70,7 +95,7 @@ public abstract class Character implements Drawable
      */
     public void moveDown()
     {
-        y += movementSpeed;
+        y.add(movementSpeed);
         updatePosition();
     }
 
@@ -79,8 +104,7 @@ public abstract class Character implements Drawable
      */
     public void moveLeft()
     {
-        x -= movementSpeed;
-        updatePosition();
+        x.subtract(movementSpeed);
     }
 
     /**
@@ -88,13 +112,15 @@ public abstract class Character implements Drawable
      */
     public void moveRight()
     {
-        x += movementSpeed;
-        updatePosition();
+        x.add(movementSpeed);
     }
 
+    /**
+     * After any change to the X and Y values
+     */
     private void updatePosition()
     {
-        this.image.setPosition(x, y);
+        this.image.setPosition(x.getValue(), y.getValue());
     }
 
     /**
@@ -131,5 +157,9 @@ public abstract class Character implements Drawable
         this.health += amount;
     }
 
+    /**
+     * "Kill" the character
+     * Different for enemies and players
+     */
     public abstract void kill();
 }
