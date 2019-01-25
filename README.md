@@ -15,9 +15,17 @@
   - Shows currently in room
   - Sits in one of the corners
   - Use colored rectangles to show visited rooms
-- Minimap class can be made drawable
-  - Implement the drawable class
-  - Make the X and Y coords of the minimap relative so that all drawn boxes from there are relative to the top left of the map
+  - Minimap class can be made drawable
+    - Implement the drawable class
+    - Make the X and Y coords of the minimap relative so that all drawn boxes from there are relative to the top left of the map
+- Rooms 
+  - Read layout from a CSV file
+  - Decide on room layouts
+  - Create identifiers for all other objects e.g. enemies and 
+- Player weapons
+  - Player can hold weapons
+  - Player has 3 weapons 
+
 
 ## Notes
 - All loaded images are saved in the static HashMap in the setting file
