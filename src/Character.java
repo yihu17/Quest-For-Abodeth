@@ -28,8 +28,6 @@ public abstract class Character implements Drawable
         this.y.set(y);
         this.health = health;
         this.image = new Image(x, y, image);
-        this.x.addListener((observable, oldValue, newValue) -> updatePosition());
-        this.y.addListener((observable, oldValue, newValue) -> updatePosition());
     }
 
     /**
@@ -87,7 +85,8 @@ public abstract class Character implements Drawable
      */
     public void moveUp()
     {
-        y.subtract(movementSpeed);
+        y.setValue(y.getValue() - movementSpeed);
+        updatePosition();
     }
 
     /**
@@ -95,7 +94,7 @@ public abstract class Character implements Drawable
      */
     public void moveDown()
     {
-        y.add(movementSpeed);
+        y.setValue(y.getValue() + movementSpeed);
         updatePosition();
     }
 
@@ -104,7 +103,8 @@ public abstract class Character implements Drawable
      */
     public void moveLeft()
     {
-        x.subtract(movementSpeed);
+        x.setValue(x.getValue() - movementSpeed);
+        updatePosition();
     }
 
     /**
@@ -112,7 +112,8 @@ public abstract class Character implements Drawable
      */
     public void moveRight()
     {
-        x.add(movementSpeed);
+        x.setValue(x.getValue() + movementSpeed);
+        updatePosition();
     }
 
     /**
