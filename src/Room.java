@@ -1,15 +1,16 @@
 import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.RenderStates;
 import org.jsfml.graphics.RenderTarget;
-import java.util.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Hashtable;
 
 public class Room implements Drawable
 {
     private int type;
     private FileOperator roomFile;
-    private ArrayList<ArrayList<String>> roomLayout = new ArrayList<ArrayList<String>>();
+    private ArrayList<ArrayList<String>> roomLayout = new ArrayList<>();
 	private Image[][] roomImages = new Image[9][16];
     private ArrayList<int[]> enemeyInfo = new ArrayList<int[]>();
     private Hashtable objectReferenceCSV = new Hashtable();
@@ -81,7 +82,7 @@ public class Room implements Drawable
         roomLayout.clear(); //resets layout
         for(int i = 0; i<9; i++)
         {
-            roomLayout.add(new ArrayList<String>());
+            roomLayout.add(new ArrayList<>());
             String[] currentLine = roomFile.readLine(i);
             for(int j = 0; j<16; j++)
             {
@@ -96,16 +97,9 @@ public class Room implements Drawable
 		{
 			for(int j = 0; j<16; j++)
 			{
-			
-				String filePath = "res/assets/"+Settings.CSV_KEYS.get(roomLayout.get(i).get(j))+".png";
-				if(filePath.equals("res/assets/null.png"))
-				{
-					roomImages[i][j] = new Image(120*j, 120*i, "res/assets/required.png");
-				}
-				else
-				{
-                    roomImages[i][j] = new Image(120*j, 120*i, filePath);
-				}
+                String filePath = "res/assets/" + Settings.CSV_KEYS.get(Integer.parseInt(roomLayout.get(i).get(j))) + ".png";
+                System.out.println(filePath);
+                roomImages[i][j] = new Image(120 * j, 120 * i, filePath);
 			}
 		}
 	}

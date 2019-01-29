@@ -55,7 +55,6 @@ public class Game
                 {
                     if (Helper.checkOverlap(player, powerup)) {
                         roomPowerups.remove(powerup);
-                        System.out.println("Player got the powerup");
                     } else {
                         System.out.println("Player not in range of powerup");
                     }
