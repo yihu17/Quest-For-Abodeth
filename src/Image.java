@@ -25,7 +25,7 @@ public class Image implements Drawable
     {
         position = new Vector2f(x, y);
         if (Settings.LOADED_IMAGES.containsKey(filename)) {
-            this.loadImageFromTexture(Settings.LOADED_IMAGES.get(filename));
+            this.loadImageFromTexture(Settings.LOADED_IMAGES.get(filename)); //if having problems remove this line
         } else {
             this.loadImageFromFile(filename);
         }
