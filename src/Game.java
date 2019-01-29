@@ -21,7 +21,7 @@ public class Game
         this.window.clear();
         this.gameRunning = true;
         this.player = new Player();
-        this.roomPowerups.add(new DamagePlus(300, 300));
+        this.roomPowerups.add(new DamagePlus(600, 600));
 
         // Read the CSV file
         rooms = new Room[4][4];
@@ -53,15 +53,11 @@ public class Game
                 @Override
                 public void accept(Powerup powerup)
                 {
-                    if (powerup.getImage() == null) {
-                        return;
-                    }
-
-                    Image i = powerup.getImage();
-                    if (i.getGlobalBounds().contains(player.getVectorPosition())) {
-                        powerup.applyBuff(player);
+                    if (Helper.checkOverlap(player, powerup)) {
                         roomPowerups.remove(powerup);
-                        System.out.println("Player overlapping powerup");
+                        System.out.println("Player got the powerup");
+                    } else {
+                        System.out.println("Player not in range of powerup");
                     }
                 }
             });

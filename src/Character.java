@@ -7,7 +7,7 @@ import org.jsfml.system.Vector2f;
  * An abstract class to define all the common attributes that both the player
  * and all monsters will have
  */
-public abstract class Character implements Drawable
+public abstract class Character implements Drawable, Collidable
 {
     private SimpleIntegerProperty x = new SimpleIntegerProperty();
     private SimpleIntegerProperty y = new SimpleIntegerProperty();
@@ -77,7 +77,8 @@ public abstract class Character implements Drawable
      *
      * @return (int) X Position
      */
-    public int getX()
+    @Override
+    public float getX()
     {
         return x.getValue();
     }
@@ -87,6 +88,7 @@ public abstract class Character implements Drawable
      *
      * @return (int) Y Position
      */
+    @Override
     public float getY()
     {
         return y.getValue();
@@ -95,6 +97,18 @@ public abstract class Character implements Drawable
     public Vector2f getVectorPosition()
     {
         return new Vector2f(x.getValue(), y.getValue());
+    }
+
+    @Override
+    public float getWidth()
+    {
+        return this.image.getGlobalBounds().width;
+    }
+
+    @Override
+    public float getHeight()
+    {
+        return this.image.getGlobalBounds().height;
     }
 
     /**

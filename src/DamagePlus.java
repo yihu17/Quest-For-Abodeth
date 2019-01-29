@@ -36,4 +36,28 @@ public class DamagePlus implements Powerup
     {
         renderTarget.draw(this.image);
     }
+
+    @Override
+    public float getX()
+    {
+        return this.image.getGlobalBounds().left;
+    }
+
+    @Override
+    public float getY()
+    {
+        return this.image.getGlobalBounds().top;
+    }
+
+    @Override
+    public float getHeight()
+    {
+        return this.image.getGlobalBounds().height;
+    }
+
+    @Override
+    public float getWidth()
+    {
+        return this.image.getGlobalBounds().width;
+    }
 }
