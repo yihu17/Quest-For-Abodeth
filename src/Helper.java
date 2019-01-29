@@ -112,10 +112,23 @@ public class Helper
         Vector2f bottomright = new Vector2f(o2.getX() + o2.getWidth(), o2.getY() + o2.getHeight());
 
         if (!bound.contains(topleft) && !bound.contains(topright) && !bound.contains(bottomleft) && !bound.contains(bottomright)) {
-            System.out.println("Not checking: too far away");
             return false;
         }
 
         return true;
+    }
+
+    /**
+     * Calculate the vector between 2 vector points in the window.
+     * Returns an angle clockwise about the vertical
+     *
+     * @param p1 (Vector2i) Point 1
+     * @param p2 (Vector2i) Point 2
+     * @return (float) Angle about the vertical
+     */
+    public float getAngleBetweenPoints(Vector2i p1, Vector2i p2)
+    {
+        // https://onlinemschool.com/math/library/vector/angl/
+        return 0f;
     }
 }

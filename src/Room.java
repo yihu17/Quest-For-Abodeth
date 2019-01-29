@@ -98,7 +98,6 @@ public class Room implements Drawable
 			for(int j = 0; j<Settings.roomDivisionColumns; j++)
 			{
                 String filePath = "res/assets/" + Settings.CSV_KEYS.get(Integer.parseInt(roomLayout.get(i).get(j))) + ".png";
-                System.out.println(filePath);
                 roomImages[i][j] = new Image(120 * j, 120 * i, filePath);
 			}
 		}
