@@ -50,8 +50,6 @@ public class Room implements Drawable
 		{
 			for(int j = 0; j<16; j++)
 			{
-				System.out.println("i: "+i);
-				System.out.println("j: "+j);
 				renderTarget.draw(roomImages[i][j]);
 			}
 		}
@@ -100,7 +98,8 @@ public class Room implements Drawable
 			{
 				try{
 					String filePath = "res/assets/"+Settings.CSV_KEYS.get(roomLayout.get(i).get(j))+".png";
-					roomImages[i][j] = new Image(120*i, 120*j, "res/assets/wall.png"/*filePath*/);
+					roomImages[i][j] = new Image(120*j, 120*i, "res/assets/wall.png"/*filePath*/);
+					System.out.println("Created image @ [" + (120*i) + ", " + (120*j) + "]");
 				} catch(Exception e)
 				{
 					System.out.print("yeeticus boi");
