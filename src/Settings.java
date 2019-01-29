@@ -34,7 +34,7 @@ public class Settings
     
 	//Values in CSV files mapped to game objects
 	public static HashMap<Integer, String> CSV_KEYS = new HashMap<>();
-
+	
     static {
         VideoMode desktop = VideoMode.getDesktopMode();
         WINDOW_HEIGHT = desktop.height;
@@ -71,7 +71,7 @@ public class Settings
 		CSV_KEYS.put(20,"jackal");
 		CSV_KEYS.put(21,"bat");
 		CSV_KEYS.put(22,"spider");
-		CSV_KEYS.put(23,"mumifiedSlave");
+		CSV_KEYS.put(23,"mummifiedSlave");
 		CSV_KEYS.put(24,"giantSpider");
 		CSV_KEYS.put(25,"giantZombie");
 		CSV_KEYS.put(26,"egyptianMummy");
@@ -81,9 +81,14 @@ public class Settings
 		CSV_KEYS.put(30,"shieldPickup");
 		CSV_KEYS.put(31,"speedPickupUp");
 		CSV_KEYS.put(32,"speedPickupDown");
+		CSV_KEYS.put(33,"damagePickup");
 		//CSV_KEYS.put(,);
     }
 
+	public static final int roomDivisionSize = 120;
+	public static final int roomDivisionColumns = WINDOW_WIDTH/roomDivisionSize;
+	public static final int roomDivisionRows = WINDOW_HEIGHT/roomDivisionSize;
+	
     public static void main(String[] args)
     {
         for (VideoMode v : VideoMode.getFullscreenModes()) {

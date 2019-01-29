@@ -11,7 +11,7 @@ public class Room implements Drawable
     private int type;
     private FileOperator roomFile;
     private ArrayList<ArrayList<String>> roomLayout = new ArrayList<>();
-	private Image[][] roomImages = new Image[9][16];
+	private Image[][] roomImages = new Image[Settings.roomDivisionRows][Settings.roomDivisionColumns];
     private ArrayList<int[]> enemeyInfo = new ArrayList<int[]>();
     private Hashtable objectReferenceCSV = new Hashtable();
 
@@ -47,9 +47,9 @@ public class Room implements Drawable
     public void draw(RenderTarget renderTarget, RenderStates renderStates)
     {
         drawables.forEach(renderTarget::draw);
-		for(int i = 0; i<9; i++) //remove hardcode
+		for(int i = 0; i<Settings.roomDivisionRows; i++) //remove hardcode
 		{
-			for(int j = 0; j<16; j++)
+			for(int j = 0; j<Settings.roomDivisionColumns; j++)
 			{
 				renderTarget.draw(roomImages[i][j]);
 			}
@@ -80,11 +80,11 @@ public class Room implements Drawable
     private void readToLayout()
     {
         roomLayout.clear(); //resets layout
-        for(int i = 0; i<9; i++)
+        for(int i = 0; i<Settings.roomDivisionRows; i++)
         {
             roomLayout.add(new ArrayList<>());
             String[] currentLine = roomFile.readLine(i);
-            for(int j = 0; j<16; j++)
+            for(int j = 0; j<currentLine.length; j++)
             {
                 roomLayout.get(i).add(currentLine[j]);
             }
@@ -93,9 +93,9 @@ public class Room implements Drawable
 	
 	private void loadRoomImages()
 	{
-		for(int i = 0; i<9; i++)
+		for(int i = 0; i<Settings.roomDivisionRows; i++)
 		{
-			for(int j = 0; j<16; j++)
+			for(int j = 0; j<Settings.roomDivisionColumns; j++)
 			{
                 String filePath = "res/assets/" + Settings.CSV_KEYS.get(Integer.parseInt(roomLayout.get(i).get(j))) + ".png";
                 System.out.println(filePath);
