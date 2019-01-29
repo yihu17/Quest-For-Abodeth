@@ -52,7 +52,7 @@ public class Helper
      * @param height (float) Height of the image
      * @return (Vector2f) Scale factor to be applied
      */
-    public static Vector2f getScaleValue(float width, float height)
+    public static Vector2f getScaleValueToWindowSize(float width, float height)
     {
         return new Vector2f(
                 Settings.WINDOW_WIDTH / width,
@@ -61,18 +61,48 @@ public class Helper
     }
 
     /**
+     * Takes the width and height of an image and calculates the scale
+     * factor required to make it the same size as the given dimensions
+     *
+     * @param width        (float) Width of the image
+     * @param height       (float) Height of the image
+     * @param targetWidth  (float) The target width of the image
+     * @param targetHeight (float) The target height of the image
+     * @return (Vector2f) Scale factor to be applied
+     */
+    public static Vector2f getScaleValue(float width, float height, float targetWidth, float targetHeight)
+    {
+        return new Vector2f(
+                targetWidth / width,
+                targetHeight / height
+        );
+    }
+
+    /**
      * Print method that takes a 2D array of objects and prints them to the console
      *
-     * @param objects
+     * @param object (Object[][]) The object to print
      */
-    public static void printMatrix(Object[][] objects)
+    public static void printMatrix(Object[][] object)
     {
-        for (int i = 0; i < objects.length; i++) {
-            Object[] row = objects[i];
+        for (int i = 0; i < object.length; i++) {
+            Object[] row = object[i];
             for (int j = 0; j < row.length; j++) {
-                System.out.print(objects[i][j] + " ");
+                System.out.print(object[i][j] + " ");
             }
             System.out.println("\n");
         }
+    }
+
+    /**
+     * Checks whether or not 2 character objects are overlapping
+     *
+     * @param o1 (Character) The character to check against other characters
+     * @param o2 (Character) The character to check against
+     * @return (boolean) Whether or no the characters are overlapping
+     */
+    public static boolean checkOverlap(Character o1, Character o2)
+    {
+        return false;
     }
 }

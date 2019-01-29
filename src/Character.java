@@ -1,6 +1,7 @@
 import javafx.beans.property.SimpleIntegerProperty;
 import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.FloatRect;
+import org.jsfml.system.Vector2f;
 
 /**
  * An abstract class to define all the common attributes that both the player
@@ -13,6 +14,7 @@ public abstract class Character implements Drawable
     private int health;
     private int movementSpeed = 5;
     private Image image;
+    private int damage = 5;
 
     /**
      * Sets up the character
@@ -28,6 +30,16 @@ public abstract class Character implements Drawable
         this.y.set(y);
         this.health = health;
         this.image = new Image(x, y, image);
+    }
+
+    public void setDamage(int damage)
+    {
+        this.damage = damage;
+    }
+
+    public int getDamage()
+    {
+        return this.damage;
     }
 
     /**
@@ -78,6 +90,11 @@ public abstract class Character implements Drawable
     public float getY()
     {
         return y.getValue();
+    }
+
+    public Vector2f getVectorPosition()
+    {
+        return new Vector2f(x.getValue(), y.getValue());
     }
 
     /**

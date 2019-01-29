@@ -2,6 +2,9 @@ import org.jsfml.graphics.RenderWindow;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.event.Event;
 
+import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.function.Consumer;
+
 public class Game
 {
     private RenderWindow window;
@@ -10,12 +13,15 @@ public class Game
     private Room currentRoom;
     private Player player;
 
+    private CopyOnWriteArraySet<Powerup> roomPowerups = new CopyOnWriteArraySet<>();
+
     public Game(RenderWindow window)
     {
         this.window = window;
         this.window.clear();
         this.gameRunning = true;
         this.player = new Player();
+        this.roomPowerups.add(new DamagePlus(300, 300));
 
         // Read the CSV file
         rooms = new Room[4][4];
@@ -36,15 +42,36 @@ public class Game
 
             // Draw the room
             window.draw(currentRoom);
+            roomPowerups.forEach(window::draw);
             window.draw(player);
 
 
             window.display();
 
+            roomPowerups.forEach(new Consumer<Powerup>()
+            {
+                @Override
+                public void accept(Powerup powerup)
+                {
+                    if (powerup.getImage() == null) {
+                        return;
+                    }
+
+                    Image i = powerup.getImage();
+                    if (i.getGlobalBounds().contains(player.getVectorPosition())) {
+                        powerup.applyBuff(player);
+                        roomPowerups.remove(powerup);
+                        System.out.println("Player overlapping powerup");
+                    }
+                }
+            });
+
+            // Check for close events
             for (Event e : window.pollEvents()) {
                 Helper.checkCloseEvents(e, window);
             }
 
+            // Check for user key processes
             if (Keyboard.isKeyPressed(Keyboard.Key.ESCAPE)) {
                 openInGameMenu();
             }

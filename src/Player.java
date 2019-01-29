@@ -7,6 +7,7 @@ import org.jsfml.graphics.RenderTarget;
 public class Player extends Character
 {
     private static String imageName = "res/zombie.png";
+    private Powerup currentPowerup = null;
 
     /**
      * Creates a new player instance based off of the imageName image
@@ -14,6 +15,14 @@ public class Player extends Character
     public Player()
     {
         super(200, 200, 100, imageName);
+    }
+
+    public void switchWeapon()
+    {
+        // Switch the current weapon and reapply the buff
+        if (currentPowerup != null) {
+            currentPowerup.applyBuff(this);
+        }
     }
 
     /**
