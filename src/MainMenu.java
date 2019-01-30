@@ -1,8 +1,14 @@
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.window.event.Event;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.Clip;
+import java.io.File;
+
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class MainMenu implements Menu
 {
@@ -13,6 +19,7 @@ public class MainMenu implements Menu
     private Image background;
     private int buttonWidth = 400;
     private int buttonHeight = 75;
+
 
     public MainMenu(RenderWindow window)
     {
@@ -57,6 +64,9 @@ public class MainMenu implements Menu
         buttons.add(settings);
 
         this.background = new Image(0, 0, "res/mainmenu.png");
+
+        playMusic();
+
     }
 
     @Override
@@ -99,5 +109,17 @@ public class MainMenu implements Menu
     public Image getBackground()
     {
         return null;
+    }
+
+    public void playMusic() {
+        try {
+            File soundFile = new File("res/audio/mainMenu.wav");
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+            Settings.audioStreamer = AudioSystem.getClip();
+            Settings.audioStreamer.open(audioInputStream);
+            Settings.audioStreamer.start();
+        } catch (Exception e) {
+            System.out.println("Audio error");
+        }
     }
 }

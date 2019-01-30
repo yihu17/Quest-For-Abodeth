@@ -3,6 +3,7 @@ import org.jsfml.graphics.Font;
 import org.jsfml.graphics.Texture;
 import org.jsfml.window.VideoMode;
 
+import javax.sound.sampled.Clip;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -34,7 +35,10 @@ public class Settings
     
 	//Values in CSV files mapped to game objects
 	public static HashMap<Integer, String> CSV_KEYS = new HashMap<>();
-	
+
+    //Audio Player
+    public static Clip audioStreamer;
+
     static {
         VideoMode desktop = VideoMode.getDesktopMode();
         WINDOW_HEIGHT = desktop.height;

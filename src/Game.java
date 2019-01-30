@@ -17,11 +17,13 @@ public class Game
 
     public Game(RenderWindow window)
     {
+        Settings.sound.stop();
         this.window = window;
         this.window.clear();
         this.gameRunning = true;
         this.player = new Player();
         this.roomPowerups.add(new DamagePlus(600, 600));
+
 
         // Read the CSV file
         rooms = new Room[4][4];
