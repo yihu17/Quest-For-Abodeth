@@ -1,5 +1,6 @@
 import org.jsfml.graphics.RenderStates;
 import org.jsfml.graphics.RenderTarget;
+import org.jsfml.system.Vector2f;
 
 /**
  * The player
@@ -52,6 +53,14 @@ public class Player extends Character
     @Override
     public String toString()
     {
-        return String.format("<Player @ [%.04f, %.04f]", this.getX(), this.getY());
+        return String.format("<Player @ [%.0f, %.0f]", this.getX(), this.getY());
+    }
+
+    public Vector2f getPlayerCenter()
+    {
+        return new Vector2f(
+                (float) (this.getX() + (0.5 * this.getWidth())),
+                (float) (this.getY() + (0.5 * this.getHeight()))
+        );
     }
 }

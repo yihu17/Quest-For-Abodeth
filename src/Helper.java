@@ -41,6 +41,7 @@ public class Helper
         } else if (e.type == Event.Type.KEY_PRESSED) {
             if (e.asKeyEvent().key == Keyboard.Key.F4) {
                 window.close();
+                System.exit(1);
             }
         }
     }

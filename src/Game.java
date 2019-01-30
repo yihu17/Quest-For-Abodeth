@@ -1,4 +1,5 @@
 import org.jsfml.graphics.RenderWindow;
+import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.event.Event;
 import org.jsfml.window.event.MouseEvent;
@@ -59,6 +60,10 @@ public class Game
                 Helper.checkCloseEvents(e, window);
                 if (e.type == MouseEvent.Type.MOUSE_BUTTON_PRESSED) {
                     System.out.println(player + " || " + e.asMouseEvent().position);
+                    System.out.println("Angle about the vertical: " + Helper.getAngleBetweenPoints(
+                            new Vector2i(player.getVectorPosition()),
+                            e.asMouseEvent().position
+                    ));
                 }
             }
 
