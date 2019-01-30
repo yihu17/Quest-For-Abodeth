@@ -20,7 +20,7 @@ public interface Clickable extends Drawable
     void press(Vector2f mousePosition);
 
     /**
-     * If the button has been pressed, the background clor has changed and so
+     * If the button has been pressed, the background colour has changed and so
      * when the mouse is released, change it back to the original color
      *
      * @param mousePosition (Vector2f) Position of the mouse

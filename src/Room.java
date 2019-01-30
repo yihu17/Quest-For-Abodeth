@@ -11,7 +11,7 @@ public class Room implements Drawable
     private int type;
     private FileOperator roomFile;
     private ArrayList<ArrayList<String>> roomLayout = new ArrayList<>();
-	private Image[][] roomImages = new Image[Settings.roomDivisionRows][Settings.roomDivisionColumns];
+    private Environment[][] roomImages = new Environment[Settings.roomDivisionRows][Settings.roomDivisionColumns];
     private ArrayList<int[]> enemeyInfo = new ArrayList<int[]>();
     private Hashtable objectReferenceCSV = new Hashtable();
 
@@ -99,7 +99,8 @@ public class Room implements Drawable
 			{
                 String filePath = "res/assets/" + Settings.CSV_KEYS.get(Integer.parseInt(roomLayout.get(i).get(j))) + ".png";
                 System.out.println(filePath);
-                roomImages[i][j] = new Image(120 * j, 120 * i, filePath);
+                //roomImages[i][j] = new Image(120 * j, 120 * i, filePath); //just change Image to Environment (sub) object with same parameters)
+                roomImages[i][j] = new CollidableEnvironment(120 * j, 120 * i, filePath); //place in switch case
 			}
 		}
 	}
