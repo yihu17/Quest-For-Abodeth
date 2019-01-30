@@ -150,6 +150,10 @@ public class Helper
                 return Math.toDegrees(Math.atan2(xBar, yBar));
             case 2:
                 return 180 - Math.toDegrees(Math.atan2(xBar, yBar));
+            case 3:
+                return 180 + Math.toDegrees(Math.atan2(xBar, yBar));
+            case 4:
+                return 360 - Math.toDegrees(Math.atan2(xBar, yBar));
             default:
                 throw new AssertionError(quadrant + " is not a valid quadrant");
         }
