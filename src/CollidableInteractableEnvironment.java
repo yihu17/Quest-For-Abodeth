@@ -1,7 +1,9 @@
 import org.jsfml.graphics.FloatRect;
 
-public class CollidableInteractableEnvironment extends Environment implements Collidable, Interactable {
-    public CollidableInteractableEnvironment(int xPos, int yPos, String imageFilePath) {
+public class CollidableInteractableEnvironment extends Environment implements Collidable, Interactable
+{
+    public CollidableInteractableEnvironment(int xPos, int yPos, String imageFilePath)
+    {
         super(xPos, yPos, imageFilePath);
     }
 
@@ -32,5 +34,11 @@ public class CollidableInteractableEnvironment extends Environment implements Co
 
     public static CollidableInteractableEnvironment getInstance() {
         return null;
+    }
+
+    @Override
+    public void interact()
+    {
+
     }
 }

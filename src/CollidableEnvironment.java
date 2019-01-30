@@ -1,6 +1,7 @@
 import org.jsfml.graphics.FloatRect;
 
-public class CollidableEnvironment extends Environment implements Collidable {
+public class CollidableEnvironment extends Environment implements Collidable
+{
     public CollidableEnvironment(int xPos, int yPos, String imageFilePath) {
         super(xPos, yPos, imageFilePath);
     }

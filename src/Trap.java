@@ -1,3 +1,4 @@
-public interface Trap {
+public interface Trap
+{
     void effect();
 }

@@ -1,3 +1,4 @@
-public interface Interactable {
-
+public interface Interactable
+{
+    void interact();
 }
