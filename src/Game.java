@@ -1,9 +1,9 @@
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.event.Event;
+import org.jsfml.window.event.MouseEvent;
 
 import java.util.concurrent.CopyOnWriteArraySet;
-import java.util.function.Consumer;
 
 public class Game
 {
@@ -14,6 +14,7 @@ public class Game
     private Player player;
 
     private CopyOnWriteArraySet<Powerup> roomPowerups = new CopyOnWriteArraySet<>();
+    private CopyOnWriteArraySet<Movable> movables = new CopyOnWriteArraySet<>();
 
     public Game(RenderWindow window)
     {
@@ -45,25 +46,20 @@ public class Game
             roomPowerups.forEach(window::draw);
             window.draw(player);
 
-
             window.display();
 
-            roomPowerups.forEach(new Consumer<Powerup>()
-            {
-                @Override
-                public void accept(Powerup powerup)
-                {
-                    if (Helper.checkOverlap(player, powerup)) {
-                        roomPowerups.remove(powerup);
-                    } else {
-                        System.out.println("Player not in range of powerup");
-                    }
+            roomPowerups.forEach(powerup -> {
+                if (Helper.checkOverlap(player, powerup)) {
+                    roomPowerups.remove(powerup);
                 }
             });
 
             // Check for close events
             for (Event e : window.pollEvents()) {
                 Helper.checkCloseEvents(e, window);
+                if (e.type == MouseEvent.Type.MOUSE_BUTTON_PRESSED) {
+                    System.out.println(e.asMouseEvent().position);
+                }
             }
 
             // Check for user key processes
