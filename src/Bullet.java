@@ -1,4 +1,4 @@
-public class Bullet extends Image implements Movable
+public class Bullet extends Image implements Movable, Collidable
 {
     private float x;
     private float y;
@@ -18,7 +18,7 @@ public class Bullet extends Image implements Movable
         this.setScale(Helper.getScaleValue(64, 64, 16, 16));
         this.angle = angle;
         this.xSpeed = Settings.BULLET_SPEED * Math.sin(Math.toRadians(angle));
-        this.ySpeed = Settings.BULLET_SPEED * Math.cos(Math.toRadians(angle));
+        this.ySpeed = Settings.BULLET_SPEED * Math.cos(Math.toRadians(angle)) * -1;
         this.x = x;
         this.y = y;
     }
@@ -43,5 +43,29 @@ public class Bullet extends Image implements Movable
     public String toString()
     {
         return "<Bullet " + this.hashCode() + " @ [" + x + ", " + y + "] w/ angle " + angle + ">";
+    }
+
+    @Override
+    public float getX()
+    {
+        return x;
+    }
+
+    @Override
+    public float getY()
+    {
+        return y;
+    }
+
+    @Override
+    public float getHeight()
+    {
+        return this.getWidth();
+    }
+
+    @Override
+    public float getWidth()
+    {
+        return this.getHeight();
     }
 }
