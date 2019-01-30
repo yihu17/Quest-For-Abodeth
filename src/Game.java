@@ -17,7 +17,7 @@ public class Game
 
     public Game(RenderWindow window)
     {
-        Settings.sound.stop();
+        Settings.audioStreamer.stop();
         this.window = window;
         this.window.clear();
         this.gameRunning = true;
