@@ -30,6 +30,19 @@ public class Room implements Drawable
 		loadRoomImages();
 	}
 
+    public ArrayList<Collidable> getCollidables()
+    {
+        ArrayList<Collidable> c = new ArrayList<>();
+        for (int i = 0; i < Settings.roomDivisionRows; i++) {
+            for (int j = 0; j < Settings.roomDivisionColumns; j++) {
+                if (roomImages[i][j] instanceof Collidable) {
+                    c.add((Collidable) roomImages[i][j]);
+                }
+            }
+        }
+        return c;
+    }
+
     @Override
     public String toString()
     {
@@ -47,7 +60,7 @@ public class Room implements Drawable
     public void draw(RenderTarget renderTarget, RenderStates renderStates)
     {
         drawables.forEach(renderTarget::draw);
-		for(int i = 0; i<Settings.roomDivisionRows; i++) //remove hardcode
+        for (int i = 0; i < Settings.roomDivisionRows; i++) //remove hardcode
 		{
 			for(int j = 0; j<Settings.roomDivisionColumns; j++)
 			{
@@ -74,8 +87,7 @@ public class Room implements Drawable
 		{
 			enemeyInfo.add(new int[] {enemyTypes[i], enemyQuantities[i]});
 		}
-
-}
+    }
 
     private void readToLayout()
     {

@@ -105,14 +105,14 @@ public class Helper
      */
     public static boolean checkOverlap(Collidable o1, Collidable o2)
     {
-        FloatRect bound = new FloatRect(o1.getX() - o1.getWidth(), o1.getY() - o1.getHeight(), 3 * o1.getWidth(), 3 * o1.getHeight());
+        FloatRect o1Bound = new FloatRect(o1.getX() - o1.getWidth(), o1.getY() - o1.getHeight(), 3 * o1.getWidth(), 3 * o1.getHeight());
 
         Vector2f topleft = new Vector2f(o2.getX(), o2.getHeight());
         Vector2f topright = new Vector2f(o2.getX() + o2.getWidth(), o2.getY());
         Vector2f bottomleft = new Vector2f(o2.getX(), o2.getY() + o2.getHeight());
         Vector2f bottomright = new Vector2f(o2.getX() + o2.getWidth(), o2.getY() + o2.getHeight());
 
-        if (!bound.contains(topleft) && !bound.contains(topright) && !bound.contains(bottomleft) && !bound.contains(bottomright)) {
+        if (!o1Bound.contains(topleft) && !o1Bound.contains(topright) && !o1Bound.contains(bottomleft) && !o1Bound.contains(bottomright)) {
             return false;
         }
 

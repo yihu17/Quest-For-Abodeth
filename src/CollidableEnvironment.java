@@ -34,4 +34,10 @@ public class CollidableEnvironment extends Environment implements Collidable
     public static CollidableEnvironment getInstance() {
         return null;
     }
+
+    @Override
+    public String toString()
+    {
+        return "<CollidableEnvironment @ " + getGlobalBounds() + ">";
+    }
 }

@@ -36,7 +36,9 @@ public class Game
                 rooms[i][j] = new Room(Settings.GENERATOR.nextInt(4));
             }
         }
+
         currentRoom = rooms[0][0];
+        this.scanRoom();
     }
 
     public void run()
@@ -70,8 +72,7 @@ public class Game
 
             // Check all collidables against each other
             collidables.forEach(collidable -> {
-                // Check collisions
-                // Dont bother checking non-movables against other non movables
+                ;
             });
 
             // Check for close events
@@ -93,21 +94,39 @@ public class Game
             if (Keyboard.isKeyPressed(Keyboard.Key.ESCAPE)) {
                 openInGameMenu();
             }
-            if (Keyboard.isKeyPressed(Keyboard.Key.W)) {
+
+            boolean playerCanMove = true;
+            for (Collidable c : collidables) {
+                if (c instanceof Player) {
+                    continue;
+                }
+                if (Helper.checkOverlap(player, c)) {
+                    System.out.println("The player is unable to move");
+                    playerCanMove = false;
+                    break;
+                }
+                System.out.println("Player not in bounds of " + c);
+            }
+
+            if (playerCanMove && Keyboard.isKeyPressed(Keyboard.Key.W)) {
                 player.moveUp();
             }
-            if (Keyboard.isKeyPressed(Keyboard.Key.A)) {
+            if (playerCanMove && Keyboard.isKeyPressed(Keyboard.Key.A)) {
                 player.moveLeft();
             }
-            if (Keyboard.isKeyPressed(Keyboard.Key.S)) {
+            if (playerCanMove && Keyboard.isKeyPressed(Keyboard.Key.S)) {
                 player.moveDown();
             }
-            if (Keyboard.isKeyPressed(Keyboard.Key.D)) {
+            if (playerCanMove && Keyboard.isKeyPressed(Keyboard.Key.D)) {
                 player.moveRight();
             }
         }
     }
 
+    private void scanRoom()
+    {
+        collidables.addAll(currentRoom.getCollidables());
+    }
 
     private void openInGameMenu()
     {
