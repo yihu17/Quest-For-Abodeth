@@ -29,14 +29,6 @@ public class Bullet extends Image implements Movable, Collidable
         x += xSpeed;
         y += ySpeed;
         this.setPosition(x, y);
-
-        if (x < -50 || Settings.WINDOW_WIDTH + 50 < x) {
-            if (y < -50 || Settings.WINDOW_HEIGHT + 50 < y) {
-                // Remove bullet from play
-            }
-        }
-
-        System.out.println(this);
     }
 
     @Override

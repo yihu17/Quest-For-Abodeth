@@ -1,3 +1,4 @@
+import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
@@ -5,6 +6,7 @@ import org.jsfml.window.event.Event;
 import org.jsfml.window.event.MouseEvent;
 
 import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.function.Consumer;
 
 public class Game
 {
@@ -14,8 +16,9 @@ public class Game
     private Room currentRoom;
     private Player player;
 
-    private CopyOnWriteArraySet<Powerup> roomPowerups = new CopyOnWriteArraySet<>();
     private CopyOnWriteArraySet<Movable> movables = new CopyOnWriteArraySet<>();
+    private CopyOnWriteArraySet<Drawable> drawables = new CopyOnWriteArraySet<>();
+    private CopyOnWriteArraySet<Collidable> collidables = new CopyOnWriteArraySet<>();
 
     public Game(RenderWindow window)
     {
@@ -23,7 +26,9 @@ public class Game
         this.window.clear();
         this.gameRunning = true;
         this.player = new Player();
-        this.roomPowerups.add(new DamagePlus(600, 600));
+        DamagePlus d = new DamagePlus(600, 600);
+        drawables.add(d);
+        collidables.add(d);
 
         // Read the CSV file
         rooms = new Room[4][4];
@@ -34,7 +39,6 @@ public class Game
         }
         currentRoom = rooms[0][0];
 
-        Helper.printMatrix(rooms);
     }
 
     public void run()
@@ -44,31 +48,45 @@ public class Game
 
             // Draw the room
             window.draw(currentRoom);
-            roomPowerups.forEach(window::draw);
-            movables.forEach(window::draw);
             window.draw(player);
-
+            drawables.forEach(window::draw);
             window.display();
 
-            roomPowerups.forEach(powerup -> {
-                if (Helper.checkOverlap(player, powerup)) {
-                    roomPowerups.remove(powerup);
+            movables.forEach(Movable::move);
+            movables.forEach(new Consumer<Movable>()
+            {
+                @Override
+                public void accept(Movable movable)
+                {
+                    if (movable.getX() < -50 || Settings.WINDOW_WIDTH + 50 < movable.getX()) {
+                        if (movable.getY() < -50 || Settings.WINDOW_HEIGHT + 50 < movable.getY()) {
+                            // Allow the garbage collector to remove this
+                            movable = null;
+                        }
+                    }
                 }
             });
-            movables.forEach(Movable::move);
+            collidables.forEach(new Consumer<Collidable>()
+            {
+                @Override
+                public void accept(Collidable collidable)
+                {
+                    // Check collisions
+                }
+            });
 
             // Check for close events
             for (Event e : window.pollEvents()) {
                 Helper.checkCloseEvents(e, window);
                 if (e.type == MouseEvent.Type.MOUSE_BUTTON_PRESSED) {
-                    movables.add(
-                            new Bullet(
-                                    (int) player.getPlayerCenter().x,
-                                    (int) player.getPlayerCenter().y,
-                                    Helper.getAngleBetweenPoints(new Vector2i(player.getVectorPosition()), e.asMouseEvent().position)
-                            )
+                    Bullet b = new Bullet(
+                            (int) player.getPlayerCenter().x,
+                            (int) player.getPlayerCenter().y,
+                            Helper.getAngleBetweenPoints(new Vector2i(player.getVectorPosition()), e.asMouseEvent().position)
                     );
-                    System.out.println("Bullet created");
+                    movables.add(b);
+                    drawables.add(b);
+                    collidables.add(b);
                 }
             }
 
