@@ -31,10 +31,10 @@ public class Settings
 
     // Cached texture files
     public static HashMap<String, Texture> LOADED_IMAGES = new HashMap<>();
-    
-	//Values in CSV files mapped to game objects
-	public static HashMap<Integer, String> CSV_KEYS = new HashMap<>();
-	
+
+    //Values in CSV files mapped to game objects
+    public static HashMap<Integer, String> CSV_KEYS = new HashMap<>();
+
     static {
         VideoMode desktop = VideoMode.getDesktopMode();
         WINDOW_HEIGHT = desktop.height;
@@ -47,48 +47,48 @@ public class Settings
         } catch (IOException e) {
             e.printStackTrace();
         }
-		
-		CSV_KEYS.put(0,null);
-		CSV_KEYS.put(1,"wall");
-		CSV_KEYS.put(2,"floor");
-		CSV_KEYS.put(3,"door");
-		CSV_KEYS.put(4,"water");
-		CSV_KEYS.put(5,"quicksand");
-		CSV_KEYS.put(6,"spikeTrap");
-		CSV_KEYS.put(7,"switchPuzzle");
-		CSV_KEYS.put(8,"shootingArrowTrap");
-		CSV_KEYS.put(9,"swingingAxeTrap");
-		CSV_KEYS.put(10,"boilingOil");
-		CSV_KEYS.put(11,"rollingBoulder");
-		CSV_KEYS.put(12,"fierySphinx");
-		CSV_KEYS.put(13,"graveyard");
-		CSV_KEYS.put(14,"crushingWalls");
-		CSV_KEYS.put(15,"startRoom");
-		CSV_KEYS.put(16,"endRoom");
-		CSV_KEYS.put(17,"path");
-		CSV_KEYS.put(18,"visitedRoom");
-		CSV_KEYS.put(19,"zombie");
-		CSV_KEYS.put(20,"jackal");
-		CSV_KEYS.put(21,"bat");
-		CSV_KEYS.put(22,"spider");
-		CSV_KEYS.put(23,"mummifiedSlave");
-		CSV_KEYS.put(24,"giantSpider");
-		CSV_KEYS.put(25,"giantZombie");
-		CSV_KEYS.put(26,"egyptianMummy");
-		CSV_KEYS.put(27,"crocodile");
-		CSV_KEYS.put(28,"healthPickup");
-		CSV_KEYS.put(29,"ammoPickup");
-		CSV_KEYS.put(30,"shieldPickup");
-		CSV_KEYS.put(31,"speedPickupUp");
-		CSV_KEYS.put(32,"speedPickupDown");
-		CSV_KEYS.put(33,"damagePickup");
-		//CSV_KEYS.put(,);
+
+        CSV_KEYS.put(0, null);
+        CSV_KEYS.put(1, "wall");
+        CSV_KEYS.put(2, "floor");
+        CSV_KEYS.put(3, "door");
+        CSV_KEYS.put(4, "water");
+        CSV_KEYS.put(5, "quicksand");
+        CSV_KEYS.put(6, "spikeTrap");
+        CSV_KEYS.put(7, "switchPuzzle");
+        CSV_KEYS.put(8, "shootingArrowTrap");
+        CSV_KEYS.put(9, "swingingAxeTrap");
+        CSV_KEYS.put(10, "boilingOil");
+        CSV_KEYS.put(11, "rollingBoulder");
+        CSV_KEYS.put(12, "fierySphinx");
+        CSV_KEYS.put(13, "graveyard");
+        CSV_KEYS.put(14, "crushingWalls");
+        CSV_KEYS.put(15, "startRoom");
+        CSV_KEYS.put(16, "endRoom");
+        CSV_KEYS.put(17, "path");
+        CSV_KEYS.put(18, "visitedRoom");
+        CSV_KEYS.put(19, "zombie");
+        CSV_KEYS.put(20, "jackal");
+        CSV_KEYS.put(21, "bat");
+        CSV_KEYS.put(22, "spider");
+        CSV_KEYS.put(23, "mummifiedSlave");
+        CSV_KEYS.put(24, "giantSpider");
+        CSV_KEYS.put(25, "giantZombie");
+        CSV_KEYS.put(26, "egyptianMummy");
+        CSV_KEYS.put(27, "crocodile");
+        CSV_KEYS.put(28, "healthPickup");
+        CSV_KEYS.put(29, "ammoPickup");
+        CSV_KEYS.put(30, "shieldPickup");
+        CSV_KEYS.put(31, "speedPickupUp");
+        CSV_KEYS.put(32, "speedPickupDown");
+        CSV_KEYS.put(33, "damagePickup");
+        //CSV_KEYS.put(,);
     }
 
-	public static final int roomDivisionSize = 120;
-	public static final int roomDivisionColumns = WINDOW_WIDTH/roomDivisionSize;
-	public static final int roomDivisionRows = WINDOW_HEIGHT/roomDivisionSize;
-	
+    public static final int roomDivisionSize = 120;
+    public static final int roomDivisionColumns = WINDOW_WIDTH / roomDivisionSize;
+    public static final int roomDivisionRows = WINDOW_HEIGHT / roomDivisionSize;
+
     public static void main(String[] args)
     {
         for (VideoMode v : VideoMode.getFullscreenModes()) {
