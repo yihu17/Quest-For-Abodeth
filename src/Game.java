@@ -6,7 +6,6 @@ import org.jsfml.window.event.Event;
 import org.jsfml.window.event.MouseEvent;
 
 import java.util.concurrent.CopyOnWriteArraySet;
-import java.util.function.Consumer;
 
 public class Game
 {
@@ -38,7 +37,6 @@ public class Game
             }
         }
         currentRoom = rooms[0][0];
-
     }
 
     public void run()
@@ -49,34 +47,31 @@ public class Game
             // Draw the room
             window.draw(currentRoom);
             window.draw(player);
+            // Draw all the drawable objects
             drawables.forEach(window::draw);
+            // Update the window
             window.display();
 
+            // Move every single movable object (enemy movements, bullets etc.)
+            // Once they have moved check to enusre they are still in the bounds of the window
             movables.forEach(Movable::move);
-            movables.forEach(new Consumer<Movable>()
-            {
-                @Override
-                public void accept(Movable movable)
-                {
-                    if (movable.getX() < -50 || Settings.WINDOW_WIDTH + 50 < movable.getX()) {
-                        if (movable.getY() < -50 || Settings.WINDOW_HEIGHT + 50 < movable.getY()) {
-                            // Allow the garbage collector to remove this
-                            if (movable instanceof Collidable) {
-                                collidables.remove(movable);
-                            }
-                            movables.remove(movable);
-                            drawables.remove(movable);
+            movables.forEach(movable -> {
+                if (movable.getX() < -50 || Settings.WINDOW_WIDTH + 50 < movable.getX()) {
+                    if (movable.getY() < -50 || Settings.WINDOW_HEIGHT + 50 < movable.getY()) {
+                        // Off the screen so remove all instances of it
+                        if (movable instanceof Collidable) {
+                            collidables.remove(movable);
                         }
+                        movables.remove(movable);
+                        drawables.remove(movable);
                     }
                 }
             });
-            collidables.forEach(new Consumer<Collidable>()
-            {
-                @Override
-                public void accept(Collidable collidable)
-                {
-                    // Check collisions
-                }
+
+            // Check all collidables against each other
+            collidables.forEach(collidable -> {
+                // Check collisions
+                // Dont bother checking non-movables against other non movables
             });
 
             // Check for close events
@@ -112,6 +107,7 @@ public class Game
             }
         }
     }
+
 
     private void openInGameMenu()
     {
