@@ -58,7 +58,7 @@ public class Game
             for (Event e : window.pollEvents()) {
                 Helper.checkCloseEvents(e, window);
                 if (e.type == MouseEvent.Type.MOUSE_BUTTON_PRESSED) {
-                    System.out.println(e.asMouseEvent().position);
+                    System.out.println(player + " || " + e.asMouseEvent().position);
                 }
             }
 

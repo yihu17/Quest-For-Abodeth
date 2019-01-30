@@ -126,9 +126,34 @@ public class Helper
      * @param p2 (Vector2i) Point 2
      * @return (float) Angle about the vertical
      */
-    public float getAngleBetweenPoints(Vector2i p1, Vector2i p2)
+    public static double getAngleBetweenPoints(Vector2i p1, Vector2i p2)
     {
-        // https://onlinemschool.com/math/library/vector/angl/
-        return 0f;
+        double xDiff = p1.x - p2.x;     // = 691 - 200 = 491
+        double yDiff = p1.y - p2.y;     // = 200 - 393 = -193
+        int quadrant;
+        if (xDiff < 0 && 0 <= yDiff) {
+            quadrant = 1; // Top right quadrant
+        } else if (xDiff < 0 && yDiff < 0) {
+            quadrant = 2;
+        } else if (0 <= xDiff && 0 <= yDiff) {
+            quadrant = 4;
+        } else if (0 <= xDiff && yDiff < 0) {
+            quadrant = 3;
+        } else {
+            quadrant = 5;
+        }
+
+        double xBar = Math.abs(xDiff);
+        double yBar = Math.abs(yDiff);
+        switch (quadrant) {
+            case 1:
+                return Math.toDegrees(Math.atan2(xBar, yBar));
+            case 2:
+                return 180 - Math.toDegrees(Math.atan2(xBar, yBar));
+            default:
+                throw new AssertionError(quadrant + " is not a valid quadrant");
+        }
+
+
     }
 }

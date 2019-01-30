@@ -48,4 +48,10 @@ public class Player extends Character
     {
         renderTarget.draw(this.getImage());
     }
+
+    @Override
+    public String toString()
+    {
+        return String.format("<Player @ [%.04f, %.04f]", this.getX(), this.getY());
+    }
 }
