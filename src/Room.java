@@ -97,10 +97,54 @@ public class Room implements Drawable
 		{
 			for(int j = 0; j<Settings.roomDivisionColumns; j++)
 			{
+                String elementRead = Settings.CSV_KEYS.get(Integer.parseInt(roomLayout.get(i).get(j)));
                 String filePath = "res/assets/" + Settings.CSV_KEYS.get(Integer.parseInt(roomLayout.get(i).get(j))) + ".png";
-                System.out.println(filePath);
-                //roomImages[i][j] = new Image(120 * j, 120 * i, filePath); //just change Image to Environment (sub) object with same parameters)
-                roomImages[i][j] = new CollidableEnvironment(120 * j, 120 * i, filePath); //place in switch case
+                switch (elementRead) {
+                    case "wall":
+                        roomImages[i][j] = new CollidableEnvironment(120 * j, 120 * i, filePath);
+                        break;
+                    case "floor":
+                        roomImages[i][j] = new Environment(120 * j, 120 * i, filePath);
+                        break;
+                    case "door":
+                        roomImages[i][j] = new InteractableEnvironment(120 * j, 120 * i, filePath);
+                        break;
+                    case "water":
+                        roomImages[i][j] = new CollidableEnvironment(120 * j, 120 * i, filePath);
+                        break;
+                    case "quicksand":
+                        roomImages[i][j] = new CollidableEnvironment(120 * j, 120 * i, filePath);
+                        break;
+                    case "spikeTrap":
+                        roomImages[i][j] = new CollidableEnvironment(120 * j, 120 * i, filePath);
+                        break;
+                    case "switchPuzzle":
+                        roomImages[i][j] = new CollidableInteractableEnvironment(120 * j, 120 * i, filePath);
+                        break;
+                    case "shootingArrowTrap":
+                        roomImages[i][j] = new CollidableEnvironment(120 * j, 120 * i, filePath);
+                        break;
+                    case "swingingAxeTrap":
+                        roomImages[i][j] = new CollidableEnvironment(120 * j, 120 * i, filePath);
+                        break;
+                    case "boilingOil":
+                        roomImages[i][j] = new CollidableEnvironment(120 * j, 120 * i, filePath);
+                        break;
+                    case "rollingBoulderTrap":
+                        roomImages[i][j] = new CollidableEnvironment(120 * j, 120 * i, filePath);
+                        break;
+                    case "fierySphinx":
+                        roomImages[i][j] = new CollidableEnvironment(120 * j, 120 * i, filePath);
+                        break;
+                    case "graveyard":
+                        roomImages[i][j] = new InteractableEnvironment(120 * j, 120 * i, filePath);
+                        break;
+                    case "crushingWalls":
+                        roomImages[i][j] = new CollidableEnvironment(120 * j, 120 * i, filePath);
+                        break;
+                    //case "x": System.out.printf("[]");
+                    //break;
+                }
 			}
 		}
 	}
