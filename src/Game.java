@@ -61,7 +61,11 @@ public class Game
                     if (movable.getX() < -50 || Settings.WINDOW_WIDTH + 50 < movable.getX()) {
                         if (movable.getY() < -50 || Settings.WINDOW_HEIGHT + 50 < movable.getY()) {
                             // Allow the garbage collector to remove this
-                            movable = null;
+                            if (movable instanceof Collidable) {
+                                collidables.remove(movable);
+                            }
+                            movables.remove(movable);
+                            drawables.remove(movable);
                         }
                     }
                 }
