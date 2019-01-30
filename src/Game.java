@@ -45,6 +45,7 @@ public class Game
             // Draw the room
             window.draw(currentRoom);
             roomPowerups.forEach(window::draw);
+            movables.forEach(window::draw);
             window.draw(player);
 
             window.display();
@@ -54,16 +55,20 @@ public class Game
                     roomPowerups.remove(powerup);
                 }
             });
+            movables.forEach(Movable::move);
 
             // Check for close events
             for (Event e : window.pollEvents()) {
                 Helper.checkCloseEvents(e, window);
                 if (e.type == MouseEvent.Type.MOUSE_BUTTON_PRESSED) {
-                    System.out.println(player + " || " + e.asMouseEvent().position);
-                    System.out.println("Angle about the vertical: " + Helper.getAngleBetweenPoints(
-                            new Vector2i(player.getVectorPosition()),
-                            e.asMouseEvent().position
-                    ));
+                    movables.add(
+                            new Bullet(
+                                    (int) player.getPlayerCenter().x,
+                                    (int) player.getPlayerCenter().y,
+                                    Helper.getAngleBetweenPoints(new Vector2i(player.getVectorPosition()), e.asMouseEvent().position)
+                            )
+                    );
+                    System.out.println("Bullet created");
                 }
             }
 
