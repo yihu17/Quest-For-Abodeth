@@ -32,8 +32,11 @@ public class Settings
     // Cached texture files
     public static HashMap<String, Texture> LOADED_IMAGES = new HashMap<>();
 
-    //Values in CSV files mapped to game objects
+    // Values in CSV files mapped to game objects
     public static HashMap<Integer, String> CSV_KEYS = new HashMap<>();
+
+    // Game variables
+    public static final int BULLET_SPEED = 20;
 
     static {
         VideoMode desktop = VideoMode.getDesktopMode();

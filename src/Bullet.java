@@ -2,9 +2,9 @@ public class Bullet extends Image implements Movable
 {
     private float x;
     private float y;
-    private float xSpeed;
-    private float ySpeed;
-    private float angle;
+    private double xSpeed;
+    private double ySpeed;
+    private double angle;
 
     /**
      * Creates a new image object.
@@ -15,8 +15,8 @@ public class Bullet extends Image implements Movable
     public Bullet(int x, int y, float angle)
     {
         super(x, y, "bullet");
-        this.xSpeed = xSpeed;
-        this.ySpeed = ySpeed;
+        this.xSpeed = Settings.BULLET_SPEED / 4.0;
+        this.ySpeed = Settings.BULLET_SPEED / 4.0;
         this.angle = angle;
     }
 
