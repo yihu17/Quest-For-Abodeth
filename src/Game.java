@@ -80,7 +80,7 @@ public class Game
             }
 
             // Check for user key processes
-            if (Keyboard.isKeyPressed(Keyboard.Key.ESCAPE) && clocker > 10) {
+            if (Keyboard.isKeyPressed(Keyboard.Key.ESCAPE) && clocker > 10) { //used to prevent screen flickering
                 openInGameMenu(/*saveGameScreenshot()*/);
                 clocker = 0;
             }
