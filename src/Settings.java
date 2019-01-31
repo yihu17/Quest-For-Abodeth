@@ -3,6 +3,7 @@ import org.jsfml.graphics.Font;
 import org.jsfml.graphics.Texture;
 import org.jsfml.window.VideoMode;
 
+import javax.sound.sampled.Clip;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -37,6 +38,10 @@ public class Settings
 
     // Game variables
     public static final int BULLET_SPEED = 20;
+
+    //Audio Player
+    public static Clip audioStreamer;
+
 
     static {
         VideoMode desktop = VideoMode.getDesktopMode();
