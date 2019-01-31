@@ -5,6 +5,16 @@ import org.jsfml.window.event.Event;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.function.Consumer;
 
+import java.awt.AWTException;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+
+
 public class Game
 {
     private RenderWindow window;
@@ -39,6 +49,7 @@ public class Game
 
     public void run()
     {
+        int clocker = 0;
         while (gameRunning) {
             window.clear();
 
@@ -58,7 +69,7 @@ public class Game
                     if (Helper.checkOverlap(player, powerup)) {
                         roomPowerups.remove(powerup);
                     } else {
-                        System.out.println("Player not in range of powerup");
+                        //System.out.println("Player not in range of powerup");
                     }
                 }
             });
@@ -69,8 +80,9 @@ public class Game
             }
 
             // Check for user key processes
-            if (Keyboard.isKeyPressed(Keyboard.Key.ESCAPE)) {
-                openInGameMenu();
+            if (Keyboard.isKeyPressed(Keyboard.Key.ESCAPE) && clocker > 10) {
+                openInGameMenu(/*saveGameScreenshot()*/);
+                clocker = 0;
             }
             if (Keyboard.isKeyPressed(Keyboard.Key.W)) {
                 player.moveUp();
@@ -84,12 +96,13 @@ public class Game
             if (Keyboard.isKeyPressed(Keyboard.Key.D)) {
                 player.moveRight();
             }
+            clocker++;
         }
     }
 
-    private void openInGameMenu()
+    private void openInGameMenu(/*boolean screenshotSaved*/)
     {
-        GameMenu ingame = new GameMenu(window);
+        GameMenu ingame = new GameMenu(window /*, screenshotSaved*/);
         ingame.displayMenu();
         Button b = ingame.getChosenButton();
         if (b == null) {
@@ -104,6 +117,20 @@ public class Game
                 break;
             default:
                 throw new AssertionError("Unknown button was pressed: " + b.getText());
+        }
+    }
+
+    public boolean saveGameScreenshot() {
+        try {
+            Robot robot = new Robot();
+            String fileName = "gamePausedScreenshot.jpg";
+            Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()); //fullscreen
+            BufferedImage screenFullImage = robot.createScreenCapture(screenRect);
+            ImageIO.write(screenFullImage, "jpg", new File("res/" + fileName));
+            return true;
+        } catch (AWTException | IOException ex) {
+            System.out.println("Error taking screenshot");
+            return false;
         }
     }
 }
