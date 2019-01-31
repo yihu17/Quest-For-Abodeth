@@ -95,7 +95,6 @@ public class Game
                     break;
                 }
             }
-            System.exit(0);
 
             if (playerCanMove && Keyboard.isKeyPressed(Keyboard.Key.W)) {
                 player.moveUp();
