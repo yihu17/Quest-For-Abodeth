@@ -89,7 +89,7 @@ public class Game
                 if (c instanceof Player) {
                     continue;
                 }
-                if (c instanceof Environment && Helper.checkOverlap(player, c)) {
+                if (c instanceof Environment && 0 < Helper.checkOverlap(player, c)) {
                     System.out.println("The player is unable to move");
                     playerCanMove = false;
                     break;

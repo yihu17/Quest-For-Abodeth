@@ -98,12 +98,17 @@ public class Helper
 
     /**
      * Checks whether or not 2 character objects are overlapping
-     *
+     * The return codes are as follows:
+     *   0: The 2 objects are not overlapping
+     *   1: Top left corner is overlapping the object
+     *   2: Top right corner is overlapping the object
+     *   3. Bottom right corner is overlapping the object
+     *   4: Bottom left corner is overlapping the object
      * @param o1 (Character) The character to check against other characters
      * @param o2 (Character) The character to check against
-     * @return (boolean) Whether or no the characters are overlapping
+     * @return (int) Whether or no the characters are overlapping
      */
-    public static boolean checkOverlap(Collidable o1, Collidable o2)
+    public static int checkOverlap(Collidable o1, Collidable o2)
     {
         FloatRect o1Bound = new FloatRect(o1.getX(), o1.getY(), o1.getWidth(), o1.getHeight());
 
@@ -113,12 +118,12 @@ public class Helper
         Vector2f bottomright = new Vector2f(o2.getX() + o2.getWidth(), o2.getY() + o2.getHeight());
 
         if (!o1Bound.contains(topleft) && !o1Bound.contains(topright) && !o1Bound.contains(bottomleft) && !o1Bound.contains(bottomright)) {
-            return false;
+            return 0;
         }
 
         System.out.println(o1Bound);
         System.out.println(topleft + " | " + topright + " | " + bottomleft + " | " + bottomright);
-        return true;
+        return 1;
     }
 
     /**
