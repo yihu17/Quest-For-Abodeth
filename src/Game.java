@@ -21,6 +21,7 @@ public class Game
 
     public Game(RenderWindow window)
     {
+        Settings.audioStreamer.stop();
         this.window = window;
         this.window.clear();
         this.gameRunning = true;
@@ -28,6 +29,7 @@ public class Game
         DamagePlus d = new DamagePlus(600, 600);
         drawables.add(d);
         collidables.add(d);
+
 
         // Read the CSV file
         rooms = new Room[4][4];
