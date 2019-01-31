@@ -40,7 +40,7 @@ public class Settings
     public static final int BULLET_SPEED = 20;
 
     //Audio Player
-    public static Clip audioStreamer;
+    public static Clip AUDIO_STREAMER;
 
 
     static {
@@ -97,14 +97,7 @@ public class Settings
 		//CSV_KEYS.put(,);
     }
 
-    public static final int roomDivisionSize = 120;
-    public static final int roomDivisionColumns = WINDOW_WIDTH / roomDivisionSize;
-    public static final int roomDivisionRows = WINDOW_HEIGHT / roomDivisionSize;
-
-    public static void main(String[] args)
-    {
-        for (VideoMode v : VideoMode.getFullscreenModes()) {
-            System.out.println(v);
-        }
-    }
+    public static final int ROOM_DIVISION_SIZE = 120;
+    public static final int ROOM_DIVISION_COLUMNS = WINDOW_WIDTH / ROOM_DIVISION_SIZE;
+    public static final int ROOM_DIVISION_ROWS = WINDOW_HEIGHT / ROOM_DIVISION_SIZE;
 }

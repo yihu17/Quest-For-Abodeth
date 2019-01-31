@@ -1,11 +1,9 @@
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.window.event.Event;
 
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.Clip;
+import javax.sound.sampled.AudioSystem;
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -115,9 +113,9 @@ public class MainMenu implements Menu
         try {
             File soundFile = new File("res/audio/mainMenu.wav");
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-            Settings.audioStreamer = AudioSystem.getClip();
-            Settings.audioStreamer.open(audioInputStream);
-            Settings.audioStreamer.start();
+            Settings.AUDIO_STREAMER = AudioSystem.getClip();
+            Settings.AUDIO_STREAMER.open(audioInputStream);
+            Settings.AUDIO_STREAMER.start();
         } catch (Exception e) {
             System.out.println("Audio error");
         }
