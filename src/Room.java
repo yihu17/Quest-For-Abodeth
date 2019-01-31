@@ -12,7 +12,7 @@ public class Room implements Drawable
     private FileOperator roomFile;
     private ArrayList<ArrayList<String>> roomLayout = new ArrayList<>();
     private Environment[][] roomImages = new Environment[Settings.roomDivisionRows][Settings.roomDivisionColumns];
-    private ArrayList<int[]> enemeyInfo = new ArrayList<int[]>();
+    private ArrayList<int[]> enemeyInfo = new ArrayList<>();
     private Hashtable objectReferenceCSV = new Hashtable();
 
     private ArrayList<Drawable> drawables = new ArrayList<>();
@@ -122,10 +122,10 @@ public class Room implements Drawable
                         roomImages[i][j] = new InteractableEnvironment(120 * j, 120 * i, filePath);
                         break;
                     case "water":
-                        roomImages[i][j] = new CollidableEnvironment(120 * j, 120 * i, filePath);
+                        roomImages[i][j] = new InteractableEnvironment(120 * j, 120 * i, filePath);
                         break;
                     case "quicksand":
-                        roomImages[i][j] = new CollidableEnvironment(120 * j, 120 * i, filePath);
+                        roomImages[i][j] = new InteractableEnvironment(120 * j, 120 * i, filePath);
                         break;
                     case "spikeTrap":
                         roomImages[i][j] = new CollidableEnvironment(120 * j, 120 * i, filePath);

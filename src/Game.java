@@ -41,6 +41,8 @@ public class Game
 
         currentRoom = rooms[0][0];
         this.scanRoom();
+        System.out.println("Number of collidable objects: " + collidables.size());
+        collidables.forEach(System.out::println);
     }
 
     public void run()
@@ -58,29 +60,14 @@ public class Game
 
             // Move every single movable object (enemy movements, bullets etc.)
             // Once they have moved check to enusre they are still in the bounds of the window
-            movables.forEach(Movable::move);
-            movables.forEach(movable -> {
-                if (movable.getX() < -50 || Settings.WINDOW_WIDTH + 50 < movable.getX()) {
-                    if (movable.getY() < -50 || Settings.WINDOW_HEIGHT + 50 < movable.getY()) {
-                        // Off the screen so remove all instances of it
-                        if (movable instanceof Collidable) {
-                            collidables.remove(movable);
-                        }
-                        movables.remove(movable);
-                        drawables.remove(movable);
-                    }
-                }
-            });
+            this.moveMovables();
 
-            // Check all collidables against each other
-            collidables.forEach(collidable -> {
-                ;
-            });
 
             // Check for close events
             for (Event e : window.pollEvents()) {
                 Helper.checkCloseEvents(e, window);
                 if (e.type == MouseEvent.Type.MOUSE_BUTTON_PRESSED) {
+                    // The player has fired a bullet
                     Bullet b = new Bullet(
                             (int) player.getPlayerCenter().x,
                             (int) player.getPlayerCenter().y,
@@ -102,12 +89,11 @@ public class Game
                 if (c instanceof Player) {
                     continue;
                 }
-                if (Helper.checkOverlap(player, c)) {
+                if (c instanceof Environment && Helper.checkOverlap(player, c)) {
                     System.out.println("The player is unable to move");
                     playerCanMove = false;
                     break;
                 }
-                System.out.println("Player not in bounds of " + c);
             }
 
             if (playerCanMove && Keyboard.isKeyPressed(Keyboard.Key.W)) {
@@ -128,6 +114,23 @@ public class Game
     private void scanRoom()
     {
         collidables.addAll(currentRoom.getCollidables());
+    }
+
+    private void moveMovables()
+    {
+        movables.forEach(Movable::move);
+        movables.forEach(movable -> {
+            if (movable.getX() < -50 || Settings.WINDOW_WIDTH + 50 < movable.getX()) {
+                if (movable.getY() < -50 || Settings.WINDOW_HEIGHT + 50 < movable.getY()) {
+                    // Off the screen so remove all instances of it
+                    if (movable instanceof Collidable) {
+                        collidables.remove(movable);
+                    }
+                    movables.remove(movable);
+                    drawables.remove(movable);
+                }
+            }
+        });
     }
 
     private void openInGameMenu()

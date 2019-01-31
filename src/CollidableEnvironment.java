@@ -2,8 +2,10 @@ import org.jsfml.graphics.FloatRect;
 
 public class CollidableEnvironment extends Environment implements Collidable
 {
+    private String filename;
     public CollidableEnvironment(int xPos, int yPos, String imageFilePath) {
         super(xPos, yPos, imageFilePath);
+        this.filename = imageFilePath.split("/")[imageFilePath.split("/").length - 1];
     }
 
     @Override
@@ -38,6 +40,6 @@ public class CollidableEnvironment extends Environment implements Collidable
     @Override
     public String toString()
     {
-        return "<CollidableEnvironment @ " + getGlobalBounds() + ">";
+        return "<CollidableEnvironment " + filename + " @ " + getGlobalBounds() + ">";
     }
 }
