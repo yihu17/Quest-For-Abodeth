@@ -116,7 +116,7 @@ public abstract class Character implements Drawable, Collidable
      */
     public void moveUp()
     {
-        y -= movementSpeed);
+        y -= movementSpeed;
         updatePosition();
     }
 
@@ -125,7 +125,7 @@ public abstract class Character implements Drawable, Collidable
      */
     public void moveDown()
     {
-        y += movementSpeed);
+        y += movementSpeed;
         updatePosition();
     }
 
@@ -134,7 +134,7 @@ public abstract class Character implements Drawable, Collidable
      */
     public void moveLeft()
     {
-        x -= movementSpeed);
+        x -= movementSpeed;
         updatePosition();
     }
 
@@ -143,7 +143,7 @@ public abstract class Character implements Drawable, Collidable
      */
     public void moveRight()
     {
-        x += movementSpeed);
+        x += movementSpeed;
         updatePosition();
     }
 
