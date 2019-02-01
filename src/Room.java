@@ -11,8 +11,8 @@ public class Room implements Drawable
     private int type;
     private FileOperator roomFile;
     private ArrayList<ArrayList<String>> roomLayout = new ArrayList<>();
-    private Environment[][] roomImages = new Environment[Settings.roomDivisionRows][Settings.roomDivisionColumns];
-    private ArrayList<int[]> enemeyInfo = new ArrayList<int[]>();
+    private Environment[][] roomImages = new Environment[Settings.ROOM_DIVISION_ROWS][Settings.ROOM_DIVISION_COLUMNS];
+    private ArrayList<int[]> enemeyInfo = new ArrayList<>();
     private Hashtable objectReferenceCSV = new Hashtable();
 
     private ArrayList<Drawable> drawables = new ArrayList<>();
@@ -29,6 +29,19 @@ public class Room implements Drawable
         readRoomData();
 		loadRoomImages();
 	}
+
+    public ArrayList<Collidable> getCollidables()
+    {
+        ArrayList<Collidable> c = new ArrayList<>();
+        for (int i = 0; i < Settings.ROOM_DIVISION_ROWS; i++) {
+            for (int j = 0; j < Settings.ROOM_DIVISION_COLUMNS; j++) {
+                if (roomImages[i][j] instanceof Collidable) {
+                    c.add((Collidable) roomImages[i][j]);
+                }
+            }
+        }
+        return c;
+    }
 
     @Override
     public String toString()
@@ -47,9 +60,9 @@ public class Room implements Drawable
     public void draw(RenderTarget renderTarget, RenderStates renderStates)
     {
         drawables.forEach(renderTarget::draw);
-		for(int i = 0; i<Settings.roomDivisionRows; i++) //remove hardcode
-		{
-			for(int j = 0; j<Settings.roomDivisionColumns; j++)
+        for (int i = 0; i < Settings.ROOM_DIVISION_ROWS; i++) //remove hardcode
+        {
+            for (int j = 0; j < Settings.ROOM_DIVISION_COLUMNS; j++)
 			{
 				renderTarget.draw(roomImages[i][j]);
 			}
@@ -74,13 +87,12 @@ public class Room implements Drawable
 		{
 			enemeyInfo.add(new int[] {enemyTypes[i], enemyQuantities[i]});
 		}
-
-}
+    }
 
     private void readToLayout()
     {
         roomLayout.clear(); //resets layout
-        for(int i = 0; i<Settings.roomDivisionRows; i++)
+        for (int i = 0; i < Settings.ROOM_DIVISION_ROWS; i++)
         {
             roomLayout.add(new ArrayList<>());
             String[] currentLine = roomFile.readLine(i);
@@ -93,9 +105,8 @@ public class Room implements Drawable
 	
 	private void loadRoomImages()
 	{
-		for(int i = 0; i<Settings.roomDivisionRows; i++)
-		{
-			for(int j = 0; j<Settings.roomDivisionColumns; j++)
+        for (int i = 0; i < Settings.ROOM_DIVISION_ROWS; i++) {
+            for (int j = 0; j < Settings.ROOM_DIVISION_COLUMNS; j++)
 			{
                 String elementRead = Settings.CSV_KEYS.get(Integer.parseInt(roomLayout.get(i).get(j)));
                 String filePath = "res/assets/" + Settings.CSV_KEYS.get(Integer.parseInt(roomLayout.get(i).get(j))) + ".png";
@@ -110,10 +121,10 @@ public class Room implements Drawable
                         roomImages[i][j] = new InteractableEnvironment(120 * j, 120 * i, filePath);
                         break;
                     case "water":
-                        roomImages[i][j] = new CollidableEnvironment(120 * j, 120 * i, filePath);
+                        roomImages[i][j] = new InteractableEnvironment(120 * j, 120 * i, filePath);
                         break;
                     case "quicksand":
-                        roomImages[i][j] = new CollidableEnvironment(120 * j, 120 * i, filePath);
+                        roomImages[i][j] = new InteractableEnvironment(120 * j, 120 * i, filePath);
                         break;
                     case "spikeTrap":
                         roomImages[i][j] = new CollidableEnvironment(120 * j, 120 * i, filePath);

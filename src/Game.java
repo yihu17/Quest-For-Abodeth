@@ -31,7 +31,7 @@ public class Game
 
     public Game(RenderWindow window)
     {
-        Settings.audioStreamer.stop();
+        Settings.AUDIO_STREAMER.stop();
         this.window = window;
         this.window.clear();
         this.gameRunning = true;
@@ -48,7 +48,11 @@ public class Game
                 rooms[i][j] = new Room(Settings.GENERATOR.nextInt(4));
             }
         }
+
         currentRoom = rooms[0][0];
+        this.scanRoom();
+        System.out.println("Number of collidable objects: " + collidables.size());
+        collidables.forEach(System.out::println);
     }
 
     public void run()
@@ -67,30 +71,14 @@ public class Game
 
             // Move every single movable object (enemy movements, bullets etc.)
             // Once they have moved check to enusre they are still in the bounds of the window
-            movables.forEach(Movable::move);
-            movables.forEach(movable -> {
-                if (movable.getX() < -50 || Settings.WINDOW_WIDTH + 50 < movable.getX()) {
-                    if (movable.getY() < -50 || Settings.WINDOW_HEIGHT + 50 < movable.getY()) {
-                        // Off the screen so remove all instances of it
-                        if (movable instanceof Collidable) {
-                            collidables.remove(movable);
-                        }
-                        movables.remove(movable);
-                        drawables.remove(movable);
-                    }
-                }
-            });
+            this.moveMovables();
 
-            // Check all collidables against each other
-            collidables.forEach(collidable -> {
-                // Check collisions
-                // Dont bother checking non-movables against other non movables
-            });
 
             // Check for close events
             for (Event e : window.pollEvents()) {
                 Helper.checkCloseEvents(e, window);
                 if (e.type == MouseEvent.Type.MOUSE_BUTTON_PRESSED) {
+                    // The player has fired a bullet
                     Bullet b = new Bullet(
                             (int) player.getPlayerCenter().x,
                             (int) player.getPlayerCenter().y,
@@ -107,23 +95,58 @@ public class Game
                 openInGameMenu(/*saveGameScreenshot()*/);
                 clocker = 0;
             }
-            if (Keyboard.isKeyPressed(Keyboard.Key.W)) {
+
+            boolean playerCanMove = true;
+            for (Collidable c : collidables) {
+                if (c instanceof Player) {
+                    continue;
+                }
+                if (c instanceof Environment && 0 < Helper.checkOverlap(player, c)) {
+                    System.out.println("The player is unable to move");
+                    playerCanMove = false;
+                    break;
+                }
+            }
+
+            if (playerCanMove && Keyboard.isKeyPressed(Keyboard.Key.W)) {
                 player.moveUp();
             }
-            if (Keyboard.isKeyPressed(Keyboard.Key.A)) {
+            if (playerCanMove && Keyboard.isKeyPressed(Keyboard.Key.A)) {
                 player.moveLeft();
             }
-            if (Keyboard.isKeyPressed(Keyboard.Key.S)) {
+            if (playerCanMove && Keyboard.isKeyPressed(Keyboard.Key.S)) {
                 player.moveDown();
             }
-            if (Keyboard.isKeyPressed(Keyboard.Key.D)) {
+            if (playerCanMove && Keyboard.isKeyPressed(Keyboard.Key.D)) {
                 player.moveRight();
             }
             clocker++;
         }
     }
 
-    private void openInGameMenu(/*boolean screenshotSaved*/)
+    private void scanRoom()
+    {
+        collidables.addAll(currentRoom.getCollidables());
+    }
+
+    private void moveMovables()
+    {
+        movables.forEach(Movable::move);
+        movables.forEach(movable -> {
+            if (movable.getX() < -50 || Settings.WINDOW_WIDTH + 50 < movable.getX()) {
+                if (movable.getY() < -50 || Settings.WINDOW_HEIGHT + 50 < movable.getY()) {
+                    // Off the screen so remove all instances of it
+                    if (movable instanceof Collidable) {
+                        collidables.remove(movable);
+                    }
+                    movables.remove(movable);
+                    drawables.remove(movable);
+                }
+            }
+        });
+    }
+
+    private void openInGameMenu()
     {
         GameMenu ingame = new GameMenu(window /*, screenshotSaved*/);
         ingame.displayMenu();

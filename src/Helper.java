@@ -98,25 +98,32 @@ public class Helper
 
     /**
      * Checks whether or not 2 character objects are overlapping
-     *
+     * The return codes are as follows:
+     *   0: The 2 objects are not overlapping
+     *   1: Top left corner is overlapping the object
+     *   2: Top right corner is overlapping the object
+     *   3. Bottom right corner is overlapping the object
+     *   4: Bottom left corner is overlapping the object
      * @param o1 (Character) The character to check against other characters
      * @param o2 (Character) The character to check against
-     * @return (boolean) Whether or no the characters are overlapping
+     * @return (int) Whether or no the characters are overlapping
      */
-    public static boolean checkOverlap(Collidable o1, Collidable o2)
+    public static int checkOverlap(Collidable o1, Collidable o2)
     {
-        FloatRect bound = new FloatRect(o1.getX() - o1.getWidth(), o1.getY() - o1.getHeight(), 3 * o1.getWidth(), 3 * o1.getHeight());
+        FloatRect o1Bound = new FloatRect(o1.getX(), o1.getY(), o1.getWidth(), o1.getHeight());
 
         Vector2f topleft = new Vector2f(o2.getX(), o2.getHeight());
         Vector2f topright = new Vector2f(o2.getX() + o2.getWidth(), o2.getY());
         Vector2f bottomleft = new Vector2f(o2.getX(), o2.getY() + o2.getHeight());
         Vector2f bottomright = new Vector2f(o2.getX() + o2.getWidth(), o2.getY() + o2.getHeight());
 
-        if (!bound.contains(topleft) && !bound.contains(topright) && !bound.contains(bottomleft) && !bound.contains(bottomright)) {
-            return false;
+        if (!o1Bound.contains(topleft) && !o1Bound.contains(topright) && !o1Bound.contains(bottomleft) && !o1Bound.contains(bottomright)) {
+            return 0;
         }
 
-        return true;
+        System.out.println(o1Bound);
+        System.out.println(topleft + " | " + topright + " | " + bottomleft + " | " + bottomright);
+        return 1;
     }
 
     /**

@@ -15,7 +15,7 @@ public class Player extends Character
      */
     public Player()
     {
-        super(200, 200, 100, imageName);
+        super(300, 300, 100, imageName);
     }
 
     public void switchWeapon()
