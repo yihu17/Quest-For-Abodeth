@@ -81,8 +81,7 @@ public class MainMenu implements Menu
             // Clear the window
             window.clear();
 
-            // Draw window objets
-            // Draw background
+            // Draw window objects and background
             window.draw(background);
             buttons.forEach(window::draw);
 
