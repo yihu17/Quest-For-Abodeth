@@ -9,8 +9,8 @@ import org.jsfml.system.Vector2f;
  */
 public abstract class Character implements Drawable, Collidable
 {
-    private SimpleIntegerProperty x = new SimpleIntegerProperty();
-    private SimpleIntegerProperty y = new SimpleIntegerProperty();
+    private int x;
+    private int y;
     private int health;
     private int movementSpeed = 5;
     private Image image;
@@ -26,8 +26,8 @@ public abstract class Character implements Drawable, Collidable
      */
     public Character(int x, int y, int health, String image)
     {
-        this.x.set(x);
-        this.y.set(y);
+        this.x = x;
+        this.y = y;
         this.health = health;
         this.image = new Image(x, y, image);
     }
@@ -80,7 +80,7 @@ public abstract class Character implements Drawable, Collidable
     @Override
     public float getX()
     {
-        return x.getValue();
+        return x;
     }
 
     /**
@@ -91,12 +91,12 @@ public abstract class Character implements Drawable, Collidable
     @Override
     public float getY()
     {
-        return y.getValue();
+        return y;
     }
 
     public Vector2f getVectorPosition()
     {
-        return new Vector2f(x.getValue(), y.getValue());
+        return new Vector2f(x, y);
     }
 
     @Override
@@ -116,7 +116,7 @@ public abstract class Character implements Drawable, Collidable
      */
     public void moveUp()
     {
-        y.setValue(y.getValue() - movementSpeed);
+        y -= movementSpeed);
         updatePosition();
     }
 
@@ -125,7 +125,7 @@ public abstract class Character implements Drawable, Collidable
      */
     public void moveDown()
     {
-        y.setValue(y.getValue() + movementSpeed);
+        y += movementSpeed);
         updatePosition();
     }
 
@@ -134,7 +134,7 @@ public abstract class Character implements Drawable, Collidable
      */
     public void moveLeft()
     {
-        x.setValue(x.getValue() - movementSpeed);
+        x -= movementSpeed);
         updatePosition();
     }
 
@@ -143,7 +143,7 @@ public abstract class Character implements Drawable, Collidable
      */
     public void moveRight()
     {
-        x.setValue(x.getValue() + movementSpeed);
+        x += movementSpeed);
         updatePosition();
     }
 
@@ -152,7 +152,7 @@ public abstract class Character implements Drawable, Collidable
      */
     private void updatePosition()
     {
-        this.image.setPosition(x.getValue(), y.getValue());
+        this.image.setPosition(x, y);
     }
 
     /**
