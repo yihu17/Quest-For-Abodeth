@@ -4,7 +4,7 @@ public class CollidableInteractableEnvironment extends Environment implements Co
 {
     public CollidableInteractableEnvironment(int xPos, int yPos, String imageFilePath)
     {
-        super(xPos, yPos, imageFilePath);
+        super(xPos, yPos, imageFilePath, true);
     }
 
     @Override

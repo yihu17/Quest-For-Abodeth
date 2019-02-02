@@ -123,7 +123,7 @@ public class Room implements Drawable
                         roomImages[i][j] = new CollidableEnvironment(120 * j, 120 * i, filePath);
                         break;
                     case "floor":
-                        roomImages[i][j] = new Environment(120 * j, 120 * i, filePath);
+                        roomImages[i][j] = new Environment(120 * j, 120 * i, filePath, false);
                         break;
                     case "door":
                         roomImages[i][j] = new InteractableEnvironment(120 * j, 120 * i, filePath);
@@ -169,7 +169,6 @@ public class Room implements Drawable
 	}
 
     private void spawnEnemies() {
-        System.out.println(enemyInfo.size());
         for (int i = 0; i < enemyInfo.size(); i++) {
             String enemyRead = Settings.CSV_KEYS.get(enemyInfo.get(i)[0]);
             String filePath = "res/assets/enemies/" + enemyRead + ".png";
@@ -211,16 +210,58 @@ public class Room implements Drawable
     private int[] generateSpawnLocation() {
         int[] spawnPositionGenerated = new int[2];
         Random rand = new Random();
-        spawnPositionGenerated[0] = rand.nextInt(1920 - 240) + 120;
-        spawnPositionGenerated[1] = rand.nextInt(1080 - 240) + 120;
+        spawnPositionGenerated[0] = rand.nextInt(Settings.WINDOW_WIDTH) + Settings.ROOM_DIVISION_SIZE;
+        spawnPositionGenerated[1] = rand.nextInt(Settings.WINDOW_HEIGHT) + Settings.ROOM_DIVISION_SIZE;
         while (!spawnLocationGeneratedIsValid(spawnPositionGenerated)) {
-            spawnPositionGenerated[0] = rand.nextInt(1920 - 240) + 120;
-            spawnPositionGenerated[1] = rand.nextInt(1080 - 240) + 120;
+            spawnPositionGenerated[0] = rand.nextInt(Settings.WINDOW_WIDTH) + Settings.ROOM_DIVISION_SIZE;
+            spawnPositionGenerated[1] = rand.nextInt(Settings.WINDOW_HEIGHT) + Settings.ROOM_DIVISION_SIZE;
         }
         return spawnPositionGenerated;
     }
 
     private boolean spawnLocationGeneratedIsValid(int[] generatedPositions) {
-        return true;
+
+        //if overlap and collidable is true then return false
+        if (overlap(generatedPositions[0], generatedPositions[1]) || nearDoor(generatedPositions[0], generatedPositions[1])) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private boolean overlap(int x, int y) {
+        for (int i = 0; i < roomImages.length; i++) {
+            for (int j = 0; j < roomImages[i].length; j++) {
+                int[] posA = {(int) roomImages[i][j].getX(), (int) roomImages[i][j].getY()}; //upper left point of environment object
+                int[] posB = {(int) roomImages[i][j].getX() + Settings.ROOM_DIVISION_SIZE, (int) roomImages[i][j].getY() + Settings.ROOM_DIVISION_SIZE}; //lower right point of environment object
+
+                int[][] points = {{x, y}, {x + Settings.ROOM_DIVISION_SIZE, y}, {x + Settings.ROOM_DIVISION_SIZE, y + Settings.ROOM_DIVISION_SIZE}, {x, y + Settings.ROOM_DIVISION_SIZE}}; //upper left, upper right, lower right, lower left points of enemy
+
+                for (int k = 0; k < 4; k++) {
+                    if ((posA[0] <= points[k][0] && points[k][0] <= posB[0]) && (posA[1] <= points[k][1] && points[k][1] <= posB[1])) {
+                        if (roomImages[i][j].isCollidiable()) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean nearDoor(int a, int b) {
+        for (int i = 0; i < roomLayout.size(); i++) {
+            for (int j = 0; j < roomLayout.get(i).size(); j++) {
+                if (roomLayout.get(i).get(j).equals("3")) {
+                    int[] doorPos = {(Settings.ROOM_DIVISION_SIZE * j) + (Settings.ROOM_DIVISION_SIZE / 2), (Settings.ROOM_DIVISION_SIZE * i) + (Settings.ROOM_DIVISION_SIZE / 2)};
+                    int[] doorPosA = {doorPos[0] - 350, doorPos[1] - 250};
+                    int[] doorPosB = {doorPos[0] + 350, doorPos[1] + 250};
+                    if ((doorPosA[0] <= a && a <= doorPosB[0]) && (doorPosA[1] <= b && b <= doorPosB[1])) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 }
