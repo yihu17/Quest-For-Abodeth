@@ -165,7 +165,5 @@ public class Helper
             default:
                 throw new AssertionError(quadrant + " is not a valid quadrant");
         }
-
-
     }
 }

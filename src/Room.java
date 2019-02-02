@@ -4,7 +4,7 @@ import org.jsfml.graphics.RenderTarget;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Hashtable;
+import java.util.Random;
 
 public class Room implements Drawable
 {
@@ -12,8 +12,9 @@ public class Room implements Drawable
     private FileOperator roomFile;
     private ArrayList<ArrayList<String>> roomLayout = new ArrayList<>();
     private Environment[][] roomImages = new Environment[Settings.ROOM_DIVISION_ROWS][Settings.ROOM_DIVISION_COLUMNS];
-    private ArrayList<int[]> enemeyInfo = new ArrayList<>();
-    private Hashtable objectReferenceCSV = new Hashtable();
+
+    private ArrayList<int[]> enemyInfo = new ArrayList<>();
+    private ArrayList<Enemy> enemies = new ArrayList<>();
 
     private ArrayList<Drawable> drawables = new ArrayList<>();
 
@@ -26,8 +27,10 @@ public class Room implements Drawable
     {
         this.type = type;
         roomFile = new FileOperator("res/roomCSVs/roomData.csv"); //needs to get path dynamically...
+
         readRoomData();
 		loadRoomImages();
+        spawnEnemies();
 	}
 
     public ArrayList<Collidable> getCollidables()
@@ -40,6 +43,8 @@ public class Room implements Drawable
                 }
             }
         }
+        //c.addAll(enemies);
+
         return c;
     }
 
@@ -60,13 +65,16 @@ public class Room implements Drawable
     public void draw(RenderTarget renderTarget, RenderStates renderStates)
     {
         drawables.forEach(renderTarget::draw);
-        for (int i = 0; i < Settings.ROOM_DIVISION_ROWS; i++) //remove hardcode
+        for (int i = 0; i < Settings.ROOM_DIVISION_ROWS; i++)
         {
             for (int j = 0; j < Settings.ROOM_DIVISION_COLUMNS; j++)
 			{
 				renderTarget.draw(roomImages[i][j]);
 			}
 		}
+        for (int i = 0; i < enemies.size(); i++) {
+            renderTarget.draw(enemies.get(i));
+        }
     }
 
     private void readRoomData()
@@ -80,12 +88,12 @@ public class Room implements Drawable
 
 		for(int i = 0; i<enemyTypes.length; i++)
 		{
-			enemeyInfo.add(new int[] {enemyTypes[i], enemyQuantities[i]});
+            enemyInfo.add(new int[]{enemyTypes[i], enemyQuantities[i]});
 		}
 
 		for(int i = 0; i<pickupQuantities.length; i++)
 		{
-			enemeyInfo.add(new int[] {enemyTypes[i], enemyQuantities[i]});
+            enemyInfo.add(new int[]{pickupTypes[i], pickupQuantities[i]});
 		}
     }
 
@@ -109,7 +117,7 @@ public class Room implements Drawable
             for (int j = 0; j < Settings.ROOM_DIVISION_COLUMNS; j++)
 			{
                 String elementRead = Settings.CSV_KEYS.get(Integer.parseInt(roomLayout.get(i).get(j)));
-                String filePath = "res/assets/" + Settings.CSV_KEYS.get(Integer.parseInt(roomLayout.get(i).get(j))) + ".png";
+                String filePath = "res/assets/" + elementRead + ".png";
                 switch (elementRead) {
                     case "wall":
                         roomImages[i][j] = new CollidableEnvironment(120 * j, 120 * i, filePath);
@@ -159,4 +167,60 @@ public class Room implements Drawable
 			}
 		}
 	}
+
+    private void spawnEnemies() {
+        System.out.println(enemyInfo.size());
+        for (int i = 0; i < enemyInfo.size(); i++) {
+            String enemyRead = Settings.CSV_KEYS.get(enemyInfo.get(i)[0]);
+            String filePath = "res/assets/enemies/" + enemyRead + ".png";
+            for (int y = 0; y < enemyInfo.get(i)[1]; y++) {
+                int[] generatedSpawnLocation = generateSpawnLocation();
+                switch (enemyRead) {
+                    case "zombie":
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath));
+                        break;
+                    case "jackal":
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath));
+                        break;
+                    case "bat":
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath));
+                        break;
+                    case "spider":
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath));
+                        break;
+                    case "mummifiedSlave":
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath));
+                        break;
+                    case "giantSpider":
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath));
+                        break;
+                    case "giantZombie":
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath));
+                        break;
+                    case "egyptianMummy":
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath));
+                        break;
+                    case "crocodile":
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath));
+                        break;
+                }
+            }
+        }
+    }
+
+    private int[] generateSpawnLocation() {
+        int[] spawnPositionGenerated = new int[2];
+        Random rand = new Random();
+        spawnPositionGenerated[0] = rand.nextInt(1920 - 240) + 120;
+        spawnPositionGenerated[1] = rand.nextInt(1080 - 240) + 120;
+        while (!spawnLocationGeneratedIsValid(spawnPositionGenerated)) {
+            spawnPositionGenerated[0] = rand.nextInt(1920 - 240) + 120;
+            spawnPositionGenerated[1] = rand.nextInt(1080 - 240) + 120;
+        }
+        return spawnPositionGenerated;
+    }
+
+    private boolean spawnLocationGeneratedIsValid(int[] generatedPositions) {
+        return true;
+    }
 }

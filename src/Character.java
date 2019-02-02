@@ -1,6 +1,7 @@
-import javafx.beans.property.SimpleIntegerProperty;
 import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.FloatRect;
+import org.jsfml.graphics.RenderStates;
+import org.jsfml.graphics.RenderTarget;
 import org.jsfml.system.Vector2f;
 
 /**
@@ -194,4 +195,9 @@ public abstract class Character implements Drawable, Collidable
      * Different for enemies and players
      */
     public abstract void kill();
+
+    @Override
+    public void draw(RenderTarget renderTarget, RenderStates renderStates) {
+        renderTarget.draw(image);
+    }
 }

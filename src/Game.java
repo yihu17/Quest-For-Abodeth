@@ -51,7 +51,7 @@ public class Game
 
         currentRoom = rooms[0][0];
         this.scanRoom();
-        System.out.println("Number of collidable objects: " + collidables.size());
+        //System.out.println("Number of collidable objects: " + collidables.size());
         collidables.forEach(System.out::println);
     }
 
