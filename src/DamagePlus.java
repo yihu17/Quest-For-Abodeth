@@ -1,63 +1,30 @@
-import org.jsfml.graphics.RenderStates;
-import org.jsfml.graphics.RenderTarget;
-
-public class DamagePlus implements Powerup
-{
-    private static String damagePlus = "res/damage-plus.png";
-
-    private int damage = 10;
-    private Image image;
+public class DamagePlus extends Pickup {
+    private int damageDealt = 10;
 
     public DamagePlus(int x, int y)
     {
-        this.image = new Image(x, y, damagePlus);
+        super(x, y, "res/damage-plus.png");
     }
 
     @Override
-    public void applyBuff(Player p)
-    {
-        p.setDamage(p.getDamage() + damage);
+    public float getX() {
+        return 0;
     }
 
     @Override
-    public void removeBuff(Player p)
-    {
-        p.setDamage(p.getDamage() - damage);
+    public float getY() {
+        return 0;
     }
 
     @Override
-    public Image getImage()
-    {
-        return this.image;
+    public float getHeight() {
+        return 0;
     }
 
     @Override
-    public void draw(RenderTarget renderTarget, RenderStates renderStates)
-    {
-        renderTarget.draw(this.image);
+    public float getWidth() {
+        return 0;
     }
 
-    @Override
-    public float getX()
-    {
-        return this.image.getGlobalBounds().left;
-    }
-
-    @Override
-    public float getY()
-    {
-        return this.image.getGlobalBounds().top;
-    }
-
-    @Override
-    public float getHeight()
-    {
-        return this.image.getGlobalBounds().height;
-    }
-
-    @Override
-    public float getWidth()
-    {
-        return this.image.getGlobalBounds().width;
-    }
+    //function for when picked up/ used:
 }

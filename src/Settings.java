@@ -49,7 +49,7 @@ public class Settings
         WINDOW_WIDTH = desktop.width;
         WINDOW_BITS_PER_PIXEL = desktop.bitsPerPixel;
 
-        File f = new File("res/pixelated.ttf");
+        File f = new File("res/fonts/pixelated.ttf");
         try {
             MAIN_MENU_FONT.loadFromFile(f.toPath());
         } catch (IOException e) {

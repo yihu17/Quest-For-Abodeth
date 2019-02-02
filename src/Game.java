@@ -36,7 +36,7 @@ public class Game
         this.window.clear();
         this.gameRunning = true;
         this.player = new Player();
-        DamagePlus d = new DamagePlus(600, 600);
+        DamagePlus d = new DamagePlus(0, 0);
         drawables.add(d);
         collidables.add(d);
 

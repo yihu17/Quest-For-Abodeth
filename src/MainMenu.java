@@ -61,7 +61,7 @@ public class MainMenu implements Menu
         });
         buttons.add(settings);
 
-        this.background = new Image(0, 0, "res/mainmenu.png");
+        this.background = new Image(0, 0, "res/menuBackgrounds/mainmenu.png");
 
         playMusic();
 

@@ -16,8 +16,10 @@ public class Room implements Drawable
     private ArrayList<int[]> enemyInfo = new ArrayList<>();
     private ArrayList<Enemy> enemies = new ArrayList<>();
 
-    private ArrayList<Drawable> drawables = new ArrayList<>();
+    private ArrayList<int[]> pickupInfo = new ArrayList<>();
+    private ArrayList<Pickup> pickups = new ArrayList<>();
 
+    private ArrayList<Drawable> drawables = new ArrayList<>();
     /**
      * Creates a new room of the specified type
      *
@@ -31,7 +33,8 @@ public class Room implements Drawable
         readRoomData();
 		loadRoomImages();
         spawnEnemies();
-	}
+        spawnPickups();
+    }
 
     public ArrayList<Collidable> getCollidables()
     {
@@ -75,6 +78,9 @@ public class Room implements Drawable
         for (int i = 0; i < enemies.size(); i++) {
             renderTarget.draw(enemies.get(i));
         }
+        for (int i = 0; i < pickups.size(); i++) {
+            renderTarget.draw(pickups.get(i));
+        }
     }
 
     private void readRoomData()
@@ -91,9 +97,8 @@ public class Room implements Drawable
             enemyInfo.add(new int[]{enemyTypes[i], enemyQuantities[i]});
 		}
 
-		for(int i = 0; i<pickupQuantities.length; i++)
-		{
-            enemyInfo.add(new int[]{pickupTypes[i], pickupQuantities[i]});
+        for (int i = 0; i < pickupTypes.length; i++) {
+            pickupInfo.add(new int[]{pickupTypes[i], pickupQuantities[i]});
 		}
     }
 
@@ -206,11 +211,6 @@ public class Room implements Drawable
                 }
             }
         }
-        for (int i = 0; i < enemies.size(); i++) {
-            System.out.println("X: " + enemies.get(i).getX());
-            System.out.println("Y: " + enemies.get(i).getY());
-            System.out.println("");
-        }
     }
 
     private int[] generateSpawnLocation() {
@@ -267,5 +267,34 @@ public class Room implements Drawable
             }
         }
         return false;
+    }
+
+    private void spawnPickups() {
+        for (int i = 0; i < pickupInfo.size(); i++) {
+            String pickupRead = Settings.CSV_KEYS.get(pickupInfo.get(i)[0]);
+            for (int y = 0; y < pickupInfo.get(i)[1]; y++) {
+                int[] generatedSpawnLocation = generateSpawnLocation();
+                switch (pickupRead) {
+                    case "healthPickup":
+                        pickups.add(new HealthBoost(generatedSpawnLocation[0], generatedSpawnLocation[1]));
+                        break;
+                    case "ammoPickup":
+                        pickups.add(new AmmoPickup(generatedSpawnLocation[0], generatedSpawnLocation[1]));
+                        break;
+                    case "shieldPickup":
+                        pickups.add(new ShieldPickup(generatedSpawnLocation[0], generatedSpawnLocation[1], 20));
+                        break;
+                    case "speedPickupUp":
+                        pickups.add(new SpeedPickupUp(generatedSpawnLocation[0], generatedSpawnLocation[1], 15));
+                        break;
+                    case "speedPickupDown":
+                        pickups.add(new SpeedPickupDown(generatedSpawnLocation[0], generatedSpawnLocation[1], 10));
+                        break;
+                    case "damagePickup":
+                        pickups.add(new DamagePlus(generatedSpawnLocation[0], generatedSpawnLocation[1]));
+                        break;
+                }
+            }
+        }
     }
 }

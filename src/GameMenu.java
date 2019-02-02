@@ -32,7 +32,7 @@ public class GameMenu implements Menu
             backgroundImage = new Image(0, 0, "res/gamePausedScreenshot.jpg");
         }
         */
-        backgroundImage = new Image(0, 0, "res/gamePausedBackground.png");
+        backgroundImage = new Image(0, 0, "res/menuBackgrounds/gamePausedBackground.png");
         Button quit = new Button(300, 50, 200, 200, "Quit to menu");
         quit.setOnPress(new EventHandler()
         {
