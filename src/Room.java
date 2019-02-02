@@ -26,7 +26,7 @@ public class Room implements Drawable
     public Room(int type)
     {
         this.type = type;
-        roomFile = new FileOperator("res/roomCSVs/roomData.csv"); //needs to get path dynamically...
+        roomFile = new FileOperator("res/roomCSVs/roomDataB.csv"); //needs to get path dynamically...
 
         readRoomData();
 		loadRoomImages();
@@ -80,11 +80,11 @@ public class Room implements Drawable
     private void readRoomData()
     {
         readToLayout();
-
-        int[] enemyTypes = Arrays.stream(roomFile.readLine(9)).mapToInt(Integer::parseInt).toArray(); //read string array as int array
-        int[] enemyQuantities = Arrays.stream(roomFile.readLine(10)).mapToInt(Integer::parseInt).toArray(); //read string array as int array
-        int[] pickupTypes =  Arrays.stream(roomFile.readLine(11)).mapToInt(Integer::parseInt).toArray(); //read string array as int array
-        int[] pickupQuantities = Arrays.stream(roomFile.readLine(12)).mapToInt(Integer::parseInt).toArray(); //read string array as int array
+        int startOfEnemyAndPickupData = Settings.WINDOW_HEIGHT / Settings.ROOM_DIVISION_SIZE;
+        int[] enemyTypes = Arrays.stream(roomFile.readLine(startOfEnemyAndPickupData)).mapToInt(Integer::parseInt).toArray(); //read string array as int array
+        int[] enemyQuantities = Arrays.stream(roomFile.readLine(startOfEnemyAndPickupData + 1)).mapToInt(Integer::parseInt).toArray(); //read string array as int array
+        int[] pickupTypes = Arrays.stream(roomFile.readLine(startOfEnemyAndPickupData + 2)).mapToInt(Integer::parseInt).toArray(); //read string array as int array
+        int[] pickupQuantities = Arrays.stream(roomFile.readLine(startOfEnemyAndPickupData + 3)).mapToInt(Integer::parseInt).toArray(); //read string array as int array
 
 		for(int i = 0; i<enemyTypes.length; i++)
 		{
@@ -113,6 +113,7 @@ public class Room implements Drawable
 	
 	private void loadRoomImages()
 	{
+        int spacing = Settings.ROOM_DIVISION_SIZE;
         for (int i = 0; i < Settings.ROOM_DIVISION_ROWS; i++) {
             for (int j = 0; j < Settings.ROOM_DIVISION_COLUMNS; j++)
 			{
@@ -120,46 +121,46 @@ public class Room implements Drawable
                 String filePath = "res/assets/" + elementRead + ".png";
                 switch (elementRead) {
                     case "wall":
-                        roomImages[i][j] = new CollidableEnvironment(120 * j, 120 * i, filePath);
+                        roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
                         break;
                     case "floor":
-                        roomImages[i][j] = new Environment(120 * j, 120 * i, filePath, false);
+                        roomImages[i][j] = new Environment(spacing * j, spacing * i, filePath, false);
                         break;
                     case "door":
-                        roomImages[i][j] = new InteractableEnvironment(120 * j, 120 * i, filePath);
+                        roomImages[i][j] = new InteractableEnvironment(spacing * j, spacing * i, filePath);
                         break;
                     case "water":
-                        roomImages[i][j] = new InteractableEnvironment(120 * j, 120 * i, filePath);
+                        roomImages[i][j] = new InteractableEnvironment(spacing * j, spacing * i, filePath);
                         break;
                     case "quicksand":
-                        roomImages[i][j] = new InteractableEnvironment(120 * j, 120 * i, filePath);
+                        roomImages[i][j] = new InteractableEnvironment(spacing * j, spacing * i, filePath);
                         break;
                     case "spikeTrap":
-                        roomImages[i][j] = new CollidableEnvironment(120 * j, 120 * i, filePath);
+                        roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
                         break;
                     case "switchPuzzle":
-                        roomImages[i][j] = new CollidableInteractableEnvironment(120 * j, 120 * i, filePath);
+                        roomImages[i][j] = new CollidableInteractableEnvironment(spacing * j, spacing * i, filePath);
                         break;
                     case "shootingArrowTrap":
-                        roomImages[i][j] = new CollidableEnvironment(120 * j, 120 * i, filePath);
+                        roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
                         break;
                     case "swingingAxeTrap":
-                        roomImages[i][j] = new CollidableEnvironment(120 * j, 120 * i, filePath);
+                        roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
                         break;
                     case "boilingOil":
-                        roomImages[i][j] = new CollidableEnvironment(120 * j, 120 * i, filePath);
+                        roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
                         break;
                     case "rollingBoulderTrap":
-                        roomImages[i][j] = new CollidableEnvironment(120 * j, 120 * i, filePath);
+                        roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
                         break;
                     case "fierySphinx":
-                        roomImages[i][j] = new CollidableEnvironment(120 * j, 120 * i, filePath);
+                        roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
                         break;
                     case "graveyard":
-                        roomImages[i][j] = new InteractableEnvironment(120 * j, 120 * i, filePath);
+                        roomImages[i][j] = new InteractableEnvironment(spacing * j, spacing * i, filePath);
                         break;
                     case "crushingWalls":
-                        roomImages[i][j] = new CollidableEnvironment(120 * j, 120 * i, filePath);
+                        roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
                         break;
                     default:
                         throw new AssertionError("Unknown image" + elementRead);

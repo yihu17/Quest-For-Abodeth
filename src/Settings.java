@@ -97,7 +97,7 @@ public class Settings
 		//CSV_KEYS.put(,);
     }
 
-    public static final int ROOM_DIVISION_SIZE = 120;
+    public static final int ROOM_DIVISION_SIZE = 40;
     public static final int ROOM_DIVISION_COLUMNS = WINDOW_WIDTH / ROOM_DIVISION_SIZE;
     public static final int ROOM_DIVISION_ROWS = WINDOW_HEIGHT / ROOM_DIVISION_SIZE;
 }
