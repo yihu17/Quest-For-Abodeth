@@ -205,6 +205,11 @@ public class Room implements Drawable
                 }
             }
         }
+        for (int i = 0; i < enemies.size(); i++) {
+            System.out.println("X: " + enemies.get(i).getX());
+            System.out.println("Y: " + enemies.get(i).getY());
+            System.out.println("");
+        }
     }
 
     private int[] generateSpawnLocation() {
@@ -212,7 +217,7 @@ public class Room implements Drawable
         Random rand = new Random();
         spawnPositionGenerated[0] = rand.nextInt(Settings.WINDOW_WIDTH) + Settings.ROOM_DIVISION_SIZE;
         spawnPositionGenerated[1] = rand.nextInt(Settings.WINDOW_HEIGHT) + Settings.ROOM_DIVISION_SIZE;
-        while (!spawnLocationGeneratedIsValid(spawnPositionGenerated)) {
+        while (!spawnLocationGeneratedIsValid(spawnPositionGenerated)) { //keep trying to create a spawn location until valid
             spawnPositionGenerated[0] = rand.nextInt(Settings.WINDOW_WIDTH) + Settings.ROOM_DIVISION_SIZE;
             spawnPositionGenerated[1] = rand.nextInt(Settings.WINDOW_HEIGHT) + Settings.ROOM_DIVISION_SIZE;
         }
@@ -220,16 +225,14 @@ public class Room implements Drawable
     }
 
     private boolean spawnLocationGeneratedIsValid(int[] generatedPositions) {
-
-        //if overlap and collidable is true then return false
-        if (overlap(generatedPositions[0], generatedPositions[1]) || nearDoor(generatedPositions[0], generatedPositions[1])) {
+        if (spawnPointOverlapEnvironment(generatedPositions[0], generatedPositions[1]) || nearDoor(generatedPositions[0], generatedPositions[1])) { //if spawn location generated overlaps an environment object or is too close to a door the spawn location generated is invalid (false)
             return false;
         } else {
             return true;
         }
     }
 
-    private boolean overlap(int x, int y) {
+    private boolean spawnPointOverlapEnvironment(int x, int y) {
         for (int i = 0; i < roomImages.length; i++) {
             for (int j = 0; j < roomImages[i].length; j++) {
                 int[] posA = {(int) roomImages[i][j].getX(), (int) roomImages[i][j].getY()}; //upper left point of environment object
@@ -238,7 +241,7 @@ public class Room implements Drawable
                 int[][] points = {{x, y}, {x + Settings.ROOM_DIVISION_SIZE, y}, {x + Settings.ROOM_DIVISION_SIZE, y + Settings.ROOM_DIVISION_SIZE}, {x, y + Settings.ROOM_DIVISION_SIZE}}; //upper left, upper right, lower right, lower left points of enemy
 
                 for (int k = 0; k < 4; k++) {
-                    if ((posA[0] <= points[k][0] && points[k][0] <= posB[0]) && (posA[1] <= points[k][1] && points[k][1] <= posB[1])) {
+                    if ((posA[0] <= points[k][0] && points[k][0] <= posB[0]) && (posA[1] <= points[k][1] && points[k][1] <= posB[1])) { //is spawn location overlapping with environment object
                         if (roomImages[i][j].isCollidiable()) {
                             return true;
                         }
@@ -249,14 +252,14 @@ public class Room implements Drawable
         return false;
     }
 
-    private boolean nearDoor(int a, int b) {
+    private boolean nearDoor(int x, int y) {
         for (int i = 0; i < roomLayout.size(); i++) {
             for (int j = 0; j < roomLayout.get(i).size(); j++) {
-                if (roomLayout.get(i).get(j).equals("3")) {
-                    int[] doorPos = {(Settings.ROOM_DIVISION_SIZE * j) + (Settings.ROOM_DIVISION_SIZE / 2), (Settings.ROOM_DIVISION_SIZE * i) + (Settings.ROOM_DIVISION_SIZE / 2)};
-                    int[] doorPosA = {doorPos[0] - 350, doorPos[1] - 250};
-                    int[] doorPosB = {doorPos[0] + 350, doorPos[1] + 250};
-                    if ((doorPosA[0] <= a && a <= doorPosB[0]) && (doorPosA[1] <= b && b <= doorPosB[1])) {
+                if (roomLayout.get(i).get(j).equals("3")) { //find door object
+                    int[] doorPos = {(Settings.ROOM_DIVISION_SIZE * j) + (Settings.ROOM_DIVISION_SIZE / 2), (Settings.ROOM_DIVISION_SIZE * i) + (Settings.ROOM_DIVISION_SIZE / 2)}; //centre of door
+                    int[] doorPosA = {doorPos[0] - 350, doorPos[1] - 250}; //upper left of no enemy zone/ box
+                    int[] doorPosB = {doorPos[0] + 350, doorPos[1] + 250}; //lower right of no enemy zone/ box
+                    if ((doorPosA[0] <= x && x <= doorPosB[0]) && (doorPosA[1] <= y && y <= doorPosB[1])) { //is spawn location in zone?
                         return true;
                     }
                 }
