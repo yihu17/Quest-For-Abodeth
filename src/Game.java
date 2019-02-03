@@ -5,16 +5,12 @@ import org.jsfml.window.Keyboard;
 import org.jsfml.window.event.Event;
 import org.jsfml.window.event.MouseEvent;
 
-import java.util.concurrent.CopyOnWriteArraySet;
-
-import java.awt.AWTException;
-import java.awt.Rectangle;
-import java.awt.Robot;
-import java.awt.Toolkit;
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import javax.imageio.ImageIO;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 
 public class Game
@@ -96,28 +92,30 @@ public class Game
                 clocker = 0;
             }
 
-            boolean playerCanMove = true;
+            int playerCanMove = 0;
             for (Collidable c : collidables) {
                 if (c instanceof Player) {
                     continue;
                 }
-                if (c instanceof Environment && 0 < Helper.checkOverlap(player, c)) {
-                    System.out.println("The player is unable to move");
-                    playerCanMove = false;
-                    break;
+                if (c instanceof Environment) {
+                    int overlap = Helper.checkOverlap(player, c);
+                    if (0 < overlap) {
+                        playerCanMove = overlap;
+                        break;
+                    }
                 }
             }
 
-            if (playerCanMove && Keyboard.isKeyPressed(Keyboard.Key.W)) {
+            if ((playerCanMove == 0 || playerCanMove == 2 || playerCanMove == 5 || playerCanMove == 6 || playerCanMove == 9 || playerCanMove == 10 || playerCanMove == 11) && Keyboard.isKeyPressed(Keyboard.Key.W)) {
                 player.moveUp();
             }
-            if (playerCanMove && Keyboard.isKeyPressed(Keyboard.Key.A)) {
+            if ((playerCanMove == 0 || playerCanMove == 3 || playerCanMove == 6 || playerCanMove == 8 || playerCanMove == 10 || playerCanMove == 11 || playerCanMove == 12) && Keyboard.isKeyPressed(Keyboard.Key.A)) {
                 player.moveLeft();
             }
-            if (playerCanMove && Keyboard.isKeyPressed(Keyboard.Key.S)) {
+            if ((playerCanMove == 0 || playerCanMove == 4 || playerCanMove == 7 || playerCanMove == 8 || playerCanMove == 9 || playerCanMove == 10 || playerCanMove == 12) && Keyboard.isKeyPressed(Keyboard.Key.S)) {
                 player.moveDown();
             }
-            if (playerCanMove && Keyboard.isKeyPressed(Keyboard.Key.D)) {
+            if ((playerCanMove == 0 || playerCanMove == 3 || playerCanMove == 6 || playerCanMove == 8 || playerCanMove == 10 || playerCanMove == 11 || playerCanMove == 12) && Keyboard.isKeyPressed(Keyboard.Key.D)) {
                 player.moveRight();
             }
             clocker++;

@@ -99,31 +99,75 @@ public class Helper
     /**
      * Checks whether or not 2 character objects are overlapping
      * The return codes are as follows:
-     *   0: The 2 objects are not overlapping
-     *   1: Top left corner is overlapping the object
-     *   2: Top right corner is overlapping the object
-     *   3. Bottom right corner is overlapping the object
-     *   4: Bottom left corner is overlapping the object
+     *   0: Player can move anywhere
+     *   1: Player can move left
+     *   2: Player can move up
+     *   3: Player can move right
+     *   4: Player can move down
+     *   5: Player can move up and left
+     *   6: Player can move up and right
+     *   7: Player can move down and left
+     *   8: Player can move down and right
+     *   9: Player can move up, down and left
+     *   10: Player can move up, down and right
+     *   11: Player can move up, left and right
+     *   12: Player can move down, left and right
      * @param o1 (Character) The character to check against other characters
      * @param o2 (Character) The character to check against
      * @return (int) Whether or no the characters are overlapping
      */
     public static int checkOverlap(Collidable o1, Collidable o2)
     {
+        // Generate information about object 1
         FloatRect o1Bound = new FloatRect(o1.getX(), o1.getY(), o1.getWidth(), o1.getHeight());
+        Vector2i o1Center = new Vector2i(
+                (int) (o1Bound.left + (o1Bound.width / 2)),
+                (int) (o1Bound.top + (o1Bound.height / 2))
+        );
 
-        Vector2f topleft = new Vector2f(o2.getX(), o2.getHeight());
-        Vector2f topright = new Vector2f(o2.getX() + o2.getWidth(), o2.getY());
-        Vector2f bottomleft = new Vector2f(o2.getX(), o2.getY() + o2.getHeight());
-        Vector2f bottomright = new Vector2f(o2.getX() + o2.getWidth(), o2.getY() + o2.getHeight());
+        // Generate information about object 2
+        FloatRect o2Bound = new FloatRect(o2.getX(), o2.getY(), o2.getWidth(), o2.getHeight());
+        Vector2i o2Center = new Vector2i(
+                (int) (o2Bound.left + (o2Bound.width / 2)),
+                (int) (o2Bound.top + (o2Bound.height / 2))
+        );
 
-        if (!o1Bound.contains(topleft) && !o1Bound.contains(topright) && !o1Bound.contains(bottomleft) && !o1Bound.contains(bottomright)) {
+        if (o1Bound.intersection(o2Bound) == null) {
+            // If there is no intersection in the 2 collidables then they are not
+            // overlapping
             return 0;
         }
 
-        System.out.println(o1Bound);
-        System.out.println(topleft + " | " + topright + " | " + bottomleft + " | " + bottomright);
-        return 1;
+        double angle = getAngleBetweenPoints(o1Center, o2Center);
+
+        /*System.out.println(
+                o1Bound + " overlaps " + o2Bound +
+                " with " + o1Bound.intersection(o2Bound) +
+                " at an angle of " + angle
+        );*/
+
+        // These statements check for a sideways collision
+        if (85 < angle && angle < 95) {
+            return 9;
+        } else if (175 < angle && angle < 185) {
+            return 11;
+        } else if (265 < angle && angle < 275) {
+            return 10;
+        } else if ((355 < angle && angle < 360) || (0 < angle && angle < 5)) {
+            return 12;
+        }
+
+        if (5 < angle && angle < 85) {
+            return 7;
+        } else if (95 < angle && angle < 175) {
+            return 5;
+        } else if (185 < angle && angle < 265) {
+            return 6;
+        } else if (275 < angle && angle < 355) {
+            return 8;
+        }
+
+        throw new AssertionError("Invalid angle (" + angle + ")");
     }
 
     /**
