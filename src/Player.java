@@ -7,7 +7,7 @@ import org.jsfml.system.Vector2f;
  */
 public class Player extends Character
 {
-    private static String imageName = "res/zombie.png";
+    private static String imageName = "res/player.png";
     private Powerup currentPowerup = null;
 
     /**
