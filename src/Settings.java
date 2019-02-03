@@ -6,8 +6,7 @@ import org.jsfml.window.VideoMode;
 import javax.sound.sampled.Clip;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Random;
+import java.util.*;
 
 public class Settings
 {
@@ -30,8 +29,20 @@ public class Settings
     public static final Color GREY = new Color(169, 169, 169);
     public static final Color DARK_GREY = new Color(105, 105, 105);
 
-    // Cached texture files
+    // Cached objects
     public static HashMap<String, Texture> LOADED_IMAGES = new HashMap<>();
+    public static final Set<Integer> MOVE_LEFT_SET = new HashSet<>(Arrays.asList(
+            12, 11, 10, 8, 6, 3, 0
+    ));
+    public static final Set<Integer> MOVE_UP_SET = new HashSet<>(Arrays.asList(
+            11, 10, 9, 6, 5, 2, 0
+    ));
+    public static final Set<Integer> MOVE_RIGHT_SET = new HashSet<>(Arrays.asList(
+            12, 11, 10, 8, 6, 3, 0
+    ));
+    public static final Set<Integer> MOVE_DOWN_SET = new HashSet<>(Arrays.asList(
+            12, 10, 9, 9, 7, 4, 0
+    ));
 
     // Values in CSV files mapped to game objects
     public static HashMap<Integer, String> CSV_KEYS = new HashMap<>();

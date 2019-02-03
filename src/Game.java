@@ -106,16 +106,16 @@ public class Game
                 }
             }
 
-            if ((playerCanMove == 0 || playerCanMove == 2 || playerCanMove == 5 || playerCanMove == 6 || playerCanMove == 9 || playerCanMove == 10 || playerCanMove == 11) && Keyboard.isKeyPressed(Keyboard.Key.W)) {
+            if (Settings.MOVE_UP_SET.contains(playerCanMove) && Keyboard.isKeyPressed(Keyboard.Key.W)) {
                 player.moveUp();
             }
-            if ((playerCanMove == 0 || playerCanMove == 3 || playerCanMove == 6 || playerCanMove == 8 || playerCanMove == 10 || playerCanMove == 11 || playerCanMove == 12) && Keyboard.isKeyPressed(Keyboard.Key.A)) {
+            if (Settings.MOVE_LEFT_SET.contains(playerCanMove) && Keyboard.isKeyPressed(Keyboard.Key.A)) {
                 player.moveLeft();
             }
-            if ((playerCanMove == 0 || playerCanMove == 4 || playerCanMove == 7 || playerCanMove == 8 || playerCanMove == 9 || playerCanMove == 10 || playerCanMove == 12) && Keyboard.isKeyPressed(Keyboard.Key.S)) {
+            if (Settings.MOVE_DOWN_SET.contains(playerCanMove) && Keyboard.isKeyPressed(Keyboard.Key.S)) {
                 player.moveDown();
             }
-            if ((playerCanMove == 0 || playerCanMove == 3 || playerCanMove == 6 || playerCanMove == 8 || playerCanMove == 10 || playerCanMove == 11 || playerCanMove == 12) && Keyboard.isKeyPressed(Keyboard.Key.D)) {
+            if (Settings.MOVE_RIGHT_SET.contains(playerCanMove) && Keyboard.isKeyPressed(Keyboard.Key.D)) {
                 player.moveRight();
             }
             clocker++;

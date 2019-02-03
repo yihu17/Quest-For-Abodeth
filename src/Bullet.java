@@ -1,3 +1,8 @@
+/**
+ * Class that describes a bullet. Once fired, a bullet will travel in a straight
+ * line across the map and then disappear when it is off the screen. If the bullet
+ * hits a collidable it will disappear.
+ */
 public class Bullet extends Image implements Movable, Collidable
 {
     private float x;
@@ -23,6 +28,10 @@ public class Bullet extends Image implements Movable, Collidable
         this.y = y;
     }
 
+    /**
+     * Increase the x and y coordinates of the bullet
+     * and set the position of the image
+     */
     @Override
     public void move()
     {
@@ -31,30 +40,52 @@ public class Bullet extends Image implements Movable, Collidable
         this.setPosition(x, y);
     }
 
+    /**
+     * Override the toString method to make it easier to understand
+     * where bullets are
+     *
+     * @return (String) This bullet as a string
+     */
     @Override
     public String toString()
     {
         return "<Bullet " + this.hashCode() + " @ [" + x + ", " + y + "] w/ angle " + angle + ">";
     }
 
+    /**
+     * Returns the X position of this bullet
+     * @return (float) X coordinate
+     */
     @Override
     public float getX()
     {
         return x;
     }
 
+    /**
+     * Returns the Y position of this bullet
+     * @return (float) Y coordinate
+     */
     @Override
     public float getY()
     {
         return y;
     }
 
+    /**
+     * Returns the height of the image used by the bullet
+     * @return (float) Height of the bullet
+     */
     @Override
     public float getHeight()
     {
         return this.getWidth();
     }
 
+    /**
+     * Returns the width of the image used by the bullet
+     * @return (float0 Width of the bullet
+     */
     @Override
     public float getWidth()
     {

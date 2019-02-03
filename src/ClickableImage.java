@@ -1,5 +1,8 @@
 import org.jsfml.system.Vector2f;
 
+/**
+ * An image that can be clicked
+ */
 public class ClickableImage extends Image implements Clickable
 {
     private EventHandler handler = null;
