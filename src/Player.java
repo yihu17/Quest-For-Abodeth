@@ -9,6 +9,7 @@ public class Player extends Character
 {
     private static String imageName = "res/player.png";
     private Powerup currentPowerup = null;
+    private int speed = 5;
 
     /**
      * Creates a new player instance based off of the imageName image
