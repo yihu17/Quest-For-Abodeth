@@ -112,14 +112,14 @@ public class Helper
      *   10: Player can move up, down and right
      *   11: Player can move up, left and right
      *   12: Player can move down, left and right
-     * @param o1 (Character) The character to check against other characters
-     * @param o2 (Character) The character to check against
+     * @param o1 (Collidable) The character to check against other characters
+     * @param o2 (Collidable) The character to check against
      * @return (int) Whether or no the characters are overlapping
      */
     public static int checkOverlap(Collidable o1, Collidable o2)
     {
         // Generate information about object 1
-        FloatRect o1Bound = new FloatRect(o1.getX(), o1.getY(), o1.getWidth(), o1.getHeight());
+        FloatRect o1Bound = new FloatRect(o1.getX() - 10, o1.getY() - 10, o1.getWidth() + 10, o1.getHeight() + 10);
         Vector2i o1Center = new Vector2i(
                 (int) (o1Bound.left + (o1Bound.width / 2)),
                 (int) (o1Bound.top + (o1Bound.height / 2))
@@ -140,11 +140,11 @@ public class Helper
 
         double angle = getAngleBetweenPoints(o1Center, o2Center);
 
-        /*System.out.println(
+        System.out.println(
                 o1Bound + " overlaps " + o2Bound +
                 " with " + o1Bound.intersection(o2Bound) +
                 " at an angle of " + angle
-        );*/
+        );
 
         // These statements check for a sideways collision
         if (85 < angle && angle < 95) {
