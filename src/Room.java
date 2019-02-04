@@ -123,7 +123,7 @@ public class Room implements Drawable
             for (int j = 0; j < Settings.ROOM_DIVISION_COLUMNS; j++)
 			{
                 String elementRead = Settings.CSV_KEYS.get(Integer.parseInt(roomLayout.get(i).get(j)));
-                String filePath = "res/assets/" + elementRead + ".png";
+                String filePath = "res/assets/environment/" + elementRead + ".png";
                 switch (elementRead) {
                     case "wall":
                         roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);

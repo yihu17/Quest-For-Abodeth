@@ -3,28 +3,7 @@ public class DamagePlus extends Pickup {
 
     public DamagePlus(int x, int y)
     {
-        super(x, y, "res/damage-plus.png");
+        super(x, y, "res/assets/pickups/damage-plus.png");
     }
-
-    @Override
-    public float getX() {
-        return 0;
-    }
-
-    @Override
-    public float getY() {
-        return 0;
-    }
-
-    @Override
-    public float getHeight() {
-        return 0;
-    }
-
-    @Override
-    public float getWidth() {
-        return 0;
-    }
-
     //function for when picked up/ used:
 }

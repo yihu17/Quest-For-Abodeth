@@ -13,7 +13,7 @@ public abstract class Character implements Drawable, Collidable
     private int x;
     private int y;
     private int health;
-    private int movementSpeed = 5;
+    private int movementSpeed;
     private Image image;
     private int damage = 5;
 
