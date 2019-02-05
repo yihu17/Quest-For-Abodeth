@@ -167,6 +167,10 @@ public abstract class Character implements Drawable, Collidable
         this.movementSpeed = speed;
     }
 
+    public int getMovementSpeed() {
+        return movementSpeed;
+    }
+
     /**
      * Decrease the characters health by the specified amount. If the health of the character
      * falls below 0 then the kill function is called

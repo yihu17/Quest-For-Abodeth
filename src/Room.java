@@ -282,13 +282,13 @@ public class Room implements Drawable
                         pickups.add(new AmmoPickup(generatedSpawnLocation[0], generatedSpawnLocation[1]));
                         break;
                     case "shieldPickup":
-                        pickups.add(new ShieldPickup(generatedSpawnLocation[0], generatedSpawnLocation[1], 20));
+                        pickups.add(new ShieldPickup(generatedSpawnLocation[0], generatedSpawnLocation[1], 20000));
                         break;
                     case "speedPickupUp":
-                        pickups.add(new SpeedPickupUp(generatedSpawnLocation[0], generatedSpawnLocation[1], 15));
+                        pickups.add(new SpeedPickupUp(generatedSpawnLocation[0], generatedSpawnLocation[1], 15000));
                         break;
                     case "speedPickupDown":
-                        pickups.add(new SpeedPickupDown(generatedSpawnLocation[0], generatedSpawnLocation[1], 10));
+                        pickups.add(new SpeedPickupDown(generatedSpawnLocation[0], generatedSpawnLocation[1], 10000));
                         break;
                     case "damagePickup":
                         pickups.add(new DamagePlus(generatedSpawnLocation[0], generatedSpawnLocation[1]));
