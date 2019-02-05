@@ -48,7 +48,6 @@ public class Game
         currentRoom = rooms[0][0];
         this.scanRoom();
         //System.out.println("Number of collidable objects: " + collidables.size());
-        collidables.forEach(System.out::println);
     }
 
     public void run()
@@ -143,11 +142,12 @@ public class Game
     private void scanRoom()
     {
         collidables.addAll(currentRoom.getCollidables());
+
     }
 
     private void moveMovables()
     {
-        movables.forEach(Movable::move);
+        //movables.forEach(Movable::move);
         movables.forEach(movable -> {
             if (movable.getX() < -50 || Settings.WINDOW_WIDTH + 50 < movable.getX()) {
                 if (movable.getY() < -50 || Settings.WINDOW_HEIGHT + 50 < movable.getY()) {
