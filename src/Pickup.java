@@ -2,17 +2,15 @@ import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.RenderStates;
 import org.jsfml.graphics.RenderTarget;
 
-public abstract class Pickup implements Drawable, Powerup
-{
-    private int xPos;
-    private int yPos;
+public abstract class Pickup implements Drawable, Powerup {
+    float xPos;
+    float yPos;
     private Image image;
 
-    public Pickup(int xPos, int yPos, String imageFilePath)
-    {
+    public Pickup(float xPos, float yPos, String imageFilePath) {
         this.xPos = xPos;
         this.yPos = yPos;
-        this.image = new Image(xPos, yPos, imageFilePath);
+        this.image = new Image((int)xPos, (int)yPos, imageFilePath);
     }
 
     @Override

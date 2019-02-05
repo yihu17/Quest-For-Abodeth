@@ -9,14 +9,13 @@ public class Player extends Character
 {
     private static String imageName = "res/player.png";
     private Powerup currentPowerup = null;
-    private int speed = 5;
 
     /**
      * Creates a new player instance based off of the imageName image
      */
     public Player()
     {
-        super(300, 300, 100, imageName);
+        super(250, 250, 100, imageName, 6);
     }
 
     public void switchWeapon()

@@ -25,12 +25,13 @@ public abstract class Character implements Drawable, Collidable
      * @param health (int) Health of the character
      * @param image  (String) Name of the image to load
      */
-    public Character(int x, int y, int health, String image)
+    public Character(int x, int y, int health, String image, int movementSpeed)
     {
         this.x = x;
         this.y = y;
         this.health = health;
         this.image = new Image(x, y, image);
+        this.movementSpeed = movementSpeed;
     }
 
     public void setDamage(int damage)
@@ -164,6 +165,10 @@ public abstract class Character implements Drawable, Collidable
     public void setMovementSpeed(int speed)
     {
         this.movementSpeed = speed;
+    }
+
+    public int getMovementSpeed() {
+        return movementSpeed;
     }
 
     /**

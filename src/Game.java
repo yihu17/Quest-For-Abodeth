@@ -118,6 +118,24 @@ public class Game
             if (Settings.MOVE_RIGHT_SET.contains(playerCanMove) && Keyboard.isKeyPressed(Keyboard.Key.D)) {
                 player.moveRight();
             }
+
+            //move towards enemy
+            for (int i = 0; i < rooms[0][0].getEnemies().size(); i++) {
+                if (player.getX() >= rooms[0][0].getEnemies().get(i).getX()) {
+                    rooms[0][0].getEnemies().get(i).moveRight();
+                }
+                if (player.getX() <= rooms[0][0].getEnemies().get(i).getX()) {
+                    rooms[0][0].getEnemies().get(i).moveLeft();
+                }
+                if (player.getY() >= rooms[0][0].getEnemies().get(i).getY()) {
+                    rooms[0][0].getEnemies().get(i).moveDown();
+                }
+                if (player.getY() <= rooms[0][0].getEnemies().get(i).getY()) {
+                    rooms[0][0].getEnemies().get(i).moveUp();
+                }
+            }
+
+
             clocker++;
         }
     }

@@ -1,31 +1,24 @@
-public class SpeedPickupUp extends Pickup {
+public class SpeedPickupUp extends Pickup implements Runnable{
     private int timeout;
+    private int addSpeed = 50;
 
     public SpeedPickupUp(int x, int y, int timeout) {
-
         super(x, y, "res/assets/pickups/speed-pickup-up.png");
         this.timeout = timeout;
     }
 
-    @Override
-    public float getX() {
-        return 0;
-    }
-
-    @Override
-    public float getY() {
-        return 0;
-    }
-
-    @Override
-    public float getHeight() {
-        return 0;
-    }
-
-    @Override
-    public float getWidth() {
-        return 0;
+    private void buff(Player p) {
+        p.setMovementSpeed(p.getMovementSpeed() + addSpeed);
     }
 
     //function for when picked up/ used:
+    public void run() {
+        try {
+            System.out.println("Speed up applied");
+            Thread.sleep(timeout);
+            System.out.println("Speed up ends");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 }
