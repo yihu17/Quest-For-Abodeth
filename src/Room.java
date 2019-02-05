@@ -129,7 +129,9 @@ public class Room implements Drawable
                         roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
                         break;
                     case "floor":
-                        roomImages[i][j] = new Environment(spacing * j, spacing * i, filePath, false);
+                        int floorNum = Settings.GENERATOR.nextInt(4) + 1;
+                        System.out.println(floorNum);
+                        roomImages[i][j] = new Environment(spacing * j, spacing * i, "res/assets/environment/floor/floor" + floorNum + ".png", false);
                         break;
                     case "door":
                         roomImages[i][j] = new InteractableEnvironment(spacing * j, spacing * i, filePath);
