@@ -149,7 +149,7 @@ public class Game
 
     private void moveMovables()
     {
-        //movables.forEach(Movable::move);
+        movables.forEach(Movable::move);
         movables.forEach(movable -> {
             if (movable.getX() < -50 || Settings.WINDOW_WIDTH + 50 < movable.getX()) {
                 if (movable.getY() < -50 || Settings.WINDOW_HEIGHT + 50 < movable.getY()) {
