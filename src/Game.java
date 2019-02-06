@@ -10,7 +10,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.function.Consumer;
 
 
 public class Game
@@ -91,7 +93,8 @@ public class Game
                 clocker = 0;
             }
 
-            int playerCanMove = 0;
+            HashSet<Integer> playerCanMove = new HashSet<>();
+            int moveValues = 0;
             for (Collidable c : collidables) {
                 if (c instanceof Player) {
                     continue;
@@ -99,7 +102,7 @@ public class Game
                 if (c instanceof Environment) {
                     int overlap = Helper.checkOverlap(player, c);
                     if (0 < overlap) {
-                        playerCanMove += overlap;
+                        playerCanMove.add(overlap);
                     }
                 }
 
@@ -110,19 +113,21 @@ public class Game
                     }
                 }
             }
-            System.out.println("Player movement value: " + playerCanMove);
+            for(Integer i: playerCanMove) {
+                moveValues += i;
+            }
+            System.out.println("Player movement value: " + moveValues);
 
-
-            if (Settings.MOVE_UP_SET.contains(playerCanMove) && Keyboard.isKeyPressed(Keyboard.Key.W)) {
+            if (Settings.MOVE_UP_SET.contains(moveValues) && Keyboard.isKeyPressed(Keyboard.Key.W)) {
                 player.moveUp();
             }
-            if (Settings.MOVE_LEFT_SET.contains(playerCanMove) && Keyboard.isKeyPressed(Keyboard.Key.A)) {
+            if (Settings.MOVE_LEFT_SET.contains(moveValues) && Keyboard.isKeyPressed(Keyboard.Key.A)) {
                 player.moveLeft();
             }
-            if (Settings.MOVE_DOWN_SET.contains(playerCanMove) && Keyboard.isKeyPressed(Keyboard.Key.S)) {
+            if (Settings.MOVE_DOWN_SET.contains(moveValues) && Keyboard.isKeyPressed(Keyboard.Key.S)) {
                 player.moveDown();
             }
-            if (Settings.MOVE_RIGHT_SET.contains(playerCanMove) && Keyboard.isKeyPressed(Keyboard.Key.D)) {
+            if (Settings.MOVE_RIGHT_SET.contains(moveValues) && Keyboard.isKeyPressed(Keyboard.Key.D)) {
                 player.moveRight();
             }
 
