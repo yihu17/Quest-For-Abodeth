@@ -97,21 +97,8 @@ public class Helper
     }
 
     /**
-     * Checks whether or not 2 character objects are overlapping
-     * The return codes are as follows:
-     *   0: Player can move anywhere
-     *   1: Player can move left
-     *   2: Player can move up
-     *   3: Player can move right
-     *   4: Player can move down
-     *   5: Player can move up and left
-     *   6: Player can move up and right
-     *   7: Player can move down and left
-     *   8: Player can move down and right
-     *   9: Player can move up, down and left
-     *   10: Player can move up, down and right
-     *   11: Player can move up, left and right
-     *   12: Player can move down, left and right
+     * Checks whether or not 2 character objects are overlapping and where the overlap has
+     * occurred
      * @param o1 (Collidable) The character to check against other characters
      * @param o2 (Collidable) The character to check against
      * @return (int) Whether or no the characters are overlapping
@@ -181,6 +168,11 @@ public class Helper
 
         double xBar = Math.abs(xDiff);
         double yBar = Math.abs(yDiff);
+
+        /*
+            Depending on which quadrant the angle is in we need to add
+            the offset
+         */
         switch (quadrant) {
             case 1:
                 return Math.toDegrees(Math.atan2(xBar, yBar));
