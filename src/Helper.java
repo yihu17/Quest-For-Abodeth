@@ -119,7 +119,7 @@ public class Helper
     public static int checkOverlap(Collidable o1, Collidable o2)
     {
         // Generate information about object 1
-        FloatRect o1Bound = new FloatRect(o1.getX() - 10, o1.getY() - 10, o1.getWidth() + 10, o1.getHeight() + 10);
+        FloatRect o1Bound = new FloatRect(o1.getX() - 5, o1.getY() - 5, o1.getWidth() + 10, o1.getHeight() + 10);
         Vector2i o1Center = new Vector2i(
                 (int) (o1Bound.left + (o1Bound.width / 2)),
                 (int) (o1Bound.top + (o1Bound.height / 2))
