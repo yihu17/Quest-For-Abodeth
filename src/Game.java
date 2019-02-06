@@ -10,9 +10,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.concurrent.CopyOnWriteArraySet;
-import java.util.function.Consumer;
 
 
 public class Game
@@ -27,6 +25,8 @@ public class Game
     private CopyOnWriteArraySet<Drawable> drawables = new CopyOnWriteArraySet<>();
     private CopyOnWriteArraySet<Collidable> collidables = new CopyOnWriteArraySet<>();
 
+    private PlayerThread playerThread;
+
     public Game(RenderWindow window)
     {
         Settings.AUDIO_STREAMER.stop();
@@ -37,6 +37,8 @@ public class Game
         DamagePlus d = new DamagePlus(0, 0);
         drawables.add(d);
         collidables.add(d);
+
+        playerThread = new PlayerThread(player, collidables);
 
 
         // Read the CSV file
@@ -93,30 +95,15 @@ public class Game
                 clocker = 0;
             }
 
-            HashSet<Integer> playerCanMove = new HashSet<>();
-            int moveValues = 0;
-            for (Collidable c : collidables) {
-                if (c instanceof Player) {
-                    continue;
-                }
-                if (c instanceof Environment) {
-                    int overlap = Helper.checkOverlap(player, c);
-                    if (0 < overlap) {
-                        playerCanMove.add(overlap);
-                    }
-                }
+            playerThread.run();
+            try {
+                playerThread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            int moveValues = playerThread.getReturnValue();
 
-                if (c instanceof Powerup) {
-                    int overlap = Helper.checkOverlap(player, c);
-                    if (0 < overlap) {
-                        ((Powerup) c).applyBuff(player);
-                    }
-                }
-            }
-            for(Integer i: playerCanMove) {
-                moveValues += i;
-            }
-            System.out.println("Player movement value: " + moveValues);
+
 
             if (Settings.MOVE_UP_SET.contains(moveValues) && Keyboard.isKeyPressed(Keyboard.Key.W)) {
                 player.moveUp();
