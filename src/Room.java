@@ -177,7 +177,6 @@ public class Room implements Drawable
 	}
 
     private void spawnEnemies() {
-        /*
         for (int i = 0; i < enemyInfo.size(); i++) {
             String enemyRead = Settings.CSV_KEYS.get(enemyInfo.get(i)[0]);
             String filePath = "res/assets/enemies/" + enemyRead + ".png";
@@ -214,7 +213,6 @@ public class Room implements Drawable
                 }
             }
         }
-        */
     }
 
     private int[] generateSpawnLocation() {
