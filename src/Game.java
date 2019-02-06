@@ -99,11 +99,12 @@ public class Game
                 if (c instanceof Environment) {
                     int overlap = Helper.checkOverlap(player, c);
                     if (0 < overlap) {
-                        playerCanMove = overlap;
-                        break;
+                        playerCanMove += overlap;
                     }
                 }
             }
+            System.out.println("Player movement value: " + playerCanMove);
+
 
             if (Settings.MOVE_UP_SET.contains(playerCanMove) && Keyboard.isKeyPressed(Keyboard.Key.W)) {
                 player.moveUp();

@@ -140,34 +140,18 @@ public class Helper
 
         double angle = getAngleBetweenPoints(o1Center, o2Center);
 
-/*        System.out.println(
-                o1Bound + " overlaps " + o2Bound +
-                " with " + o1Bound.intersection(o2Bound) +
-                " at an angle of " + angle
-        );*/
-
-        // These statements check for a sideways collision
-        if (85 < angle && angle < 95) {
-            return 9;
-        } else if (175 < angle && angle < 185) {
-            return 11;
-        } else if (265 < angle && angle < 275) {
-            return 10;
-        } else if ((355 < angle && angle < 360) || (0 < angle && angle < 5)) {
-            return 12;
-        }
-
-        if (5 < angle && angle < 85) {
-            return 7;
-        } else if (95 < angle && angle < 175) {
-            return 5;
-        } else if (185 < angle && angle < 265) {
-            return 6;
-        } else if (275 < angle && angle < 355) {
+        if ((325 <= angle && angle <= 360) || (0 <= angle && angle <= 35)) {
+            return 1;
+        } else if (55 <= angle && angle <= 125) {
+            return 2;
+        } else if (145 <= angle && angle <= 215) {
+            return 4;
+        } else if (235 <= angle && angle <= 305) {
             return 8;
         }
 
-        throw new AssertionError("Invalid angle (" + angle + ")");
+        return 0;
+        //throw new AssertionError("Invalid angle (" + angle + ")");
     }
 
     /**
