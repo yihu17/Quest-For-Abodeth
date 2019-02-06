@@ -19,7 +19,7 @@ public class Bullet extends Image implements Movable, Collidable
      */
     public Bullet(int x, int y, double angle)
     {
-        super(x, y, "res/temp-ico.png");
+        super(x, y, "res/assets/weapons/bullet.png");
         this.setScale(Helper.getScaleValue(64, 64, 16, 16));
         this.angle = angle;
         this.xSpeed = Settings.BULLET_SPEED * Math.sin(Math.toRadians(angle));

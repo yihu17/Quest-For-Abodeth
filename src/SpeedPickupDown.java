@@ -27,4 +27,13 @@ public class SpeedPickupDown extends Pickup {
     }
 
     //function for when picked up/ used:
+    @Override
+    public void applyBuff(Player p) {
+
+    }
+
+    @Override
+    public void removeBuff(Player p) {
+
+    }
 }

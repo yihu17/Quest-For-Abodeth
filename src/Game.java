@@ -103,6 +103,8 @@ public class Game
                         break;
                     }
                 }
+
+                //if instance of pickup
             }
 
             if (Settings.MOVE_UP_SET.contains(playerCanMove) && Keyboard.isKeyPressed(Keyboard.Key.W)) {
