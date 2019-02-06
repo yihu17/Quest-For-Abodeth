@@ -32,16 +32,16 @@ public class Settings
     // Cached objects
     public static HashMap<String, Texture> LOADED_IMAGES = new HashMap<>();
     public static final Set<Integer> MOVE_LEFT_SET = new HashSet<>(Arrays.asList(
-            0, 1, 2, 4, 9, 12
+            0, 1, 2, 4, 3, 6
     ));
     public static final Set<Integer> MOVE_UP_SET = new HashSet<>(Arrays.asList(
-            0, 2, 3, 4, 8, 9
+            0, 2, 4, 8, 6, 12
     ));
     public static final Set<Integer> MOVE_RIGHT_SET = new HashSet<>(Arrays.asList(
-            0, 1, 4, 6, 3, 8
+            0, 1, 4, 8, 12, 9
     ));
     public static final Set<Integer> MOVE_DOWN_SET = new HashSet<>(Arrays.asList(
-            0, 1, 2, 6, 8, 12
+            0, 1, 2, 8, 3, 9
     ));
 
     // Values in CSV files mapped to game objects
