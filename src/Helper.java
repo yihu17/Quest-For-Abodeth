@@ -140,11 +140,11 @@ public class Helper
 
         double angle = getAngleBetweenPoints(o1Center, o2Center);
 
-        System.out.println(
+/*        System.out.println(
                 o1Bound + " overlaps " + o2Bound +
                 " with " + o1Bound.intersection(o2Bound) +
                 " at an angle of " + angle
-        );
+        );*/
 
         // These statements check for a sideways collision
         if (85 < angle && angle < 95) {
