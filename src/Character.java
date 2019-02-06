@@ -185,6 +185,11 @@ public abstract class Character implements Drawable, Collidable
         }
     }
 
+    public int getHealth()
+    {
+        return health;
+    }
+
     /**
      * Increase the health of the character by the specified amount
      *

@@ -130,7 +130,7 @@ public class Room implements Drawable
                         break;
                     case "floor":
                         int floorNum = Settings.GENERATOR.nextInt(4) + 1;
-                        System.out.println(floorNum);
+                        //System.out.println(floorNum);
                         roomImages[i][j] = new Environment(spacing * j, spacing * i, "res/assets/environment/floor/floor" + floorNum + ".png", false);
                         break;
                     case "door":

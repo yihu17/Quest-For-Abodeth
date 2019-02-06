@@ -10,6 +10,7 @@ public class Bullet extends Image implements Movable, Collidable
     private double xSpeed;
     private double ySpeed;
     private double angle;
+    private int damage;
 
     /**
      * Creates a new image object.
@@ -25,6 +26,17 @@ public class Bullet extends Image implements Movable, Collidable
         this.xSpeed = Settings.BULLET_SPEED * Math.sin(Math.toRadians(angle));
         this.ySpeed = Settings.BULLET_SPEED * Math.cos(Math.toRadians(angle)) * -1;
         this.x = x;
+        this.y = y;
+        this.damage = 5;
+    }
+
+    public void setX(float x)
+    {
+        this.x = x;
+    }
+
+    public void setY(float y)
+    {
         this.y = y;
     }
 
@@ -79,7 +91,7 @@ public class Bullet extends Image implements Movable, Collidable
     @Override
     public float getHeight()
     {
-        return this.getWidth();
+        return this.getGlobalBounds().height;
     }
 
     /**
@@ -89,6 +101,11 @@ public class Bullet extends Image implements Movable, Collidable
     @Override
     public float getWidth()
     {
-        return this.getHeight();
+        return this.getGlobalBounds().width;
+    }
+
+    public int getDamage()
+    {
+        return damage;
     }
 }

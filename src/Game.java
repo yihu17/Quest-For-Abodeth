@@ -24,8 +24,9 @@ public class Game
     private CopyOnWriteArraySet<Movable> movables = new CopyOnWriteArraySet<>();
     private CopyOnWriteArraySet<Drawable> drawables = new CopyOnWriteArraySet<>();
     private CopyOnWriteArraySet<Collidable> collidables = new CopyOnWriteArraySet<>();
+    private CopyOnWriteArraySet<Bullet> bullets = new CopyOnWriteArraySet<>();
 
-    private PlayerThread playerThread;
+    private Thread[] checkerThreads;
 
     public Game(RenderWindow window)
     {
@@ -38,7 +39,9 @@ public class Game
         drawables.add(d);
         collidables.add(d);
 
-        playerThread = new PlayerThread(player, collidables);
+        checkerThreads = new Thread[2];
+        checkerThreads[0] = new PlayerThread(player, collidables);
+        checkerThreads[1] = new BulletThread(bullets, collidables);
 
 
         // Read the CSV file
@@ -51,7 +54,6 @@ public class Game
 
         currentRoom = rooms[0][0];
         this.scanRoom();
-        //System.out.println("Number of collidable objects: " + collidables.size());
     }
 
     public void run()
@@ -86,6 +88,7 @@ public class Game
                     movables.add(b);
                     drawables.add(b);
                     collidables.add(b);
+                    bullets.add(b);
                 }
             }
 
@@ -95,15 +98,17 @@ public class Game
                 clocker = 0;
             }
 
-            playerThread.run();
+            for (Thread t : checkerThreads) {
+                t.run();
+            }
             try {
-                playerThread.join();
+                for (Thread t : checkerThreads) {
+                    t.join();
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            int moveValues = playerThread.getReturnValue();
-
-
+            int moveValues = ((PlayerThread) checkerThreads[0]).getReturnValue();
 
             if (Settings.MOVE_UP_SET.contains(moveValues) && Keyboard.isKeyPressed(Keyboard.Key.W)) {
                 player.moveUp();
@@ -157,6 +162,9 @@ public class Game
                     }
                     movables.remove(movable);
                     drawables.remove(movable);
+                    if (movable instanceof Bullet) {
+                        bullets.remove(movable);
+                    }
                 }
             }
         });

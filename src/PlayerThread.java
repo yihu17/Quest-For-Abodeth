@@ -19,7 +19,7 @@ public class PlayerThread extends Thread
         HashSet<Integer> playerCanMove = new HashSet<>();
         int moveValues = 0;
         for (Collidable c : collidables) {
-            if (c instanceof Player) {
+            if (c instanceof Player || c instanceof Bullet) {
                 continue;
             }
             if (c instanceof Environment) {
