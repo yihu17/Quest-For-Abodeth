@@ -102,6 +102,13 @@ public class Game
                         playerCanMove += overlap;
                     }
                 }
+
+                if (c instanceof Powerup) {
+                    int overlap = Helper.checkOverlap(player, c);
+                    if (0 < overlap) {
+                        ((Powerup) c).applyBuff(player);
+                    }
+                }
             }
             System.out.println("Player movement value: " + playerCanMove);
 

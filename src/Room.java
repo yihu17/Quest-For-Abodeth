@@ -177,6 +177,7 @@ public class Room implements Drawable
 	}
 
     private void spawnEnemies() {
+        /*
         for (int i = 0; i < enemyInfo.size(); i++) {
             String enemyRead = Settings.CSV_KEYS.get(enemyInfo.get(i)[0]);
             String filePath = "res/assets/enemies/" + enemyRead + ".png";
@@ -213,6 +214,7 @@ public class Room implements Drawable
                 }
             }
         }
+        */
     }
 
     private int[] generateSpawnLocation() {
@@ -278,7 +280,7 @@ public class Room implements Drawable
                 int[] generatedSpawnLocation = generateSpawnLocation();
                 switch (pickupRead) {
                     case "healthPickup":
-                        pickups.add(new HealthBoost(generatedSpawnLocation[0], generatedSpawnLocation[1]));
+                        pickups.add(new HealthBoost(generatedSpawnLocation[0], generatedSpawnLocation[1], 15000));
                         break;
                     case "ammoPickup":
                         pickups.add(new AmmoPickup(generatedSpawnLocation[0], generatedSpawnLocation[1]));
