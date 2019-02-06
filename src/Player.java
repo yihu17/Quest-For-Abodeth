@@ -16,6 +16,7 @@ public class Player extends Character
     public Player()
     {
         super(250, 250, 100, imageName, 6);
+        this.getImage().setScale(Helper.getScaleValue(91, 91, 64, 64));
     }
 
     public void switchWeapon()
