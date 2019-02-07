@@ -7,7 +7,7 @@ public class DamagePlus extends Pickup {
 
     public DamagePlus(int x, int y)
     {
-        super(x, y, "res/assets/pickups/damage-plus.png");
+        super(x, y, "res/assets/pickups/damagePickup.png");
     }
     //function for when picked up/ used:
 

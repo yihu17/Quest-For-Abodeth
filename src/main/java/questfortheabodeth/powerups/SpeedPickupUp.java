@@ -9,7 +9,7 @@ public class SpeedPickupUp extends Pickup
     private Player p;
 
     public SpeedPickupUp(int x, int y, int timeout) {
-        super(x, y, "res/assets/pickups/shield.png");
+        super(x, y, "res/assets/pickups/speedPickup.png");
         this.timeout = timeout;
     }
 

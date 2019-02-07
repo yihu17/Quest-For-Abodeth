@@ -1,5 +1,6 @@
 package main.java.questfortheabodeth.powerups;
 
+import main.java.questfortheabodeth.characters.Player;
 import main.java.questfortheabodeth.interfaces.Powerup;
 import main.java.questfortheabodeth.sprites.Image;
 import org.jsfml.graphics.Drawable;
@@ -17,11 +18,6 @@ public abstract class Pickup extends Thread implements Drawable, Powerup
         this.xPos = xPos;
         this.yPos = yPos;
         this.image = new Image((int)xPos, (int)yPos, imageFilePath);
-
-        /*
-        System.out.println("x = " + xPos);
-        System.out.println("y = " + yPos);
-        */
     }
 
     @Override

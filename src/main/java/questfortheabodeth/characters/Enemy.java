@@ -13,7 +13,6 @@ public class Enemy extends Character implements Movable
     {
         super(xPos, yPos, health, imageFilePath, movementSpeed);
         this.type = imageFilePath.split("/")[imageFilePath.split("/").length - 1];
-        System.out.println(imageFilePath);
     }
 
     @Override
