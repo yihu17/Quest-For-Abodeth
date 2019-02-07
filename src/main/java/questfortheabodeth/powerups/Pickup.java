@@ -17,6 +17,11 @@ public abstract class Pickup extends Thread implements Drawable, Powerup
         this.xPos = xPos;
         this.yPos = yPos;
         this.image = new Image((int)xPos, (int)yPos, imageFilePath);
+
+        /*
+        System.out.println("x = " + xPos);
+        System.out.println("y = " + yPos);
+        */
     }
 
     @Override
@@ -31,7 +36,9 @@ public abstract class Pickup extends Thread implements Drawable, Powerup
     }
 
     @Override
-    public float getX() { return xPos; }
+    public float getX() {
+        return xPos;
+    }
 
     @Override
     public float getY() {
