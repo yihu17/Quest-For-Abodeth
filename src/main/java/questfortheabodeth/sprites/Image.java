@@ -1,5 +1,6 @@
 package main.java.questfortheabodeth.sprites;
 
+import main.java.questfortheabodeth.Helper;
 import main.java.questfortheabodeth.Settings;
 import org.jsfml.graphics.*;
 import org.jsfml.system.Vector2f;
@@ -34,10 +35,15 @@ public class Image implements Drawable
         }
     }
 
+    public void flipHorizontal()
+    {
+        this.image.setTexture(Helper.flipTexture(this.image.getTexture()));
+    }
+
     /**
      * Load an image file from the file system
      *
-     * @param filename (String) main.java.questfortheabodeth.sprites.Image name to load
+     * @param filename (String) Image name to load
      */
     public void loadImageFromFile(String filename)
     {

@@ -2,8 +2,7 @@ package main.java.questfortheabodeth;
 
 import main.java.questfortheabodeth.interfaces.Clickable;
 import main.java.questfortheabodeth.interfaces.Collidable;
-import org.jsfml.graphics.FloatRect;
-import org.jsfml.graphics.RenderWindow;
+import org.jsfml.graphics.*;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
@@ -189,5 +188,27 @@ public class Helper
             default:
                 throw new AssertionError(quadrant + " is not a valid quadrant");
         }
+    }
+
+    /**
+     * Takes a sprites texture and flips it horizontally
+     * If the transform fails the original texture is returned
+     *
+     * @param t (ConstTexture) Texture to flip
+     * @return (Texture) Flipped texture
+     */
+    public static Texture flipTexture(ConstTexture t)
+    {
+        org.jsfml.graphics.Image i = t.copyToImage();
+        i.flipHorizontally();
+        Texture n = new Texture();
+        try {
+            n.loadFromImage(i);
+            return n;
+        } catch (TextureCreationException e) {
+            e.printStackTrace();
+            return (Texture) t;
+        }
+
     }
 }

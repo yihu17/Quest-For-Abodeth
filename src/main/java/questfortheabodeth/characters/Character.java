@@ -14,13 +14,13 @@ import org.jsfml.system.Vector2f;
  */
 public abstract class Character implements Drawable, Collidable
 {
+    private Facing face;
     private int x;
     private int y;
     private int health;
     private int movementSpeed;
     private Image image;
     private int damage = 5;
-
     /**
      * Sets up the character
      *
@@ -37,6 +37,20 @@ public abstract class Character implements Drawable, Collidable
         this.health = health;
         this.image = new Image(x, y, image);
         this.movementSpeed = movementSpeed;
+        this.face = Facing.RIGHT;
+    }
+
+    /**
+     * Moves this character left by the current movement speed
+     */
+    public void moveLeft()
+    {
+        if (this.face == Facing.RIGHT) {
+            this.image.flipHorizontal();
+            this.face = Facing.LEFT;
+        }
+        x -= movementSpeed;
+        updatePosition();
     }
 
     public void setDamage(int damage)
@@ -138,21 +152,21 @@ public abstract class Character implements Drawable, Collidable
     }
 
     /**
-     * Moves this character left by the current movement speed
-     */
-    public void moveLeft()
-    {
-        x -= movementSpeed;
-        updatePosition();
-    }
-
-    /**
      * Moves this character right by the current movement speed
      */
     public void moveRight()
     {
+        if (this.face == Facing.LEFT) {
+            this.image.flipHorizontal();
+            this.face = Facing.RIGHT;
+        }
         x += movementSpeed;
         updatePosition();
+    }
+
+    private enum Facing
+    {
+        LEFT, RIGHT
     }
 
     /**
