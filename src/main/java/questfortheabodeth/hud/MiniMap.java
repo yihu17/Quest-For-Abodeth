@@ -1,4 +1,4 @@
-package main.java.questfortheabodeth.environments;
+package main.java.questfortheabodeth.hud;
 
 public class MiniMap
 {
@@ -11,7 +11,7 @@ public class MiniMap
     private int[] currentRoom;
 
     /**
-     * Creates a new main.java.questfortheabodeth.environments.MiniMap of the given size
+     * Creates a new main.java.questfortheabodeth.hud.MiniMap of the given size
      *
      * @param rows (int) Number of rows
      * @param cols (int) Number of cols
@@ -22,7 +22,7 @@ public class MiniMap
     }
 
     /**
-     * Creates a new main.java.questfortheabodeth.environments.MiniMap of the given size
+     * Creates a new main.java.questfortheabodeth.hud.MiniMap of the given size
      * @param rows (int) Number of rows
      * @param cols (int) Number of cols
      * @param startX (int) Where the main.java.questfortheabodeth.characters starts in X
@@ -31,7 +31,7 @@ public class MiniMap
     public MiniMap(int rows, int cols, int startX, int startY)
     {
         rooms = new boolean[rows][cols];
-        currentRoom = new int[]{startX, startY};
+        currentRoom = new int[]{startY, startX};
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
@@ -42,6 +42,7 @@ public class MiniMap
         // Call the visit room now so the players position in
         // the map is updated
         visitRoom();
+        this.dumpMinimap();
     }
 
     /**
@@ -64,13 +65,13 @@ public class MiniMap
                 currentRoom[0] += 1;
                 break;
             default:
-                throw new IllegalStateException("How the hell did you get here. you broke Java");
+                throw new IllegalStateException("How the hell did you get here. You broke Java");
         }
         visitRoom();
     }
 
     /**
-     * Updates the main.java.questfortheabodeth.environments.MiniMap with the room the main.java.questfortheabodeth.characters is currently in
+     * Updates the main.java.questfortheabodeth.hud.MiniMap with the room the main.java.questfortheabodeth.characters is currently in
      */
     public void visitRoom()
     {
@@ -89,19 +90,5 @@ public class MiniMap
             }
             System.out.println();
         }
-    }
-
-    public static void main(String[] args)
-    {
-        MiniMap m = new MiniMap(4, 4, 1, 0);
-        m.dumpMinimap();
-
-        m.move(Directions.DOWN);
-        System.out.println("################");
-        m.dumpMinimap();
-
-        m.move(Directions.RIGHT);
-        System.out.println("################");
-        m.dumpMinimap();
     }
 }

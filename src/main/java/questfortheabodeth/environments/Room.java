@@ -36,7 +36,7 @@ public class Room implements Drawable
     public Room(int type)
     {
         this.type = type;
-        roomFile = new FileOperator("res/roomCSVs/roomDataB.csv"); //needs to get path dynamically...
+        roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomDataB.csv"); //needs to get path dynamically...
 
         readRoomData();
         loadRoomImages();
@@ -63,7 +63,7 @@ public class Room implements Drawable
     @Override
     public String toString()
     {
-        return "<main.java.questfortheabodeth.environments.Room " + type + ">";
+        return "<Room " + type + ">";
     }
 
     /**
