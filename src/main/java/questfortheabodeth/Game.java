@@ -2,14 +2,14 @@ package main.java.questfortheabodeth;
 
 import main.java.questfortheabodeth.characters.Enemy;
 import main.java.questfortheabodeth.characters.Player;
+import main.java.questfortheabodeth.environments.Environment;
 import main.java.questfortheabodeth.environments.Room;
 import main.java.questfortheabodeth.interfaces.Collidable;
 import main.java.questfortheabodeth.interfaces.Movable;
+import main.java.questfortheabodeth.interfaces.Powerup;
 import main.java.questfortheabodeth.menus.Button;
 import main.java.questfortheabodeth.menus.GameMenu;
 import main.java.questfortheabodeth.powerups.DamagePlus;
-import main.java.questfortheabodeth.threads.BulletThread;
-import main.java.questfortheabodeth.threads.PlayerThread;
 import main.java.questfortheabodeth.weapons.Bullet;
 import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.RenderWindow;
@@ -23,6 +23,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 
@@ -38,8 +39,7 @@ public class Game
     private CopyOnWriteArraySet<Drawable> drawables = new CopyOnWriteArraySet<>();
     private CopyOnWriteArraySet<Collidable> collidables = new CopyOnWriteArraySet<>();
     private CopyOnWriteArraySet<Bullet> bullets = new CopyOnWriteArraySet<>();
-
-    private Thread[] checkerThreads;
+    private CopyOnWriteArraySet<Enemy> enemies = new CopyOnWriteArraySet<>();
 
     public Game(RenderWindow window)
     {
@@ -51,11 +51,6 @@ public class Game
         DamagePlus d = new DamagePlus(0, 0);
         drawables.add(d);
         collidables.add(d);
-
-        checkerThreads = new Thread[2];
-        checkerThreads[0] = new PlayerThread(player, collidables);
-        checkerThreads[1] = new BulletThread(bullets, collidables);
-
 
         // Read the CSV file
         rooms = new Room[4][4];
@@ -92,7 +87,7 @@ public class Game
             for (Event e : window.pollEvents()) {
                 Helper.checkCloseEvents(e, window);
                 if (e.type == MouseEvent.Type.MOUSE_BUTTON_PRESSED) {
-                    // The main.java.questfortheabodeth.characters has fired a bullet
+                    // The player character has fired a bullet
                     Bullet b = new Bullet(
                             (int) player.getPlayerCenter().x,
                             (int) player.getPlayerCenter().y,
@@ -111,17 +106,10 @@ public class Game
                 clocker = 0;
             }
 
-            for (Thread t : checkerThreads) {
-                t.run();
-            }
-            try {
-                for (Thread t : checkerThreads) {
-                    t.join();
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            int moveValues = ((PlayerThread) checkerThreads[0]).getReturnValue();
+            int moveValues = runPlayerCollisions();
+            runBulletCollisions();
+            runEnemyCollisions();
+
 
             if (Settings.MOVE_UP_SET.contains(moveValues) && Keyboard.isKeyPressed(Keyboard.Key.W)) {
                 player.moveUp();
@@ -140,12 +128,79 @@ public class Game
         }
     }
 
+    private int runPlayerCollisions()
+    {
+        int moveValues = 0;
+        HashSet<Integer> playerCanMove = new HashSet<>();
+        for (Collidable c : collidables) {
+            if (c instanceof Player || c instanceof Bullet) {
+                continue;
+            }
+            if (c instanceof Environment) {
+                int overlap = Helper.checkOverlap(player, c);
+                if (0 < overlap) {
+                    playerCanMove.add(overlap);
+                }
+            }
+
+            if (c instanceof Powerup) {
+                int overlap = Helper.checkOverlap(player, c);
+                if (0 < overlap) {
+                    ((Powerup) c).applyBuff(player);
+                }
+            }
+        }
+        for (Integer i : playerCanMove) {
+            moveValues += i;
+        }
+        return moveValues;
+    }
+
+    private void runBulletCollisions()
+    {
+        for (Bullet b : bullets) {
+            for (Collidable c : collidables) {
+                if (c instanceof Bullet) {
+                    continue;
+                }
+                if (0 < Helper.checkOverlap(b, c)) {
+                    if (c instanceof Enemy) {
+                        ((Enemy) c).decreaseHealth(b.getDamage());
+                        System.out.println("Bullet hit an enemy: " + c);
+                    }
+                    b.setX(2 * Settings.WINDOW_WIDTH);
+                    b.setY(2 * Settings.WINDOW_HEIGHT);
+                }
+            }
+        }
+    }
+
+    private void runEnemyCollisions()
+    {
+        for (Enemy e : enemies) {
+            HashSet<Integer> values = new HashSet<>();
+            for (Collidable c : collidables) {
+                if (c instanceof Enemy) {
+                    continue;
+                }
+                values.add(Helper.checkOverlap(e, c));
+            }
+
+            int value = 0;
+            for (Integer i : values) {
+                value += i;
+            }
+            e.setMoveValue(value);
+        }
+    }
+
     private void scanRoom()
     {
         collidables.addAll(currentRoom.getCollidables());
         for (Enemy e : currentRoom.getEnemies()) {
             e.setPlayer(player);
             movables.add(e);
+            enemies.add(e);
         }
     }
 
