@@ -17,6 +17,11 @@ public class MiniMap implements Drawable
         this(rows, cols, 0, 0);
     }
 
+    @Override
+    public void draw(RenderTarget renderTarget, RenderStates renderStates) {
+
+    }
+
     public enum Directions {
         UP, DOWN, LEFT, RIGHT
     }
@@ -31,8 +36,7 @@ public class MiniMap implements Drawable
      * @param startX (int) Where the character starts in X
      * @param startY (int) Where the character start in Y
      */
-    public MiniMap(int rows, int cols, int startX, int startY)
-    {
+    public MiniMap(int rows, int cols, int startX, int startY) {
         rooms = new boolean[rows][cols];
         currentRoom = new int[]{startY, startX};
 
@@ -47,12 +51,6 @@ public class MiniMap implements Drawable
         visitRoom();
         this.dumpMinimap();
     }
-
-    @Override
-    public void draw(RenderTarget renderTarget, RenderStates renderStates) {
-
-    }
-
     /**
      * The main.java.questfortheabodeth.characters has moved form one room to the next
      * @param d (Direction) The direction the main.java.questfortheabodeth.characters moved in
