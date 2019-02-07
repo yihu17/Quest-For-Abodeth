@@ -4,6 +4,7 @@ import main.java.questfortheabodeth.FileOperator;
 import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.characters.Enemy;
 import main.java.questfortheabodeth.interfaces.Collidable;
+import main.java.questfortheabodeth.interfaces.Interactable;
 import main.java.questfortheabodeth.powerups.*;
 import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.RenderStates;
@@ -58,6 +59,19 @@ public class Room implements Drawable
         c.addAll(pickups);
 
         return c;
+    }
+
+    public ArrayList<Interactable> getInteractables() {
+        ArrayList<Interactable> iList = new ArrayList<>();
+        for (int i = 0; i < Settings.ROOM_DIVISION_ROWS; i++) {
+            for (int j = 0; j < Settings.ROOM_DIVISION_COLUMNS; j++) {
+                if (roomImages[i][j] instanceof Interactable) {
+                    iList.add((Interactable) roomImages[i][j]);
+                }
+            }
+        }
+
+        return iList;
     }
 
     @Override

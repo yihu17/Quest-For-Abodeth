@@ -6,6 +6,7 @@ import main.java.questfortheabodeth.environments.Environment;
 import main.java.questfortheabodeth.environments.Room;
 import main.java.questfortheabodeth.hud.MiniMap;
 import main.java.questfortheabodeth.interfaces.Collidable;
+import main.java.questfortheabodeth.interfaces.Interactable;
 import main.java.questfortheabodeth.interfaces.Movable;
 import main.java.questfortheabodeth.interfaces.Powerup;
 import main.java.questfortheabodeth.menus.Button;
@@ -45,6 +46,7 @@ public class Game
     private CopyOnWriteArraySet<Collidable> collidables = new CopyOnWriteArraySet<>();
     private CopyOnWriteArraySet<Bullet> bullets = new CopyOnWriteArraySet<>();
     private CopyOnWriteArraySet<Enemy> enemies = new CopyOnWriteArraySet<>();
+    private CopyOnWriteArraySet<Interactable> interactables = new CopyOnWriteArraySet<>();
 
     public Game(RenderWindow window)
     {
@@ -233,6 +235,8 @@ public class Game
              collidables.add(p);
              drawables.add(p);
         }
+
+        interactables.addAll(currentRoom.getInteractables());
     }
 
     private void moveMovables()
