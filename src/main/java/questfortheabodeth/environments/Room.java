@@ -278,13 +278,13 @@ public class Room implements Drawable
                 switch (pickupRead) {
                     case "healthPickup":
                         //System.out.println("health");
-                        pickups.add(new HealthBoost(generatedSpawnLocation[0], generatedSpawnLocation[1], 15000));
+                        pickups.add(new HealthBoost(generatedSpawnLocation[0], generatedSpawnLocation[1]));
                         break;
                     case "ammoPickup":
                         pickups.add(new AmmoPickup(generatedSpawnLocation[0], generatedSpawnLocation[1]));
                         break;
                     case "shieldPickup":
-                        pickups.add(new ShieldPickup(generatedSpawnLocation[0], generatedSpawnLocation[1], 20000));
+                        pickups.add(new ShieldPickup(generatedSpawnLocation[0], generatedSpawnLocation[1]));
                         break;
                     case "speedPickupUp":
                         pickups.add(new SpeedPickupUp(generatedSpawnLocation[0], generatedSpawnLocation[1], 15000));
@@ -293,7 +293,7 @@ public class Room implements Drawable
                         pickups.add(new SpeedPickupDown(generatedSpawnLocation[0], generatedSpawnLocation[1], 10000));
                         break;
                     case "damagePickup":
-                        pickups.add(new DamagePlus(generatedSpawnLocation[0], generatedSpawnLocation[1]));
+                        pickups.add(new DamagePlus(generatedSpawnLocation[0], generatedSpawnLocation[1], 10000));
                         break;
                 }
             }

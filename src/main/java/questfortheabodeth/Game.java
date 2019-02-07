@@ -49,9 +49,6 @@ public class Game
         this.window.clear();
         this.gameRunning = true;
         this.player = new Player();
-        HealthBoost h = new HealthBoost(500, 500, 15000);
-        drawables.add(h);
-        collidables.add(h);
 
         // Read the CSV file
         rooms = new Room[4][4];
