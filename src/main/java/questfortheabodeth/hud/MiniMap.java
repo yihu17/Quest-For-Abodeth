@@ -1,8 +1,7 @@
 package main.java.questfortheabodeth.hud;
 
-import org.jsfml.graphics.Drawable;
-import org.jsfml.graphics.RenderStates;
-import org.jsfml.graphics.RenderTarget;
+import org.jsfml.graphics.*;
+import org.jsfml.system.Vector2f;
 
 public class MiniMap implements Drawable
 {
@@ -17,10 +16,7 @@ public class MiniMap implements Drawable
         this(rows, cols, 0, 0);
     }
 
-    @Override
-    public void draw(RenderTarget renderTarget, RenderStates renderStates) {
-
-    }
+    private int rows;
 
     public enum Directions {
         UP, DOWN, LEFT, RIGHT
@@ -28,7 +24,7 @@ public class MiniMap implements Drawable
 
     private boolean[][] rooms;
     private int[] currentRoom;
-
+    private int cols;
     /**
      * Creates a new MiniMap of the given size
      * @param rows (int) Number of rows
@@ -37,6 +33,8 @@ public class MiniMap implements Drawable
      * @param startY (int) Where the character start in Y
      */
     public MiniMap(int rows, int cols, int startX, int startY) {
+        this.rows = rows;
+        this.cols = cols;
         rooms = new boolean[rows][cols];
         currentRoom = new int[]{startY, startX};
 
@@ -50,6 +48,29 @@ public class MiniMap implements Drawable
         // the map is updated
         visitRoom();
         this.dumpMinimap();
+    }
+
+    @Override
+    public void draw(RenderTarget renderTarget, RenderStates renderStates) {
+        // For now assume a rectangle size of 20 and top left coordinate of [1760, 1080]
+        int x = 1742;
+        int y = 5;
+        int width = 20;
+        int outline = 2;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                RectangleShape rect = new RectangleShape();
+                rect.setSize(new Vector2f(width, width));
+                rect.setPosition(new Vector2f(x, y));
+                rect.setFillColor(rooms[j][i] ? new Color(Color.RED, 128) : new Color(Color.BLACK, 128));
+                rect.setOutlineColor(new Color(Color.WHITE, 128));
+                rect.setOutlineThickness(outline);
+                renderTarget.draw(rect);
+                x += (width + outline);
+            }
+            y += (width + outline);
+            x = 1742;
+        }
     }
     /**
      * The main.java.questfortheabodeth.characters has moved form one room to the next

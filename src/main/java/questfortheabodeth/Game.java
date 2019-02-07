@@ -91,6 +91,7 @@ public class Game
 
             // Draw the room
             window.draw(currentRoom);
+            window.draw(miniMap);
             window.draw(player);
             // Draw all the drawable objects
             drawables.forEach(window::draw);
