@@ -1,5 +1,6 @@
 package main.java.questfortheabodeth;
 
+import main.java.questfortheabodeth.characters.Enemy;
 import main.java.questfortheabodeth.characters.Player;
 import main.java.questfortheabodeth.environments.Room;
 import main.java.questfortheabodeth.interfaces.Collidable;
@@ -135,23 +136,6 @@ public class Game
                 player.moveRight();
             }
 
-            //move towards enemy
-            for (int i = 0; i < rooms[0][0].getEnemies().size(); i++) {
-                if (player.getX() >= rooms[0][0].getEnemies().get(i).getX()) {
-                    rooms[0][0].getEnemies().get(i).moveRight();
-                }
-                if (player.getX() <= rooms[0][0].getEnemies().get(i).getX()) {
-                    rooms[0][0].getEnemies().get(i).moveLeft();
-                }
-                if (player.getY() >= rooms[0][0].getEnemies().get(i).getY()) {
-                    rooms[0][0].getEnemies().get(i).moveDown();
-                }
-                if (player.getY() <= rooms[0][0].getEnemies().get(i).getY()) {
-                    rooms[0][0].getEnemies().get(i).moveUp();
-                }
-            }
-
-
             clocker++;
         }
     }
@@ -159,7 +143,10 @@ public class Game
     private void scanRoom()
     {
         collidables.addAll(currentRoom.getCollidables());
-
+        for (Enemy e : currentRoom.getEnemies()) {
+            e.setPlayer(player);
+            movables.add(e);
+        }
     }
 
     private void moveMovables()

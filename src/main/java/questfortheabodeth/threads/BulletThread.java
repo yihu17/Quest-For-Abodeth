@@ -36,7 +36,7 @@ public class BulletThread extends Thread
             if (0 < Helper.checkOverlap(b, c)) {
                 if (c instanceof Enemy) {
                     ((Enemy) c).decreaseHealth(b.getDamage());
-                    System.out.println("main.java.questfortheabodeth.weapons.Bullet hit an enemy: " + c);
+                    System.out.println("Bullet hit an enemy: " + c);
                 }
                 b.setX(2 * Settings.WINDOW_WIDTH);
                 b.setY(2 * Settings.WINDOW_HEIGHT);
