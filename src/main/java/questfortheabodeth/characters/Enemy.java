@@ -18,6 +18,7 @@ public class Enemy extends Character implements Movable
     @Override
     public void kill()
     {
+        setPosition(2 * Settings.WINDOW_WIDTH, 2 * Settings.WINDOW_HEIGHT);
         System.out.println(this + " died");
     }
 

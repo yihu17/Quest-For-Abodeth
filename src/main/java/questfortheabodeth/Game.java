@@ -11,6 +11,7 @@ import main.java.questfortheabodeth.menus.Button;
 import main.java.questfortheabodeth.menus.GameMenu;
 import main.java.questfortheabodeth.powerups.DamagePlus;
 import main.java.questfortheabodeth.powerups.HealthBoost;
+import main.java.questfortheabodeth.powerups.Pickup;
 import main.java.questfortheabodeth.weapons.Bullet;
 import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.RenderWindow;
@@ -204,6 +205,12 @@ public class Game
             e.setPlayer(player);
             movables.add(e);
             enemies.add(e);
+            drawables.add(e);
+        }
+
+        for (Pickup p : currentRoom.getPickups()) {
+             collidables.add(p);
+             drawables.add(p);
         }
     }
 

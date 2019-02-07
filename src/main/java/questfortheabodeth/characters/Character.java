@@ -252,4 +252,10 @@ public abstract class Character implements Drawable, Collidable
     public void draw(RenderTarget renderTarget, RenderStates renderStates) {
         renderTarget.draw(image);
     }
+
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
+        this.image.setPosition(x, y);
+    }
 }

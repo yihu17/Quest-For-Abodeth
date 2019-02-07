@@ -82,12 +82,6 @@ public class Room implements Drawable
                 renderTarget.draw(roomImages[i][j]);
             }
         }
-        for (int i = 0; i < enemies.size(); i++) {
-            renderTarget.draw(enemies.get(i));
-        }
-        for (int i = 0; i < pickups.size(); i++) {
-            renderTarget.draw(pickups.get(i));
-        }
     }
 
     private void readRoomData()
@@ -302,5 +296,8 @@ public class Room implements Drawable
 
     public ArrayList<Enemy> getEnemies() {
         return enemies;
+    }
+    public ArrayList<Pickup> getPickups() {
+        return pickups;
     }
 }
