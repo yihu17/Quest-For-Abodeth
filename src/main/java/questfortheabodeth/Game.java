@@ -84,7 +84,7 @@ public class Game
             window.display();
 
             // Move every single movable object (enemy movements, bullets etc.)
-            // Once they have moved check to enusre they are still in the bounds of the window
+            // Once they have moved check to ensure they are still in the bounds of the window
             this.moveMovables();
 
 
