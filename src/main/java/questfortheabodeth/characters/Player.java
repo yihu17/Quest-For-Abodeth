@@ -1,6 +1,5 @@
 package main.java.questfortheabodeth.characters;
 
-import main.java.questfortheabodeth.Helper;
 import main.java.questfortheabodeth.interfaces.Powerup;
 import org.jsfml.graphics.RenderStates;
 import org.jsfml.graphics.RenderTarget;
@@ -11,7 +10,7 @@ import org.jsfml.system.Vector2f;
  */
 public class Player extends Character
 {
-    private static String imageName = "res/player.png";
+    private static String imageName = "res/assets/player/player.png";
     private Powerup currentPowerup = null;
 
     /**
@@ -20,7 +19,6 @@ public class Player extends Character
     public Player()
     {
         super(250, 250, 100, imageName, 6);
-        this.getImage().setScale(Helper.getScaleValue(91, 91, 64, 64));
     }
 
     public void switchWeapon()
