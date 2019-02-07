@@ -4,6 +4,7 @@ import main.java.questfortheabodeth.characters.Enemy;
 import main.java.questfortheabodeth.characters.Player;
 import main.java.questfortheabodeth.environments.Environment;
 import main.java.questfortheabodeth.environments.Room;
+import main.java.questfortheabodeth.hud.MiniMap;
 import main.java.questfortheabodeth.interfaces.Collidable;
 import main.java.questfortheabodeth.interfaces.Movable;
 import main.java.questfortheabodeth.interfaces.Powerup;
@@ -25,6 +26,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -36,6 +38,7 @@ public class Game
     private Room[][] rooms;
     private Room currentRoom;
     private Player player;
+    private MiniMap miniMap;
 
     private CopyOnWriteArraySet<Movable> movables = new CopyOnWriteArraySet<>();
     private CopyOnWriteArraySet<Drawable> drawables = new CopyOnWriteArraySet<>();
@@ -52,14 +55,31 @@ public class Game
         this.player = new Player();
 
         // Read the CSV file
-        rooms = new Room[4][4];
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                rooms[i][j] = new Room(Settings.GENERATOR.nextInt(4));
+        FileOperator ops = new FileOperator("res/assets/CSVs/roomLayout.csv");
+        ArrayList<String> file = ops.readToList();
+        int rows = file.size();
+        int cols = file.get(0).split(",").length;
+        int startRow = -1;
+        int startCol = -1;
+        rooms = new Room[rows][cols];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                int roomCode = Integer.parseInt(file.get(i).split(",")[j]);
+                rooms[i][j] = new Room(roomCode);
+                if (roomCode == 1) {
+                    startCol = j;
+                    startRow = i;
+                }
             }
         }
 
-        currentRoom = rooms[0][0];
+        if (startRow < 0 || startCol < 0) {
+            throw new IllegalStateException("Player has no start room");
+        }
+        currentRoom = rooms[startRow][startCol];
+        miniMap = new MiniMap(rows, cols, startRow, startCol);
+
         this.scanRoom();
     }
 
