@@ -1,3 +1,4 @@
+import main.java.questfortheabodeth.Helper;
 import org.jsfml.system.Vector2i;
 import org.junit.jupiter.api.Test;
 

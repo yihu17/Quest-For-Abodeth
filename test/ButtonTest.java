@@ -1,7 +1,8 @@
+import main.java.questfortheabodeth.menus.Button;
 import org.jsfml.graphics.Color;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ButtonTest
 {

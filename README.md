@@ -1,8 +1,8 @@
 # README
 
 ## To Do
-- Create other menus
-  - Main menu to look like the graphic on Google Drive
+- Create other main.java.questfortheabodeth.menus
+  - main.java.questfortheabodeth.Main menu to look like the graphic on Google Drive
   - Instructions
   - Credits
   - Highscore
@@ -18,9 +18,9 @@
   - Minimap class can be made drawable
     - Implement the drawable class
     - Make the X and Y coords of the minimap relative so that all drawn boxes from there are relative to the top left of the map
-- Player weapons
-  - Player can hold weapons
-  - Player has 3 weapons 
+- main.java.questfortheabodeth.characters.Player weapons
+  - main.java.questfortheabodeth.characters.Player can hold weapons
+  - main.java.questfortheabodeth.characters.Player has 3 weapons 
 
 
 ## Notes
