@@ -11,7 +11,7 @@ public class HealthBoost extends Pickup {
 
     public HealthBoost(int x, int y, int timeout) {
         super(x, y, "res/assets/pickups/health-boost.png");
-        System.out.println("spawning health");
+        //System.out.println("spawning health");
         this.timeout = timeout;
     }
 
