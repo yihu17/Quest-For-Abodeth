@@ -54,7 +54,8 @@ public class Room implements Drawable
                 }
             }
         }
-        //c.addAll(enemies);
+        c.addAll(enemies);
+        c.addAll(pickups);
 
         return c;
     }
@@ -276,6 +277,7 @@ public class Room implements Drawable
                 int[] generatedSpawnLocation = generateSpawnLocation();
                 switch (pickupRead) {
                     case "healthPickup":
+                        //System.out.println("health");
                         pickups.add(new HealthBoost(generatedSpawnLocation[0], generatedSpawnLocation[1], 15000));
                         break;
                     case "ammoPickup":

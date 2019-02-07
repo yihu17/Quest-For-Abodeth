@@ -10,6 +10,7 @@ import main.java.questfortheabodeth.interfaces.Powerup;
 import main.java.questfortheabodeth.menus.Button;
 import main.java.questfortheabodeth.menus.GameMenu;
 import main.java.questfortheabodeth.powerups.DamagePlus;
+import main.java.questfortheabodeth.powerups.HealthBoost;
 import main.java.questfortheabodeth.weapons.Bullet;
 import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.RenderWindow;
@@ -48,9 +49,9 @@ public class Game
         this.window.clear();
         this.gameRunning = true;
         this.player = new Player();
-        DamagePlus d = new DamagePlus(0, 0);
-        drawables.add(d);
-        collidables.add(d);
+        HealthBoost h = new HealthBoost(500, 500, 15000);
+        drawables.add(h);
+        collidables.add(h);
 
         // Read the CSV file
         rooms = new Room[4][4];
@@ -147,6 +148,8 @@ public class Game
                 int overlap = Helper.checkOverlap(player, c);
                 if (0 < overlap) {
                     ((Powerup) c).applyBuff(player);
+                    drawables.remove(c);
+                    collidables.remove(c);
                 }
             }
         }
@@ -160,12 +163,15 @@ public class Game
     {
         for (Bullet b : bullets) {
             for (Collidable c : collidables) {
-                if (c instanceof Bullet) {
+                if (c instanceof Bullet || c instanceof Powerup) {
                     continue;
                 }
                 if (0 < Helper.checkOverlap(b, c)) {
                     if (c instanceof Enemy) {
                         ((Enemy) c).decreaseHealth(b.getDamage());
+                        ((Enemy) c).moveRight();
+                        ((Enemy) c).moveRight();
+                        ((Enemy) c).moveRight();
                         System.out.println("Bullet hit an enemy: " + c);
                     }
                     b.setX(2 * Settings.WINDOW_WIDTH);

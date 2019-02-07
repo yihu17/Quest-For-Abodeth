@@ -8,7 +8,7 @@ public class ShieldPickup extends Pickup
     private int timeout;
 
     public ShieldPickup(int x, int y, int timeout) {
-        super(x, y, "res/assets/pickups/shield-pickup.png");
+        super(x, y, "res/assets/pickups/shieldPickup.png");
         this.timeout = timeout;
     }
 

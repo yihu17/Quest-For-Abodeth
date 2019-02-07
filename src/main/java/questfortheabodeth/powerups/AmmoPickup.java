@@ -7,7 +7,7 @@ public class AmmoPickup extends Pickup
     private int ammo;
 
     public AmmoPickup(int x, int y) {
-        super(x, y, "res/assets/pickups/ammo-pickup.png");
+        super(x, y, "res/assets/pickups/ammoPickup.png");
     }
 
     @Override
