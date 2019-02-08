@@ -4,6 +4,7 @@ import main.java.questfortheabodeth.FileOperator;
 import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.characters.Enemy;
 import main.java.questfortheabodeth.environments.traps.Quicksand;
+import main.java.questfortheabodeth.environments.traps.Water;
 import main.java.questfortheabodeth.interfaces.Collidable;
 import main.java.questfortheabodeth.interfaces.Interactable;
 import main.java.questfortheabodeth.powerups.*;
@@ -164,7 +165,7 @@ public class Room implements Drawable
                         break;
                     case "water":
                         //roomImages[i][j] = new InteractableEnvironment(spacing * j, spacing * i, filePath);
-                        roomImages[i][j] = new Environment(spacing * j, spacing * i, filePath, false, true);
+                        roomImages[i][j] = new Water(spacing * j, spacing * i, filePath);
                         break;
                     case "quicksand":
                         roomImages[i][j] = new Quicksand(spacing * j, spacing * i, filePath);
