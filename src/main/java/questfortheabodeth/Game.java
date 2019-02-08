@@ -4,6 +4,7 @@ import main.java.questfortheabodeth.characters.Enemy;
 import main.java.questfortheabodeth.characters.Player;
 import main.java.questfortheabodeth.environments.Environment;
 import main.java.questfortheabodeth.environments.Room;
+import main.java.questfortheabodeth.hud.HealthBar;
 import main.java.questfortheabodeth.hud.MiniMap;
 import main.java.questfortheabodeth.interfaces.Collidable;
 import main.java.questfortheabodeth.interfaces.Interactable;
@@ -40,7 +41,9 @@ public class Game
     private Room[][] rooms;
     private Room currentRoom;
     private Player player;
+
     private MiniMap miniMap;
+    private HealthBar healthBar;
 
     private CopyOnWriteArraySet<Movable> movables = new CopyOnWriteArraySet<>();
     private CopyOnWriteArraySet<Drawable> drawables = new CopyOnWriteArraySet<>();
@@ -82,6 +85,7 @@ public class Game
         }
         currentRoom = rooms[startRow][startCol];
         miniMap = new MiniMap(rows, cols, startRow, startCol);
+        healthBar = new HealthBar(player);
 
         this.scanRoom();
     }
@@ -94,10 +98,11 @@ public class Game
 
             // Draw the room
             window.draw(currentRoom);
-            window.draw(miniMap);
             window.draw(player);
             // Draw all the drawable objects
             drawables.forEach(window::draw);
+            window.draw(healthBar);
+            window.draw(miniMap);
             // Update the window
             window.display();
 
