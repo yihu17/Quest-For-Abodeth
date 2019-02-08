@@ -1,4 +1,4 @@
-# README
+# The Quest for the Abodeth
 You are *insert player name*, renown adventurer and archaeologist who’s here to
 raid tombs and take treasures. You’ve recently received a tip from an unknown
 source that deep in the dunes of south Egypt lies a fourth pyramid unknown by the
