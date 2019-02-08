@@ -1,5 +1,6 @@
 package main.java.questfortheabodeth.characters;
 
+import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.interfaces.Interactable;
 import main.java.questfortheabodeth.interfaces.Powerup;
 import org.jsfml.graphics.RenderStates;
@@ -23,7 +24,7 @@ public class Player extends Character
      */
     public Player()
     {
-        super(250, 250, 100, imageName, 6);
+        super(250, 250, 100, imageName, Settings.PLAYER_SPEED);
     }
 
     public void switchWeapon()
@@ -37,7 +38,18 @@ public class Player extends Character
         // Figure out what was removed and remove that buff
 
         // current.removeAll(appliedInteracts) = List of all new interacts applied
-        // appliedInteracts.removeAll(current) = List of all removed interacts??
+        System.out.println("Applied interact = " + appliedInteracts.size());
+        appliedInteracts.removeAll(current);
+        System.out.println("After removing interact = " + appliedInteracts.size());
+
+        for (Class<? extends Interactable> c : appliedInteracts) {
+            System.out.println("Removing interact = " + appliedInteracts.size());
+            //undo the interact
+        }
+
+        appliedInteracts = current;
+        System.out.println("Applied interact = " + appliedInteracts.size());
+        System.out.println("");
     }
 
     /**
