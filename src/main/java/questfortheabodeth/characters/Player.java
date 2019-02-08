@@ -1,9 +1,12 @@
 package main.java.questfortheabodeth.characters;
 
+import main.java.questfortheabodeth.interfaces.Interactable;
 import main.java.questfortheabodeth.interfaces.Powerup;
 import org.jsfml.graphics.RenderStates;
 import org.jsfml.graphics.RenderTarget;
 import org.jsfml.system.Vector2f;
+
+import java.util.HashSet;
 
 /**
  * The main.java.questfortheabodeth.characters
@@ -12,6 +15,8 @@ public class Player extends Character
 {
     private static String imageName = "res/assets/player/player.png";
     private Powerup currentPowerup = null;
+    private HashSet<Class<? extends Interactable>> appliedInteracts = new HashSet<>();
+
 
     /**
      * Creates a new main.java.questfortheabodeth.characters instance based off of the imageName image
@@ -61,5 +66,15 @@ public class Player extends Character
                 (float) (this.getX() + (0.5 * this.getWidth())),
                 (float) (this.getY() + (0.5 * this.getHeight()))
         );
+    }
+
+    public boolean applyInteract(Interactable interactClass) {
+        if (appliedInteracts.contains(interactClass.getClass())) {
+            // Do not allow the interact to work
+            return false;
+        } else {
+            appliedInteracts.add(interactClass.getClass());
+            return true;
+        }
     }
 }

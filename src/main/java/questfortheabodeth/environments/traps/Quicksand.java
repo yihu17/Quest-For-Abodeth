@@ -11,6 +11,10 @@ public class Quicksand extends InteractableEnvironment
 
     @Override
     public void interact(Player p) {
-        System.out.println("Player is interacting with quicksand");
+        if (p.applyInteract(this)) {
+            p.setMovementSpeed(
+                    (int) (p.getMovementSpeed() * 0.75)
+            );
+        }
     }
 }

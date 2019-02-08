@@ -3,6 +3,7 @@ package main.java.questfortheabodeth.environments;
 import main.java.questfortheabodeth.FileOperator;
 import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.characters.Enemy;
+import main.java.questfortheabodeth.environments.traps.Quicksand;
 import main.java.questfortheabodeth.interfaces.Collidable;
 import main.java.questfortheabodeth.interfaces.Interactable;
 import main.java.questfortheabodeth.powerups.*;
@@ -32,7 +33,7 @@ public class Room implements Drawable
     /**
      * Creates a new room of the specified type
      *
-     * @param type (int) main.java.questfortheabodeth.environments.Room type
+     * @param type (int) Room type
      */
     public Room(int type)
     {
@@ -145,13 +146,15 @@ public class Room implements Drawable
                         roomImages[i][j] = new Environment(spacing * j, spacing * i, "res/assets/environment/floor/floor" + floorNum + ".png", false);
                         break;
                     case "door":
-                        roomImages[i][j] = new InteractableEnvironment(spacing * j, spacing * i, filePath);
+                        //roomImages[i][j] = new InteractableEnvironment(spacing * j, spacing * i, filePath);
+                        roomImages[i][j] = new Environment(spacing * j, spacing * i, filePath, false);
                         break;
                     case "water":
-                        roomImages[i][j] = new InteractableEnvironment(spacing * j, spacing * i, filePath);
+                        //roomImages[i][j] = new InteractableEnvironment(spacing * j, spacing * i, filePath);
+                        roomImages[i][j] = new Environment(spacing * j, spacing * i, filePath, false);
                         break;
                     case "quicksand":
-                        roomImages[i][j] = new InteractableEnvironment(spacing * j, spacing * i, filePath);
+                        roomImages[i][j] = new Quicksand(spacing * j, spacing * i, filePath);
                         break;
                     case "spikeTrap":
                         roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
@@ -175,7 +178,8 @@ public class Room implements Drawable
                         roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
                         break;
                     case "graveyard":
-                        roomImages[i][j] = new InteractableEnvironment(spacing * j, spacing * i, filePath);
+                        //roomImages[i][j] = new InteractableEnvironment(spacing * j, spacing * i, filePath);
+                        roomImages[i][j] = new Environment(spacing * j, spacing * i, filePath, false);
                         break;
                     case "crushingWalls":
                         roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
