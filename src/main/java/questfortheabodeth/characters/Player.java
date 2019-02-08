@@ -7,6 +7,8 @@ import org.jsfml.graphics.RenderStates;
 import org.jsfml.graphics.RenderTarget;
 import org.jsfml.system.Vector2f;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 
 /**
@@ -20,7 +22,7 @@ public class Player extends Character
 
 
     /**
-     * Creates a new main.java.questfortheabodeth.characters instance based off of the imageName image
+     * Creates a new Player instance based off of the imageName image
      */
     public Player()
     {
@@ -32,24 +34,21 @@ public class Player extends Character
     }
 
     public void resetInteracts(HashSet<Class<? extends Interactable>> current) {
-        // current is the updated list of current interactions and applied is the old one
-        // Current will contain what is actually happening
-        // applied is a list of what WAS happening
-        // Figure out what was removed and remove that buff
-
-        // current.removeAll(appliedInteracts) = List of all new interacts applied
-        System.out.println("Applied interact = " + appliedInteracts.size());
         appliedInteracts.removeAll(current);
-        System.out.println("After removing interact = " + appliedInteracts.size());
 
         for (Class<? extends Interactable> c : appliedInteracts) {
-            System.out.println("Removing interact = " + appliedInteracts.size());
             //undo the interact
+            try {
+                Constructor struct = c.getDeclaredConstructors()[0];
+                Interactable i = (Interactable) struct.newInstance(0, 0, "");
+                i.remove(this);
+                System.out.println(i + " is removing the buff");
+            } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
         }
 
         appliedInteracts = current;
-        System.out.println("Applied interact = " + appliedInteracts.size());
-        System.out.println("");
     }
 
     /**
@@ -66,7 +65,7 @@ public class Player extends Character
     }
 
     /**
-     * Draws the main.java.questfortheabodeth.characters to the screen
+     * Draws the Player to the screen
      * @param renderTarget (RenderTarget) Window to draw the main.java.questfortheabodeth.characters on to
      * @param renderStates (RenderStates) I really should figure out what these are
      */

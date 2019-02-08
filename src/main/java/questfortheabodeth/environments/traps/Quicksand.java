@@ -22,5 +22,6 @@ public class Quicksand extends InteractableEnvironment
     @Override
     public void remove(Player p) {
         p.setMovementSpeed(Settings.PLAYER_SPEED);
+        System.out.println("Removing speed buff from player");
     }
 }
