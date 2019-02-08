@@ -46,4 +46,9 @@ public class CollidableInteractableEnvironment extends Environment implements Co
     {
 
     }
+
+    @Override
+    public void remove(Player p) {
+
+    }
 }

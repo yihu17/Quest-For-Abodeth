@@ -4,6 +4,7 @@ import main.java.questfortheabodeth.characters.Enemy;
 import main.java.questfortheabodeth.characters.Player;
 import main.java.questfortheabodeth.environments.Environment;
 import main.java.questfortheabodeth.environments.Room;
+import main.java.questfortheabodeth.hud.HealthBar;
 import main.java.questfortheabodeth.hud.MiniMap;
 import main.java.questfortheabodeth.interfaces.Collidable;
 import main.java.questfortheabodeth.interfaces.Interactable;
@@ -20,6 +21,7 @@ import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
+import org.jsfml.window.Mouse;
 import org.jsfml.window.event.Event;
 import org.jsfml.window.event.MouseEvent;
 
@@ -40,7 +42,9 @@ public class Game
     private Room[][] rooms;
     private Room currentRoom;
     private Player player;
+
     private MiniMap miniMap;
+    private HealthBar healthBar;
 
     private CopyOnWriteArraySet<Movable> movables = new CopyOnWriteArraySet<>();
     private CopyOnWriteArraySet<Drawable> drawables = new CopyOnWriteArraySet<>();
@@ -82,6 +86,7 @@ public class Game
         }
         currentRoom = rooms[startRow][startCol];
         miniMap = new MiniMap(rows, cols, startRow, startCol);
+        healthBar = new HealthBar(player);
 
         this.scanRoom();
     }
@@ -94,10 +99,11 @@ public class Game
 
             // Draw the room
             window.draw(currentRoom);
-            window.draw(miniMap);
             window.draw(player);
             // Draw all the drawable objects
             drawables.forEach(window::draw);
+            window.draw(healthBar);
+            window.draw(miniMap);
             // Update the window
             window.display();
 
@@ -109,7 +115,7 @@ public class Game
             // Check for close events
             for (Event e : window.pollEvents()) {
                 Helper.checkCloseEvents(e, window);
-                if (e.type == MouseEvent.Type.MOUSE_BUTTON_PRESSED) {
+                if (e.type == MouseEvent.Type.MOUSE_BUTTON_PRESSED && Mouse.isButtonPressed(Mouse.Button.LEFT)) {
                     // The player character has fired a bullet
                     Bullet b = new Bullet(
                             (int) player.getPlayerCenter().x,
@@ -191,7 +197,7 @@ public class Game
                 }
                 if (0 < Helper.checkOverlap(b, c)) {
                     if (c instanceof Enemy) {
-                        ((Enemy) c).decreaseHealth(b.getDamage());
+                        ((Enemy) c).decreaseHealth(player.getDamage());
                         ((Enemy) c).moveRight();
                         ((Enemy) c).moveRight();
                         ((Enemy) c).moveRight();

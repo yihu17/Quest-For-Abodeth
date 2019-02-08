@@ -1,5 +1,7 @@
 package main.java.questfortheabodeth.characters;
 
+import javafx.beans.property.ReadOnlyIntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import main.java.questfortheabodeth.interfaces.Collidable;
 import main.java.questfortheabodeth.sprites.Image;
 import org.jsfml.graphics.Drawable;
@@ -17,7 +19,7 @@ public abstract class Character implements Drawable, Collidable
     private Facing face;
     private int x;
     private int y;
-    private int health;
+    private SimpleIntegerProperty health = new SimpleIntegerProperty();
     private int movementSpeed;
     private int shield = 0;
     private int ammo = 0;
@@ -26,8 +28,8 @@ public abstract class Character implements Drawable, Collidable
     /**
      * Sets up the character
      *
-     * @param x      (int) main.java.questfortheabodeth.characters.Character X position
-     * @param y      (int) main.java.questfortheabodeth.characters.Character Y position
+     * @param x      (int) Characters X position
+     * @param y      (int) Characters Y position
      * @param health (int) Health of the character
      * @param image  (String) Name of the image to load
      * @param movementSpeed (int) Speed of this character for X and Y coordinates
@@ -36,10 +38,14 @@ public abstract class Character implements Drawable, Collidable
     {
         this.x = x;
         this.y = y;
-        this.health = health;
+        this.health.set(health);
         this.image = new Image(x, y, image);
         this.movementSpeed = movementSpeed;
         this.face = Facing.RIGHT;
+    }
+
+    public ReadOnlyIntegerProperty healthProperty() {
+        return this.health;
     }
 
     /**
@@ -68,7 +74,7 @@ public abstract class Character implements Drawable, Collidable
     /**
      * Returns the image object for the character
      * Only accessible in sub classes
-     * @return (main.java.questfortheabodeth.sprites.Image) Characters images
+     * @return (Image) Characters images
      */
     protected Image getImage()
     {
@@ -79,7 +85,7 @@ public abstract class Character implements Drawable, Collidable
      * Sets the image of this character
      * Overwrites the previous image
      *
-     * @param i (main.java.questfortheabodeth.sprites.Image) main.java.questfortheabodeth.characters.Character image
+     * @param i (Image) Characters image
      */
     public void setImage(Image i)
     {
@@ -201,19 +207,19 @@ public abstract class Character implements Drawable, Collidable
      */
     public void decreaseHealth(int amount)
     {
-        this.health -= amount;
-        if (health <= 0) {
+        this.health.subtract(amount);
+        if (health.get() <= 0) {
             this.kill();
         }
     }
 
     public int getHealth()
     {
-        return health;
+        return health.get();
     }
 
     public void addHealth(int healthBoost) {
-        health += healthBoost;
+        health.add(healthBoost);
     }
 
     public int getShield() {
@@ -239,7 +245,7 @@ public abstract class Character implements Drawable, Collidable
      */
     public void increaseHealth(int amount)
     {
-        this.health += amount;
+        this.health.add(amount);
     }
 
     /**

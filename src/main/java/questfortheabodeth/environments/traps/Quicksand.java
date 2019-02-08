@@ -1,5 +1,6 @@
 package main.java.questfortheabodeth.environments.traps;
 
+import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.characters.Player;
 import main.java.questfortheabodeth.environments.InteractableEnvironment;
 
@@ -16,5 +17,11 @@ public class Quicksand extends InteractableEnvironment
                     (int) (p.getMovementSpeed() * 0.75)
             );
         }
+    }
+
+    @Override
+    public void remove(Player p) {
+        p.setMovementSpeed(Settings.PLAYER_SPEED);
+        System.out.println("Removing speed buff from player");
     }
 }

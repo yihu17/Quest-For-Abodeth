@@ -51,6 +51,7 @@ public class Settings
 
     // main.java.questfortheabodeth.Game variables
     public static final int BULLET_SPEED = 20;
+    public static final int PLAYER_SPEED = 6;
 
     //Audio main.java.questfortheabodeth.characters.Player
     public static Clip AUDIO_STREAMER;
