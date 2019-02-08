@@ -12,5 +12,6 @@ public class InteractableEnvironment extends Environment implements Interactable
     @Override
     public void interact()
     {
+
     }
 }

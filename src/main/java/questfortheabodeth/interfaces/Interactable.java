@@ -1,6 +1,6 @@
 package main.java.questfortheabodeth.interfaces;
 
-public interface Interactable
+public interface Interactable extends Collidable
 {
     void interact();
 }

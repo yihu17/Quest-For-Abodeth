@@ -50,7 +50,7 @@ public class Room implements Drawable
         ArrayList<Collidable> c = new ArrayList<>();
         for (int i = 0; i < Settings.ROOM_DIVISION_ROWS; i++) {
             for (int j = 0; j < Settings.ROOM_DIVISION_COLUMNS; j++) {
-                if (roomImages[i][j] instanceof Collidable) {
+                if (roomImages[i][j] instanceof Collidable && !(roomImages[i][j] instanceof Interactable)) {
                     c.add((Collidable) roomImages[i][j]);
                 }
             }
