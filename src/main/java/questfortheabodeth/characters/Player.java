@@ -30,8 +30,15 @@ public class Player extends Character
     {
     }
 
+    public void resetInteracts(HashSet<Class<? extends Interactable>> current) {
+        // current is the updated list of current interactions and applied is the old one
+        // Current will contain what is actually happening
+        // applied is a list of what WAS happening
+        // Figure out what was removed and remove that buff
+    }
+
     /**
-     * The main.java.questfortheabodeth.characters has died so open up a died menu
+     * The player has died so open up a died menu
      * that will show the high score etc.
      * <p>
      * Needs to have a button that goes back to the main menu

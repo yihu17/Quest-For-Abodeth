@@ -223,13 +223,17 @@ public class Game
     }
 
     private void runPlayerInteracts() {
+        HashSet<Class<? extends Interactable>> currentInteracts = new HashSet<>();
         for (Interactable i : interactables) {
             int overlap = Helper.checkOverlap(player, i);
             if (0 < overlap) {
                 // Player is on top of something
                 i.interact(player);
+                currentInteracts.add(i.getClass());
             }
         }
+
+        player.resetInteracts(currentInteracts);
     }
 
     private void scanRoom()
