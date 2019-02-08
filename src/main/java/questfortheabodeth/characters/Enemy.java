@@ -53,4 +53,6 @@ public class Enemy extends Character implements Movable
     {
         this.moveValue = moveValue;
     }
+
+
 }

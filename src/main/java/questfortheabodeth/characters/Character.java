@@ -14,7 +14,7 @@ import org.jsfml.system.Vector2f;
  * An abstract class to define all the common attributes that both the main.java.questfortheabodeth.characters
  * and all monsters will have
  */
-public abstract class Character implements Drawable, Collidable
+public abstract class Character extends Thread implements Drawable, Collidable
 {
     private Facing face;
     private int x;
@@ -263,5 +263,16 @@ public abstract class Character implements Drawable, Collidable
         this.x = x;
         this.y = y;
         this.image.setPosition(x, y);
+    }
+
+    public void run() {
+        int prevMovementSpeed = this.movementSpeed;
+        this.movementSpeed = 0;
+        try {
+            Thread.sleep(100);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        this.movementSpeed = prevMovementSpeed;
     }
 }

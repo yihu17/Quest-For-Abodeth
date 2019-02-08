@@ -1,5 +1,6 @@
 package main.java.questfortheabodeth;
 
+import main.java.questfortheabodeth.characters.Character;
 import main.java.questfortheabodeth.characters.Enemy;
 import main.java.questfortheabodeth.characters.Player;
 import main.java.questfortheabodeth.environments.Environment;
@@ -198,9 +199,10 @@ public class Game
                 if (0 < Helper.checkOverlap(b, c)) {
                     if (c instanceof Enemy) {
                         ((Enemy) c).decreaseHealth(player.getDamage());
-                        ((Enemy) c).moveRight();
-                        ((Enemy) c).moveRight();
-                        ((Enemy) c).moveRight();
+
+                        new Thread((Character) c).start(); //pauses enemy movement
+
+
                         //System.out.println("Bullet hit an enemy: " + c);
                     }
                     b.setX(2 * Settings.WINDOW_WIDTH);
