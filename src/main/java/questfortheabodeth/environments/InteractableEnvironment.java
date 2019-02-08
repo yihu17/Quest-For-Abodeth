@@ -1,5 +1,6 @@
 package main.java.questfortheabodeth.environments;
 
+import main.java.questfortheabodeth.characters.Player;
 import main.java.questfortheabodeth.interfaces.Interactable;
 
 public class InteractableEnvironment extends Environment implements Interactable
@@ -10,8 +11,8 @@ public class InteractableEnvironment extends Environment implements Interactable
     }
 
     @Override
-    public void interact()
+    public void interact(Player p)
     {
-
+        System.out.println("Player is interacting with " + this);
     }
 }

@@ -1,5 +1,6 @@
 package main.java.questfortheabodeth.environments;
 
+import main.java.questfortheabodeth.characters.Player;
 import main.java.questfortheabodeth.interfaces.Collidable;
 import main.java.questfortheabodeth.interfaces.Interactable;
 import org.jsfml.graphics.FloatRect;
@@ -41,7 +42,7 @@ public class CollidableInteractableEnvironment extends Environment implements Co
     }
 
     @Override
-    public void interact()
+    public void interact(Player p)
     {
 
     }

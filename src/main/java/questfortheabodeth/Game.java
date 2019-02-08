@@ -131,6 +131,7 @@ public class Game
             int moveValues = runPlayerCollisions();
             runBulletCollisions();
             runEnemyCollisions();
+            runPlayerInteracts();
 
 
             if (Settings.MOVE_UP_SET.contains(moveValues) && Keyboard.isKeyPressed(Keyboard.Key.W)) {
@@ -218,6 +219,16 @@ public class Game
                 value += i;
             }
             e.setMoveValue(value);
+        }
+    }
+
+    private void runPlayerInteracts() {
+        for (Interactable i : interactables) {
+            int overlap = Helper.checkOverlap(player, i);
+            if (0 < overlap) {
+                // Player is on top of something
+                i.interact(player);
+            }
         }
     }
 
