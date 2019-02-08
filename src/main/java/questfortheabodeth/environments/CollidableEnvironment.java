@@ -8,7 +8,7 @@ public class CollidableEnvironment extends Environment implements Collidable
 
     public CollidableEnvironment(int xPos, int yPos, String imageFilePath)
     {
-        super(xPos, yPos, imageFilePath, true);
+        super(xPos, yPos, imageFilePath, true, false);
         this.filename = imageFilePath.split("/")[imageFilePath.split("/").length - 1];
     }
 

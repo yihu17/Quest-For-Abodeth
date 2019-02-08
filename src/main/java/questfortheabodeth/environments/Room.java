@@ -7,6 +7,7 @@ import main.java.questfortheabodeth.environments.traps.Quicksand;
 import main.java.questfortheabodeth.interfaces.Collidable;
 import main.java.questfortheabodeth.interfaces.Interactable;
 import main.java.questfortheabodeth.powerups.*;
+import main.java.questfortheabodeth.weapons.*;
 import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.RenderStates;
 import org.jsfml.graphics.RenderTarget;
@@ -28,7 +29,12 @@ public class Room implements Drawable
     private ArrayList<int[]> pickupInfo = new ArrayList<>();
     private ArrayList<Pickup> pickups = new ArrayList<>();
 
+    private ArrayList<int[]> weaponInfo = new ArrayList<>();
+    private ArrayList<Weapon> weapons = new ArrayList<>();
+
     private ArrayList<Drawable> drawables = new ArrayList<>();
+
+    private Weapon testWeapon = new Gun(250, 250, "res/assets/weapons/revolver.png");
 
     /**
      * Creates a new room of the specified type
@@ -44,6 +50,7 @@ public class Room implements Drawable
         loadRoomImages();
         spawnEnemies();
         spawnPickups();
+        spawnWeapons();
     }
 
     public ArrayList<Collidable> getCollidables()
@@ -58,6 +65,7 @@ public class Room implements Drawable
         }
         c.addAll(enemies);
         c.addAll(pickups);
+        c.addAll(weapons);
 
         return c;
     }
@@ -71,7 +79,6 @@ public class Room implements Drawable
                 }
             }
         }
-
         return iList;
     }
 
@@ -102,11 +109,13 @@ public class Room implements Drawable
     private void readRoomData()
     {
         readToLayout();
-        int startOfEnemyAndPickupData = Settings.WINDOW_HEIGHT / Settings.ROOM_DIVISION_SIZE;
-        int[] enemyTypes = Arrays.stream(roomFile.readLine(startOfEnemyAndPickupData)).mapToInt(Integer::parseInt).toArray(); //read string array as int array
-        int[] enemyQuantities = Arrays.stream(roomFile.readLine(startOfEnemyAndPickupData + 1)).mapToInt(Integer::parseInt).toArray(); //read string array as int array
-        int[] pickupTypes = Arrays.stream(roomFile.readLine(startOfEnemyAndPickupData + 2)).mapToInt(Integer::parseInt).toArray(); //read string array as int array
-        int[] pickupQuantities = Arrays.stream(roomFile.readLine(startOfEnemyAndPickupData + 3)).mapToInt(Integer::parseInt).toArray(); //read string array as int array
+        int startOfData = Settings.WINDOW_HEIGHT / Settings.ROOM_DIVISION_SIZE;
+        int[] enemyTypes = Arrays.stream(roomFile.readLine(startOfData)).mapToInt(Integer::parseInt).toArray(); //read string array as int array
+        int[] enemyQuantities = Arrays.stream(roomFile.readLine(startOfData + 1)).mapToInt(Integer::parseInt).toArray(); //read string array as int array
+        int[] pickupTypes = Arrays.stream(roomFile.readLine(startOfData + 2)).mapToInt(Integer::parseInt).toArray(); //read string array as int array
+        int[] pickupQuantities = Arrays.stream(roomFile.readLine(startOfData + 3)).mapToInt(Integer::parseInt).toArray(); //read string array as int array
+        int[] weaponTypes = Arrays.stream(roomFile.readLine(startOfData + 4)).mapToInt(Integer::parseInt).toArray(); //read string array as int array
+        int[] weaponQuantities = Arrays.stream(roomFile.readLine(startOfData + 5)).mapToInt(Integer::parseInt).toArray(); //read string array as int array
 
         for(int i = 0; i<enemyTypes.length; i++) {
             enemyInfo.add(new int[]{enemyTypes[i], enemyQuantities[i]});
@@ -114,6 +123,10 @@ public class Room implements Drawable
 
         for (int i = 0; i < pickupTypes.length; i++) {
             pickupInfo.add(new int[]{pickupTypes[i], pickupQuantities[i]});
+        }
+
+        for (int i = 0; i < weaponTypes.length; i++) {
+            weaponInfo.add(new int[]{weaponTypes[i], weaponQuantities[i]});
         }
     }
 
@@ -143,15 +156,15 @@ public class Room implements Drawable
                     case "floor":
                         int floorNum = Settings.GENERATOR.nextInt(4) + 1;
                         //System.out.println(floorNum);
-                        roomImages[i][j] = new Environment(spacing * j, spacing * i, "res/assets/environment/floor/floor" + floorNum + ".png", false);
+                        roomImages[i][j] = new Environment(spacing * j, spacing * i, "res/assets/environment/floor/floor" + floorNum + ".png", false, false);
                         break;
                     case "door":
                         //roomImages[i][j] = new InteractableEnvironment(spacing * j, spacing * i, filePath);
-                        roomImages[i][j] = new Environment(spacing * j, spacing * i, filePath, false);
+                        roomImages[i][j] = new Environment(spacing * j, spacing * i, filePath, false, false);
                         break;
                     case "water":
                         //roomImages[i][j] = new InteractableEnvironment(spacing * j, spacing * i, filePath);
-                        roomImages[i][j] = new Environment(spacing * j, spacing * i, filePath, false);
+                        roomImages[i][j] = new Environment(spacing * j, spacing * i, filePath, false, true);
                         break;
                     case "quicksand":
                         roomImages[i][j] = new Quicksand(spacing * j, spacing * i, filePath);
@@ -179,7 +192,7 @@ public class Room implements Drawable
                         break;
                     case "graveyard":
                         //roomImages[i][j] = new InteractableEnvironment(spacing * j, spacing * i, filePath);
-                        roomImages[i][j] = new Environment(spacing * j, spacing * i, filePath, false);
+                        roomImages[i][j] = new Environment(spacing * j, spacing * i, filePath, false, false);
                         break;
                     case "crushingWalls":
                         roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
@@ -256,7 +269,7 @@ public class Room implements Drawable
 
                 for (int k = 0; k < 4; k++) {
                     if ((posA[0] <= points[k][0] && points[k][0] <= posB[0]) && (posA[1] <= points[k][1] && points[k][1] <= posB[1])) { //is spawn location overlapping with environment object
-                        if (roomImages[i][j].isCollidiable()) {
+                        if (roomImages[i][j].isCollidiable() || roomImages[i][j].isInteractable()) {
                             return true;
                         }
                     }
@@ -289,7 +302,6 @@ public class Room implements Drawable
                 int[] generatedSpawnLocation = generateSpawnLocation();
                 switch (pickupRead) {
                     case "healthPickup":
-                        //System.out.println("health");
                         pickups.add(new HealthBoost(generatedSpawnLocation[0], generatedSpawnLocation[1]));
                         break;
                     case "ammoPickup":
@@ -312,10 +324,42 @@ public class Room implements Drawable
         }
     }
 
+    private void spawnWeapons() {
+        for (int i = 0; i < weaponInfo.size(); i++) {
+            String weaponRead = Settings.CSV_KEYS.get(weaponInfo.get(i)[0]);
+            String baseFilePath = "res/assets/weapons/";
+            for (int y = 0; y < weaponInfo.get(i)[1]; y++) {
+                int[] generatedSpawnLocation = generateSpawnLocation();
+                switch (weaponRead) {
+                    case "machete":
+                        weapons.add(new Melee(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png"));
+                        break;
+                    case "revolver":
+                        weapons.add(new Gun(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png"));
+                        break;
+                    case "shotgun":
+                        weapons.add(new Gun(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png"));
+                        break;
+                    case "ar15":
+                        weapons.add(new Gun(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png"));
+                        break;
+                    case "uzi":
+                        weapons.add(new Gun(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png"));
+                        break;
+                }
+            }
+        }
+    }
+
     public ArrayList<Enemy> getEnemies() {
         return enemies;
     }
+
     public ArrayList<Pickup> getPickups() {
         return pickups;
+    }
+
+    public ArrayList<Weapon> getWeapons() {
+        return weapons;
     }
 }

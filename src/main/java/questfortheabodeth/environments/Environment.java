@@ -9,12 +9,14 @@ public class Environment extends Image
     private int width = Settings.ROOM_DIVISION_SIZE;
     private int height = Settings.ROOM_DIVISION_SIZE;
     private boolean collidiable;
+    private boolean interactable;
 
-    public Environment(int xPos, int yPos, String imageFilePath, boolean collidiable) {
+    public Environment(int xPos, int yPos, String imageFilePath, boolean collidiable, boolean interactable) {
         super(xPos, yPos, imageFilePath);
         this.xPos = xPos;
         this.yPos = yPos;
         this.collidiable = collidiable;
+        this.interactable = interactable;
     }
 
     public float getX()
@@ -39,6 +41,10 @@ public class Environment extends Image
 
     public boolean isCollidiable() {
         return collidiable;
+    }
+
+    public boolean isInteractable() {
+        return interactable;
     }
 
     @Override

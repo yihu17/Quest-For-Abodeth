@@ -107,7 +107,12 @@ public class Settings
         CSV_KEYS.put(31,"speedPickupUp");
         CSV_KEYS.put(32,"speedPickupDown");
         CSV_KEYS.put(33,"damagePickup");
-        //CSV_KEYS.put(,);
+        //weapons
+        CSV_KEYS.put(34, "machete");
+        CSV_KEYS.put(35, "revolver");
+        CSV_KEYS.put(36, "shotgun");
+        CSV_KEYS.put(37, "ar15");
+        CSV_KEYS.put(38, "uzi");
     }
 
     public static final int ROOM_DIVISION_SIZE = 40;

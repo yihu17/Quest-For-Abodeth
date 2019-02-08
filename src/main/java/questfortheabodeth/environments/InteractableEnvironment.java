@@ -7,7 +7,7 @@ public abstract class InteractableEnvironment extends Environment implements Int
 {
     public InteractableEnvironment(int xPos, int yPos, String imageFilePath)
     {
-        super(xPos, yPos, imageFilePath, false);
+        super(xPos, yPos, imageFilePath, false, true);
     }
 
 

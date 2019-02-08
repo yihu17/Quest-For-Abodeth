@@ -15,6 +15,7 @@ import main.java.questfortheabodeth.powerups.DamagePlus;
 import main.java.questfortheabodeth.powerups.HealthBoost;
 import main.java.questfortheabodeth.powerups.Pickup;
 import main.java.questfortheabodeth.weapons.Bullet;
+import main.java.questfortheabodeth.weapons.Weapon;
 import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Vector2i;
@@ -194,7 +195,7 @@ public class Game
                         ((Enemy) c).moveRight();
                         ((Enemy) c).moveRight();
                         ((Enemy) c).moveRight();
-                        System.out.println("Bullet hit an enemy: " + c);
+                        //System.out.println("Bullet hit an enemy: " + c);
                     }
                     b.setX(2 * Settings.WINDOW_WIDTH);
                     b.setY(2 * Settings.WINDOW_HEIGHT);
@@ -249,6 +250,11 @@ public class Game
         for (Pickup p : currentRoom.getPickups()) {
              collidables.add(p);
              drawables.add(p);
+        }
+
+        for (Weapon w : currentRoom.getWeapons()) {
+            collidables.add(w);
+            drawables.add(w);
         }
 
         interactables.addAll(currentRoom.getInteractables());
