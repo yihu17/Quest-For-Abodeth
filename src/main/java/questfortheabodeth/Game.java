@@ -19,6 +19,7 @@ import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
+import org.jsfml.window.Mouse;
 import org.jsfml.window.event.Event;
 import org.jsfml.window.event.MouseEvent;
 
@@ -108,7 +109,7 @@ public class Game
             // Check for close events
             for (Event e : window.pollEvents()) {
                 Helper.checkCloseEvents(e, window);
-                if (e.type == MouseEvent.Type.MOUSE_BUTTON_PRESSED) {
+                if (e.type == MouseEvent.Type.MOUSE_BUTTON_PRESSED && Mouse.isButtonPressed(Mouse.Button.LEFT)) {
                     // The player character has fired a bullet
                     Bullet b = new Bullet(
                             (int) player.getPlayerCenter().x,
@@ -190,7 +191,7 @@ public class Game
                 }
                 if (0 < Helper.checkOverlap(b, c)) {
                     if (c instanceof Enemy) {
-                        ((Enemy) c).decreaseHealth(b.getDamage());
+                        ((Enemy) c).decreaseHealth(player.getDamage());
                         ((Enemy) c).moveRight();
                         ((Enemy) c).moveRight();
                         ((Enemy) c).moveRight();
