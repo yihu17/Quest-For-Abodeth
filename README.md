@@ -1,35 +1,40 @@
 # README
 
+
 ## To Do
-- Create other main.java.questfortheabodeth.menus
-  - main.java.questfortheabodeth.Main menu to look like the graphic on Google Drive
-  - Instructions
-  - Credits
-  - Highscore
-  - In game menu
-- Highscore system can be made
-  - Eds FileOperations class
-  - Reading and writing to CSV file
-- Minimap class
-  - Takes the map size (number of rooms)
-  - Shows currently in room
-  - Sits in one of the corners
-  - Use colored rectangles to show visited rooms
-  - Minimap class can be made drawable
-    - Implement the drawable class
-    - Make the X and Y coords of the minimap relative so that all drawn boxes from there are relative to the top left of the map
-- main.java.questfortheabodeth.characters.Player weapons
-  - main.java.questfortheabodeth.characters.Player can hold weapons
-  - main.java.questfortheabodeth.characters.Player has 3 weapons 
 
 
-## Notes
-- All loaded images are saved in the static HashMap in the setting file
 
-## Links
+### Bugs
+- Can shoot behind you
+  - Check the direction of the player and if the mouse is in front of the player before shooting 
+- Spiders get caught on walls
+- Holding down the left mouse button results in NullPointerException
 
-#### Graphics
-- https://0x72.itch.io/16x16-dungeon-tileset
-- https://0x72.itch.io/dungeontileset-ii
-- https://jesse-m.itch.io/skeleton-pack
-  
+#Enemies
+- when hit set speed to 0 for 0.75 seconds
+- attack player
+
+#Player
+- pickup weapons
+- pickup ammo
+- variables: health, ammo, weapons, currentWeapon
+- store current weapon and weapons holding
+- health when hit by enemy
+- swap weapon (reapply damage stat if damage powerful in use)
+
+#UI
+- health (bar system) (simple integer property use for this)
+- ammo
+- mini-map
+- all go in HUD packge
+
+#Rooms
+- doors interactable and move player to a different room
+- CSVs need populating
+
+#Graphics
+- menus need creating
+- pickups need making more clear what they do
+- All weapons need overlaying on player
+    - default weapons: machete & pistol
