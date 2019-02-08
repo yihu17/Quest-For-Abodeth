@@ -19,6 +19,8 @@ public abstract class Character implements Drawable, Collidable
     private int y;
     private int health;
     private int movementSpeed;
+    private int shield = 0;
+    private int ammo = 0;
     private Image image;
     private int damage = 5;
     /**
@@ -53,9 +55,9 @@ public abstract class Character implements Drawable, Collidable
         updatePosition();
     }
 
-    public void setDamage(int damage)
+    public void addDamage(int damage)
     {
-        this.damage = damage;
+        this.damage += damage;
     }
 
     public int getDamage()
@@ -210,6 +212,26 @@ public abstract class Character implements Drawable, Collidable
         return health;
     }
 
+    public void addHealth(int healthBoost) {
+        health += healthBoost;
+    }
+
+    public int getShield() {
+        return  shield;
+    }
+
+    public void addShield(int shieldAmount) {
+        this.shield += shieldAmount;
+    }
+
+    public int getAmmo() {
+        return  ammo;
+    }
+
+    public void addAmmo(int ammoAmount) {
+        this.ammo += ammoAmount;
+    }
+
     /**
      * Increase the health of the character by the specified amount
      *
@@ -229,5 +251,11 @@ public abstract class Character implements Drawable, Collidable
     @Override
     public void draw(RenderTarget renderTarget, RenderStates renderStates) {
         renderTarget.draw(image);
+    }
+
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
+        this.image.setPosition(x, y);
     }
 }

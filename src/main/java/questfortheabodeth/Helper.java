@@ -130,13 +130,13 @@ public class Helper
 
         double angle = getAngleBetweenPoints(o1Center, o2Center);
 
-        if ((325 <= angle && angle <= 360) || (0 <= angle && angle <= 35)) {
+        if ((320 <= angle && angle <= 360) || (0 <= angle && angle <= 40)) {
             return 1;
-        } else if (55 <= angle && angle <= 125) {
+        } else if (50 <= angle && angle <= 130) {
             return 2;
-        } else if (145 <= angle && angle <= 215) {
+        } else if (140 <= angle && angle <= 220) {
             return 4;
-        } else if (235 <= angle && angle <= 305) {
+        } else if (230 <= angle && angle <= 310) {
             return 8;
         }
 

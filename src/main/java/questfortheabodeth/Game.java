@@ -4,12 +4,16 @@ import main.java.questfortheabodeth.characters.Enemy;
 import main.java.questfortheabodeth.characters.Player;
 import main.java.questfortheabodeth.environments.Environment;
 import main.java.questfortheabodeth.environments.Room;
+import main.java.questfortheabodeth.hud.MiniMap;
 import main.java.questfortheabodeth.interfaces.Collidable;
+import main.java.questfortheabodeth.interfaces.Interactable;
 import main.java.questfortheabodeth.interfaces.Movable;
 import main.java.questfortheabodeth.interfaces.Powerup;
 import main.java.questfortheabodeth.menus.Button;
 import main.java.questfortheabodeth.menus.GameMenu;
 import main.java.questfortheabodeth.powerups.DamagePlus;
+import main.java.questfortheabodeth.powerups.HealthBoost;
+import main.java.questfortheabodeth.powerups.Pickup;
 import main.java.questfortheabodeth.weapons.Bullet;
 import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.RenderWindow;
@@ -23,6 +27,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -34,12 +39,14 @@ public class Game
     private Room[][] rooms;
     private Room currentRoom;
     private Player player;
+    private MiniMap miniMap;
 
     private CopyOnWriteArraySet<Movable> movables = new CopyOnWriteArraySet<>();
     private CopyOnWriteArraySet<Drawable> drawables = new CopyOnWriteArraySet<>();
     private CopyOnWriteArraySet<Collidable> collidables = new CopyOnWriteArraySet<>();
     private CopyOnWriteArraySet<Bullet> bullets = new CopyOnWriteArraySet<>();
     private CopyOnWriteArraySet<Enemy> enemies = new CopyOnWriteArraySet<>();
+    private CopyOnWriteArraySet<Interactable> interactables = new CopyOnWriteArraySet<>();
 
     public Game(RenderWindow window)
     {
@@ -48,19 +55,33 @@ public class Game
         this.window.clear();
         this.gameRunning = true;
         this.player = new Player();
-        DamagePlus d = new DamagePlus(0, 0);
-        drawables.add(d);
-        collidables.add(d);
 
         // Read the CSV file
-        rooms = new Room[4][4];
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                rooms[i][j] = new Room(Settings.GENERATOR.nextInt(4));
+        FileOperator ops = new FileOperator("res/assets/CSVs/roomLayout.csv");
+        ArrayList<String> file = ops.readToList();
+        int rows = file.size();
+        int cols = file.get(0).split(",").length;
+        int startRow = -1;
+        int startCol = -1;
+        rooms = new Room[rows][cols];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                int roomCode = Integer.parseInt(file.get(i).split(",")[j]);
+                rooms[i][j] = new Room(roomCode);
+                if (roomCode == 1) {
+                    startCol = j;
+                    startRow = i;
+                }
             }
         }
 
-        currentRoom = rooms[0][0];
+        if (startRow < 0 || startCol < 0) {
+            throw new IllegalStateException("Player has no start room");
+        }
+        currentRoom = rooms[startRow][startCol];
+        miniMap = new MiniMap(rows, cols, startRow, startCol);
+
         this.scanRoom();
     }
 
@@ -72,6 +93,7 @@ public class Game
 
             // Draw the room
             window.draw(currentRoom);
+            window.draw(miniMap);
             window.draw(player);
             // Draw all the drawable objects
             drawables.forEach(window::draw);
@@ -79,7 +101,7 @@ public class Game
             window.display();
 
             // Move every single movable object (enemy movements, bullets etc.)
-            // Once they have moved check to enusre they are still in the bounds of the window
+            // Once they have moved check to ensure they are still in the bounds of the window
             this.moveMovables();
 
 
@@ -109,6 +131,7 @@ public class Game
             int moveValues = runPlayerCollisions();
             runBulletCollisions();
             runEnemyCollisions();
+            runPlayerInteracts();
 
 
             if (Settings.MOVE_UP_SET.contains(moveValues) && Keyboard.isKeyPressed(Keyboard.Key.W)) {
@@ -147,6 +170,8 @@ public class Game
                 int overlap = Helper.checkOverlap(player, c);
                 if (0 < overlap) {
                     ((Powerup) c).applyBuff(player);
+                    drawables.remove(c);
+                    collidables.remove(c);
                 }
             }
         }
@@ -160,12 +185,15 @@ public class Game
     {
         for (Bullet b : bullets) {
             for (Collidable c : collidables) {
-                if (c instanceof Bullet) {
+                if (c instanceof Bullet || c instanceof Powerup) {
                     continue;
                 }
                 if (0 < Helper.checkOverlap(b, c)) {
                     if (c instanceof Enemy) {
                         ((Enemy) c).decreaseHealth(b.getDamage());
+                        ((Enemy) c).moveRight();
+                        ((Enemy) c).moveRight();
+                        ((Enemy) c).moveRight();
                         System.out.println("Bullet hit an enemy: " + c);
                     }
                     b.setX(2 * Settings.WINDOW_WIDTH);
@@ -194,6 +222,20 @@ public class Game
         }
     }
 
+    private void runPlayerInteracts() {
+        HashSet<Class<? extends Interactable>> currentInteracts = new HashSet<>();
+        for (Interactable i : interactables) {
+            int overlap = Helper.checkOverlap(player, i);
+            if (0 < overlap) {
+                // Player is on top of something
+                i.interact(player);
+                currentInteracts.add(i.getClass());
+            }
+        }
+
+        player.resetInteracts(currentInteracts);
+    }
+
     private void scanRoom()
     {
         collidables.addAll(currentRoom.getCollidables());
@@ -201,7 +243,15 @@ public class Game
             e.setPlayer(player);
             movables.add(e);
             enemies.add(e);
+            drawables.add(e);
         }
+
+        for (Pickup p : currentRoom.getPickups()) {
+             collidables.add(p);
+             drawables.add(p);
+        }
+
+        interactables.addAll(currentRoom.getInteractables());
     }
 
     private void moveMovables()

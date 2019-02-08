@@ -3,7 +3,9 @@ package main.java.questfortheabodeth.environments;
 import main.java.questfortheabodeth.FileOperator;
 import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.characters.Enemy;
+import main.java.questfortheabodeth.environments.traps.Quicksand;
 import main.java.questfortheabodeth.interfaces.Collidable;
+import main.java.questfortheabodeth.interfaces.Interactable;
 import main.java.questfortheabodeth.powerups.*;
 import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.RenderStates;
@@ -31,12 +33,12 @@ public class Room implements Drawable
     /**
      * Creates a new room of the specified type
      *
-     * @param type (int) main.java.questfortheabodeth.environments.Room type
+     * @param type (int) Room type
      */
     public Room(int type)
     {
         this.type = type;
-        roomFile = new FileOperator("res/roomCSVs/roomDataB.csv"); //needs to get path dynamically...
+        roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomDataB.csv"); //needs to get path dynamically...
 
         readRoomData();
         loadRoomImages();
@@ -49,20 +51,34 @@ public class Room implements Drawable
         ArrayList<Collidable> c = new ArrayList<>();
         for (int i = 0; i < Settings.ROOM_DIVISION_ROWS; i++) {
             for (int j = 0; j < Settings.ROOM_DIVISION_COLUMNS; j++) {
-                if (roomImages[i][j] instanceof Collidable) {
+                if (roomImages[i][j] instanceof Collidable && !(roomImages[i][j] instanceof Interactable)) {
                     c.add((Collidable) roomImages[i][j]);
                 }
             }
         }
-        //c.addAll(enemies);
+        c.addAll(enemies);
+        c.addAll(pickups);
 
         return c;
+    }
+
+    public ArrayList<Interactable> getInteractables() {
+        ArrayList<Interactable> iList = new ArrayList<>();
+        for (int i = 0; i < Settings.ROOM_DIVISION_ROWS; i++) {
+            for (int j = 0; j < Settings.ROOM_DIVISION_COLUMNS; j++) {
+                if (roomImages[i][j] instanceof Interactable) {
+                    iList.add((Interactable) roomImages[i][j]);
+                }
+            }
+        }
+
+        return iList;
     }
 
     @Override
     public String toString()
     {
-        return "<main.java.questfortheabodeth.environments.Room " + type + ">";
+        return "<Room " + type + ">";
     }
 
     /**
@@ -80,12 +96,6 @@ public class Room implements Drawable
             for (int j = 0; j < Settings.ROOM_DIVISION_COLUMNS; j++) {
                 renderTarget.draw(roomImages[i][j]);
             }
-        }
-        for (int i = 0; i < enemies.size(); i++) {
-            renderTarget.draw(enemies.get(i));
-        }
-        for (int i = 0; i < pickups.size(); i++) {
-            renderTarget.draw(pickups.get(i));
         }
     }
 
@@ -136,13 +146,15 @@ public class Room implements Drawable
                         roomImages[i][j] = new Environment(spacing * j, spacing * i, "res/assets/environment/floor/floor" + floorNum + ".png", false);
                         break;
                     case "door":
-                        roomImages[i][j] = new InteractableEnvironment(spacing * j, spacing * i, filePath);
+                        //roomImages[i][j] = new InteractableEnvironment(spacing * j, spacing * i, filePath);
+                        roomImages[i][j] = new Environment(spacing * j, spacing * i, filePath, false);
                         break;
                     case "water":
-                        roomImages[i][j] = new InteractableEnvironment(spacing * j, spacing * i, filePath);
+                        //roomImages[i][j] = new InteractableEnvironment(spacing * j, spacing * i, filePath);
+                        roomImages[i][j] = new Environment(spacing * j, spacing * i, filePath, false);
                         break;
                     case "quicksand":
-                        roomImages[i][j] = new InteractableEnvironment(spacing * j, spacing * i, filePath);
+                        roomImages[i][j] = new Quicksand(spacing * j, spacing * i, filePath);
                         break;
                     case "spikeTrap":
                         roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
@@ -166,7 +178,8 @@ public class Room implements Drawable
                         roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
                         break;
                     case "graveyard":
-                        roomImages[i][j] = new InteractableEnvironment(spacing * j, spacing * i, filePath);
+                        //roomImages[i][j] = new InteractableEnvironment(spacing * j, spacing * i, filePath);
+                        roomImages[i][j] = new Environment(spacing * j, spacing * i, filePath, false);
                         break;
                     case "crushingWalls":
                         roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
@@ -276,13 +289,14 @@ public class Room implements Drawable
                 int[] generatedSpawnLocation = generateSpawnLocation();
                 switch (pickupRead) {
                     case "healthPickup":
-                        pickups.add(new HealthBoost(generatedSpawnLocation[0], generatedSpawnLocation[1], 15000));
+                        //System.out.println("health");
+                        pickups.add(new HealthBoost(generatedSpawnLocation[0], generatedSpawnLocation[1]));
                         break;
                     case "ammoPickup":
                         pickups.add(new AmmoPickup(generatedSpawnLocation[0], generatedSpawnLocation[1]));
                         break;
                     case "shieldPickup":
-                        pickups.add(new ShieldPickup(generatedSpawnLocation[0], generatedSpawnLocation[1], 20000));
+                        pickups.add(new ShieldPickup(generatedSpawnLocation[0], generatedSpawnLocation[1]));
                         break;
                     case "speedPickupUp":
                         pickups.add(new SpeedPickupUp(generatedSpawnLocation[0], generatedSpawnLocation[1], 15000));
@@ -291,7 +305,7 @@ public class Room implements Drawable
                         pickups.add(new SpeedPickupDown(generatedSpawnLocation[0], generatedSpawnLocation[1], 10000));
                         break;
                     case "damagePickup":
-                        pickups.add(new DamagePlus(generatedSpawnLocation[0], generatedSpawnLocation[1]));
+                        pickups.add(new DamagePlus(generatedSpawnLocation[0], generatedSpawnLocation[1], 10000));
                         break;
                 }
             }
@@ -300,5 +314,8 @@ public class Room implements Drawable
 
     public ArrayList<Enemy> getEnemies() {
         return enemies;
+    }
+    public ArrayList<Pickup> getPickups() {
+        return pickups;
     }
 }

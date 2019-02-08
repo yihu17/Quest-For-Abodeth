@@ -13,12 +13,12 @@ public class Enemy extends Character implements Movable
     {
         super(xPos, yPos, health, imageFilePath, movementSpeed);
         this.type = imageFilePath.split("/")[imageFilePath.split("/").length - 1];
-        System.out.println(imageFilePath);
     }
 
     @Override
     public void kill()
     {
+        setPosition(2 * Settings.WINDOW_WIDTH, 2 * Settings.WINDOW_HEIGHT);
         System.out.println(this + " died");
     }
 

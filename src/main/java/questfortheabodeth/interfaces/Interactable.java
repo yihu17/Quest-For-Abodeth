@@ -1,6 +1,8 @@
 package main.java.questfortheabodeth.interfaces;
 
-public interface Interactable
+import main.java.questfortheabodeth.characters.Player;
+
+public interface Interactable extends Collidable
 {
-    void interact();
+    void interact(Player p);
 }

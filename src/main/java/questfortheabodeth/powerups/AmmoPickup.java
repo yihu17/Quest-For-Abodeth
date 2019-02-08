@@ -4,37 +4,19 @@ import main.java.questfortheabodeth.characters.Player;
 
 public class AmmoPickup extends Pickup
 {
-    private int ammo;
+    private int ammo = 50;
 
     public AmmoPickup(int x, int y) {
-        super(x, y, "res/assets/pickups/ammo-pickup.png");
-    }
-
-    @Override
-    public float getX() {
-        return 0;
-    }
-
-    @Override
-    public float getY() {
-        return 0;
-    }
-
-    @Override
-    public float getHeight() {
-        return 0;
-    }
-
-    @Override
-    public float getWidth() {
-        return 0;
+        super(x, y, "res/assets/pickups/ammoPickup.png");
     }
 
     //function for when picked up/ used:
 
     @Override
     public void applyBuff(Player p) {
-
+        System.out.println("Getting more ammo");
+        p.addAmmo(ammo);
+        System.out.println("ammo is now " + p.getAmmo());
     }
 
     @Override

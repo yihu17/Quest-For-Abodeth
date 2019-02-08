@@ -40,4 +40,9 @@ public class Environment extends Image
     public boolean isCollidiable() {
         return collidiable;
     }
+
+    @Override
+    public String toString() {
+        return "<" + getClass() + " @ [" + getX() + ", " + getY() + "]>";
+    }
 }
