@@ -35,6 +35,9 @@ public class Player extends Character
         // Current will contain what is actually happening
         // applied is a list of what WAS happening
         // Figure out what was removed and remove that buff
+
+        // current.removeAll(appliedInteracts) = List of all new interacts applied
+        // appliedInteracts.removeAll(current) = List of all removed interacts??
     }
 
     /**
