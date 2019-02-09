@@ -13,6 +13,9 @@ import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.RenderStates;
 import org.jsfml.graphics.RenderTarget;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -46,7 +49,6 @@ public class Room implements Drawable
     {
         this.type = type;
         roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomDataB.csv"); //needs to get path dynamically...
-
         readRoomData();
         loadRoomImages();
         spawnEnemies();
@@ -362,5 +364,21 @@ public class Room implements Drawable
 
     public ArrayList<Weapon> getWeapons() {
         return weapons;
+    }
+
+    public void playMusic() {
+        Settings.AUDIO_STREAMER.stop();
+        try {
+            int r = Settings.GENERATOR.nextInt(16) + 1;
+            System.out.println(r);
+            String fileName = "res/assets/audio/roomMusic/" + r + ".wav";
+            File soundFile = new File(fileName);
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+            Settings.AUDIO_STREAMER = AudioSystem.getClip();
+            Settings.AUDIO_STREAMER.open(audioInputStream);
+            Settings.AUDIO_STREAMER.start();
+        } catch (Exception e) {
+            System.out.println("Audio error");
+        }
     }
 }

@@ -33,6 +33,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 
@@ -185,9 +186,7 @@ public class Game
             }
 
             if (c instanceof Enemy) {
-                if (System.currentTimeMillis() - player.getLastTimeHit() >= 300) {
-                    System.out.println(System.currentTimeMillis());
-                    player.setLastTimeHit(System.currentTimeMillis());
+                if (System.currentTimeMillis() - player.getLastTimeHit() >= 300) { //interval between hits
                     player.decreaseHealth(((Character) c).getDamage());
                 }
             }
@@ -271,6 +270,10 @@ public class Game
 
     private void scanRoom()
     {
+        if (!Settings.AUDIO_STREAMER.isActive())
+            currentRoom.playMusic();
+
+
         collidables.addAll(currentRoom.getCollidables());
         for (Enemy e : currentRoom.getEnemies()) {
             e.setPlayer(player);

@@ -13,6 +13,7 @@ import javax.sound.sampled.AudioSystem;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 public class MainMenu implements Menu
@@ -117,7 +118,14 @@ public class MainMenu implements Menu
 
     public void playMusic() {
         try {
-            File soundFile = new File("res/audio/mainMenu.wav");
+            if (Settings.AUDIO_STREAMER.isActive()) {
+                Settings.AUDIO_STREAMER.stop();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            File soundFile = new File("res/assets/audio/mainMenu.wav");
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
             Settings.AUDIO_STREAMER = AudioSystem.getClip();
             Settings.AUDIO_STREAMER.open(audioInputStream);
