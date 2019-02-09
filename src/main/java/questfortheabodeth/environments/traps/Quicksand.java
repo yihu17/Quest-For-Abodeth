@@ -14,14 +14,16 @@ public class Quicksand extends InteractableEnvironment
     public void interact(Player p) {
         if (p.applyInteract(this)) {
             p.setMovementSpeed(
-                    (int) (p.getMovementSpeed() * 0.75)
+                    p.getMovementSpeed() * 0.75
             );
+            System.out.println("Speed is now " + p.getMovementSpeed());
         }
     }
 
     @Override
     public void remove(Player p) {
-        p.setMovementSpeed(Settings.PLAYER_SPEED);
+        p.setMovementSpeed(p.getMovementSpeed() / 0.75);
         System.out.println("Removing speed buff from player");
+        System.out.println("Speed is now " + p.getMovementSpeed());
     }
 }

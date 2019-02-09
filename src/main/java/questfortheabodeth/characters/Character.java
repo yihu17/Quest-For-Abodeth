@@ -20,7 +20,7 @@ public abstract class Character extends Thread implements Drawable, Collidable
     private int x;
     private int y;
     private SimpleIntegerProperty health = new SimpleIntegerProperty();
-    private int movementSpeed;
+    private double movementSpeed;
     private int shield = 0;
     private int ammo = 0;
     private Image image;
@@ -190,12 +190,12 @@ public abstract class Character extends Thread implements Drawable, Collidable
      *
      * @param speed (int) Movement speed
      */
-    public void setMovementSpeed(int speed)
+    public void setMovementSpeed(double speed)
     {
         this.movementSpeed = speed;
     }
 
-    public int getMovementSpeed() {
+    public double getMovementSpeed() {
         return movementSpeed;
     }
 
@@ -266,7 +266,7 @@ public abstract class Character extends Thread implements Drawable, Collidable
     }
 
     public void run() {
-        int prevMovementSpeed = this.movementSpeed;
+        double prevMovementSpeed = this.movementSpeed;
         this.movementSpeed = 0;
         try {
             Thread.sleep(100);

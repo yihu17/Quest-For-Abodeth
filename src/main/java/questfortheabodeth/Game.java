@@ -245,6 +245,12 @@ public class Game
         player.resetInteracts(currentInteracts);
     }
 
+    private void runEnemyInteracts() {
+        for (Enemy e : enemies) {
+
+        }
+    }
+
     private void scanRoom()
     {
         collidables.addAll(currentRoom.getCollidables());
