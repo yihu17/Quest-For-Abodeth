@@ -207,7 +207,7 @@ public abstract class Character extends Thread implements Drawable, Collidable
      */
     public void decreaseHealth(int amount)
     {
-        this.health.subtract(amount);
+        this.health.set(health.get() - amount);
         if (health.get() <= 0) {
             this.kill();
         }
