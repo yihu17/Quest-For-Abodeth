@@ -140,6 +140,7 @@ public class Game
             runBulletCollisions();
             runEnemyCollisions();
             runPlayerInteracts();
+            runEnemyInteracts();
 
 
             if (Settings.MOVE_UP_SET.contains(moveValues) && Keyboard.isKeyPressed(Keyboard.Key.W)) {
@@ -255,7 +256,16 @@ public class Game
 
     private void runEnemyInteracts() {
         for (Enemy e : enemies) {
+            HashSet<Class<? extends Interactable>> currentInteracts = new HashSet<>();
+            for (Interactable i : interactables) {
+                int overlap = Helper.checkOverlap(e, i);
+                if (0 < overlap) {
+                    i.buffEnemy(e);
+                    currentInteracts.add(i.getClass());
+                }
+            }
 
+            e.resetInteracts(currentInteracts);
         }
     }
 

@@ -1,5 +1,6 @@
 package main.java.questfortheabodeth.environments;
 
+import main.java.questfortheabodeth.characters.Enemy;
 import main.java.questfortheabodeth.characters.Player;
 import main.java.questfortheabodeth.interfaces.Collidable;
 import main.java.questfortheabodeth.interfaces.Interactable;
@@ -49,6 +50,16 @@ public class CollidableInteractableEnvironment extends Environment implements Co
 
     @Override
     public void remove(Player p) {
+
+    }
+
+    @Override
+    public void buffEnemy(Enemy e) {
+
+    }
+
+    @Override
+    public void removeEnemyBuff(Enemy e) {
 
     }
 }
