@@ -182,6 +182,14 @@ public class Game
                     collidables.remove(c);
                 }
             }
+
+            if (c instanceof Enemy) {
+                if (System.currentTimeMillis() - player.getLastTimeHit() >= 300) {
+                    System.out.println(System.currentTimeMillis());
+                    player.setLastTimeHit(System.currentTimeMillis());
+                    player.decreaseHealth(((Character) c).getDamage());
+                }
+            }
         }
         for (Integer i : playerCanMove) {
             moveValues += i;
