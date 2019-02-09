@@ -7,6 +7,8 @@ import main.java.questfortheabodeth.environments.traps.Quicksand;
 import main.java.questfortheabodeth.environments.traps.Water;
 import main.java.questfortheabodeth.interfaces.Collidable;
 import main.java.questfortheabodeth.interfaces.Interactable;
+import main.java.questfortheabodeth.menus.Button;
+import main.java.questfortheabodeth.interfaces.Menu;
 import main.java.questfortheabodeth.powerups.*;
 import main.java.questfortheabodeth.weapons.*;
 import org.jsfml.graphics.Drawable;

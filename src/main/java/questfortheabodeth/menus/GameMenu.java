@@ -1,6 +1,7 @@
 package main.java.questfortheabodeth.menus;
 
 import main.java.questfortheabodeth.Helper;
+import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.interfaces.Clickable;
 import main.java.questfortheabodeth.interfaces.Menu;
 import main.java.questfortheabodeth.sprites.Image;

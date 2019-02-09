@@ -89,6 +89,7 @@ public class Game
         currentRoom = rooms[startRow][startCol];
         miniMap = new MiniMap(rows, cols, startRow, startCol);
         healthBar = new HealthBar(player);
+        new Thread(Settings.GAME_TIME).start();
 
         this.scanRoom();
     }
@@ -96,6 +97,8 @@ public class Game
     public void run()
     {
         int clocker = 0;
+        Button time = new Button(120, 40, (Settings.WINDOW_WIDTH / 2) - 60, 10, "0");
+        time.setTextXOffset(8);
         while (gameRunning) {
             window.clear();
 
@@ -106,6 +109,11 @@ public class Game
             drawables.forEach(window::draw);
             window.draw(healthBar);
             window.draw(miniMap);
+
+            //Update timer
+            time.setText(Settings.GAME_TIME.getFormattedTime());
+            window.draw(time);
+
             // Update the window
             window.display();
 
