@@ -139,15 +139,18 @@ public class Game
                 Helper.checkCloseEvents(e, window);
                 if (e.type == MouseEvent.Type.MOUSE_BUTTON_PRESSED && Mouse.isButtonPressed(Mouse.Button.LEFT)) {
                     // The player character has fired a bullet
-                    Bullet b = new Bullet(
-                            (int) player.getPlayerCenter().x,
-                            (int) player.getPlayerCenter().y,
-                            Helper.getAngleBetweenPoints(new Vector2i(player.getVectorPosition()), e.asMouseEvent().position)
-                    );
-                    movables.add(b);
-                    drawables.add(b);
-                    collidables.add(b);
-                    bullets.add(b);
+                    if (0 < player.ammoProperty().getValue()) {
+                        Bullet b = new Bullet(
+                                (int) player.getPlayerCenter().x,
+                                (int) player.getPlayerCenter().y,
+                                Helper.getAngleBetweenPoints(new Vector2i(player.getVectorPosition()), e.asMouseEvent().position)
+                        );
+                        movables.add(b);
+                        drawables.add(b);
+                        collidables.add(b);
+                        bullets.add(b);
+                        player.decreaseAmmo();
+                    }
                 }
             }
 

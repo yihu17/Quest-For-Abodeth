@@ -182,4 +182,8 @@ public class Player extends Character
 
         return carry;
     }
+
+    public void decreaseAmmo() {
+        this.ammo.set(ammo.get() - 1);
+    }
 }
