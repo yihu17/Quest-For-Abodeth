@@ -4,6 +4,7 @@ import main.java.questfortheabodeth.characters.Character;
 import main.java.questfortheabodeth.characters.Enemy;
 import main.java.questfortheabodeth.characters.Player;
 import main.java.questfortheabodeth.environments.Environment;
+import main.java.questfortheabodeth.environments.Interactables.Door;
 import main.java.questfortheabodeth.environments.Room;
 import main.java.questfortheabodeth.hud.*;
 import main.java.questfortheabodeth.interfaces.Collidable;
@@ -283,8 +284,16 @@ public class Game
             int overlap = Helper.checkOverlap(player, i);
             if (0 < overlap) {
                 // Player is on top of something
-                i.interact(player);
-                currentInteracts.add(i.getClass());
+                if (i instanceof WeaponPickup) {
+                    // Pickup the weapon if they want it
+                    // What if they already have it and are getting ammo?
+                } else if (i instanceof Door) {
+                    // Allow the player to pass through the door
+                    // How do we know which door goes where?
+                } else {
+                    i.interact(player);
+                    currentInteracts.add(i.getClass());
+                }
             }
         }
 

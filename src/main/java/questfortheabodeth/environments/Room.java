@@ -3,6 +3,7 @@ package main.java.questfortheabodeth.environments;
 import main.java.questfortheabodeth.FileOperator;
 import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.characters.Enemy;
+import main.java.questfortheabodeth.environments.Interactables.Door;
 import main.java.questfortheabodeth.environments.traps.Quicksand;
 import main.java.questfortheabodeth.environments.traps.Water;
 import main.java.questfortheabodeth.interfaces.Collidable;
@@ -162,8 +163,8 @@ public class Room implements Drawable
                         roomImages[i][j] = new Environment(spacing * j, spacing * i, "res/assets/environment/floor/floor" + floorNum + ".png", false, false);
                         break;
                     case "door":
-                        //roomImages[i][j] = new InteractableEnvironment(spacing * j, spacing * i, filePath);
-                        roomImages[i][j] = new Environment(spacing * j, spacing * i, filePath, false, false);
+                        roomImages[i][j] = new Door(spacing * j, spacing * i, filePath);
+                        //roomImages[i][j] = new Environment(spacing * j, spacing * i, filePath, false, false);
                         break;
                     case "water":
                         //roomImages[i][j] = new InteractableEnvironment(spacing * j, spacing * i, filePath);
