@@ -56,6 +56,10 @@ public class Main
                     break;
                 case "quit":
                     window.close();
+                    if (Settings.AUDIO_STREAMER != null) {
+                        Settings.AUDIO_STREAMER.close();
+                    }
+                    System.exit(0);
                     break;
                 default:
                     throw new AssertionError("Unknown option returned from the main menu '" + chosenOption.getText() + "'");

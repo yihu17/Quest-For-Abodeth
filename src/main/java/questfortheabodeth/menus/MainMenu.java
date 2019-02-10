@@ -1,6 +1,5 @@
 package main.java.questfortheabodeth.menus;
 
-import jdk.nashorn.internal.runtime.ECMAException;
 import main.java.questfortheabodeth.Helper;
 import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.interfaces.Clickable;
@@ -119,7 +118,7 @@ public class MainMenu implements Menu
 
     public void playMusic() {
         try {
-            if (Settings.AUDIO_STREAMER.isActive()) {
+            if (Settings.AUDIO_STREAMER != null && Settings.AUDIO_STREAMER.isActive()) {
                 Settings.AUDIO_STREAMER.stop();
             }
         } catch (Exception e) {
