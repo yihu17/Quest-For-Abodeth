@@ -21,6 +21,11 @@ public class WeaponPickup implements Drawable, Collidable {
     }
 
     @Override
+    public String toString() {
+        return "<WeaponPickup " + name + " @ [" + xPos + ", " + yPos + "]>";
+    }
+
+    @Override
     public void draw(RenderTarget renderTarget, RenderStates renderStates) {
         renderTarget.draw(image);
     }

@@ -114,42 +114,45 @@ public class Player extends Character
         return this.lastTimeHit;
     }
 
-    public void pickUpWeapon(WeaponPickup weapon) {
+    public Weapon pickUpWeapon(WeaponPickup weapon) {
         switch (weapon.getName()) {
             case "machete":
                 if (!hasWeapon("machete")) {
                     meleeWeapon = new Melee("machete", 3);
+                    return meleeWeapon;
                 }
-                break;
+                return meleeWeapon;
             case "revolver":
                 if (!hasWeapon("revolver")) {
                     oneHandedWeapon = new OneHandedWeapon("revolver", 1, 50, 3);
                 } else {
                     this.ammo += 50;
                 }
-                break;
+                return oneHandedWeapon;
             case "shotgun":
                 if (!hasWeapon("shotgun")) {
                     twoHandedWeapon = new TwoHandedWeapon("shotgun", 5, 20, 6);
                 } else {
                     this.ammo += 20;
                 }
-                break;
+                return twoHandedWeapon;
             case "ar15":
                 if (!hasWeapon("ar15")) {
                     twoHandedWeapon = new TwoHandedWeapon("ar15", 1, 25, 2);
                 } else {
                     this.ammo += 25;
                 }
-                break;
+                return twoHandedWeapon;
             case "uzi":
                 if (!hasWeapon("uzi")) {
                     oneHandedWeapon = new OneHandedWeapon("uzi", 3, 60, 1);
                 } else {
                     this.ammo += 60;
                 }
-                break;
+                return oneHandedWeapon;
         }
+
+        throw new AssertionError("Unknown weapon encountered: " + weapon);
     }
 
     public boolean hasWeapon(String weaponSearching) {

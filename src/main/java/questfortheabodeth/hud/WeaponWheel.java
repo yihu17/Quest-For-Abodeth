@@ -1,8 +1,6 @@
 package main.java.questfortheabodeth.hud;
 
-import main.java.questfortheabodeth.weapons.Melee;
-import main.java.questfortheabodeth.weapons.OneHandedWeapon;
-import main.java.questfortheabodeth.weapons.TwoHandedWeapon;
+import main.java.questfortheabodeth.weapons.*;
 import org.jsfml.graphics.*;
 import org.jsfml.system.Vector2f;
 
@@ -49,8 +47,16 @@ public class WeaponWheel implements Drawable {
         shape.setFillColor(new Color(Color.WHITE, 128));
     }
 
-    public void addWeapon(String weaponName) {
-
+    public void setWeapon(Weapon weapon) {
+        if (weapon instanceof Melee) {
+            meleeWeapon = (Melee) weapon;
+        } else if (weapon instanceof OneHandedWeapon) {
+            oneHandedWeapon = (OneHandedWeapon) weapon;
+        } else if (weapon instanceof TwoHandedWeapon) {
+            twoHandedWeapon = (TwoHandedWeapon) weapon;
+        } else {
+            throw new RuntimeException("Unsupported weapon class: " + weapon.getClass());
+        }
     }
 
     @Override
@@ -58,6 +64,15 @@ public class WeaponWheel implements Drawable {
         renderTarget.draw(meleeRect);
         renderTarget.draw(oneHandedRect);
         renderTarget.draw(twoHandedRect);
+        if (meleeWeapon != null) {
+            renderTarget.draw(new WeaponPickup(5, 842, "res/assets/weapons/" + meleeWeapon.getName() + ".png", meleeWeapon.getName()));
+        }
+        if (oneHandedWeapon != null) {
+            renderTarget.draw(new WeaponPickup(5, 911, "res/assets/weapons/" + oneHandedWeapon.getName() + ".png", oneHandedWeapon.getName()));
+        }
+        if (twoHandedWeapon != null) {
+            renderTarget.draw(new WeaponPickup(5, 981, "res/assets/weapons/" + twoHandedWeapon.getName() + ".png", twoHandedWeapon.getName()));
+        }
     }
 
     public Melee getMeleeWeapon() {

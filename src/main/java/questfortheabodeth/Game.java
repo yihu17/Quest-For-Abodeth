@@ -19,6 +19,7 @@ import main.java.questfortheabodeth.powerups.DamagePlus;
 import main.java.questfortheabodeth.powerups.HealthBoost;
 import main.java.questfortheabodeth.powerups.Pickup;
 import main.java.questfortheabodeth.weapons.Bullet;
+import main.java.questfortheabodeth.weapons.Melee;
 import main.java.questfortheabodeth.weapons.Weapon;
 import main.java.questfortheabodeth.weapons.WeaponPickup;
 import org.jsfml.graphics.Drawable;
@@ -218,11 +219,11 @@ public class Game
                 int overlap = Helper.checkOverlap(player, c);
                 if (0 < overlap) {
                     if (!player.hasWeapon(((WeaponPickup) c).getName())) {
-                        ((WeaponPickup) c).move(10, Settings.WINDOW_HEIGHT - 100 - (50 * player.amountOfWeaponsCarrying()));
+//                        ((WeaponPickup) c).move(10, Settings.WINDOW_HEIGHT - 100 - (50 * player.amountOfWeaponsCarrying()));
                     } else {
                         ((WeaponPickup) c).remove();
                     }
-                    player.pickUpWeapon((WeaponPickup) c);
+                    weaponWheel.setWeapon(player.pickUpWeapon((WeaponPickup) c));
                 }
             }
         }
