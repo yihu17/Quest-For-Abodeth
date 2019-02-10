@@ -36,11 +36,12 @@ public class Button extends RectangleShape implements Clickable
 
     /**
      * Creates a new button object
-     * @param width (int) Width of the button
+     *
+     * @param width  (int) Width of the button
      * @param height (int) Height of the button
-     * @param x (int) X position of the top left of the button
-     * @param y (int) Y position of the top left of the button
-     * @param text (String) Text to place on the button
+     * @param x      (int) X position of the top left of the button
+     * @param y      (int) Y position of the top left of the button
+     * @param text   (String) Text to place on the button
      */
     public Button(int width, int height, int x, int y, String text)
     {
@@ -116,6 +117,7 @@ public class Button extends RectangleShape implements Clickable
     /**
      * Used to reposition the text within a button to make it
      * centered rather than top-left
+     *
      * @param offset (int) Amount to move the text left by
      */
     public void setTextXOffset(int offset)
@@ -127,6 +129,7 @@ public class Button extends RectangleShape implements Clickable
     /**
      * Used to reposition the text within a button to make it
      * centered rather than top-left
+     *
      * @param offset (int) Amount to move the text down by
      */
     public void setTextYOffset(int offset)
@@ -148,6 +151,7 @@ public class Button extends RectangleShape implements Clickable
 
     /**
      * Checks whether or not the button has been pressed
+     *
      * @param mousePos (Vector2f) Current mouse position
      */
     @Override
@@ -164,6 +168,7 @@ public class Button extends RectangleShape implements Clickable
     /**
      * Resets the color of the button back to normal after
      * it has been clicked
+     *
      * @param mousePos (Vector2f) Current mouse position
      */
     @Override
@@ -176,6 +181,7 @@ public class Button extends RectangleShape implements Clickable
 
     /**
      * Allows the button to be drawn to the screen with the default draw method
+     *
      * @param renderTarget (RenderTarget) Where to draw to (usually the window)
      * @param renderStates (RenderStates) I have no idea what these are...
      */
@@ -188,6 +194,7 @@ public class Button extends RectangleShape implements Clickable
 
     /**
      * Returns the string description of the button
+     *
      * @return (String) main.java.questfortheabodeth.menus.Button text
      */
     @Override

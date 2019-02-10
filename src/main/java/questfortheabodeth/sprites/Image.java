@@ -21,12 +21,15 @@ public class Image implements Drawable
     /**
      * Creates a new image object.
      *
-     * @param x (int) X coordinate of the top left of the image
-     * @param y (int) Y coordinate of the top left of the image
+     * @param x        (int) X coordinate of the top left of the image
+     * @param y        (int) Y coordinate of the top left of the image
      * @param filename (String) Filename of the image to load
      */
     public Image(int x, int y, String filename)
     {
+        if (filename.equals("")) {
+            return;
+        }
         position = new Vector2f(x, y);
         if (Settings.LOADED_IMAGES.containsKey(filename)) {
             this.loadImageFromTexture(Settings.LOADED_IMAGES.get(filename)); //if having problems remove this line
@@ -73,6 +76,7 @@ public class Image implements Drawable
 
     /**
      * Adjust the scale of the image
+     *
      * @param scaleFactor (Vector2f) A vector of the scale factors
      */
     public void setScale(Vector2f scaleFactor)
@@ -82,6 +86,7 @@ public class Image implements Drawable
 
     /**
      * Returns the bounds of the image object
+     *
      * @return (FloatRect) main.java.questfortheabodeth.sprites.Image bounds
      */
     public FloatRect getGlobalBounds()
@@ -92,9 +97,9 @@ public class Image implements Drawable
     /**
      * Draws the image on screen.
      *
-     * @throws NullPointerException Thrown if the image failed to load correctly
      * @param renderTarget (RenderTarget) The window to draw to
      * @param renderStates (RenderStates) Still don't know what these are
+     * @throws NullPointerException Thrown if the image failed to load correctly
      */
     @Override
     public void draw(RenderTarget renderTarget, RenderStates renderStates)
@@ -107,6 +112,7 @@ public class Image implements Drawable
 
     /**
      * Updates only the X position of the image
+     *
      * @param x (float) New X position
      */
     public void setXPosition(float x)
@@ -117,6 +123,7 @@ public class Image implements Drawable
 
     /**
      * Updates only the Y position of the image
+     *
      * @param y (float) New Y position
      */
     public void setYPosition(float y)
@@ -127,6 +134,7 @@ public class Image implements Drawable
 
     /**
      * Updates the position of the image
+     *
      * @param x (float) New X position
      * @param y (float) New Y position
      */

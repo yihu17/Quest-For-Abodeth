@@ -13,7 +13,6 @@ import javax.sound.sampled.AudioSystem;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 
 public class MainMenu implements Menu
@@ -116,7 +115,8 @@ public class MainMenu implements Menu
         return null;
     }
 
-    public void playMusic() {
+    public void playMusic()
+    {
         try {
             if (Settings.AUDIO_STREAMER != null && Settings.AUDIO_STREAMER.isActive()) {
                 Settings.AUDIO_STREAMER.stop();

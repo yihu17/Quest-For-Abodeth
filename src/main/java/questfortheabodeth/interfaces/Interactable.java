@@ -9,7 +9,7 @@ public interface Interactable extends Collidable
 
     void remove(Player p);
 
-    void buffEnemy (Enemy e);
+    void buffEnemy(Enemy e);
 
     void removeEnemyBuff(Enemy e);
 }

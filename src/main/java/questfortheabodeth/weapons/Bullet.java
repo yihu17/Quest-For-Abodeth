@@ -23,8 +23,8 @@ public class Bullet extends Image implements Movable, Collidable
     /**
      * Creates a new image object.
      *
-     * @param x (int) X coordinate of the top left of the image
-     * @param y (int) Y coordinate of the top left of the image
+     * @param x     (int) X coordinate of the top left of the image
+     * @param y     (int) Y coordinate of the top left of the image
      * @param angle (double) Angle the bullet is travelling at clockwise about the vertical
      */
     public Bullet(int x, int y, double angle)
@@ -75,6 +75,7 @@ public class Bullet extends Image implements Movable, Collidable
 
     /**
      * Returns the X position of this bullet
+     *
      * @return (float) X coordinate
      */
     @Override
@@ -85,6 +86,7 @@ public class Bullet extends Image implements Movable, Collidable
 
     /**
      * Returns the Y position of this bullet
+     *
      * @return (float) Y coordinate
      */
     @Override
@@ -95,6 +97,7 @@ public class Bullet extends Image implements Movable, Collidable
 
     /**
      * Returns the height of the image used by the bullet
+     *
      * @return (float) Height of the bullet
      */
     @Override
@@ -105,6 +108,7 @@ public class Bullet extends Image implements Movable, Collidable
 
     /**
      * Returns the width of the image used by the bullet
+     *
      * @return (float0 Width of the bullet
      */
     @Override

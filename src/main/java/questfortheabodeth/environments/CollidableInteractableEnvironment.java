@@ -14,31 +14,37 @@ public class CollidableInteractableEnvironment extends Environment implements Co
     }
 
     @Override
-    public float getX() {
+    public float getX()
+    {
         return 0;
     }
 
     @Override
-    public float getY() {
+    public float getY()
+    {
         return 0;
     }
 
     @Override
-    public float getHeight() {
+    public float getHeight()
+    {
         return 0;
     }
 
     @Override
-    public float getWidth() {
+    public float getWidth()
+    {
         return 0;
     }
 
     @Override
-    public FloatRect getGlobalBounds() {
+    public FloatRect getGlobalBounds()
+    {
         return super.getGlobalBounds();
     }
 
-    public static CollidableInteractableEnvironment getInstance() {
+    public static CollidableInteractableEnvironment getInstance()
+    {
         return null;
     }
 
@@ -49,17 +55,20 @@ public class CollidableInteractableEnvironment extends Environment implements Co
     }
 
     @Override
-    public void remove(Player p) {
+    public void remove(Player p)
+    {
 
     }
 
     @Override
-    public void buffEnemy(Enemy e) {
+    public void buffEnemy(Enemy e)
+    {
 
     }
 
     @Override
-    public void removeEnemyBuff(Enemy e) {
+    public void removeEnemyBuff(Enemy e)
+    {
 
     }
 }

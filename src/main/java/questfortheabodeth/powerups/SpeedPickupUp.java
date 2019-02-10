@@ -7,14 +7,16 @@ public class SpeedPickupUp extends Pickup
     private int timeout;
     private Player p;
 
-    public SpeedPickupUp(int x, int y, int timeout) {
+    public SpeedPickupUp(int x, int y, int timeout)
+    {
         super(x, y, "res/assets/pickups/speedPickup.png");
         this.timeout = timeout;
     }
 
     //function for when picked up/ used:
     @Override
-    public void applyBuff(Player p) {
+    public void applyBuff(Player p)
+    {
         this.p = p;
         System.out.println("Getting buffed by speed boost");
         p.setMovementSpeed(10);
@@ -23,11 +25,13 @@ public class SpeedPickupUp extends Pickup
     }
 
     @Override
-    public void removeBuff(Player p) {
+    public void removeBuff(Player p)
+    {
         p.setMovementSpeed(6);
     }
 
-    public void run() {
+    public void run()
+    {
         try {
             Thread.sleep(timeout);
         } catch (Exception e) {

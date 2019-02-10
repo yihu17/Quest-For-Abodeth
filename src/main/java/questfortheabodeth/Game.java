@@ -13,12 +13,8 @@ import main.java.questfortheabodeth.interfaces.Movable;
 import main.java.questfortheabodeth.interfaces.Powerup;
 import main.java.questfortheabodeth.menus.Button;
 import main.java.questfortheabodeth.menus.GameMenu;
-import main.java.questfortheabodeth.powerups.DamagePlus;
-import main.java.questfortheabodeth.powerups.HealthBoost;
 import main.java.questfortheabodeth.powerups.Pickup;
 import main.java.questfortheabodeth.weapons.Bullet;
-import main.java.questfortheabodeth.weapons.Melee;
-import main.java.questfortheabodeth.weapons.Weapon;
 import main.java.questfortheabodeth.weapons.WeaponPickup;
 import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.RenderWindow;
@@ -35,7 +31,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 
@@ -217,18 +212,6 @@ public class Game
                     }
                 }
             }
-
-            if (c instanceof WeaponPickup) {
-                int overlap = Helper.checkOverlap(player, c);
-                if (0 < overlap) {
-                    if (!player.hasWeapon(((WeaponPickup) c).getName())) {
-//                        ((WeaponPickup) c).move(10, Settings.WINDOW_HEIGHT - 100 - (50 * player.amountOfWeaponsCarrying()));
-                    } else {
-                        ((WeaponPickup) c).remove();
-                    }
-                    weaponWheel.setWeapon(player.pickUpWeapon((WeaponPickup) c));
-                }
-            }
         }
         for (Integer i : playerCanMove) {
             moveValues += i;
@@ -278,15 +261,26 @@ public class Game
         }
     }
 
-    private void runPlayerInteracts() {
+    private void runPlayerInteracts()
+    {
         HashSet<Class<? extends Interactable>> currentInteracts = new HashSet<>();
         for (Interactable i : interactables) {
             int overlap = Helper.checkOverlap(player, i);
             if (0 < overlap) {
                 // Player is on top of something
                 if (i instanceof WeaponPickup) {
-                    // Pickup the weapon if they want it
-                    // What if they already have it and are getting ammo?
+                    if (Keyboard.isKeyPressed(Keyboard.Key.E) && !player.hasWeapon(((WeaponPickup) i).getName())) {
+                        // The player is pressing E and also does not have the weapon
+                        weaponWheel.setWeapon(player.pickUpWeapon((WeaponPickup) i));
+                        ((WeaponPickup) i).remove();
+                    } else if (player.hasWeapon(((WeaponPickup) i).getName())) {
+                        // the player already has the weapon so add ammo
+                        weaponWheel.setWeapon(player.pickUpWeapon((WeaponPickup) i));
+                        ((WeaponPickup) i).remove();
+                    } else {
+                        // Player does not have the weapon and does not want it
+                        ;
+                    }
                 } else if (i instanceof Door) {
                     // Allow the player to pass through the door
                     // How do we know which door goes where?
@@ -300,10 +294,14 @@ public class Game
         player.resetInteracts(currentInteracts);
     }
 
-    private void runEnemyInteracts() {
+    private void runEnemyInteracts()
+    {
         for (Enemy e : enemies) {
             HashSet<Class<? extends Interactable>> currentInteracts = new HashSet<>();
             for (Interactable i : interactables) {
+                if (i instanceof WeaponPickup || i instanceof Door) {
+                    continue;
+                }
                 int overlap = Helper.checkOverlap(e, i);
                 if (0 < overlap) {
                     i.buffEnemy(e);
@@ -317,9 +315,9 @@ public class Game
 
     private void scanRoom()
     {
-        if (!Settings.AUDIO_STREAMER.isActive())
+        if (!Settings.AUDIO_STREAMER.isActive()) {
             currentRoom.playMusic();
-
+        }
 
         collidables.addAll(currentRoom.getCollidables());
         for (Enemy e : currentRoom.getEnemies()) {
@@ -330,12 +328,12 @@ public class Game
         }
 
         for (Pickup p : currentRoom.getPickups()) {
-             collidables.add(p);
-             drawables.add(p);
+            collidables.add(p);
+            drawables.add(p);
         }
 
         for (WeaponPickup w : currentRoom.getWeapons()) {
-            collidables.add(w);
+            interactables.add(w);
             drawables.add(w);
         }
 
@@ -383,7 +381,8 @@ public class Game
         }
     }
 
-    public boolean saveGameScreenshot() {
+    public boolean saveGameScreenshot()
+    {
         try {
             Robot robot = new Robot();
             String fileName = "gamePausedScreenshot.jpg";

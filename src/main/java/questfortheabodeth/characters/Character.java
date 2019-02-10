@@ -25,13 +25,14 @@ public abstract class Character extends Thread implements Drawable, Collidable
     private int ammo = 0;
     private Image image;
     private int damage = 5;
+
     /**
      * Sets up the character
      *
-     * @param x      (int) Characters X position
-     * @param y      (int) Characters Y position
-     * @param health (int) Health of the character
-     * @param image  (String) Name of the image to load
+     * @param x             (int) Characters X position
+     * @param y             (int) Characters Y position
+     * @param health        (int) Health of the character
+     * @param image         (String) Name of the image to load
      * @param movementSpeed (int) Speed of this character for X and Y coordinates
      */
     public Character(int x, int y, int health, String image, int movementSpeed)
@@ -44,7 +45,8 @@ public abstract class Character extends Thread implements Drawable, Collidable
         this.face = Facing.RIGHT;
     }
 
-    public ReadOnlyIntegerProperty healthProperty() {
+    public ReadOnlyIntegerProperty healthProperty()
+    {
         return this.health;
     }
 
@@ -74,6 +76,7 @@ public abstract class Character extends Thread implements Drawable, Collidable
     /**
      * Returns the image object for the character
      * Only accessible in sub classes
+     *
      * @return (Image) Characters images
      */
     protected Image getImage()
@@ -95,6 +98,7 @@ public abstract class Character extends Thread implements Drawable, Collidable
     /**
      * Returns the bounds of the character
      * Useful for checking overlaps and collisions
+     *
      * @return (FloatRect) Global bounds of the character
      */
     public FloatRect getGlobalBounds()
@@ -174,7 +178,8 @@ public abstract class Character extends Thread implements Drawable, Collidable
 
     private enum Facing
     {
-        LEFT, RIGHT
+        LEFT,
+        RIGHT
     }
 
     /**
@@ -195,7 +200,8 @@ public abstract class Character extends Thread implements Drawable, Collidable
         this.movementSpeed = speed;
     }
 
-    public double getMovementSpeed() {
+    public double getMovementSpeed()
+    {
         return movementSpeed;
     }
 
@@ -218,23 +224,28 @@ public abstract class Character extends Thread implements Drawable, Collidable
         return health.get();
     }
 
-    public void addHealth(int healthBoost) {
+    public void addHealth(int healthBoost)
+    {
         health.add(healthBoost);
     }
 
-    public int getShield() {
-        return  shield;
+    public int getShield()
+    {
+        return shield;
     }
 
-    public void addShield(int shieldAmount) {
+    public void addShield(int shieldAmount)
+    {
         this.shield += shieldAmount;
     }
 
-    public int getAmmo() {
-        return  ammo;
+    public int getAmmo()
+    {
+        return ammo;
     }
 
-    public void addAmmo(int ammoAmount) {
+    public void addAmmo(int ammoAmount)
+    {
         this.ammo += ammoAmount;
     }
 
@@ -255,17 +266,20 @@ public abstract class Character extends Thread implements Drawable, Collidable
     public abstract void kill();
 
     @Override
-    public void draw(RenderTarget renderTarget, RenderStates renderStates) {
+    public void draw(RenderTarget renderTarget, RenderStates renderStates)
+    {
         renderTarget.draw(image);
     }
 
-    public void setPosition(int x, int y) {
+    public void setPosition(int x, int y)
+    {
         this.x = x;
         this.y = y;
         this.image.setPosition(x, y);
     }
 
-    public void run() {
+    public void run()
+    {
         double prevMovementSpeed = this.movementSpeed;
         this.movementSpeed = 0;
         try {

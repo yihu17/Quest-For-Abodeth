@@ -34,7 +34,8 @@ public class Helper
 
     /**
      * Checks the event for any form of close operation and closes the window
-     * @param e (Event) Generated event object
+     *
+     * @param e      (Event) Generated event object
      * @param window (RenderWindow) Window object to close
      */
     public static void checkCloseEvents(Event e, RenderWindow window)
@@ -105,6 +106,7 @@ public class Helper
     /**
      * Checks whether or not 2 character objects are overlapping and where the overlap has
      * occurred
+     *
      * @param o1 (main.java.questfortheabodeth.interfaces.Collidable) The character to check against other main.java.questfortheabodeth.characters
      * @param o2 (main.java.questfortheabodeth.interfaces.Collidable) The character to check against
      * @return (int) Whether or no the main.java.questfortheabodeth.characters are overlapping

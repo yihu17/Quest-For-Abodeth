@@ -62,7 +62,8 @@ public class Enemy extends Character implements Movable
         this.moveValue = moveValue;
     }
 
-    public boolean applyInteract(Interactable interactClass) {
+    public boolean applyInteract(Interactable interactClass)
+    {
         if (appliedInteracts.contains(interactClass.getClass())) {
             // Do not allow the interact to work
             return false;
@@ -76,7 +77,8 @@ public class Enemy extends Character implements Movable
         }
     }
 
-    public void resetInteracts(HashSet<Class<? extends Interactable>> current) {
+    public void resetInteracts(HashSet<Class<? extends Interactable>> current)
+    {
         appliedInteracts.removeAll(current);
 
         for (Class<? extends Interactable> c : appliedInteracts) {

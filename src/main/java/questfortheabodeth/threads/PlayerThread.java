@@ -45,7 +45,7 @@ public class PlayerThread extends Thread
                 }
             }
         }
-        for(Integer i: playerCanMove) {
+        for (Integer i : playerCanMove) {
             moveValues += i;
         }
 

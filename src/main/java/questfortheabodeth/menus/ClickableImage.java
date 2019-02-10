@@ -39,6 +39,7 @@ public class ClickableImage extends Image implements Clickable
 
     /**
      * If the image is being clicked, then run the attached EventHndler
+     *
      * @param mousePosition (Vector2f) Position of the mouse
      */
     @Override
@@ -53,6 +54,7 @@ public class ClickableImage extends Image implements Clickable
 
     /**
      * Do nothing on realease as the image (by default) does not change
+     *
      * @param mousePosition (Vector2f) Position of the mouse
      */
     @Override
@@ -63,6 +65,7 @@ public class ClickableImage extends Image implements Clickable
 
     /**
      * Get the text representation of the image
+     *
      * @return (String) String representation of the image
      */
     @Override

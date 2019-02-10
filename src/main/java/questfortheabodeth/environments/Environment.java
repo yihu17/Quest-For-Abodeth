@@ -11,7 +11,8 @@ public class Environment extends Image
     private boolean collidiable;
     private boolean interactable;
 
-    public Environment(int xPos, int yPos, String imageFilePath, boolean collidiable, boolean interactable) {
+    public Environment(int xPos, int yPos, String imageFilePath, boolean collidiable, boolean interactable)
+    {
         super(xPos, yPos, imageFilePath);
         this.xPos = xPos;
         this.yPos = yPos;
@@ -39,16 +40,19 @@ public class Environment extends Image
         return this.getGlobalBounds().height;
     }
 
-    public boolean isCollidiable() {
+    public boolean isCollidiable()
+    {
         return collidiable;
     }
 
-    public boolean isInteractable() {
+    public boolean isInteractable()
+    {
         return interactable;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "<" + getClass() + " @ [" + getX() + ", " + getY() + "]>";
     }
 }

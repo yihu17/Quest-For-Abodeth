@@ -3,12 +3,15 @@ package main.java.questfortheabodeth;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class StopWatch extends Thread {
+public class StopWatch extends Thread
+{
     private String formattedTime;
     private int time = 0;
     private Timer t = new Timer();
-    private TimerTask task = new TimerTask() {
-        public void run() {
+    private TimerTask task = new TimerTask()
+    {
+        public void run()
+        {
             time++;
             int minutes = time / 6000;
             int seconds = (time - (minutes * 6000)) / 100;
@@ -36,14 +39,17 @@ public class StopWatch extends Thread {
         }
     };
 
-    public void run() {
+    public void run()
+    {
         t.scheduleAtFixedRate(task, 0, 10);
     }
 
-    public StopWatch() {
+    public StopWatch()
+    {
     }
 
-    public String getFormattedTime() {
+    public String getFormattedTime()
+    {
         return this.formattedTime;
     }
 }
