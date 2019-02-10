@@ -1,5 +1,7 @@
 package main.java.questfortheabodeth.characters;
 
+import javafx.beans.property.ReadOnlyIntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.interfaces.Interactable;
 import main.java.questfortheabodeth.interfaces.Powerup;
@@ -30,7 +32,7 @@ public class Player extends Character
     private OneHandedWeapon oneHandedWeapon;
     private TwoHandedWeapon twoHandedWeapon;
 
-    private int ammo;
+    private SimpleIntegerProperty ammo = new SimpleIntegerProperty(25);
 
 
     /**
@@ -38,6 +40,10 @@ public class Player extends Character
      */
     public Player() {
         super(250, 250, 100, imageName, Settings.PLAYER_SPEED);
+    }
+
+    public ReadOnlyIntegerProperty ammoProperty() {
+        return ammo;
     }
 
     public void switchWeapon() {
@@ -71,7 +77,7 @@ public class Player extends Character
      */
     @Override
     public void kill() {
-        //System.out.println("I died!");
+        System.out.println("I died!");
     }
 
     /**
@@ -126,28 +132,28 @@ public class Player extends Character
                 if (!hasWeapon("revolver")) {
                     oneHandedWeapon = new OneHandedWeapon("revolver", 1, 50, 3);
                 } else {
-                    this.ammo += 50;
+                    this.ammo.setValue(ammo.get() + 50);
                 }
                 return oneHandedWeapon;
             case "shotgun":
                 if (!hasWeapon("shotgun")) {
                     twoHandedWeapon = new TwoHandedWeapon("shotgun", 5, 20, 6);
                 } else {
-                    this.ammo += 20;
+                    this.ammo.setValue(ammo.get() + 20);
                 }
                 return twoHandedWeapon;
             case "ar15":
                 if (!hasWeapon("ar15")) {
                     twoHandedWeapon = new TwoHandedWeapon("ar15", 1, 25, 2);
                 } else {
-                    this.ammo += 25;
+                    this.ammo.setValue(ammo.get() + 25);
                 }
                 return twoHandedWeapon;
             case "uzi":
                 if (!hasWeapon("uzi")) {
                     oneHandedWeapon = new OneHandedWeapon("uzi", 3, 60, 1);
                 } else {
-                    this.ammo += 60;
+                    this.ammo.setValue(ammo.get() + 60);
                 }
                 return oneHandedWeapon;
         }

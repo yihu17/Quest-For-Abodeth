@@ -27,18 +27,34 @@ public class WeaponWheel implements Drawable {
         // Assumes no weapons are present
         meleeRect = new RectangleShape();
         meleeRect.setSize(new Vector2f(64, 64));
-        meleeRect.setPosition(new Vector2f(5, 981));
+        meleeRect.setPosition(new Vector2f(5, 961));
         applyEffects(meleeRect);
 
         oneHandedRect = new RectangleShape();
         oneHandedRect.setSize(new Vector2f(64, 64));
-        oneHandedRect.setPosition(new Vector2f(5, 911));
+        oneHandedRect.setPosition(new Vector2f(5, 891));
         applyEffects(oneHandedRect);
 
         twoHandedRect = new RectangleShape();
         twoHandedRect.setSize(new Vector2f(64, 64));
-        twoHandedRect.setPosition(new Vector2f(5, 842));
+        twoHandedRect.setPosition(new Vector2f(5, 822));
         applyEffects(twoHandedRect);
+    }
+
+    public void selectWeapon(Weapon current) {
+        meleeRect.setFillColor(new Color(Color.WHITE, 128));
+        oneHandedRect.setFillColor(new Color(Color.WHITE, 128));
+        twoHandedRect.setFillColor(new Color(Color.WHITE, 128));
+
+        if (current instanceof Melee) {
+            meleeRect.setFillColor(new Color(Color.RED, 128));
+        }
+        if (current instanceof OneHandedWeapon) {
+            oneHandedRect.setFillColor(new Color(Color.RED, 128));
+        }
+        if (current instanceof TwoHandedWeapon) {
+            twoHandedRect.setFillColor(new Color(Color.RED, 128));
+        }
     }
 
     private void applyEffects(RectangleShape shape) {
@@ -65,13 +81,13 @@ public class WeaponWheel implements Drawable {
         renderTarget.draw(oneHandedRect);
         renderTarget.draw(twoHandedRect);
         if (meleeWeapon != null) {
-            renderTarget.draw(new WeaponPickup(5, 842, "res/assets/weapons/" + meleeWeapon.getName() + ".png", meleeWeapon.getName()));
+            renderTarget.draw(new WeaponPickup(5, 822, "res/assets/weapons/" + meleeWeapon.getName() + ".png", meleeWeapon.getName()));
         }
         if (oneHandedWeapon != null) {
-            renderTarget.draw(new WeaponPickup(5, 911, "res/assets/weapons/" + oneHandedWeapon.getName() + ".png", oneHandedWeapon.getName()));
+            renderTarget.draw(new WeaponPickup(5, 891, "res/assets/weapons/" + oneHandedWeapon.getName() + ".png", oneHandedWeapon.getName()));
         }
         if (twoHandedWeapon != null) {
-            renderTarget.draw(new WeaponPickup(5, 981, "res/assets/weapons/" + twoHandedWeapon.getName() + ".png", twoHandedWeapon.getName()));
+            renderTarget.draw(new WeaponPickup(5, 961, "res/assets/weapons/" + twoHandedWeapon.getName() + ".png", twoHandedWeapon.getName()));
         }
     }
 

@@ -8,11 +8,13 @@ public class HudElements implements Drawable {
     private HealthBar healthbar;
     private MiniMap minimap;
     private WeaponWheel weaponwheel;
+    private AmmoCount ammoCount;
 
-    public HudElements(HealthBar h, MiniMap m, WeaponWheel w) {
+    public HudElements(HealthBar h, MiniMap m, WeaponWheel w, AmmoCount a) {
         this.healthbar = h;
         this.minimap = m;
         this.weaponwheel = w;
+        this.ammoCount = a;
     }
 
     @Override
@@ -20,5 +22,6 @@ public class HudElements implements Drawable {
         renderTarget.draw(healthbar);
         renderTarget.draw(minimap);
         renderTarget.draw(weaponwheel);
+        renderTarget.draw(ammoCount);
     }
 }
