@@ -36,11 +36,9 @@ public class Room implements Drawable
     private ArrayList<Pickup> pickups = new ArrayList<>();
 
     private ArrayList<int[]> weaponInfo = new ArrayList<>();
-    private ArrayList<Weapon> weapons = new ArrayList<>();
+    private ArrayList<WeaponPickup> weapons = new ArrayList<>();
 
     private ArrayList<Drawable> drawables = new ArrayList<>();
-
-    private Weapon testWeapon = new Gun(250, 250, "res/assets/weapons/revolver.png");
 
     /**
      * Creates a new room of the specified type
@@ -337,19 +335,19 @@ public class Room implements Drawable
                 int[] generatedSpawnLocation = generateSpawnLocation();
                 switch (weaponRead) {
                     case "machete":
-                        weapons.add(new Melee(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png"));
+                        weapons.add(new WeaponPickup(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png", weaponRead));
                         break;
                     case "revolver":
-                        weapons.add(new Gun(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png"));
+                        weapons.add(new WeaponPickup(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png", weaponRead));
                         break;
                     case "shotgun":
-                        weapons.add(new Gun(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png"));
+                        weapons.add(new WeaponPickup(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png", weaponRead));
                         break;
                     case "ar15":
-                        weapons.add(new Gun(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png"));
+                        weapons.add(new WeaponPickup(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png", weaponRead));
                         break;
                     case "uzi":
-                        weapons.add(new Gun(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png"));
+                        weapons.add(new WeaponPickup(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png", weaponRead));
                         break;
                 }
             }
@@ -364,7 +362,7 @@ public class Room implements Drawable
         return pickups;
     }
 
-    public ArrayList<Weapon> getWeapons() {
+    public ArrayList<WeaponPickup> getWeapons() {
         return weapons;
     }
 

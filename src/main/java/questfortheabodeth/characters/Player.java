@@ -3,12 +3,16 @@ package main.java.questfortheabodeth.characters;
 import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.interfaces.Interactable;
 import main.java.questfortheabodeth.interfaces.Powerup;
+import main.java.questfortheabodeth.sprites.Image;
+import main.java.questfortheabodeth.weapons.*;
+import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.RenderStates;
 import org.jsfml.graphics.RenderTarget;
 import org.jsfml.system.Vector2f;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -20,18 +24,20 @@ public class Player extends Character
     private Powerup currentPowerup = null;
     private long lastTimeHit;
     private HashSet<Class<? extends Interactable>> appliedInteracts = new HashSet<>();
+    private Weapon currentWeapon;
+    private ArrayList<Weapon> weaponsHolding = new ArrayList<>();
+    private int ammo;
 
 
     /**
      * Creates a new Player instance based off of the imageName image
      */
-    public Player()
-    {
+    public Player() {
         super(250, 250, 100, imageName, Settings.PLAYER_SPEED);
     }
 
-    public void switchWeapon()
-    {
+    public void switchWeapon() {
+        //try catch for position in weaponsHolding
     }
 
     public void resetInteracts(HashSet<Class<? extends Interactable>> current) {
@@ -60,9 +66,8 @@ public class Player extends Character
      * rather than just closing the menu
      */
     @Override
-    public void kill()
-    {
-        System.out.println("I died!");
+    public void kill() {
+        //System.out.println("I died!");
     }
 
     /**
@@ -71,19 +76,16 @@ public class Player extends Character
      * @param renderStates (RenderStates) I really should figure out what these are
      */
     @Override
-    public void draw(RenderTarget renderTarget, RenderStates renderStates)
-    {
+    public void draw(RenderTarget renderTarget, RenderStates renderStates) {
         renderTarget.draw(this.getImage());
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return String.format("<Player @ [%.0f, %.0f]", this.getX(), this.getY());
     }
 
-    public Vector2f getPlayerCenter()
-    {
+    public Vector2f getPlayerCenter() {
         return new Vector2f(
                 (float) (this.getX() + (0.5 * this.getWidth())),
                 (float) (this.getY() + (0.5 * this.getHeight()))
@@ -106,5 +108,56 @@ public class Player extends Character
 
     public long getLastTimeHit() {
         return this.lastTimeHit;
+    }
+
+    public void pickUpWeapon(WeaponPickup weapon) {
+        switch (weapon.getName()) {
+            case "machete":
+                if (!hasWeapon("machete")) {
+                    weaponsHolding.add(new Melee("machete", 3));
+                }
+                break;
+            case "revolver":
+                if (!hasWeapon("revolver")) {
+                    weaponsHolding.add(new Gun("revolver", 1, 50, 3));
+                } else {
+                    this.ammo += 50;
+                }
+                break;
+            case "shotgun":
+                if (!hasWeapon("shotgun")) {
+                    weaponsHolding.add(new Gun("shotgun", 5, 20, 6));
+                } else {
+                    this.ammo += 20;
+                }
+                break;
+            case "ar15":
+                if (!hasWeapon("ar15")) {
+                    weaponsHolding.add(new Gun("ar15", 1, 25, 2));
+                } else {
+                    this.ammo += 25;
+                }
+                break;
+            case "uzi":
+                if (!hasWeapon("uzi")) {
+                    weaponsHolding.add(new Gun("uzi", 3, 60, 1));
+                } else {
+                    this.ammo += 60;
+                }
+                break;
+        }
+    }
+
+    public boolean hasWeapon(String weaponSearching) {
+        for (int i = 0; i < weaponsHolding.size(); i++) {
+            if (weaponsHolding.get(i).getName().equals(weaponSearching)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int amountOfWeaponsCarrying() {
+        return weaponsHolding.size();
     }
 }

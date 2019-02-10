@@ -18,6 +18,7 @@ import main.java.questfortheabodeth.powerups.HealthBoost;
 import main.java.questfortheabodeth.powerups.Pickup;
 import main.java.questfortheabodeth.weapons.Bullet;
 import main.java.questfortheabodeth.weapons.Weapon;
+import main.java.questfortheabodeth.weapons.WeaponPickup;
 import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Vector2i;
@@ -54,6 +55,7 @@ public class Game
     private CopyOnWriteArraySet<Bullet> bullets = new CopyOnWriteArraySet<>();
     private CopyOnWriteArraySet<Enemy> enemies = new CopyOnWriteArraySet<>();
     private CopyOnWriteArraySet<Interactable> interactables = new CopyOnWriteArraySet<>();
+
 
     public Game(RenderWindow window)
     {
@@ -106,6 +108,8 @@ public class Game
             window.draw(currentRoom);
             window.draw(player);
             // Draw all the drawable objects
+
+
             drawables.forEach(window::draw);
             window.draw(healthBar);
             window.draw(miniMap);
@@ -116,6 +120,7 @@ public class Game
 
             // Update the window
             window.display();
+
 
             // Move every single movable object (enemy movements, bullets etc.)
             // Once they have moved check to ensure they are still in the bounds of the window
@@ -194,8 +199,23 @@ public class Game
             }
 
             if (c instanceof Enemy) {
-                if (System.currentTimeMillis() - player.getLastTimeHit() >= 300) { //interval between hits
-                    player.decreaseHealth(((Character) c).getDamage());
+                int overlap = Helper.checkOverlap(player, c);
+                if (0 < overlap) {
+                    if (System.currentTimeMillis() - player.getLastTimeHit() >= 300) { //interval between hits
+                        player.decreaseHealth(((Character) c).getDamage());
+                    }
+                }
+            }
+
+            if (c instanceof WeaponPickup) {
+                int overlap = Helper.checkOverlap(player, c);
+                if (0 < overlap) {
+                    if (!player.hasWeapon(((WeaponPickup) c).getName())) {
+                        ((WeaponPickup) c).move(10, Settings.WINDOW_HEIGHT - 100 - (50 * player.amountOfWeaponsCarrying()));
+                    } else {
+                        ((WeaponPickup) c).remove();
+                    }
+                    player.pickUpWeapon((WeaponPickup) c);
                 }
             }
         }
@@ -295,10 +315,11 @@ public class Game
              drawables.add(p);
         }
 
-        for (Weapon w : currentRoom.getWeapons()) {
+        for (WeaponPickup w : currentRoom.getWeapons()) {
             collidables.add(w);
             drawables.add(w);
         }
+
 
         interactables.addAll(currentRoom.getInteractables());
     }

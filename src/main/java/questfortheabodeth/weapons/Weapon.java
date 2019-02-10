@@ -6,41 +6,17 @@ import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.RenderStates;
 import org.jsfml.graphics.RenderTarget;
 
-public abstract class Weapon implements Drawable, Collidable {
+public abstract class Weapon {
     private int damageDealt;
     private int fireRate;
-    private Image image;
-    private int xPos;
-    private int yPos;
+    private String name;
 
-    public Weapon(int xPos, int yPos, String filePath) {
-        this.xPos = xPos;
-        this.yPos = yPos;
-        image = new Image(xPos, yPos, filePath);
+    public Weapon(String name, int fireRate) {
+        this.name = name;
+        this.fireRate = fireRate;
     }
 
-    @Override
-    public void draw(RenderTarget renderTarget, RenderStates renderStates) {
-        renderTarget.draw(image);
-    }
-
-    @Override
-    public float getX() {
-        return xPos;
-    }
-
-    @Override
-    public float getY() {
-        return yPos;
-    }
-
-    @Override
-    public float getWidth() {
-        return this.image.getGlobalBounds().width;
-    }
-
-    @Override
-    public float getHeight() {
-        return this.image.getGlobalBounds().height;
+    public String getName() {
+        return this.name;
     }
 }
