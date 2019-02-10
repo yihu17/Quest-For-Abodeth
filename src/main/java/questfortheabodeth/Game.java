@@ -6,7 +6,9 @@ import main.java.questfortheabodeth.characters.Player;
 import main.java.questfortheabodeth.environments.Environment;
 import main.java.questfortheabodeth.environments.Room;
 import main.java.questfortheabodeth.hud.HealthBar;
+import main.java.questfortheabodeth.hud.HudElements;
 import main.java.questfortheabodeth.hud.MiniMap;
+import main.java.questfortheabodeth.hud.WeaponWheel;
 import main.java.questfortheabodeth.interfaces.Collidable;
 import main.java.questfortheabodeth.interfaces.Interactable;
 import main.java.questfortheabodeth.interfaces.Movable;
@@ -48,6 +50,8 @@ public class Game
 
     private MiniMap miniMap;
     private HealthBar healthBar;
+    private WeaponWheel weaponWheel;
+    private HudElements hud;
 
     private CopyOnWriteArraySet<Movable> movables = new CopyOnWriteArraySet<>();
     private CopyOnWriteArraySet<Drawable> drawables = new CopyOnWriteArraySet<>();
@@ -89,8 +93,12 @@ public class Game
             throw new IllegalStateException("Player has no start room");
         }
         currentRoom = rooms[startRow][startCol];
+
         miniMap = new MiniMap(rows, cols, startRow, startCol);
         healthBar = new HealthBar(player);
+        weaponWheel = new WeaponWheel();
+        hud = new HudElements(healthBar, miniMap, weaponWheel);
+
         new Thread(Settings.GAME_TIME).start();
 
         this.scanRoom();
@@ -111,8 +119,7 @@ public class Game
 
 
             drawables.forEach(window::draw);
-            window.draw(healthBar);
-            window.draw(miniMap);
+            window.draw(hud);
 
             //Update timer
             time.setText(Settings.GAME_TIME.getFormattedTime());

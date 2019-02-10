@@ -10,8 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-public class Settings
-{
+public class Settings {
     public static final Random GENERATOR = new Random();
 
     // Stuff to do with the window
@@ -71,7 +70,7 @@ public class Settings
         }
 
         //main.java.questfortheabodeth.environments.Environment Objects
-        CSV_KEYS.put(0,null);
+        CSV_KEYS.put(0, null);
         CSV_KEYS.put(1, "wall"); //C
         CSV_KEYS.put(2, "floor");
         CSV_KEYS.put(3, "door"); //CI
@@ -87,27 +86,27 @@ public class Settings
         CSV_KEYS.put(13, "graveyard"); //I
         CSV_KEYS.put(14, "crushingWalls"); //CI
         //Minimap Symbols
-        CSV_KEYS.put(15,"startRoom");
-        CSV_KEYS.put(16,"endRoom");
-        CSV_KEYS.put(17,"path");
-        CSV_KEYS.put(18,"visitedRoom");
-        //main.java.questfortheabodeth.characters.Enemy Symbols
-        CSV_KEYS.put(19,"zombie");
-        CSV_KEYS.put(20,"jackal");
-        CSV_KEYS.put(21,"bat");
-        CSV_KEYS.put(22,"spider");
-        CSV_KEYS.put(23,"mummifiedSlave");
-        CSV_KEYS.put(24,"giantSpider");
-        CSV_KEYS.put(25,"giantZombie");
-        CSV_KEYS.put(26,"egyptianMummy");
-        CSV_KEYS.put(27,"crocodile");
-        //main.java.questfortheabodeth.powerups.Pickup Symbols
-        CSV_KEYS.put(28,"healthPickup");
-        CSV_KEYS.put(29,"ammoPickup");
-        CSV_KEYS.put(30,"shieldPickup");
-        CSV_KEYS.put(31,"speedPickupUp");
-        CSV_KEYS.put(32,"speedPickupDown");
-        CSV_KEYS.put(33,"damagePickup");
+        CSV_KEYS.put(15, "startRoom");
+        CSV_KEYS.put(16, "endRoom");
+        CSV_KEYS.put(17, "path");
+        CSV_KEYS.put(18, "visitedRoom");
+        //Enemy Symbols
+        CSV_KEYS.put(19, "zombie");
+        CSV_KEYS.put(20, "jackal");
+        CSV_KEYS.put(21, "bat");
+        CSV_KEYS.put(22, "spider");
+        CSV_KEYS.put(23, "mummifiedSlave");
+        CSV_KEYS.put(24, "giantSpider");
+        CSV_KEYS.put(25, "giantZombie");
+        CSV_KEYS.put(26, "egyptianMummy");
+        CSV_KEYS.put(27, "crocodile");
+        //Pickup Symbols
+        CSV_KEYS.put(28, "healthPickup");
+        CSV_KEYS.put(29, "ammoPickup");
+        CSV_KEYS.put(30, "shieldPickup");
+        CSV_KEYS.put(31, "speedPickupUp");
+        CSV_KEYS.put(32, "speedPickupDown");
+        CSV_KEYS.put(33, "damagePickup");
         //weapons
         CSV_KEYS.put(34, "machete");
         CSV_KEYS.put(35, "revolver");
