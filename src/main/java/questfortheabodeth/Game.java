@@ -260,7 +260,7 @@ public class Game
         for (Enemy e : enemies) {
             HashSet<Integer> values = new HashSet<>();
             for (Collidable c : collidables) {
-                if (c instanceof Enemy) {
+                if (c instanceof Enemy || c instanceof WeaponPickup) {
                     continue;
                 }
                 values.add(Helper.checkOverlap(e, c));
