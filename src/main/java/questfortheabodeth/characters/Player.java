@@ -24,8 +24,12 @@ public class Player extends Character
     private Powerup currentPowerup = null;
     private long lastTimeHit;
     private HashSet<Class<? extends Interactable>> appliedInteracts = new HashSet<>();
+
     private Weapon currentWeapon;
-    private ArrayList<Weapon> weaponsHolding = new ArrayList<>();
+    private Melee meleeWeapon;
+    private OneHandedWeapon oneHandedWeapon;
+    private TwoHandedWeapon twoHandedWeapon;
+
     private int ammo;
 
 
@@ -114,33 +118,33 @@ public class Player extends Character
         switch (weapon.getName()) {
             case "machete":
                 if (!hasWeapon("machete")) {
-                    weaponsHolding.add(new Melee("machete", 3));
+                    meleeWeapon = new Melee("machete", 3);
                 }
                 break;
             case "revolver":
                 if (!hasWeapon("revolver")) {
-                    weaponsHolding.add(new Gun("revolver", 1, 50, 3));
+                    oneHandedWeapon = new OneHandedWeapon("revolver", 1, 50, 3);
                 } else {
                     this.ammo += 50;
                 }
                 break;
             case "shotgun":
                 if (!hasWeapon("shotgun")) {
-                    weaponsHolding.add(new Gun("shotgun", 5, 20, 6));
+                    twoHandedWeapon = new TwoHandedWeapon("shotgun", 5, 20, 6);
                 } else {
                     this.ammo += 20;
                 }
                 break;
             case "ar15":
                 if (!hasWeapon("ar15")) {
-                    weaponsHolding.add(new Gun("ar15", 1, 25, 2));
+                    twoHandedWeapon = new TwoHandedWeapon("ar15", 1, 25, 2);
                 } else {
                     this.ammo += 25;
                 }
                 break;
             case "uzi":
                 if (!hasWeapon("uzi")) {
-                    weaponsHolding.add(new Gun("uzi", 3, 60, 1));
+                    oneHandedWeapon = new OneHandedWeapon("uzi", 3, 60, 1);
                 } else {
                     this.ammo += 60;
                 }
@@ -149,15 +153,24 @@ public class Player extends Character
     }
 
     public boolean hasWeapon(String weaponSearching) {
-        for (int i = 0; i < weaponsHolding.size(); i++) {
-            if (weaponsHolding.get(i).getName().equals(weaponSearching)) {
-                return true;
-            }
+        if (meleeWeapon != null && meleeWeapon.getName().equals(weaponSearching)) {
+            return true;
+        }
+        if (oneHandedWeapon != null && oneHandedWeapon.getName().equals(weaponSearching)) {
+            return true;
+        }
+        if (twoHandedWeapon != null && twoHandedWeapon.getName().equals(weaponSearching)) {
+            return true;
         }
         return false;
     }
 
     public int amountOfWeaponsCarrying() {
-        return weaponsHolding.size();
+        int carry = 0;
+        carry += (meleeWeapon == null) ? 0 : 1;
+        carry += (oneHandedWeapon == null) ? 0 : 1;
+        carry += (twoHandedWeapon == null) ? 0 : 1;
+
+        return carry;
     }
 }

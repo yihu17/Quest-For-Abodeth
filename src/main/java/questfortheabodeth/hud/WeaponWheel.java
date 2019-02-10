@@ -18,6 +18,13 @@ public class WeaponWheel implements Drawable {
     private TwoHandedWeapon twoHandedWeapon = null;
     private Melee meleeWeapon = null;
 
+    public WeaponWheel(Melee meleeWeapon, OneHandedWeapon oneHandedWeapon, TwoHandedWeapon twoHandedWeapon) {
+        this();
+        this.meleeWeapon = meleeWeapon;
+        this.oneHandedWeapon = oneHandedWeapon;
+        this.twoHandedWeapon = twoHandedWeapon;
+    }
+
     public WeaponWheel() {
         // Assumes no weapons are present
         meleeRect = new RectangleShape();
@@ -40,6 +47,10 @@ public class WeaponWheel implements Drawable {
         shape.setOutlineColor(Color.WHITE);
         shape.setOutlineThickness(2);
         shape.setFillColor(new Color(Color.WHITE, 128));
+    }
+
+    public void addWeapon(String weaponName) {
+
     }
 
     @Override
