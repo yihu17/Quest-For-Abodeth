@@ -1,6 +1,6 @@
 package main.java.questfortheabodeth.weapons;
 
-public class Gun extends Weapon
+public abstract class Gun extends Weapon
 {
     private int bulletsPerShot;
     private int maxAmmo;

@@ -33,7 +33,7 @@ public class Enemy extends Character implements Movable
     @Override
     public String toString()
     {
-        return "<Enemy " + this.type + " @ [" + getX() + ", " + getY() + "] with " + getHealth() + "hp>";
+        return "<Enemy (" + this.hashCode() + ") " + this.type + " @ [" + getX() + ", " + getY() + "] with " + getHealth() + "hp and speed " + getMovementSpeed() + ">";
     }
 
     public void setPlayer(Player p)
@@ -44,17 +44,24 @@ public class Enemy extends Character implements Movable
     @Override
     public void move()
     {
+        String printout = this + " has moved ";
         if (this.getX() <= player.getX() && Settings.MOVE_RIGHT_SET.contains(moveValue)) {
             this.moveRight();
-        } else if (player.getX() <= this.getX() && Settings.MOVE_LEFT_SET.contains(moveValue)) {
+            printout += "right, ";
+        } else if (player.getX() < this.getX() && Settings.MOVE_LEFT_SET.contains(moveValue)) {
             this.moveLeft();
+            printout += "left, ";
         }
 
         if (this.getY() <= player.getY() && Settings.MOVE_DOWN_SET.contains(moveValue)) {
             this.moveDown();
-        } else if (player.getY() <= this.getY() && Settings.MOVE_UP_SET.contains(moveValue)) {
+            printout += "down, ";
+        } else if (player.getY() < this.getY() && Settings.MOVE_UP_SET.contains(moveValue)) {
             this.moveUp();
+            printout += "up, ";
         }
+
+        System.out.println(printout + " towards " + player + " due to a move value of " + moveValue + "(" + appliedInteracts.size() + " interacts)");
     }
 
     public void setMoveValue(int moveValue)

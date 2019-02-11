@@ -97,7 +97,7 @@ public class Player extends Character
     @Override
     public String toString()
     {
-        return String.format("<Player @ [%.0f, %.0f]", this.getX(), this.getY());
+        return String.format("<Player @ [%.0f, %.0f]>", this.getX(), this.getY());
     }
 
     public Vector2f getPlayerCenter()
