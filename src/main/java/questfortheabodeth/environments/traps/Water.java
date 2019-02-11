@@ -16,8 +16,6 @@ public class Water extends InteractableEnvironment
     {
         if (p.applyInteract(this)) {
             p.setMovementSpeed(p.getMovementSpeed() * 0.75);
-            System.out.println("I am on water");
-            System.out.println("Speed is now " + p.getMovementSpeed());
         }
     }
 
@@ -25,8 +23,6 @@ public class Water extends InteractableEnvironment
     public void remove(Player p)
     {
         p.setMovementSpeed(p.getMovementSpeed() / 0.75);
-        System.out.println("Out of the water");
-        System.out.println("Speed is now " + p.getMovementSpeed());
     }
 
     public void buffEnemy(Enemy e)

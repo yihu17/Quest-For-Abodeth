@@ -69,23 +69,17 @@ public class Enemy extends Character implements Movable
         this.moveValue = moveValue;
     }
 
-    public boolean applyInteract(Interactable interactClass)
-    {
-        if (appliedInteracts.contains(interactClass.getClass())) {
+    public boolean applyInteract(Interactable interactClass) {
+        if (appliedInteracts.contains(interactClass.getClass()) || (!name.equals("crocodile"))) {
             // Do not allow the interact to work
             return false;
         } else {
-            if (name.equals("crocodile")) {
-                appliedInteracts.add(interactClass.getClass());
-                return true;
-            } else {
-                return false;
-            }
+            appliedInteracts.add(interactClass.getClass());
+            return true;
         }
     }
 
-    public void resetInteracts(HashSet<Class<? extends Interactable>> current)
-    {
+    public void resetInteracts(HashSet<Class<? extends Interactable>> current) {
         appliedInteracts.removeAll(current);
 
         for (Class<? extends Interactable> c : appliedInteracts) {

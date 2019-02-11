@@ -16,8 +16,6 @@ public class Quicksand extends InteractableEnvironment
     {
         if (p.applyInteract(this)) {
             p.setMovementSpeed(p.getMovementSpeed() * 0.75);
-            System.out.println("I am on quicksand");
-            System.out.println("Speed is now " + p.getMovementSpeed());
         }
     }
 
@@ -25,8 +23,6 @@ public class Quicksand extends InteractableEnvironment
     public void remove(Player p)
     {
         p.setMovementSpeed(p.getMovementSpeed() / 0.75);
-        System.out.println("Out of the quicksand");
-        System.out.println("Speed is now " + p.getMovementSpeed());
     }
 
     @Override
