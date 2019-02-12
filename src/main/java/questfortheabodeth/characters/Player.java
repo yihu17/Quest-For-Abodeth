@@ -24,9 +24,9 @@ public class Player extends Character {
     private HashSet<Class<? extends Interactable>> appliedInteracts = new HashSet<>();
 
     private Weapon currentWeapon;
-    private Melee meleeWeapon;
-    private OneHandedWeapon oneHandedWeapon;
-    private TwoHandedWeapon twoHandedWeapon;
+    private Melee meleeWeapon = null;
+    private OneHandedWeapon oneHandedWeapon = null;
+    private TwoHandedWeapon twoHandedWeapon = null;
 
     private SimpleIntegerProperty ammo = new SimpleIntegerProperty(25);
 
@@ -42,8 +42,29 @@ public class Player extends Character {
         return ammo;
     }
 
-    public void switchWeapon() {
-        //try catch for position in weaponsHolding
+    public boolean switchWeapon(int weaponNumber) {
+        switch(weaponNumber) {
+            case 1:
+                if (meleeWeapon == null) {
+                    return false;
+                }
+                currentWeapon = meleeWeapon;
+                return true;
+            case 2:
+                if (oneHandedWeapon == null) {
+                    return false;
+                }
+                currentWeapon = oneHandedWeapon;
+                return true;
+            case 3:
+                if (twoHandedWeapon == null) {
+                    return false;
+                }
+                currentWeapon = twoHandedWeapon;
+                return true;
+            default:
+                return false;
+        }
     }
 
     public void resetInteracts(HashSet<Class<? extends Interactable>> current) {
@@ -186,5 +207,9 @@ public class Player extends Character {
 
     public void increaseAmmo(int amount) {
         this.ammo.set(ammo.get() + amount);
+    }
+
+    public Weapon getCurrentWeapon() {
+        return currentWeapon;
     }
 }

@@ -146,6 +146,20 @@ public class Game {
                         bullets.add(b);
                         player.decreaseAmmo();
                     }
+                } else if (e.type == Event.Type.KEY_PRESSED) {
+                    if (e.asKeyEvent().key == Keyboard.Key.NUM1) {
+                        if (player.switchWeapon(1)) {
+                            weaponWheel.selectWeapon(player.getCurrentWeapon());
+                        }
+                    } else if (e.asKeyEvent().key == Keyboard.Key.NUM2) {
+                        if (player.switchWeapon(2)) {
+                            weaponWheel.selectWeapon(player.getCurrentWeapon());
+                        }
+                    } else if (e.asKeyEvent().key == Keyboard.Key.NUM3) {
+                        if (player.switchWeapon(3)) {
+                            weaponWheel.selectWeapon(player.getCurrentWeapon());
+                        }
+                    }
                 }
             }
 
