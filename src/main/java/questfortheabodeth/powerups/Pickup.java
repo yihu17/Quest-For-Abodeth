@@ -6,54 +6,46 @@ import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.RenderStates;
 import org.jsfml.graphics.RenderTarget;
 
-public abstract class Pickup extends Thread implements Drawable, Powerup
-{
+public abstract class Pickup extends Thread implements Drawable, Powerup {
     float xPos;
     float yPos;
     private Image image;
 
 
-    public Pickup(float xPos, float yPos, String imageFilePath)
-    {
+    public Pickup(float xPos, float yPos, String imageFilePath) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.image = new Image((int) xPos, (int) yPos, imageFilePath);
     }
 
     @Override
-    public void draw(RenderTarget renderTarget, RenderStates renderStates)
-    {
+    public void draw(RenderTarget renderTarget, RenderStates renderStates) {
         renderTarget.draw(image);
     }
 
     //getter methods
     @Override
-    public Image getImage()
-    {
+    public Image getImage() {
         return image;
     }
 
     @Override
-    public float getX()
-    {
+    public float getX() {
         return xPos;
     }
 
     @Override
-    public float getY()
-    {
+    public float getY() {
         return yPos;
     }
 
     @Override
-    public float getHeight()
-    {
+    public float getHeight() {
         return image.getGlobalBounds().height;
     }
 
     @Override
-    public float getWidth()
-    {
+    public float getWidth() {
         return image.getGlobalBounds().width;
     }
 }

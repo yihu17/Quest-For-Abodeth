@@ -16,8 +16,7 @@ import java.util.List;
  * An in game menu that pauses the game by taking control
  * of the game loop
  */
-public class GameMenu implements Menu
-{
+public class GameMenu implements Menu {
     private RenderWindow window;
     private ArrayList<Clickable> buttons = new ArrayList<>();
     private Button chosenButton = null;
@@ -29,31 +28,22 @@ public class GameMenu implements Menu
      *
      * @param window (RenderWindow) Window to draw the menu on
      */
-    public GameMenu(RenderWindow window/*, boolean screenshotTaken*/)
-    {
+    public GameMenu(RenderWindow window/*, boolean screenshotTaken*/) {
         this.window = window;
-        /*
-        if (screenshotTaken) {
-            backgroundImage = new main.java.questfortheabodeth.sprites.Image(0, 0, "res/gamePausedScreenshot.jpg");
-        }
-        */
-        backgroundImage = new Image(0, 0, "res/menuBackgrounds/gamePausedBackground.png");
+
+        backgroundImage = new Image(0, 0, "res/assets/menus/gamePausedBackground.png");
         Button quit = new Button(300, 50, 200, 200, "Quit to menu");
-        quit.setOnPress(new EventHandler()
-        {
+        quit.setOnPress(new EventHandler() {
             @Override
-            public void run()
-            {
+            public void run() {
                 menuOpen = false;
                 chosenButton = quit;
             }
         });
         Button cont = new Button(300, 50, 200, 300, "Continue");
-        cont.setOnPress(new EventHandler()
-        {
+        cont.setOnPress(new EventHandler() {
             @Override
-            public void run()
-            {
+            public void run() {
                 menuOpen = false;
                 chosenButton = cont;
             }
@@ -63,11 +53,11 @@ public class GameMenu implements Menu
 
     /**
      * Returns all the buttons present in the menu
+     *
      * @return (List) List of clickables in the menu
      */
     @Override
-    public List<Clickable> getButtons()
-    {
+    public List<Clickable> getButtons() {
         return buttons;
     }
 
@@ -75,8 +65,7 @@ public class GameMenu implements Menu
      * Displays the menu on the screen
      */
     @Override
-    public void displayMenu()
-    {
+    public void displayMenu() {
         int clocker = 0;
         while (menuOpen) {
             window.clear();
@@ -101,22 +90,22 @@ public class GameMenu implements Menu
 
     /**
      * Returns the selected button
+     *
      * @return (main.java.questfortheabodeth.menus.Button) Clicked button
      */
     @Override
-    public Button getChosenButton()
-    {
+    public Button getChosenButton() {
         return chosenButton;
     }
 
     /**
      * Returns the background image of the menu
      * This menu has no background and so returns null
+     *
      * @return (null) No image
      */
     @Override
-    public Image getBackground()
-    {
+    public Image getBackground() {
         return null;
     }
 }

@@ -10,21 +10,18 @@ import main.java.questfortheabodeth.weapons.Bullet;
 import java.util.HashSet;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-public class PlayerThread extends Thread
-{
+public class PlayerThread extends Thread {
     private Player player;
     private CopyOnWriteArraySet<Collidable> collidables;
     private int returnValue;
 
-    public PlayerThread(Player p, CopyOnWriteArraySet<Collidable> cs)
-    {
+    public PlayerThread(Player p, CopyOnWriteArraySet<Collidable> cs) {
         this.player = p;
         this.collidables = cs;
     }
 
     @Override
-    public void run()
-    {
+    public void run() {
         HashSet<Integer> playerCanMove = new HashSet<>();
         int moveValues = 0;
         for (Collidable c : collidables) {
@@ -52,8 +49,7 @@ public class PlayerThread extends Thread
         this.returnValue = moveValues;
     }
 
-    public int getReturnValue()
-    {
+    public int getReturnValue() {
         return returnValue;
     }
 }

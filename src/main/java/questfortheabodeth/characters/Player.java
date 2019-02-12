@@ -17,8 +17,7 @@ import java.util.HashSet;
 /**
  * The main.java.questfortheabodeth.characters
  */
-public class Player extends Character
-{
+public class Player extends Character {
     private static String imageName = "res/assets/player/player.png";
     private Powerup currentPowerup = null;
     private long lastTimeHit;
@@ -35,23 +34,19 @@ public class Player extends Character
     /**
      * Creates a new Player instance based off of the imageName image
      */
-    public Player()
-    {
+    public Player() {
         super(250, 250, 100, imageName, Settings.PLAYER_SPEED);
     }
 
-    public ReadOnlyIntegerProperty ammoProperty()
-    {
+    public ReadOnlyIntegerProperty ammoProperty() {
         return ammo;
     }
 
-    public void switchWeapon()
-    {
+    public void switchWeapon() {
         //try catch for position in weaponsHolding
     }
 
-    public void resetInteracts(HashSet<Class<? extends Interactable>> current)
-    {
+    public void resetInteracts(HashSet<Class<? extends Interactable>> current) {
         appliedInteracts.removeAll(current);
 
         for (Class<? extends Interactable> c : appliedInteracts) {
@@ -77,8 +72,7 @@ public class Player extends Character
      * rather than just closing the menu
      */
     @Override
-    public void kill()
-    {
+    public void kill() {
         System.out.println("I died!");
     }
 
@@ -89,27 +83,23 @@ public class Player extends Character
      * @param renderStates (RenderStates) I really should figure out what these are
      */
     @Override
-    public void draw(RenderTarget renderTarget, RenderStates renderStates)
-    {
+    public void draw(RenderTarget renderTarget, RenderStates renderStates) {
         renderTarget.draw(this.getImage());
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return String.format("<Player @ [%.0f, %.0f]>", this.getX(), this.getY());
     }
 
-    public Vector2f getPlayerCenter()
-    {
+    public Vector2f getPlayerCenter() {
         return new Vector2f(
                 (float) (this.getX() + (0.5 * this.getWidth())),
                 (float) (this.getY() + (0.5 * this.getHeight()))
         );
     }
 
-    public boolean applyInteract(Interactable interactClass)
-    {
+    public boolean applyInteract(Interactable interactClass) {
         if (appliedInteracts.contains(interactClass.getClass())) {
             // Do not allow the interact to work
             return false;
@@ -119,18 +109,15 @@ public class Player extends Character
         }
     }
 
-    public void setLastTimeHit(long time)
-    {
+    public void setLastTimeHit(long time) {
         this.lastTimeHit = time;
     }
 
-    public long getLastTimeHit()
-    {
+    public long getLastTimeHit() {
         return this.lastTimeHit;
     }
 
-    public Weapon pickUpWeapon(WeaponPickup weapon)
-    {
+    public Weapon pickUpWeapon(WeaponPickup weapon) {
         switch (weapon.getName()) {
             case "machete":
                 if (!hasWeapon("machete")) {
@@ -171,8 +158,7 @@ public class Player extends Character
         throw new AssertionError("Unknown weapon encountered: " + weapon);
     }
 
-    public boolean hasWeapon(String weaponSearching)
-    {
+    public boolean hasWeapon(String weaponSearching) {
         if (meleeWeapon != null && meleeWeapon.getName().equals(weaponSearching)) {
             return true;
         }
@@ -185,8 +171,7 @@ public class Player extends Character
         return false;
     }
 
-    public int amountOfWeaponsCarrying()
-    {
+    public int amountOfWeaponsCarrying() {
         int carry = 0;
         carry += (meleeWeapon == null) ? 0 : 1;
         carry += (oneHandedWeapon == null) ? 0 : 1;
@@ -195,13 +180,11 @@ public class Player extends Character
         return carry;
     }
 
-    public void decreaseAmmo()
-    {
+    public void decreaseAmmo() {
         this.ammo.set(ammo.get() - 1);
     }
 
-    public void increaseAmmo(int amount)
-    {
+    public void increaseAmmo(int amount) {
         this.ammo.set(ammo.get() + amount);
     }
 }

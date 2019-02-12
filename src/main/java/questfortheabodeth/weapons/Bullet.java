@@ -11,8 +11,7 @@ import main.java.questfortheabodeth.sprites.Image;
  * line across the map and then disappear when it is off the screen. If the bullet
  * hits a collidable it will disappear.
  */
-public class Bullet extends Image implements Movable, Collidable
-{
+public class Bullet extends Image implements Movable, Collidable {
     private float x;
     private float y;
     private double xSpeed;
@@ -27,8 +26,7 @@ public class Bullet extends Image implements Movable, Collidable
      * @param y     (int) Y coordinate of the top left of the image
      * @param angle (double) Angle the bullet is travelling at clockwise about the vertical
      */
-    public Bullet(int x, int y, double angle)
-    {
+    public Bullet(int x, int y, double angle) {
         super(x, y, "res/assets/weapons/bullet.png");
         this.setScale(Helper.getScaleValue(64, 64, 16, 16));
         this.angle = angle;
@@ -39,13 +37,11 @@ public class Bullet extends Image implements Movable, Collidable
         this.damage = 5;
     }
 
-    public void setX(float x)
-    {
+    public void setX(float x) {
         this.x = x;
     }
 
-    public void setY(float y)
-    {
+    public void setY(float y) {
         this.y = y;
     }
 
@@ -54,8 +50,7 @@ public class Bullet extends Image implements Movable, Collidable
      * and set the position of the image
      */
     @Override
-    public void move()
-    {
+    public void move() {
         x += xSpeed;
         y += ySpeed;
         this.setPosition(x, y);
@@ -68,8 +63,7 @@ public class Bullet extends Image implements Movable, Collidable
      * @return (String) This bullet as a string
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "<main.java.questfortheabodeth.weapons.Bullet " + this.hashCode() + " @ [" + x + ", " + y + "] w/ angle " + angle + ">";
     }
 
@@ -79,8 +73,7 @@ public class Bullet extends Image implements Movable, Collidable
      * @return (float) X coordinate
      */
     @Override
-    public float getX()
-    {
+    public float getX() {
         return x;
     }
 
@@ -90,8 +83,7 @@ public class Bullet extends Image implements Movable, Collidable
      * @return (float) Y coordinate
      */
     @Override
-    public float getY()
-    {
+    public float getY() {
         return y;
     }
 
@@ -101,8 +93,7 @@ public class Bullet extends Image implements Movable, Collidable
      * @return (float) Height of the bullet
      */
     @Override
-    public float getHeight()
-    {
+    public float getHeight() {
         return this.getGlobalBounds().height;
     }
 
@@ -112,13 +103,11 @@ public class Bullet extends Image implements Movable, Collidable
      * @return (float0 Width of the bullet
      */
     @Override
-    public float getWidth()
-    {
+    public float getWidth() {
         return this.getGlobalBounds().width;
     }
 
-    public int getDamage()
-    {
+    public int getDamage() {
         return damage;
     }
 }

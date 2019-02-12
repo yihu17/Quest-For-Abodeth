@@ -4,8 +4,7 @@ import main.java.questfortheabodeth.weapons.*;
 import org.jsfml.graphics.*;
 import org.jsfml.system.Vector2f;
 
-public class WeaponWheel implements Drawable
-{
+public class WeaponWheel implements Drawable {
     private int top;
     private int left;
 
@@ -17,16 +16,14 @@ public class WeaponWheel implements Drawable
     private TwoHandedWeapon twoHandedWeapon = null;
     private Melee meleeWeapon = null;
 
-    public WeaponWheel(Melee meleeWeapon, OneHandedWeapon oneHandedWeapon, TwoHandedWeapon twoHandedWeapon)
-    {
+    public WeaponWheel(Melee meleeWeapon, OneHandedWeapon oneHandedWeapon, TwoHandedWeapon twoHandedWeapon) {
         this();
         this.meleeWeapon = meleeWeapon;
         this.oneHandedWeapon = oneHandedWeapon;
         this.twoHandedWeapon = twoHandedWeapon;
     }
 
-    public WeaponWheel()
-    {
+    public WeaponWheel() {
         // Assumes no weapons are present
         meleeRect = new RectangleShape();
         meleeRect.setSize(new Vector2f(64, 64));
@@ -44,8 +41,7 @@ public class WeaponWheel implements Drawable
         applyEffects(twoHandedRect);
     }
 
-    public void selectWeapon(Weapon current)
-    {
+    public void selectWeapon(Weapon current) {
         meleeRect.setFillColor(new Color(Color.WHITE, 128));
         oneHandedRect.setFillColor(new Color(Color.WHITE, 128));
         twoHandedRect.setFillColor(new Color(Color.WHITE, 128));
@@ -61,15 +57,13 @@ public class WeaponWheel implements Drawable
         }
     }
 
-    private void applyEffects(RectangleShape shape)
-    {
+    private void applyEffects(RectangleShape shape) {
         shape.setOutlineColor(Color.WHITE);
         shape.setOutlineThickness(2);
         shape.setFillColor(new Color(Color.WHITE, 128));
     }
 
-    public void setWeapon(Weapon weapon)
-    {
+    public void setWeapon(Weapon weapon) {
         if (weapon instanceof Melee) {
             meleeWeapon = (Melee) weapon;
         } else if (weapon instanceof OneHandedWeapon) {
@@ -82,8 +76,7 @@ public class WeaponWheel implements Drawable
     }
 
     @Override
-    public void draw(RenderTarget renderTarget, RenderStates renderStates)
-    {
+    public void draw(RenderTarget renderTarget, RenderStates renderStates) {
         renderTarget.draw(meleeRect);
         renderTarget.draw(oneHandedRect);
         renderTarget.draw(twoHandedRect);
@@ -98,33 +91,27 @@ public class WeaponWheel implements Drawable
         }
     }
 
-    public Melee getMeleeWeapon()
-    {
+    public Melee getMeleeWeapon() {
         return meleeWeapon;
     }
 
-    public void setMeleeWeapon(Melee meleeWeapon)
-    {
+    public void setMeleeWeapon(Melee meleeWeapon) {
         this.meleeWeapon = meleeWeapon;
     }
 
-    public OneHandedWeapon getOneHandedWeapon()
-    {
+    public OneHandedWeapon getOneHandedWeapon() {
         return oneHandedWeapon;
     }
 
-    public void setOneHandedWeapon(OneHandedWeapon oneHandedWeapon)
-    {
+    public void setOneHandedWeapon(OneHandedWeapon oneHandedWeapon) {
         this.oneHandedWeapon = oneHandedWeapon;
     }
 
-    public TwoHandedWeapon getTwoHandedWeapon()
-    {
+    public TwoHandedWeapon getTwoHandedWeapon() {
         return twoHandedWeapon;
     }
 
-    public void setTwoHandedWeapon(TwoHandedWeapon twoHandedWeapon)
-    {
+    public void setTwoHandedWeapon(TwoHandedWeapon twoHandedWeapon) {
         this.twoHandedWeapon = twoHandedWeapon;
     }
 }

@@ -3,23 +3,20 @@ package main.java.questfortheabodeth.hud;
 import org.jsfml.graphics.*;
 import org.jsfml.system.Vector2f;
 
-public class MiniMap implements Drawable
-{
+public class MiniMap implements Drawable {
     /**
      * Creates a new MiniMap of the given size
      *
      * @param rows (int) Number of rows
      * @param cols (int) Number of cols
      */
-    public MiniMap(int rows, int cols)
-    {
+    public MiniMap(int rows, int cols) {
         this(rows, cols, 0, 0);
     }
 
     private int rows;
 
-    public enum Directions
-    {
+    public enum Directions {
         UP,
         DOWN,
         LEFT,
@@ -38,8 +35,7 @@ public class MiniMap implements Drawable
      * @param startX (int) Where the character starts in X
      * @param startY (int) Where the character start in Y
      */
-    public MiniMap(int rows, int cols, int startX, int startY)
-    {
+    public MiniMap(int rows, int cols, int startX, int startY) {
         this.rows = rows;
         this.cols = cols;
         rooms = new boolean[rows][cols];
@@ -58,8 +54,7 @@ public class MiniMap implements Drawable
     }
 
     @Override
-    public void draw(RenderTarget renderTarget, RenderStates renderStates)
-    {
+    public void draw(RenderTarget renderTarget, RenderStates renderStates) {
         // For now assume a rectangle size of 20 and top left coordinate of [1760, 1080]
         int x = 1742;
         int y = 5;
@@ -86,8 +81,7 @@ public class MiniMap implements Drawable
      *
      * @param d (Direction) The direction the main.java.questfortheabodeth.characters moved in
      */
-    public void move(Directions d)
-    {
+    public void move(Directions d) {
         switch (d) {
             case UP:
                 currentRoom[1] -= 1;
@@ -110,16 +104,14 @@ public class MiniMap implements Drawable
     /**
      * Updates the main.java.questfortheabodeth.hud.MiniMap with the room the main.java.questfortheabodeth.characters is currently in
      */
-    public void visitRoom()
-    {
+    public void visitRoom() {
         rooms[currentRoom[0]][currentRoom[1]] = true;
     }
 
     /**
      * Dump the minimap to the console
      */
-    public void dumpMinimap()
-    {
+    public void dumpMinimap() {
         for (int i = 0; i < rooms.length; i++) {
             boolean[] row = rooms[i];
             for (int j = 0; j < row.length; j++) {

@@ -3,8 +3,7 @@ package main.java.questfortheabodeth.interfaces;
 /**
  * Any object that can be hit by another object must implement this class
  */
-public interface Collidable
-{
+public interface Collidable {
     /**
      * Returns the top left X coordinate of the object
      *

@@ -6,14 +6,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
-public class FileOperator
-{
+public class FileOperator {
     private File file;
     private boolean available = false;
     private Exception exception = null;
 
-    public FileOperator(String path)
-    {
+    public FileOperator(String path) {
         try {
             file = new File(path);
             available = true;
@@ -29,8 +27,7 @@ public class FileOperator
      *
      * @return (ArrayList) Contents of file. Element per row
      */
-    public ArrayList<String> readToList()
-    {
+    public ArrayList<String> readToList() {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file.getCanonicalFile()));
             String line;
@@ -51,8 +48,7 @@ public class FileOperator
      * @param row (int) Row
      * @return (String[]) Returns array of elements in row
      */
-    public String[] readLine(int row)
-    {
+    public String[] readLine(int row) {
         try {
             ArrayList<String> contents = readToList();
             return contents.get(row).split(",");
@@ -69,8 +65,7 @@ public class FileOperator
      * @param col (int) Column
      * @return (String) Returns element in row
      */
-    public String readElement(int row, int col)
-    {
+    public String readElement(int row, int col) {
         try {
             return readLine(row)[col];
         } catch (Exception e) {
@@ -87,8 +82,7 @@ public class FileOperator
      * @param col (int) Column
      * @return (boolean) Returns true if insert was successful, false if not
      */
-    public boolean insert(String add, int row, int col)
-    {
+    public boolean insert(String add, int row, int col) {
         try {
             ArrayList<String> contents = readToList(); //ArrayList of Strings for each line
             String[] lineSplit = readLine(row); //String array of elements in specified line
@@ -118,8 +112,7 @@ public class FileOperator
      * @param add (String) Line to add
      * @return (boolean) Returns true if writing new line was successful, false if not
      */
-    public boolean writeNewLine(String add)
-    {
+    public boolean writeNewLine(String add) {
         try {
             FileWriter newLineWriter = new FileWriter(file, true);
             newLineWriter.append("\n" + add);
@@ -138,8 +131,7 @@ public class FileOperator
      * @param row (int) Row to remove
      * @return (boolean) Returns true if removing line was successful, false if not
      */
-    public boolean removeLine(int row)
-    {
+    public boolean removeLine(int row) {
         try {
             ArrayList<String> contents = readToList();
             contents.remove(row);
@@ -165,8 +157,7 @@ public class FileOperator
      *
      * @return (boolean) Returns true if clearing file was successful, false if not
      */
-    public boolean clearFile()
-    {
+    public boolean clearFile() {
         try {
             FileWriter clearFileWriter = new FileWriter(file, false);
             clearFileWriter.append("");
@@ -182,21 +173,18 @@ public class FileOperator
     /**
      * Prints file
      */
-    public void printFile()
-    {
+    public void printFile() {
         ArrayList<String> contents = readToList();
         for (int i = 0; i < contents.size(); i++) {
             System.out.println(contents.get(i));
         }
     }
 
-    public boolean isAvailable()
-    {
+    public boolean isAvailable() {
         return available;
     }
 
-    public Exception getException()
-    {
+    public Exception getException() {
         return exception;
     }
 }

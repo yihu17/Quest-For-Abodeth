@@ -34,8 +34,7 @@ import java.util.HashSet;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 
-public class Game
-{
+public class Game {
     private RenderWindow window;
     private boolean gameRunning;
     private Room[][] rooms;
@@ -56,8 +55,7 @@ public class Game
     private CopyOnWriteArraySet<Interactable> interactables = new CopyOnWriteArraySet<>();
 
 
-    public Game(RenderWindow window)
-    {
+    public Game(RenderWindow window) {
         if (Settings.AUDIO_STREAMER != null) {
             Settings.AUDIO_STREAMER.stop();
         }
@@ -102,8 +100,7 @@ public class Game
         this.scanRoom();
     }
 
-    public void run()
-    {
+    public void run() {
         int clocker = 0;
         Button time = new Button(120, 40, (Settings.WINDOW_WIDTH / 2) - 60, 10, "0");
         time.setTextXOffset(8);
@@ -183,8 +180,7 @@ public class Game
         }
     }
 
-    private int runPlayerCollisions()
-    {
+    private int runPlayerCollisions() {
         int moveValues = 0;
         HashSet<Integer> playerCanMove = new HashSet<>();
         for (Collidable c : collidables) {
@@ -222,8 +218,7 @@ public class Game
         return moveValues;
     }
 
-    private void runBulletCollisions()
-    {
+    private void runBulletCollisions() {
         for (Bullet b : bullets) {
             for (Collidable c : collidables) {
                 if (c instanceof Bullet || c instanceof Powerup) {
@@ -245,8 +240,7 @@ public class Game
         }
     }
 
-    private void runEnemyCollisions()
-    {
+    private void runEnemyCollisions() {
         for (Enemy e : enemies) {
             HashSet<Integer> values = new HashSet<>();
             for (Collidable c : collidables) {
@@ -264,8 +258,7 @@ public class Game
         }
     }
 
-    private void runPlayerInteracts()
-    {
+    private void runPlayerInteracts() {
         HashSet<Class<? extends Interactable>> currentInteracts = new HashSet<>();
         for (Interactable i : interactables) {
             int overlap = Helper.checkOverlap(player, i);
@@ -297,8 +290,7 @@ public class Game
         player.resetInteracts(currentInteracts);
     }
 
-    private void runEnemyInteracts()
-    {
+    private void runEnemyInteracts() {
         for (Enemy e : enemies) {
             HashSet<Class<? extends Interactable>> currentInteracts = new HashSet<>();
             for (Interactable i : interactables) {
@@ -316,8 +308,7 @@ public class Game
         }
     }
 
-    private void scanRoom()
-    {
+    private void scanRoom() {
         if (Settings.AUDIO_STREAMER != null && !Settings.AUDIO_STREAMER.isActive()) {
             currentRoom.playMusic();
         }
@@ -344,8 +335,7 @@ public class Game
         interactables.addAll(currentRoom.getInteractables());
     }
 
-    private void moveMovables()
-    {
+    private void moveMovables() {
         movables.forEach(Movable::move);
         movables.forEach(movable -> {
             if (movable.getX() < -50 || Settings.WINDOW_WIDTH + 50 < movable.getX()) {
@@ -364,8 +354,7 @@ public class Game
         });
     }
 
-    private void openInGameMenu()
-    {
+    private void openInGameMenu() {
         GameMenu ingame = new GameMenu(window /*, screenshotSaved*/);
         ingame.displayMenu();
         Button b = ingame.getChosenButton();
@@ -384,8 +373,7 @@ public class Game
         }
     }
 
-    public boolean saveGameScreenshot()
-    {
+    public boolean saveGameScreenshot() {
         try {
             Robot robot = new Robot();
             String fileName = "gamePausedScreenshot.jpg";

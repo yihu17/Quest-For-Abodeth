@@ -10,18 +10,15 @@ import org.jsfml.window.VideoMode;
 import org.jsfml.window.WindowStyle;
 
 
-public class Main
-{
+public class Main {
     private RenderWindow window;
 
-    public Main()
-    {
+    public Main() {
         this.window = new RenderWindow();
         this.window.setFramerateLimit(Settings.WINDOW_FPS);
     }
 
-    public void run()
-    {
+    public void run() {
         this.window.create(VideoMode.getDesktopMode(), Settings.WINDOW_TITLE, WindowStyle.FULLSCREEN);
 /*        for (VideoMode v: VideoMode.getFullscreenModes()) {
             System.out.println(v);
@@ -79,8 +76,7 @@ public class Main
         }
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         Main game = new Main();
         game.run();
     }
