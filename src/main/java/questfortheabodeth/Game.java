@@ -132,7 +132,7 @@ public class Game {
             // Check for close events
             for (Event e : window.pollEvents()) {
                 Helper.checkCloseEvents(e, window);
-                if (e.type == MouseEvent.Type.MOUSE_BUTTON_PRESSED && Mouse.isButtonPressed(Mouse.Button.LEFT)) {
+                if (e.type == MouseEvent.Type.MOUSE_BUTTON_PRESSED && Mouse.isButtonPressed(Mouse.Button.LEFT) && player.getCurrentWeapon() != null) {
                     // The player character has fired a bullet
                     if (0 < player.ammoProperty().getValue()) {
                         Bullet b = new Bullet(

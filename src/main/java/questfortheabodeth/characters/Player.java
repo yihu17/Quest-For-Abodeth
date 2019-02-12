@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.interfaces.Interactable;
 import main.java.questfortheabodeth.interfaces.Powerup;
+import main.java.questfortheabodeth.sprites.Image;
 import main.java.questfortheabodeth.weapons.*;
 import org.jsfml.graphics.RenderStates;
 import org.jsfml.graphics.RenderTarget;
@@ -49,18 +50,26 @@ public class Player extends Character {
                     return false;
                 }
                 currentWeapon = meleeWeapon;
+                Image img = new Image((int)getX(), (int)getY(), "res/assets/player/player-" + currentWeapon.getName()+".png");
+                setImage(img);
                 return true;
             case 2:
                 if (oneHandedWeapon == null) {
                     return false;
                 }
                 currentWeapon = oneHandedWeapon;
+                Image img2 = new Image((int)getX(), (int)getY(), "res/assets/player/player-" + currentWeapon.getName()+".png");
+                setImage(img2);
                 return true;
             case 3:
                 if (twoHandedWeapon == null) {
                     return false;
                 }
                 currentWeapon = twoHandedWeapon;
+                Image img3 = new Image((int)getX(), (int)getY(), "res/assets/player/player-" + currentWeapon.getName()+".png");
+                System.out.println(currentWeapon.getName());
+                System.out.println("res/assets/player/player-" + currentWeapon.getName()+".png");
+                setImage(img3);
                 return true;
             default:
                 return false;

@@ -16,8 +16,8 @@ import org.jsfml.system.Vector2f;
  */
 public abstract class Character extends Thread implements Drawable, Collidable {
     private Facing face;
-    private int x;
-    private int y;
+    private float x;
+    private float y;
     private SimpleIntegerProperty health = new SimpleIntegerProperty();
     private double movementSpeed;
     private int shield = 0;

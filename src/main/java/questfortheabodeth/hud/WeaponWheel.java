@@ -47,13 +47,13 @@ public class WeaponWheel implements Drawable {
         twoHandedRect.setFillColor(new Color(Color.WHITE, 128));
 
         if (current instanceof Melee) {
-            meleeRect.setFillColor(new Color(Color.RED, 128));
+            twoHandedRect.setFillColor(new Color(Color.RED, 128));
         }
         if (current instanceof OneHandedWeapon) {
             oneHandedRect.setFillColor(new Color(Color.RED, 128));
         }
         if (current instanceof TwoHandedWeapon) {
-            twoHandedRect.setFillColor(new Color(Color.RED, 128));
+            meleeRect.setFillColor(new Color(Color.RED, 128));
         }
     }
 
