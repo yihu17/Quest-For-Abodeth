@@ -5,7 +5,9 @@ import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.interfaces.Clickable;
 import main.java.questfortheabodeth.interfaces.Menu;
 import main.java.questfortheabodeth.sprites.Image;
+import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderWindow;
+import org.jsfml.graphics.Text;
 import org.jsfml.window.event.Event;
 
 import javax.sound.sampled.AudioInputStream;
@@ -24,19 +26,25 @@ public class MainMenu implements Menu
     private Image background;
     private int buttonWidth = 400;
     private int buttonHeight = 75;
+    private Text title;
 
 
     public MainMenu(RenderWindow window)
     {
+
         this.window = window;
-        String[] ops = new String[]{"Play", "Instructions", "Highscores", "Credits", "Quit"};
+        Text t = new Text("THE QUEST FOR THE ABODETH", Settings.MAIN_MENU_FONT, 82);
+        t.setColor(Color.BLACK);
+        t.setPosition(510, 280);
+        title = t;
+        String[] ops = new String[]{"Play", "Quit"};
         int i = 0;
         for (String s : ops) {
             Button b = new Button(
                     buttonWidth,
                     buttonHeight,
                     (Settings.WINDOW_WIDTH - Settings.WINDOW_X_PADDING * 2) / 2 - 100,
-                    Settings.WINDOW_Y_PADDING + i * (buttonHeight * 2) + 65,
+                    Settings.WINDOW_Y_PADDING + i * (buttonHeight * 2) + 340,
                     s
             );
             b.setTextYOffset(17);
@@ -56,7 +64,18 @@ public class MainMenu implements Menu
             i++;
         }
 
-        ClickableImage settings = new ClickableImage(1850, 6, "res/temp-ico.png", "settings");
+        ClickableImage highscores = new ClickableImage(6, 6, "res/assets/menus/button_highscores.png", "highscores");
+        highscores.setOnPress(new EventHandler()
+        {
+            @Override
+            public void run()
+            {
+                menuOpen = false;
+                chosenButton = highscores;
+            }
+        });
+        buttons.add(highscores);
+        ClickableImage settings = new ClickableImage(1850, 6, "res/assets/menus/button_settings.png", "settings");
         settings.setOnPress(new EventHandler()
         {
             @Override
@@ -67,12 +86,24 @@ public class MainMenu implements Menu
             }
         });
         buttons.add(settings);
+        ClickableImage controls = new ClickableImage(1850, 1010, "res/assets/menus/button_controls.png", "controls");
+        controls.setOnPress(new EventHandler()
+        {
+            @Override
+            public void run()
+            {
+                menuOpen = false;
+                chosenButton = controls;
+            }
+        });
+        buttons.add(controls);
 
         this.background = new Image(0, 0, "res/menuBackgrounds/mainmenu.png");
 
         playMusic();
 
     }
+
 
     @Override
     public List<Clickable> getButtons()
@@ -90,6 +121,7 @@ public class MainMenu implements Menu
 
             // Draw window objects and background
             window.draw(background);
+            window.draw(title);
             buttons.forEach(window::draw);
 
             // Update the display
@@ -109,6 +141,7 @@ public class MainMenu implements Menu
         return chosenButton;
     }
 
+
     @Override
     public Image getBackground()
     {
@@ -118,14 +151,7 @@ public class MainMenu implements Menu
     public void playMusic()
     {
         try {
-            if (Settings.AUDIO_STREAMER != null && Settings.AUDIO_STREAMER.isActive()) {
-                Settings.AUDIO_STREAMER.stop();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            File soundFile = new File("res/assets/audio/mainMenu.wav");
+            File soundFile = new File("res/audio/mainMenu.wav");
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
             Settings.AUDIO_STREAMER = AudioSystem.getClip();
             Settings.AUDIO_STREAMER.open(audioInputStream);

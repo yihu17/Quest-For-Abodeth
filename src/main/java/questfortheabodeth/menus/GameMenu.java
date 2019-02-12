@@ -63,7 +63,6 @@ public class GameMenu implements Menu
 
     /**
      * Returns all the buttons present in the menu
-     *
      * @return (List) List of clickables in the menu
      */
     @Override
@@ -102,7 +101,6 @@ public class GameMenu implements Menu
 
     /**
      * Returns the selected button
-     *
      * @return (main.java.questfortheabodeth.menus.Button) Clicked button
      */
     @Override
@@ -114,7 +112,6 @@ public class GameMenu implements Menu
     /**
      * Returns the background image of the menu
      * This menu has no background and so returns null
-     *
      * @return (null) No image
      */
     @Override
