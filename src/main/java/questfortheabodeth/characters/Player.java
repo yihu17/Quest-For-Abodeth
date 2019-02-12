@@ -199,4 +199,9 @@ public class Player extends Character
     {
         this.ammo.set(ammo.get() - 1);
     }
+
+    public void increaseAmmo(int amount)
+    {
+        this.ammo.set(ammo.get() + amount);
+    }
 }

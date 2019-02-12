@@ -239,16 +239,6 @@ public abstract class Character extends Thread implements Drawable, Collidable
         this.shield += shieldAmount;
     }
 
-    public int getAmmo()
-    {
-        return ammo;
-    }
-
-    public void addAmmo(int ammoAmount)
-    {
-        this.ammo += ammoAmount;
-    }
-
     /**
      * Increase the health of the character by the specified amount
      *
