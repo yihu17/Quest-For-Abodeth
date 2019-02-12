@@ -58,7 +58,9 @@ public class Game
 
     public Game(RenderWindow window)
     {
-        Settings.AUDIO_STREAMER.stop();
+        if (Settings.AUDIO_STREAMER != null) {
+            Settings.AUDIO_STREAMER.stop();
+        }
         this.window = window;
         this.window.clear();
         this.gameRunning = true;
@@ -316,7 +318,7 @@ public class Game
 
     private void scanRoom()
     {
-        if (!Settings.AUDIO_STREAMER.isActive()) {
+        if (Settings.AUDIO_STREAMER != null && !Settings.AUDIO_STREAMER.isActive()) {
             currentRoom.playMusic();
         }
 

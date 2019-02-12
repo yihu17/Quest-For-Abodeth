@@ -20,7 +20,10 @@ public class Main
     public void run()
     {
         this.window.create(VideoMode.getDesktopMode(), Settings.WINDOW_TITLE, WindowStyle.FULLSCREEN);
-        //this.window.create(new VideoMode(640, 360, 32), main.java.questfortheabodeth.Settings.WINDOW_TITLE);
+/*        for (VideoMode v: VideoMode.getFullscreenModes()) {
+            System.out.println(v);
+        }
+        this.window.create(new VideoMode(1366, 768, 32), main.java.questfortheabodeth.Settings.WINDOW_TITLE);*/
 
         // As long as the window is open run the game loop
         while (window.isOpen()) {
@@ -45,7 +48,7 @@ public class Main
                 case "settings":
                     System.out.println("Opening settings menu");
                     break;
-                case "instructions":
+                case "controls":
                     System.out.println("Showing instructions menu");
                     break;
                 case "highscores":
