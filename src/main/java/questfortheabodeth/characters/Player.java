@@ -44,45 +44,39 @@ public class Player extends Character {
     }
 
     public boolean switchWeapon(int weaponNumber) {
-        Image img;
-
         switch(weaponNumber) {
             case 1:
                 if (meleeWeapon == null) {
                     return false;
                 }
                 currentWeapon = meleeWeapon;
-                img = new Image((int)getX(), (int)getY(), "res/assets/player/player-" + currentWeapon.getName()+".png");
-                if (getFace() == Character.Facing.LEFT) {
-                    img.flipHorizontal();
-                }
-                setImage(img);
+                setWeaponImage(currentWeapon.getName());
                 return true;
             case 2:
                 if (oneHandedWeapon == null) {
                     return false;
                 }
                 currentWeapon = oneHandedWeapon;
-                img = new Image((int)getX(), (int)getY(), "res/assets/player/player-" + currentWeapon.getName()+".png");
-                if (getFace() == Character.Facing.LEFT) {
-                    img.flipHorizontal();
-                }
-                setImage(img);
+                setWeaponImage(currentWeapon.getName());
                 return true;
             case 3:
                 if (twoHandedWeapon == null) {
                     return false;
                 }
                 currentWeapon = twoHandedWeapon;
-                img = new Image((int)getX(), (int)getY(), "res/assets/player/player-" + currentWeapon.getName()+".png");
-                if (getFace() == Character.Facing.LEFT) {
-                    img.flipHorizontal();
-                }
-                setImage(img);
+                setWeaponImage(currentWeapon.getName());
                 return true;
             default:
                 return false;
         }
+    }
+
+    public void setWeaponImage(String weapon) {
+        Image img = new Image((int)getX(), (int)getY(), "res/assets/player/player-" + weapon +".png");
+        if (getFace() == Character.Facing.LEFT) {
+            img.flipHorizontal();
+        }
+        setImage(img);
     }
 
     public void resetInteracts(HashSet<Class<? extends Interactable>> current) {
@@ -161,12 +155,14 @@ public class Player extends Character {
             case "machete":
                 if (!hasWeapon("machete")) {
                     meleeWeapon = new Melee("machete", 3);
+                    currentWeapon = meleeWeapon;
                     return meleeWeapon;
                 }
                 return meleeWeapon;
             case "revolver":
                 if (!hasWeapon("revolver")) {
                     oneHandedWeapon = new OneHandedWeapon("revolver", 1, 50, 3);
+                    currentWeapon = oneHandedWeapon;
                 } else {
                     this.ammo.setValue(ammo.get() + 50);
                 }
@@ -174,6 +170,7 @@ public class Player extends Character {
             case "shotgun":
                 if (!hasWeapon("shotgun")) {
                     twoHandedWeapon = new TwoHandedWeapon("shotgun", 5, 20, 6);
+                    currentWeapon = twoHandedWeapon;
                 } else {
                     this.ammo.setValue(ammo.get() + 20);
                 }
@@ -181,6 +178,7 @@ public class Player extends Character {
             case "ar15":
                 if (!hasWeapon("ar15")) {
                     twoHandedWeapon = new TwoHandedWeapon("ar15", 1, 25, 2);
+                    currentWeapon = twoHandedWeapon;
                 } else {
                     this.ammo.setValue(ammo.get() + 25);
                 }
@@ -188,6 +186,7 @@ public class Player extends Character {
             case "uzi":
                 if (!hasWeapon("uzi")) {
                     oneHandedWeapon = new OneHandedWeapon("uzi", 3, 60, 1);
+                    currentWeapon = oneHandedWeapon;
                 } else {
                     this.ammo.setValue(ammo.get() + 60);
                 }

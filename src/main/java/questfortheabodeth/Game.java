@@ -294,6 +294,8 @@ public class Game {
                     if (Keyboard.isKeyPressed(Keyboard.Key.E) && !player.hasWeapon(((WeaponPickup) i).getName())) {
                         // The player is pressing E and also does not have the weapon
                         weaponWheel.setWeapon(player.pickUpWeapon((WeaponPickup) i));
+                        weaponWheel.selectWeapon(player.pickUpWeapon((WeaponPickup) i));
+                        player.setWeaponImage(((WeaponPickup) i).getName());
                         ((WeaponPickup) i).remove();
                     } else if (player.hasWeapon(((WeaponPickup) i).getName())) {
                         // the player already has the weapon so add ammo
