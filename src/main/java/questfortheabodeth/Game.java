@@ -434,21 +434,37 @@ public class Game {
         switch (direction) {
             case -1:
                 // Going left
+                if (rooms[roomRow][roomCol - 1] == null || roomCol - 1 < 0) {
+                    System.out.println("Illegal move");
+                    return;
+                }
                 miniMap.move(MiniMap.Directions.LEFT);
                 roomCol--;
                 break;
             case -2:
                 // Going up
+                if (rooms[roomRow - 1][roomCol] == null || roomRow - 1 < 0) {
+                    System.out.println("Illegal move");
+                    return;
+                }
                 miniMap.move(MiniMap.Directions.UP);
                 roomRow--;
                 break;
             case -3:
                 // Going right
+                if (rooms[roomRow][roomCol + 1] == null || rooms[0].length < roomCol + 1) {
+                    System.out.println("Illegal move");
+                    return;
+                }
                 miniMap.move(MiniMap.Directions.RIGHT);
                 roomCol++;
                 break;
             case -4:
                 // Going down
+                if (rooms[roomRow + 1][roomCol] == null || rooms.length < roomRow + 1) {
+                    System.out.println("Illegal move");
+                    return;
+                }
                 miniMap.move(MiniMap.Directions.DOWN);
                 roomRow++;
                 break;
