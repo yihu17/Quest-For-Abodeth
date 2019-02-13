@@ -159,9 +159,13 @@ public abstract class Character extends Thread implements Drawable, Collidable {
         updatePosition();
     }
 
-    private enum Facing {
+    public enum Facing {
         LEFT,
         RIGHT
+    }
+
+    public Facing getFace() {
+        return face;
     }
 
     /**
