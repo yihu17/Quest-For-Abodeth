@@ -269,7 +269,7 @@ public class Game {
         for (Enemy e : enemies) {
             HashSet<Integer> values = new HashSet<>();
             for (Collidable c : collidables) {
-                if (c instanceof Enemy || c instanceof WeaponPickup) {
+                if (c instanceof Enemy || c instanceof WeaponPickup || c instanceof Powerup) {
                     continue;
                 }
                 values.add(Helper.checkOverlap(e, c));
@@ -325,16 +325,16 @@ public class Game {
         for (Enemy e : enemies) {
             HashSet<Class<? extends Interactable>> currentInteracts = new HashSet<>();
             for (Interactable i : interactables) {
-                if (i instanceof WeaponPickup || i instanceof Door) {
+                if (i instanceof WeaponPickup || i instanceof Door || i instanceof Powerup) {
                     continue;
-                }
-                int overlap = Helper.checkOverlap(e, i);
-                if (0 < overlap) {
-                    i.buffEnemy(e);
-                    currentInteracts.add(i.getClass());
+                } else {
+                    int overlap = Helper.checkOverlap(e, i);
+                    if (0 < overlap) {
+                        i.buffEnemy(e);
+                        currentInteracts.add(i.getClass());
+                    }
                 }
             }
-
             e.resetInteracts(currentInteracts);
         }
     }

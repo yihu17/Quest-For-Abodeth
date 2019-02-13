@@ -64,7 +64,6 @@ public class Enemy extends Character implements Movable {
 
     public boolean applyInteract(Interactable interactClass) {
         if (appliedInteracts.contains(interactClass.getClass()) || (!name.equals("crocodile"))) {
-            // Do not allow the interact to work
             return false;
         } else {
             appliedInteracts.add(interactClass.getClass());
@@ -81,7 +80,6 @@ public class Enemy extends Character implements Movable {
                 Constructor struct = c.getDeclaredConstructors()[0];
                 Interactable i = (Interactable) struct.newInstance(0, 0, "");
                 i.removeEnemyBuff(this);
-                System.out.println(i + " is removing the buff from enemy");
             } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
                 e.printStackTrace();
             }
@@ -90,5 +88,7 @@ public class Enemy extends Character implements Movable {
         appliedInteracts = current;
     }
 
-
+    public String getEnemyName() {
+        return name;
+    }
 }

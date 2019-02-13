@@ -23,11 +23,15 @@ public class Water extends InteractableEnvironment {
 
     public void buffEnemy(Enemy e) {
         if (e.applyInteract(this)) {
+            System.out.println(e.getName());
             e.setMovementSpeed(e.getMovementSpeed() * 2);
         }
     }
 
     public void removeEnemyBuff(Enemy e) {
-        e.setMovementSpeed(e.getMovementSpeed() / 2);
+        if (e.getEnemyName().equals("crocodile")) {
+            System.out.println(e.getName());
+            e.setMovementSpeed(e.getMovementSpeed() / 2);
+        }
     }
 }

@@ -88,7 +88,6 @@ public class Player extends Character {
                 Constructor struct = c.getDeclaredConstructors()[0];
                 Interactable i = (Interactable) struct.newInstance(0, 0, "");
                 i.remove(this);
-                System.out.println(i + " is removing the buff");
             } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
                 e.printStackTrace();
             }
