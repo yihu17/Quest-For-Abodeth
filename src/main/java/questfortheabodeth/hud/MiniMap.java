@@ -65,7 +65,11 @@ public class MiniMap implements Drawable {
                 RectangleShape rect = new RectangleShape();
                 rect.setSize(new Vector2f(width, width));
                 rect.setPosition(new Vector2f(x, y));
-                rect.setFillColor(rooms[j][i] ? new Color(Color.RED, 128) : new Color(Color.BLACK, 128));
+                if (currentRoom[0] == j && currentRoom[1] == i) {
+                    rect.setFillColor(new Color(Color.RED, 128));
+                } else {
+                    rect.setFillColor(rooms[j][i] ? new Color(Color.WHITE, 128) : new Color(Color.BLACK, 128));
+                }
                 rect.setOutlineColor(new Color(Color.WHITE, 128));
                 rect.setOutlineThickness(outline);
                 renderTarget.draw(rect);

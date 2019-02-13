@@ -37,9 +37,14 @@ import java.util.concurrent.CopyOnWriteArraySet;
 public class Game {
     private RenderWindow window;
     private boolean gameRunning;
+
     private Room[][] rooms;
     private Room currentRoom;
+    private int roomCol = -1;
+    private int roomRow = -1;
+
     private Player player;
+    private Door doorInRange = null;
 
     private MiniMap miniMap;
     private HealthBar healthBar;
@@ -69,8 +74,6 @@ public class Game {
         ArrayList<String> file = ops.readToList();
         int rows = file.size();
         int cols = file.get(0).split(",").length;
-        int startRow = -1;
-        int startCol = -1;
         rooms = new Room[rows][cols];
 
         for (int i = 0; i < rows; i++) {
@@ -78,18 +81,18 @@ public class Game {
                 int roomCode = Integer.parseInt(file.get(i).split(",")[j]);
                 rooms[i][j] = new Room(roomCode);
                 if (roomCode == 1) {
-                    startCol = j;
-                    startRow = i;
+                    roomCol = j;
+                    roomRow = i;
                 }
             }
         }
 
-        if (startRow < 0 || startCol < 0) {
+        if (roomRow < 0 || roomCol < 0) {
             throw new IllegalStateException("Player has no start room");
         }
-        currentRoom = rooms[startRow][startCol];
+        currentRoom = rooms[roomRow][roomCol];
 
-        miniMap = new MiniMap(rows, cols, startRow, startCol);
+        miniMap = new MiniMap(rows, cols, roomRow, roomCol);
         healthBar = new HealthBar(player);
         weaponWheel = new WeaponWheel();
         ammoCount = new AmmoCount(player.ammoProperty());
@@ -158,6 +161,13 @@ public class Game {
                     } else if (e.asKeyEvent().key == Keyboard.Key.NUM3) {
                         if (player.switchWeapon(3)) {
                             weaponWheel.selectWeapon(player.getCurrentWeapon());
+                        }
+                    } else if (e.asKeyEvent().key == Keyboard.Key.E) {
+                        // Player attempted to go through a door
+                        if (doorInRange != null) {
+                            // Go through the door
+                            System.out.println("Going through the door " + doorInRange);
+                            switchRoom(doorInRange.getLinkedDoor());
                         }
                     }
                 }
@@ -275,6 +285,7 @@ public class Game {
 
     private void runPlayerInteracts() {
         HashSet<Class<? extends Interactable>> currentInteracts = new HashSet<>();
+        boolean localDoorRange = false;
         for (Interactable i : interactables) {
             int overlap = Helper.checkOverlap(player, i);
             if (0 < overlap) {
@@ -283,6 +294,8 @@ public class Game {
                     if (Keyboard.isKeyPressed(Keyboard.Key.E) && !player.hasWeapon(((WeaponPickup) i).getName())) {
                         // The player is pressing E and also does not have the weapon
                         weaponWheel.setWeapon(player.pickUpWeapon((WeaponPickup) i));
+                        weaponWheel.selectWeapon(player.pickUpWeapon((WeaponPickup) i));
+                        player.setWeaponImage(((WeaponPickup) i).getName());
                         ((WeaponPickup) i).remove();
                     } else if (player.hasWeapon(((WeaponPickup) i).getName())) {
                         // the player already has the weapon so add ammo
@@ -293,8 +306,8 @@ public class Game {
                         ;
                     }
                 } else if (i instanceof Door) {
-                    // Allow the player to pass through the door
-                    // How do we know which door goes where?
+                    doorInRange = (Door) i;
+                    localDoorRange = true;
                 } else {
                     i.interact(player);
                     currentInteracts.add(i.getClass());
@@ -302,6 +315,9 @@ public class Game {
             }
         }
 
+        if (!localDoorRange) {
+            doorInRange = null;
+        }
         player.resetInteracts(currentInteracts);
     }
 
@@ -324,9 +340,17 @@ public class Game {
     }
 
     private void scanRoom() {
+
         if (Settings.AUDIO_STREAMER != null && !Settings.AUDIO_STREAMER.isActive()) {
             currentRoom.playMusic();
         }
+
+        collidables.clear();
+        drawables.clear();
+        enemies.clear();
+        movables.clear();
+        interactables.clear();
+        bullets.clear();
 
         collidables.addAll(currentRoom.getCollidables());
         for (Enemy e : currentRoom.getEnemies()) {
@@ -400,5 +424,55 @@ public class Game {
             System.out.println("Error taking screenshot");
             return false;
         }
+    }
+
+    private void switchRoom(int direction) {
+        switch (direction) {
+            case -1:
+                // Going left
+                miniMap.move(MiniMap.Directions.LEFT);
+                roomCol--;
+                break;
+            case -2:
+                // Going up
+                miniMap.move(MiniMap.Directions.UP);
+                roomRow--;
+                break;
+            case -3:
+                // Going right
+                miniMap.move(MiniMap.Directions.RIGHT);
+                roomCol++;
+                break;
+            case -4:
+                // Going down
+                miniMap.move(MiniMap.Directions.DOWN);
+                roomRow++;
+                break;
+            default:
+                throw new AssertionError("Unknown direction to travel in: " + direction);
+        }
+
+        currentRoom = rooms[roomRow][roomCol];
+        Door cameThrough;
+        for (Interactable i : currentRoom.getInteractables()) {
+            if (i instanceof Door) {
+                Door d = (Door) i;
+                if (d.getLinkedDoor() == -1 && doorInRange.getLinkedDoor() == -3) {
+                    player.setPosition((int) (d.getX() + 100), (int) d.getY());
+                    break;
+                } else if (d.getLinkedDoor() == -3 && doorInRange.getLinkedDoor() == -1) {
+                    player.setPosition((int) (d.getX() - 100), (int) d.getY());
+                    break;
+                } else if (d.getLinkedDoor() == -2 && doorInRange.getLinkedDoor() == -4) {
+                    player.setPosition((int) d.getX(), (int) (d.getY() - 100));
+                    break;
+                } else if (d.getLinkedDoor() == -4 && doorInRange.getLinkedDoor() == -2) {
+                    player.setPosition((int) d.getX(), (int) (d.getY() + 100));
+                    break;
+                }
+            }
+        }
+
+        scanRoom();
     }
 }
