@@ -25,7 +25,7 @@ public class SettingsMenu implements Menu {
 
     public SettingsMenu(RenderWindow window) {
         this.window = window;
-        Text t = new Text("Settings", Settings.MAIN_MENU_FONT, 56);
+        Text t = new Text("SETTINGS", Settings.MAIN_MENU_FONT, 56);
         t.setColor(Color.BLACK);
         t.setPosition(300, 50);
         title = t;

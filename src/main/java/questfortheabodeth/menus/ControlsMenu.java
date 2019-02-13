@@ -36,7 +36,7 @@ public class ControlsMenu implements Menu {
         });
         buttons.addAll(Arrays.asList(back));
 
-        Text t = new Text("ControlsMenu", Settings.MAIN_MENU_FONT, 64);
+        Text t = new Text("CONTROLS", Settings.MAIN_MENU_FONT, 64);
         t.setColor(Color.BLACK);
         t.setPosition((Settings.WINDOW_WIDTH - Settings.WINDOW_X_PADDING * 2) / 2 - 50, 30);
         title = t;
