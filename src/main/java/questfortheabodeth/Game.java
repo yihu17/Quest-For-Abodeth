@@ -453,7 +453,26 @@ public class Game {
         }
 
         currentRoom = rooms[roomRow][roomCol];
+        Door cameThrough;
+        for (Interactable i : currentRoom.getInteractables()) {
+            if (i instanceof Door) {
+                Door d = (Door) i;
+                if (d.getLinkedDoor() == -1 && doorInRange.getLinkedDoor() == -3) {
+                    player.setPosition((int) (d.getX() + 100), (int) d.getY());
+                    break;
+                } else if (d.getLinkedDoor() == -3 && doorInRange.getLinkedDoor() == -1) {
+                    player.setPosition((int) (d.getX() - 100), (int) d.getY());
+                    break;
+                } else if (d.getLinkedDoor() == -2 && doorInRange.getLinkedDoor() == -4) {
+                    player.setPosition((int) d.getX(), (int) (d.getY() - 100));
+                    break;
+                } else if (d.getLinkedDoor() == -4 && doorInRange.getLinkedDoor() == -2) {
+                    player.setPosition((int) d.getX(), (int) (d.getY() + 100));
+                    break;
+                }
+            }
+        }
+
         scanRoom();
-        // Reset the players position
     }
 }
