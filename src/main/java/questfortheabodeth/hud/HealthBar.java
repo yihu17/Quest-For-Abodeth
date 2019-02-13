@@ -33,7 +33,8 @@ public class HealthBar implements Drawable {
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
             {
                 if (newValue.intValue() >= 0) {
-                    health.setSize(new Vector2f(200 - ((int) newValue % 20) * 20, 20));
+                    // This needs to work out the value between 0 and 200 that correlates to the percentage health the player has left
+                    health.setSize(new Vector2f(200 - (newValue.intValue() / 100) * 200, 20));
                 }
             }
         });
