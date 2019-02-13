@@ -44,13 +44,18 @@ public class Player extends Character {
     }
 
     public boolean switchWeapon(int weaponNumber) {
+        Image img;
+
         switch(weaponNumber) {
             case 1:
                 if (meleeWeapon == null) {
                     return false;
                 }
                 currentWeapon = meleeWeapon;
-                Image img = new Image((int)getX(), (int)getY(), "res/assets/player/player-" + currentWeapon.getName()+".png");
+                img = new Image((int)getX(), (int)getY(), "res/assets/player/player-" + currentWeapon.getName()+".png");
+                if (getFace() == Character.Facing.LEFT) {
+                    img.flipHorizontal();
+                }
                 setImage(img);
                 return true;
             case 2:
@@ -58,18 +63,22 @@ public class Player extends Character {
                     return false;
                 }
                 currentWeapon = oneHandedWeapon;
-                Image img2 = new Image((int)getX(), (int)getY(), "res/assets/player/player-" + currentWeapon.getName()+".png");
-                setImage(img2);
+                img = new Image((int)getX(), (int)getY(), "res/assets/player/player-" + currentWeapon.getName()+".png");
+                if (getFace() == Character.Facing.LEFT) {
+                    img.flipHorizontal();
+                }
+                setImage(img);
                 return true;
             case 3:
                 if (twoHandedWeapon == null) {
                     return false;
                 }
                 currentWeapon = twoHandedWeapon;
-                Image img3 = new Image((int)getX(), (int)getY(), "res/assets/player/player-" + currentWeapon.getName()+".png");
-                System.out.println(currentWeapon.getName());
-                System.out.println("res/assets/player/player-" + currentWeapon.getName()+".png");
-                setImage(img3);
+                img = new Image((int)getX(), (int)getY(), "res/assets/player/player-" + currentWeapon.getName()+".png");
+                if (getFace() == Character.Facing.LEFT) {
+                    img.flipHorizontal();
+                }
+                setImage(img);
                 return true;
             default:
                 return false;
