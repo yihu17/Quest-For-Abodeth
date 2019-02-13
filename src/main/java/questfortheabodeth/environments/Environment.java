@@ -27,11 +27,11 @@ public class Environment extends Image {
     }
 
     public float getWidth() {
-        return this.getGlobalBounds().width;
+        return super.getWidth();
     }
 
     public float getHeight() {
-        return this.getGlobalBounds().height;
+        return super.getHeight();
     }
 
     public boolean isCollidiable() {

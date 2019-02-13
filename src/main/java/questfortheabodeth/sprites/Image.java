@@ -87,6 +87,16 @@ public class Image implements Drawable {
         return image.getGlobalBounds();
     }
 
+    public float getWidth()
+    {
+        return image.getGlobalBounds().width;
+    }
+
+    public float getHeight()
+    {
+        return image.getGlobalBounds().height;
+    }
+
     /**
      * Draws the image on screen.
      *
