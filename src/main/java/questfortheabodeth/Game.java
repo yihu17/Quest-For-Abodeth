@@ -81,8 +81,9 @@ public class Game {
                 int roomCode = Integer.parseInt(file.get(i).split(",")[j]);
                 if (roomCode == 0) {
                     rooms[i][j] = null;
+                } else {
+                    rooms[i][j] = new Room(roomCode);
                 }
-                rooms[i][j] = new Room(roomCode);
                 if (roomCode == 1) {
                     roomCol = j;
                     roomRow = i;
