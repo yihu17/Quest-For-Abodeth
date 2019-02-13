@@ -18,14 +18,14 @@ public class DamagePlus extends Pickup {
         this.p = p;
         System.out.println("Getting buffed by damage boost");
         p.addDamage(damageBoost);
-        System.out.println("Damage is now " + p.getDamage());
+        System.out.println("Damage is now " + p.getAdditionalDamage());
         new Thread(this).start();
     }
 
     @Override
     public void removeBuff(Player p) {
         p.addDamage(-damageBoost);
-        System.out.println("Damage is now " + p.getDamage());
+        System.out.println("Damage is now " + p.getAdditionalDamage());
     }
 
     public void run() {

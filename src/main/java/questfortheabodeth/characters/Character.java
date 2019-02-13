@@ -23,7 +23,7 @@ public abstract class Character extends Thread implements Drawable, Collidable {
     private int shield = 0;
     private int ammo = 0;
     private Image image;
-    private int damage = 5;
+    private int additionalDamage = 5;
 
     /**
      * Sets up the character
@@ -48,11 +48,11 @@ public abstract class Character extends Thread implements Drawable, Collidable {
     }
 
     public void addDamage(int damage) {
-        this.damage += damage;
+        this.additionalDamage += damage;
     }
 
-    public int getDamage() {
-        return this.damage;
+    public int getAdditionalDamage() {
+        return this.additionalDamage;
     }
 
     /**

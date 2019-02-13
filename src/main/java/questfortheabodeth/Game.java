@@ -231,7 +231,7 @@ public class Game {
                 int overlap = Helper.checkOverlap(player, c);
                 if (0 < overlap) {
                     if (System.currentTimeMillis() - player.getLastTimeHit() >= ((Enemy) c).getAttackSpeed()) {
-                        player.decreaseHealth(((Character) c).getDamage());
+                        player.decreaseHealth(((Enemy) c).getAttackPower());
                         player.setLastTimeHit(System.currentTimeMillis());
                     }
                 }
@@ -251,7 +251,7 @@ public class Game {
                 }
                 if (0 < Helper.checkOverlap(b, c)) {
                     if (c instanceof Enemy) {
-                        ((Enemy) c).decreaseHealth(player.getDamage());
+                        ((Enemy) c).decreaseHealth(player.getAdditionalDamage());
 
                         new Thread((Character) c).start(); //pauses enemy movement
 
