@@ -45,7 +45,13 @@ public class Room implements Drawable {
      */
     public Room(int type) {
         this.type = type;
-        roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomDataB.csv"); //needs to get path dynamically...
+        if (type == 1) {
+            roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomDataA.csv"); //needs to get path dynamically...
+        } else {
+            String[] rooms = new String[]{"A", "B"};
+            int index = Settings.GENERATOR.nextInt(rooms.length);
+            roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomData" + rooms[index] + ".csv"); //needs to get path dynamically...
+        }
         readRoomData();
         loadRoomImages();
         spawnEnemies();
