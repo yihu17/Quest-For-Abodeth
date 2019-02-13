@@ -1,5 +1,7 @@
 package main.java.questfortheabodeth.hud;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import main.java.questfortheabodeth.characters.Player;
 import org.jsfml.graphics.*;
 import org.jsfml.system.Vector2f;
@@ -25,7 +27,16 @@ public class HealthBar implements Drawable {
         health.setSize(new Vector2f(200, 20));
         health.setFillColor(Color.RED);
 
-        player.healthProperty().addListener((observable, oldValue, newValue) -> health.setSize(new Vector2f(200 - ((int) newValue % 20) * 20, 20)));
+        player.healthProperty().addListener(new ChangeListener<Number>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
+            {
+                if (newValue.intValue() >= 0) {
+                    health.setSize(new Vector2f(200 - ((int) newValue % 20) * 20, 20));
+                }
+            }
+        });
     }
 
     @Override

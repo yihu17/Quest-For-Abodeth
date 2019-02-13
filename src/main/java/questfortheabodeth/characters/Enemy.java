@@ -55,7 +55,7 @@ public class Enemy extends Character implements Movable {
             printout += "up, ";
         }
 
-        System.out.println(printout + " towards " + player + " due to a move value of " + moveValue + "(" + appliedInteracts.size() + " interacts)");
+//        System.out.println(printout + " towards " + player + " due to a move value of " + moveValue + "(" + appliedInteracts.size() + " interacts)");
     }
 
     public void setMoveValue(int moveValue) {

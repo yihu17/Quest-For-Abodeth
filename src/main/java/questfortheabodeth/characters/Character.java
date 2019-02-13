@@ -191,7 +191,9 @@ public abstract class Character extends Thread implements Drawable, Collidable {
      * @param amount (int) Amount to decrease by
      */
     public void decreaseHealth(int amount) {
-        this.health.set(health.get() - amount);
+        int newValue = health.get() - amount;
+        this.health.set(newValue < 0 ? 0 : newValue);
+        System.out.println("Health decreased to " + this.health.get());
         if (health.get() <= 0) {
             this.kill();
         }
