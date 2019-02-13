@@ -220,7 +220,7 @@ public class Game {
             if (c instanceof Enemy) {
                 int overlap = Helper.checkOverlap(player, c);
                 if (0 < overlap) {
-                    if (System.currentTimeMillis() - player.getLastTimeHit() >= 1000) { //interval between hits
+                    if (System.currentTimeMillis() - player.getLastTimeHit() >= ((Enemy)c).getAttackSpeed()) { //interval between hits
                         player.decreaseHealth(((Character) c).getDamage());
                         player.setLastTimeHit(System.currentTimeMillis());
                     }

@@ -14,11 +14,13 @@ public class Enemy extends Character implements Movable {
     private int moveValue = 0;
     private HashSet<Class<? extends Interactable>> appliedInteracts = new HashSet<>();
     private String name;
+    private int attackSpeed;
 
-    public Enemy(int xPos, int yPos, int health, String imageFilePath, int movementSpeed, String name) {
+    public Enemy(int xPos, int yPos, int health, String imageFilePath, int movementSpeed, String name, int attackSpeed) {
         super(xPos, yPos, health, imageFilePath, movementSpeed);
         this.type = imageFilePath.split("/")[imageFilePath.split("/").length - 1];
         this.name = name;
+        this.attackSpeed = attackSpeed;
     }
 
     @Override
@@ -90,5 +92,9 @@ public class Enemy extends Character implements Movable {
         appliedInteracts = current;
     }
 
+    public int getAttackSpeed()
+    {
+        return this.attackSpeed;
+    }
 
 }
