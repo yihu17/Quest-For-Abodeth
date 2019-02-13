@@ -236,7 +236,7 @@ public class Game {
     private void runBulletCollisions() {
         for (Bullet b : bullets) {
             for (Collidable c : collidables) {
-                if (c instanceof Bullet || c instanceof Powerup) {
+                if (c instanceof Bullet || c instanceof Powerup || c instanceof WeaponPickup) {
                     continue;
                 }
                 if (0 < Helper.checkOverlap(b, c)) {
