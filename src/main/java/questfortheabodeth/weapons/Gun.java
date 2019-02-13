@@ -14,4 +14,9 @@ public abstract class Gun extends Weapon {
     {
         return this.maxAmmo;
     }
+
+    public int getBulletsPerShot()
+    {
+        return this.bulletsPerShot;
+    }
 }

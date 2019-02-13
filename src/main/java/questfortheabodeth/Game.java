@@ -139,8 +139,9 @@ public class Game {
             // Check for close events
             for (Event e : window.pollEvents()) {
                 Helper.checkCloseEvents(e, window);
-                if (e.type == MouseEvent.Type.MOUSE_BUTTON_PRESSED && Mouse.isButtonPressed(Mouse.Button.LEFT) && player.getCurrentWeapon() != null) {
+                if (e.type == MouseEvent.Type.MOUSE_BUTTON_PRESSED && Mouse.isButtonPressed(Mouse.Button.LEFT) && player.getCurrentWeapon() != null && System.currentTimeMillis() - player.getLastTimeAttack() >= player.getCurrentWeapon().getFireRate()) {
                     // The player character has fired a bullet
+                    player.setLastTimeAttack(System.currentTimeMillis());
                     if (0 < player.ammoProperty().getValue()) {
                         Bullet b = new Bullet(
                                 (int) player.getPlayerCenter().x,

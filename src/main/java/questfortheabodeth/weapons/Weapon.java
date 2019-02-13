@@ -13,4 +13,8 @@ public abstract class Weapon {
     public String getName() {
         return this.name;
     }
+
+    public int getFireRate() {
+        return this.fireRate;
+    }
 }

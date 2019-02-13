@@ -23,6 +23,7 @@ public class Player extends Character {
     private static String imageName = "res/assets/player/player.png";
     private Powerup currentPowerup = null;
     private long lastTimeHit;
+    private long lastTimeAttack;
     private HashSet<Class<? extends Interactable>> appliedInteracts = new HashSet<>();
 
     private Weapon currentWeapon;
@@ -151,18 +152,27 @@ public class Player extends Character {
         return this.lastTimeHit;
     }
 
+    public void setLastTimeAttack(long time) {
+        this.lastTimeAttack = time;
+    }
+
+    public long getLastTimeAttack()
+    {
+        return this.lastTimeAttack;
+    }
+
     public Weapon pickUpWeapon(WeaponPickup weapon)
     {
         if(!hasWeapon(weapon.getName()))
         {
             currentWeapon = Helper.stringToWeapon(weapon.getName());
-        } else if((Helper.stringToWeapon(weapon.getName()).getName().equals("revolver"))) {
+        } if((Helper.stringToWeapon(weapon.getName()).getName().equals("revolver"))) {
             this.ammo.setValue(ammo.get() + 20);
-        } else if((Helper.stringToWeapon(weapon.getName()).getName().equals("shotgun"))) {
+        } if((Helper.stringToWeapon(weapon.getName()).getName().equals("shotgun"))) {
             this.ammo.setValue(ammo.get() + 40);
-        } else if((Helper.stringToWeapon(weapon.getName()).getName().equals("ar15"))) {
+        } if((Helper.stringToWeapon(weapon.getName()).getName().equals("ar15"))) {
             this.ammo.setValue(ammo.get() + 15);
-        } else if((Helper.stringToWeapon(weapon.getName()).getName().equals("uzi"))) {
+        } if((Helper.stringToWeapon(weapon.getName()).getName().equals("uzi"))) {
             this.ammo.setValue(ammo.get() + 45);
         }
         return currentWeapon;
@@ -200,5 +210,15 @@ public class Player extends Character {
 
     public Weapon getCurrentWeapon() {
         return currentWeapon;
+    }
+
+    public Gun getCurrentOneHandedWeapon()
+    {
+        return this.oneHandedWeapon;
+    }
+
+    public Gun getCurrentTwoHandedWeapon()
+    {
+        return this.twoHandedWeapon;
     }
 }
