@@ -79,6 +79,9 @@ public class Game {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 int roomCode = Integer.parseInt(file.get(i).split(",")[j]);
+                if (roomCode == 0) {
+                    rooms[i][j] = null;
+                }
                 rooms[i][j] = new Room(roomCode);
                 if (roomCode == 1) {
                     roomCol = j;
