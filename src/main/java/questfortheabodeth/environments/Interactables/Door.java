@@ -12,6 +12,7 @@ public class Door extends InteractableEnvironment {
         this.linkedDoor = linkedDoor;
     }
 
+
     @Override
     public void interact(Player p) {
 
@@ -46,5 +47,9 @@ public class Door extends InteractableEnvironment {
                 3 * getWidth(),
                 3 * getHeight()
         );
+    }
+
+    public int getLinkedDoor() {
+        return linkedDoor;
     }
 }
