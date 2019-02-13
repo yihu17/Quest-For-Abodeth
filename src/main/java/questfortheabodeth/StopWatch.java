@@ -44,6 +44,6 @@ public class StopWatch extends Thread {
     }
 
     public String getFormattedTime() {
-        return this.formattedTime;
+        return this.formattedTime == null ? "" : this.formattedTime;
     }
 }
