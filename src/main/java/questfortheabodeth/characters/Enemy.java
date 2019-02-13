@@ -14,11 +14,15 @@ public class Enemy extends Character implements Movable {
     private int moveValue = 0;
     private HashSet<Class<? extends Interactable>> appliedInteracts = new HashSet<>();
     private String name;
+    private int attackSpeed;
+    private int attackPower;
 
-    public Enemy(int xPos, int yPos, int health, String imageFilePath, int movementSpeed, String name) {
+    public Enemy(int xPos, int yPos, int health, String imageFilePath, int movementSpeed, String name, int attackSpeed, int attackPower) {
         super(xPos, yPos, health, imageFilePath, movementSpeed);
         this.type = imageFilePath.split("/")[imageFilePath.split("/").length - 1];
         this.name = name;
+        this.attackSpeed = attackSpeed;
+        this.attackPower = attackPower;
     }
 
     @Override
@@ -64,6 +68,7 @@ public class Enemy extends Character implements Movable {
 
     public boolean applyInteract(Interactable interactClass) {
         if (appliedInteracts.contains(interactClass.getClass()) || (!name.equals("crocodile"))) {
+            // Do not allow the interact to work
             return false;
         } else {
             appliedInteracts.add(interactClass.getClass());
@@ -80,6 +85,7 @@ public class Enemy extends Character implements Movable {
                 Constructor struct = c.getDeclaredConstructors()[0];
                 Interactable i = (Interactable) struct.newInstance(0, 0, "");
                 i.removeEnemyBuff(this);
+                System.out.println(i + " is removing the buff from enemy");
             } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
                 e.printStackTrace();
             }
@@ -88,7 +94,13 @@ public class Enemy extends Character implements Movable {
         appliedInteracts = current;
     }
 
-    public String getEnemyName() {
-        return name;
+    public int getAttackSpeed()
+    {
+        return this.attackSpeed;
     }
+
+    public int getAttackPower() {
+        return this.attackPower;
+    }
+
 }

@@ -79,7 +79,11 @@ public class Game {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 int roomCode = Integer.parseInt(file.get(i).split(",")[j]);
-                rooms[i][j] = new Room(roomCode);
+                if (roomCode == 0) {
+                    rooms[i][j] = null;
+                } else {
+                    rooms[i][j] = new Room(roomCode);
+                }
                 if (roomCode == 1) {
                     roomCol = j;
                     roomRow = i;
@@ -230,8 +234,8 @@ public class Game {
             if (c instanceof Enemy) {
                 int overlap = Helper.checkOverlap(player, c);
                 if (0 < overlap) {
-                    if (System.currentTimeMillis() - player.getLastTimeHit() >= 1000) { //interval between hits
-                        player.decreaseHealth(((Character) c).getDamage());
+                    if (System.currentTimeMillis() - player.getLastTimeHit() >= ((Enemy) c).getAttackSpeed()) {
+                        player.decreaseHealth(((Enemy) c).getAttackPower());
                         player.setLastTimeHit(System.currentTimeMillis());
                     }
                 }
@@ -251,7 +255,7 @@ public class Game {
                 }
                 if (0 < Helper.checkOverlap(b, c)) {
                     if (c instanceof Enemy) {
-                        ((Enemy) c).decreaseHealth(player.getDamage());
+                        ((Enemy) c).decreaseHealth(player.getAdditionalDamage());
 
                         new Thread((Character) c).start(); //pauses enemy movement
 
