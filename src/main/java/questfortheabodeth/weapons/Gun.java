@@ -9,4 +9,9 @@ public abstract class Gun extends Weapon {
         this.bulletsPerShot = bulletsPerShot;
         this.maxAmmo = maxAmmo;
     }
+
+    public int getMaxAmmo()
+    {
+        return this.maxAmmo;
+    }
 }

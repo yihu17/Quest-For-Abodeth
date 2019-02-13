@@ -2,6 +2,7 @@ package main.java.questfortheabodeth.characters;
 
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import main.java.questfortheabodeth.Helper;
 import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.interfaces.Interactable;
 import main.java.questfortheabodeth.interfaces.Powerup;
@@ -88,6 +89,7 @@ public class Player extends Character {
                 Constructor struct = c.getDeclaredConstructors()[0];
                 Interactable i = (Interactable) struct.newInstance(0, 0, "");
                 i.remove(this);
+                System.out.println(i + " is removing the buff");
             } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
                 e.printStackTrace();
             }
@@ -149,50 +151,21 @@ public class Player extends Character {
         return this.lastTimeHit;
     }
 
-    public Weapon pickUpWeapon(WeaponPickup weapon) {
-        switch (weapon.getName()) {
-            case "machete":
-                if (!hasWeapon("machete")) {
-                    meleeWeapon = new Melee("machete", 3);
-                    currentWeapon = meleeWeapon;
-                    return meleeWeapon;
-                }
-                return meleeWeapon;
-            case "revolver":
-                if (!hasWeapon("revolver")) {
-                    oneHandedWeapon = new OneHandedWeapon("revolver", 1, 50, 3);
-                    currentWeapon = oneHandedWeapon;
-                } else {
-                    this.ammo.setValue(ammo.get() + 50);
-                }
-                return oneHandedWeapon;
-            case "shotgun":
-                if (!hasWeapon("shotgun")) {
-                    twoHandedWeapon = new TwoHandedWeapon("shotgun", 5, 20, 6);
-                    currentWeapon = twoHandedWeapon;
-                } else {
-                    this.ammo.setValue(ammo.get() + 20);
-                }
-                return twoHandedWeapon;
-            case "ar15":
-                if (!hasWeapon("ar15")) {
-                    twoHandedWeapon = new TwoHandedWeapon("ar15", 1, 25, 2);
-                    currentWeapon = twoHandedWeapon;
-                } else {
-                    this.ammo.setValue(ammo.get() + 25);
-                }
-                return twoHandedWeapon;
-            case "uzi":
-                if (!hasWeapon("uzi")) {
-                    oneHandedWeapon = new OneHandedWeapon("uzi", 3, 60, 1);
-                    currentWeapon = oneHandedWeapon;
-                } else {
-                    this.ammo.setValue(ammo.get() + 60);
-                }
-                return oneHandedWeapon;
+    public Weapon pickUpWeapon(WeaponPickup weapon)
+    {
+        if(!hasWeapon(weapon.getName()))
+        {
+            currentWeapon = Helper.stringToWeapon(weapon.getName());
+        } else if((Helper.stringToWeapon(weapon.getName()).getName().equals("revolver"))) {
+            this.ammo.setValue(ammo.get() + 20);
+        } else if((Helper.stringToWeapon(weapon.getName()).getName().equals("shotgun"))) {
+            this.ammo.setValue(ammo.get() + 40);
+        } else if((Helper.stringToWeapon(weapon.getName()).getName().equals("ar15"))) {
+            this.ammo.setValue(ammo.get() + 15);
+        } else if((Helper.stringToWeapon(weapon.getName()).getName().equals("uzi"))) {
+            this.ammo.setValue(ammo.get() + 45);
         }
-
-        throw new AssertionError("Unknown weapon encountered: " + weapon);
+        return currentWeapon;
     }
 
     public boolean hasWeapon(String weaponSearching) {

@@ -1,7 +1,12 @@
 package main.java.questfortheabodeth;
 
+import main.java.questfortheabodeth.characters.Player;
 import main.java.questfortheabodeth.interfaces.Clickable;
 import main.java.questfortheabodeth.interfaces.Collidable;
+import main.java.questfortheabodeth.weapons.Melee;
+import main.java.questfortheabodeth.weapons.OneHandedWeapon;
+import main.java.questfortheabodeth.weapons.TwoHandedWeapon;
+import main.java.questfortheabodeth.weapons.Weapon;
 import org.jsfml.graphics.*;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
@@ -206,5 +211,22 @@ public class Helper {
             return (Texture) t;
         }
 
+    }
+
+    public static Weapon stringToWeapon(String weapon)
+    {
+        switch (weapon) {
+            case "machete":
+                return new Melee("machete", 3);
+            case "revolver":
+                return new OneHandedWeapon("revolver", 1, 50, 3);
+            case "shotgun":
+                return new TwoHandedWeapon("shotgun", 5, 20, 6);
+            case "ar15":
+                return new TwoHandedWeapon("ar15", 1, 25, 2);
+            case "uzi":
+                return new OneHandedWeapon("uzi", 3, 60, 1);
+        }
+        throw new AssertionError("Unknown weapon encountered: " + weapon);
     }
 }
