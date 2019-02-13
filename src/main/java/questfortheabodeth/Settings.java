@@ -73,10 +73,14 @@ public class Settings {
         }
 
         //main.java.questfortheabodeth.environments.Environment Objects
+        CSV_KEYS.put(-4, "lowerDoor");
+        CSV_KEYS.put(-3, "rightDoor");
+        CSV_KEYS.put(-2, "topDoor");
+        CSV_KEYS.put(-1, "leftDoor");
         CSV_KEYS.put(0, null);
         CSV_KEYS.put(1, "wall"); //C
         CSV_KEYS.put(2, "floor");
-        CSV_KEYS.put(3, "door"); //CI
+        CSV_KEYS.put(3, null); //CI
         CSV_KEYS.put(4, "water"); //I
         CSV_KEYS.put(5, "quicksand"); //I
         CSV_KEYS.put(6, "spikeTrap"); //I

@@ -6,8 +6,10 @@ import main.java.questfortheabodeth.environments.InteractableEnvironment;
 import org.jsfml.graphics.FloatRect;
 
 public class Door extends InteractableEnvironment {
-    public Door(int xPos, int yPos, String imageFilePath) {
+    private int linkedDoor;
+    public Door(int xPos, int yPos, String imageFilePath, int linkedDoor) {
         super(xPos, yPos, imageFilePath);
+        this.linkedDoor = linkedDoor;
     }
 
     @Override

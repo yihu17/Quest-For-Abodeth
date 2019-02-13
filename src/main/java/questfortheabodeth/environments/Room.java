@@ -152,9 +152,17 @@ public class Room implements Drawable {
                         //System.out.println(floorNum);
                         roomImages[i][j] = new Environment(spacing * j, spacing * i, "res/assets/environment/floor/floor" + floorNum + ".png", false, false);
                         break;
-                    case "door":
-                        roomImages[i][j] = new Door(spacing * j, spacing * i, filePath);
-                        //roomImages[i][j] = new Environment(spacing * j, spacing * i, filePath, false, false);
+                    case "leftDoor":
+                        roomImages[i][j] = new Door(spacing * j, spacing * i, filePath, -1);
+                        break;
+                    case "topDoor":
+                        roomImages[i][j] = new Door(spacing * j, spacing * i, filePath, -2);
+                        break;
+                    case "rightDoor":
+                        roomImages[i][j] = new Door(spacing * j, spacing * i, filePath, -3);
+                        break;
+                    case "lowerDoor":
+                        roomImages[i][j] = new Door(spacing * j, spacing * i, filePath, -4);
                         break;
                     case "water":
                         //roomImages[i][j] = new InteractableEnvironment(spacing * j, spacing * i, filePath);
