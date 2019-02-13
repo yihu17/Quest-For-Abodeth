@@ -47,18 +47,6 @@ public abstract class Character extends Thread implements Drawable, Collidable {
         return this.health;
     }
 
-    /**
-     * Moves this character left by the current movement speed
-     */
-    public void moveLeft() {
-        if (this.face == Facing.RIGHT) {
-            this.image.flipHorizontal();
-            this.face = Facing.LEFT;
-        }
-        x -= movementSpeed;
-        updatePosition();
-    }
-
     public void addDamage(int damage) {
         this.damage += damage;
     }
@@ -156,6 +144,18 @@ public abstract class Character extends Thread implements Drawable, Collidable {
             this.face = Facing.RIGHT;
         }
         x += movementSpeed;
+        updatePosition();
+    }
+
+    /**
+     * Moves this character left by the current movement speed
+     */
+    public void moveLeft() {
+        if (this.face == Facing.RIGHT) {
+            this.image.flipHorizontal();
+            this.face = Facing.LEFT;
+        }
+        x -= movementSpeed;
         updatePosition();
     }
 

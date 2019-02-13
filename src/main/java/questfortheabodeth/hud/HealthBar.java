@@ -34,7 +34,7 @@ public class HealthBar implements Drawable {
             {
                 if (newValue.intValue() >= 0) {
                     // This needs to work out the value between 0 and 200 that correlates to the percentage health the player has left
-                    health.setSize(new Vector2f(200 - (newValue.intValue() / 100) * 200, 20));
+                    health.setSize(new Vector2f(2 * newValue.intValue(), 20));
                 }
             }
         });
