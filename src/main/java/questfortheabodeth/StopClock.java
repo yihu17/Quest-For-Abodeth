@@ -3,7 +3,7 @@ package main.java.questfortheabodeth;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class StopWatch extends Thread {
+public class StopClock extends Thread {
     private String formattedTime;
     private int time = 0;
     private Timer t = new Timer();
@@ -40,7 +40,7 @@ public class StopWatch extends Thread {
         t.scheduleAtFixedRate(task, 0, 10);
     }
 
-    public StopWatch() {
+    public StopClock() {
     }
 
     public String getFormattedTime() {
