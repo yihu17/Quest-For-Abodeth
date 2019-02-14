@@ -174,6 +174,8 @@ public class Game {
                             System.out.println("Going through the door " + doorInRange);
                             switchRoom(doorInRange.getLinkedDoor());
                         }
+                    } else if (e.asKeyEvent().key == Keyboard.Key.M) {
+                        hud.toggleMiniMapVisibility();
                     }
                 }
             }

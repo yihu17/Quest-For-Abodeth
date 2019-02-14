@@ -4,6 +4,8 @@ import org.jsfml.graphics.*;
 import org.jsfml.system.Vector2f;
 
 public class MiniMap implements Drawable {
+
+    private boolean visibility = false;
     /**
      * Creates a new MiniMap of the given size
      *
@@ -123,5 +125,17 @@ public class MiniMap implements Drawable {
             }
             System.out.println();
         }
+    }
+
+    public void toggleVisibility() {
+        if (this.visibility) {
+            this.visibility = false;
+        } else {
+            this.visibility = true;
+        }
+    }
+
+    public boolean getVisibility() {
+        return this.visibility;
     }
 }

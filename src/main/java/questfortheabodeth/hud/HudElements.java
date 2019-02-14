@@ -20,8 +20,14 @@ public class HudElements implements Drawable {
     @Override
     public void draw(RenderTarget renderTarget, RenderStates renderStates) {
         renderTarget.draw(healthbar);
-        renderTarget.draw(minimap);
         renderTarget.draw(weaponwheel);
         renderTarget.draw(ammoCount);
+        if (minimap.getVisibility()) {
+            renderTarget.draw(minimap);
+        }
+    }
+
+    public void toggleMiniMapVisibility() {
+        minimap.toggleVisibility();
     }
 }
