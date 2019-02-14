@@ -143,16 +143,34 @@ public class Game {
                     // The player character has fired a bullet
                     player.setLastTimeAttack(System.currentTimeMillis());
                     if (0 < player.ammoProperty().getValue()) {
-                        Bullet b = new Bullet(
-                                (int) player.getPlayerCenter().x,
-                                (int) player.getPlayerCenter().y,
-                                Helper.getAngleBetweenPoints(new Vector2i(player.getVectorPosition()), e.asMouseEvent().position)
-                        );
-                        movables.add(b);
-                        drawables.add(b);
-                        collidables.add(b);
-                        bullets.add(b);
-                        player.decreaseAmmo();
+                        if (player.getCurrentWeapon().getName().equals("shotgun")) {
+                            int[] angles = {-6, 0, 6};
+                            for (int i = 0; i < 3; i++) {
+                                Bullet b = new Bullet(
+                                        (int) player.getPlayerCenter().x,
+                                        (int) player.getPlayerCenter().y,
+                                        Helper.getAngleBetweenPoints(new Vector2i(player.getVectorPosition()), e.asMouseEvent().position) + angles[i]
+                                );
+
+                                movables.add(b);
+                                drawables.add(b);
+                                collidables.add(b);
+                                bullets.add(b);
+                                player.decreaseAmmo();
+                            }
+                        } else {
+                            Bullet b = new Bullet(
+                                    (int) player.getPlayerCenter().x,
+                                    (int) player.getPlayerCenter().y,
+                                    Helper.getAngleBetweenPoints(new Vector2i(player.getVectorPosition()), e.asMouseEvent().position)
+                            );
+
+                            movables.add(b);
+                            drawables.add(b);
+                            collidables.add(b);
+                            bullets.add(b);
+                            player.decreaseAmmo();
+                        }
                     }
                 } else if (e.type == Event.Type.KEY_PRESSED) {
                     if (e.asKeyEvent().key == Keyboard.Key.NUM1) {
