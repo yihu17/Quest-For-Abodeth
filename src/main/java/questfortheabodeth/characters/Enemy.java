@@ -94,6 +94,10 @@ public class Enemy extends Character implements Movable {
         appliedInteracts = current;
     }
 
+    public String getEnemyName() {
+        return name;
+    }
+
     public int getAttackSpeed()
     {
         return this.attackSpeed;
