@@ -58,10 +58,10 @@ public class MiniMap implements Drawable {
     @Override
     public void draw(RenderTarget renderTarget, RenderStates renderStates) {
         // For now assume a rectangle size of 20 and top left coordinate of [1760, 1080]
-        int x = 1742;
-        int y = 5;
-        int width = 20;
-        int outline = 2;
+        int x = 627;
+        int y = 195;
+        int width = 80;
+        int outline = 5;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 RectangleShape rect = new RectangleShape();
@@ -78,7 +78,7 @@ public class MiniMap implements Drawable {
                 x += (width + outline);
             }
             y += (width + outline);
-            x = 1742;
+            x = 627;
         }
     }
 
