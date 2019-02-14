@@ -13,6 +13,7 @@ import main.java.questfortheabodeth.interfaces.Movable;
 import main.java.questfortheabodeth.interfaces.Powerup;
 import main.java.questfortheabodeth.menus.Button;
 import main.java.questfortheabodeth.menus.GameMenu;
+import main.java.questfortheabodeth.menus.PlayerDiedMenu;
 import main.java.questfortheabodeth.powerups.Pickup;
 import main.java.questfortheabodeth.weapons.Bullet;
 import main.java.questfortheabodeth.weapons.WeaponPickup;
@@ -224,9 +225,18 @@ public class Game {
                 player.moveRight();
             }
 
+            gameRunning = player.isCharacterAlive(); //remove gameRunning and replace which this in while loop condition?
             clocker++;
-
         }
+        //Don't know this should be in Game.java or elsewhere?(:)
+
+        //This will be moved to when player reaches end of game (i.e final boss is killed)
+        //FileOperator scores = new FileOperator("res/assets/CSVs/scores.csv");
+        //scores.writeNewLine(Settings.GAME_TIME.getFormattedTime());
+
+        openPlayerDiedMenu();
+        Settings.GAME_TIME = null;
+
     }
 
     private int runPlayerCollisions() {
@@ -434,6 +444,15 @@ public class Game {
                 break;
             default:
                 throw new AssertionError("Unknown button was pressed: " + b.getText());
+        }
+    }
+
+    private void openPlayerDiedMenu() {
+        PlayerDiedMenu playerDiedMenu = new PlayerDiedMenu(window /*, screenshotSaved*/, Settings.GAME_TIME.getFormattedTime());
+        playerDiedMenu.displayMenu();
+        Button b = playerDiedMenu.getChosenButton();
+        if (b == null) {
+            return;
         }
     }
 

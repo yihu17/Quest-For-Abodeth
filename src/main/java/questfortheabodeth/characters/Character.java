@@ -255,4 +255,12 @@ public abstract class Character extends Thread implements Drawable, Collidable {
         }
         this.movementSpeed = prevMovementSpeed;
     }
+
+    public boolean isCharacterAlive() {
+        if (this.health.lessThanOrEqualTo(0).getValue()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
