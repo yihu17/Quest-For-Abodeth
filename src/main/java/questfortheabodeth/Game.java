@@ -106,9 +106,9 @@ public class Game {
                 }
                 rooms[i][j] = new Room(
                         rooms[i][j].getType() * -1,
-                        (i - 1 > 0    && rooms[i - 1][j] != null) ? true : false, // up
+                        (i - 1 >= 0    && rooms[i - 1][j] != null) ? true : false, // up
                         (i + 1 < rows && rooms[i +1 ][j] != null) ? true : false, // down
-                        (j - 1 > 0    && rooms[i][j - 1] != null) ? true : false, // left
+                        (j - 1 >= 0    && rooms[i][j - 1] != null) ? true : false, // left
                         (j + 1 < cols && rooms[i][j + 1] != null) ? true : false  // right
                 );
             }
