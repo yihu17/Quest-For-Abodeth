@@ -136,13 +136,14 @@ public class MainMenu implements Menu {
 
     public void playMusic() {
         try {
-            File soundFile = new File("res/audio/mainMenu.wav");
+            File soundFile = new File("res/assets/audio/mainMenu.wav");
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
             Settings.AUDIO_STREAMER = AudioSystem.getClip();
             Settings.AUDIO_STREAMER.open(audioInputStream);
             Settings.AUDIO_STREAMER.start();
         } catch (Exception e) {
             System.out.println("Audio error");
+            e.printStackTrace();
         }
     }
 }

@@ -372,7 +372,6 @@ public class Room implements Drawable {
     }
 
     public void playMusic() {
-        Settings.AUDIO_STREAMER.stop();
         try {
             int r = Settings.GENERATOR.nextInt(16) + 1;
             System.out.println(r);
@@ -384,6 +383,7 @@ public class Room implements Drawable {
             Settings.AUDIO_STREAMER.start();
         } catch (Exception e) {
             System.out.println("Audio error");
+            e.printStackTrace();
         }
     }
 }
