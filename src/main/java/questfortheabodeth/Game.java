@@ -77,13 +77,20 @@ public class Game {
         int cols = file.get(0).split(",").length;
         rooms = new Room[rows][cols];
 
+
+        /*
+        This doesn't work because a lot of the array is null when it is still being generated causing lots of the
+        doors to not appear. I don't think my room logic is wrong
+
+        Probably needs to be done a separate loop
+         */
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 int roomCode = Integer.parseInt(file.get(i).split(",")[j]);
                 if (roomCode == 0) {
                     rooms[i][j] = null;
                 } else {
-                    rooms[i][j] = new Room(roomCode);
+                    rooms[i][j] = new Room(roomCode * -1, false, false, false, false);
                 }
                 if (roomCode == 1) {
                     roomCol = j;
@@ -91,6 +98,23 @@ public class Game {
                 }
             }
         }
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (rooms[i][j] == null) {
+                    continue;
+                }
+                rooms[i][j] = new Room(
+                        rooms[i][j].getType() * -1,
+                        (i - 1 > 0    && rooms[i - 1][j] != null) ? true : false, // up
+                        (i + 1 < rows && rooms[i +1 ][j] != null) ? true : false, // down
+                        (j - 1 > 0    && rooms[i][j - 1] != null) ? true : false, // left
+                        (j + 1 < cols && rooms[i][j + 1] != null) ? true : false  // right
+                );
+            }
+        }
+
+        Helper.printMatrix(rooms);
 
         if (roomRow < 0 || roomCol < 0) {
             throw new IllegalStateException("Player has no start room");

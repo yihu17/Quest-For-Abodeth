@@ -26,6 +26,7 @@ public class Room implements Drawable {
     private FileOperator roomFile;
     private ArrayList<ArrayList<String>> roomLayout = new ArrayList<>();
     private Environment[][] roomImages = new Environment[Settings.ROOM_DIVISION_ROWS][Settings.ROOM_DIVISION_COLUMNS];
+    private boolean[] doors = new boolean[4];
 
     private ArrayList<int[]> enemyInfo = new ArrayList<>();
     private ArrayList<Enemy> enemies = new ArrayList<>();
@@ -40,14 +41,24 @@ public class Room implements Drawable {
 
     /**
      * Creates a new room of the specified type
-     *
      * @param type (int) Room type
+     * @param up (boolean) Is the a door at the top of the room
+     * @param down (boolean) Is the a door at the bottom of the room
+     * @param left (boolean) Is the a door at the left of the room
+     * @param right (boolean) Is the a door at the right of the room
      */
-    public Room(int type) {
+    public Room(int type, boolean up, boolean down, boolean left, boolean right) {
+        doors[0] = up;
+        doors[1] = down;
+        doors[2] = left;
+        doors[3] = right;
+
         this.type = type;
         if (type == 1) {
             roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomDataA.csv"); //needs to get path dynamically...
-        } else {
+        } else if (type < 0) {
+            return;
+        } else{
             String[] rooms = new String[]{"A", "B"};
             int index = Settings.GENERATOR.nextInt(rooms.length);
             roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomData" + rooms[index] + ".csv"); //needs to get path dynamically...
@@ -57,6 +68,30 @@ public class Room implements Drawable {
         spawnEnemies();
         spawnPickups();
         spawnWeapons();
+
+        // Now that the room has been generated make some doors
+        if (up) {
+            int topDoorStart = Settings.GENERATOR.nextInt(10) + 10;
+            roomImages[0][topDoorStart] = new Door(Settings.ROOM_DIVISION_SIZE * topDoorStart, 0, "res/assets/environment/door.png", -2);
+            roomImages[0][topDoorStart + 1] = new Door(Settings.ROOM_DIVISION_SIZE * (topDoorStart + 1), 0, "res/assets/environment/door.png", -2);
+        } if (down) {
+            int bottomDoorStart = Settings.GENERATOR.nextInt(10) + 10;
+            roomImages[Settings.ROOM_DIVISION_ROWS - 1][bottomDoorStart] = new Door(Settings.ROOM_DIVISION_SIZE * bottomDoorStart, Settings.ROOM_DIVISION_SIZE * Settings.ROOM_DIVISION_ROWS, "res/assets/environment/door.png", -4);
+            roomImages[Settings.ROOM_DIVISION_ROWS - 1][bottomDoorStart + 1] = new Door(Settings.ROOM_DIVISION_SIZE * (bottomDoorStart + 1), Settings.ROOM_DIVISION_SIZE * Settings.ROOM_DIVISION_ROWS, "res/assets/environment/door.png", -4);
+        } if (left) {
+            int leftDoorStart = Settings.GENERATOR.nextInt(10) + 5;
+            roomImages[leftDoorStart][0] = new Door(0, Settings.ROOM_DIVISION_SIZE * leftDoorStart, "res/assets/environment/door.png", -1);
+            roomImages[leftDoorStart + 1][0] = new Door(0, Settings.ROOM_DIVISION_SIZE * (leftDoorStart + 1), "res/assets/environment/door.png", -1);
+        } if (right) {
+            int rightDoorStart = Settings.GENERATOR.nextInt(10) + 5;
+            roomImages[rightDoorStart][Settings.ROOM_DIVISION_COLUMNS - 1] = new Door(Settings.ROOM_DIVISION_SIZE * Settings.ROOM_DIVISION_COLUMNS, Settings.ROOM_DIVISION_SIZE * rightDoorStart, "res/assets/environment/door.png", -3);
+            roomImages[rightDoorStart + 1][Settings.ROOM_DIVISION_COLUMNS - 1] = new Door(Settings.ROOM_DIVISION_SIZE * Settings.ROOM_DIVISION_COLUMNS, Settings.ROOM_DIVISION_SIZE * (rightDoorStart + 1), "res/assets/environment/door.png", -3);
+        }
+    }
+
+    public int getType()
+    {
+        return this.type;
     }
 
     public ArrayList<Collidable> getCollidables() {
@@ -89,7 +124,8 @@ public class Room implements Drawable {
 
     @Override
     public String toString() {
-        return "<Room " + type + ">";
+        return "<Room " + type + " with doors " + (doors[0] ? "top, " : "") + (doors[1] ? "bottom, " : "") + (doors[2] ? "left, " : "") +
+                (doors[3] ? "right, " : "") + ">";
     }
 
     /**
