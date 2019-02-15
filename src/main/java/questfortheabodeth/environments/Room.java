@@ -5,6 +5,7 @@ import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.characters.Enemy;
 import main.java.questfortheabodeth.environments.Interactables.Door;
 import main.java.questfortheabodeth.environments.traps.Quicksand;
+import main.java.questfortheabodeth.environments.traps.SpikeTrap;
 import main.java.questfortheabodeth.environments.traps.Water;
 import main.java.questfortheabodeth.interfaces.Collidable;
 import main.java.questfortheabodeth.interfaces.Interactable;
@@ -289,7 +290,7 @@ public class Room implements Drawable {
                         roomImages[i][j] = new Quicksand(spacing * j, spacing * i, filePath);
                         break;
                     case "spikeTrap":
-                        roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
+                        roomImages[i][j] = new SpikeTrap(spacing * j, spacing * i, filePath);
                         break;
                     case "switchPuzzle":
                         roomImages[i][j] = new CollidableInteractableEnvironment(spacing * j, spacing * i, filePath);

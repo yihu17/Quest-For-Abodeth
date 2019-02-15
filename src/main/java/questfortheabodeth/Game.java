@@ -430,7 +430,6 @@ public class Game {
             drawables.add(w);
         }
 
-
         interactables.addAll(currentRoom.getInteractables());
     }
 
