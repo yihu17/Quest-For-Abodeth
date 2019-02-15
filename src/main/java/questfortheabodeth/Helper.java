@@ -105,25 +105,36 @@ public class Helper {
      * Checks whether or not 2 character objects are overlapping and where the overlap has
      * occurred
      *
-     * @param o1 (main.java.questfortheabodeth.interfaces.Collidable) The character to check against other main.java.questfortheabodeth.characters
-     * @param o2 (main.java.questfortheabodeth.interfaces.Collidable) The character to check against
-     * @return (int) Whether or no the main.java.questfortheabodeth.characters are overlapping
+     * @param o1 (Collidable) The character to check against other main.java.questfortheabodeth.characters
+     * @param o2 (Collidable) The character to check against
+     * @return (int) Whether or no the characters are overlapping
      */
-    public static int checkOverlap(Collidable o1, Collidable o2) {
-        // Generate information about object 1
+    public static int checkOverlap(Collidable o1, Collidable o2)
+    {
         FloatRect o1Bound = new FloatRect(o1.getX() - 5, o1.getY() - 5, o1.getWidth() + 10, o1.getHeight() + 10);
+        // Generate information about object 2
+        FloatRect o2Bound = new FloatRect(o2.getX(), o2.getY(), o2.getWidth(), o2.getHeight());
+
+        return checkOverlap(o1Bound, o2Bound);
+    }
+
+    public static int checkOverlap(Collidable o1, FloatRect o2Bound)
+    {
+        FloatRect o1Bound = new FloatRect(o1.getX() - 5, o1.getY() - 5, o1.getWidth() + 10, o1.getHeight() + 10);
+        // Generate information about object 2
+
+        return checkOverlap(o1Bound, o2Bound);
+    }
+
+    public static int checkOverlap(FloatRect o1Bound, FloatRect o2Bound) {
         Vector2i o1Center = new Vector2i(
                 (int) (o1Bound.left + (o1Bound.width / 2)),
                 (int) (o1Bound.top + (o1Bound.height / 2))
         );
-
-        // Generate information about object 2
-        FloatRect o2Bound = new FloatRect(o2.getX(), o2.getY(), o2.getWidth(), o2.getHeight());
         Vector2i o2Center = new Vector2i(
                 (int) (o2Bound.left + (o2Bound.width / 2)),
                 (int) (o2Bound.top + (o2Bound.height / 2))
         );
-
         if (o1Bound.intersection(o2Bound) == null) {
             // If there is no intersection in the 2 collidables then they are not
             // overlapping

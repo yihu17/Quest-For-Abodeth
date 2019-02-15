@@ -540,7 +540,6 @@ public class Game {
         }
 
         currentRoom = rooms[roomRow][roomCol];
-        Door cameThrough;
         for (Interactable i : currentRoom.getInteractables()) {
             if (i instanceof Door) {
                 Door d = (Door) i;

@@ -38,7 +38,6 @@ public class Room implements Drawable {
     private ArrayList<int[]> weaponInfo = new ArrayList<>();
     private ArrayList<WeaponPickup> weapons = new ArrayList<>();
 
-    private ArrayList<Drawable> drawables = new ArrayList<>();
 
     /**
      * Creates a new room of the specified type
@@ -162,8 +161,25 @@ public class Room implements Drawable {
                 if (roomImages[i][j] instanceof Collidable && !(roomImages[i][j] instanceof Interactable)) {
                     c.add((Collidable) roomImages[i][j]);
                 }
+                if (roomImages[i][j] instanceof Door) {
+                    float x, y;
+                    Door door = (Door) roomImages[i][j];
+                    if (door.getLinkedDoor() == -1 || door.getLinkedDoor() == -3) {
+                        x = door.getLinkedDoor() == -1 ? (door.getX() - Settings.ROOM_DIVISION_SIZE) : (door.getX() + Settings.ROOM_DIVISION_SIZE);
+                        y = door.getY();
+                    } else {
+                        x = door.getX();
+                        y = door.getLinkedDoor() == -2 ? (door.getY() - Settings.ROOM_DIVISION_SIZE) : (door.getY() + Settings.ROOM_DIVISION_SIZE);;
+                    }
+                    c.add(new CollidableEnvironment(
+                            (int)x,
+                            (int)y,
+                            "res/assets/environment/wall.png"
+                    ));
+                }
             }
         }
+
         c.addAll(enemies);
         c.addAll(pickups);
         c.addAll(weapons);
@@ -198,7 +214,6 @@ public class Room implements Drawable {
      */
     @Override
     public void draw(RenderTarget renderTarget, RenderStates renderStates) {
-        drawables.forEach(renderTarget::draw);
         for (int i = 0; i < Settings.ROOM_DIVISION_ROWS; i++) {
             for (int j = 0; j < Settings.ROOM_DIVISION_COLUMNS; j++) {
                 renderTarget.draw(roomImages[i][j]);
