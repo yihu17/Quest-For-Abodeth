@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import main.java.questfortheabodeth.Helper;
 import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.interfaces.Interactable;
+import main.java.questfortheabodeth.interfaces.Menu;
 import main.java.questfortheabodeth.interfaces.Powerup;
 import main.java.questfortheabodeth.sprites.Image;
 import main.java.questfortheabodeth.weapons.*;
@@ -163,9 +164,18 @@ public class Player extends Character {
 
     public Weapon pickUpWeapon(WeaponPickup weapon)
     {
-        if(!hasWeapon(weapon.getName()))
-        {
-            currentWeapon = Helper.stringToWeapon(weapon.getName());
+        if(!hasWeapon(weapon.getName())) {
+            Weapon cw = Helper.stringToWeapon(weapon.getName());
+            if (cw instanceof Melee) {
+                meleeWeapon = (Melee)cw;
+                currentWeapon = meleeWeapon;
+            } else if (cw instanceof OneHandedWeapon) {
+                oneHandedWeapon = (OneHandedWeapon)cw;
+                currentWeapon = oneHandedWeapon;
+            } else if (cw instanceof TwoHandedWeapon) {
+                twoHandedWeapon = (TwoHandedWeapon)cw;
+                currentWeapon = twoHandedWeapon;
+            }
         } if((Helper.stringToWeapon(weapon.getName()).getName().equals("revolver"))) {
             this.ammo.setValue(ammo.get() + 20);
         } if((Helper.stringToWeapon(weapon.getName()).getName().equals("shotgun"))) {

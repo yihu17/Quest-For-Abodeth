@@ -201,6 +201,9 @@ public class Game {
                     if (e.asKeyEvent().key == Keyboard.Key.NUM1) {
                         if (player.switchWeapon(1)) {
                             weaponWheel.selectWeapon(player.getCurrentWeapon());
+                            System.out.println("Player switched to their melee weapon");
+                        } else {
+                            System.out.println("Melee switch not allowed");
                         }
                     } else if (e.asKeyEvent().key == Keyboard.Key.NUM2) {
                         if (player.switchWeapon(2)) {
