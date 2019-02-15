@@ -29,6 +29,15 @@ public class SettingsMenu implements Menu {
         t.setColor(Color.BLACK);
         t.setPosition(300, 50);
         title = t;
+        ClickableImage back = new ClickableImage(6, 6, "res/assets/menus/button_back.png", "highscores");
+        back.setOnPress(new EventHandler() {
+            @Override
+            public void run() {
+                menuOpen = false;
+                chosenButton = back;
+            }
+        });
+        buttons.add(back);
         String[] ops = new String[]{"settings", "settings", "settings", "settings", "back"};
         int i = 0;
         for (String s : ops) {
