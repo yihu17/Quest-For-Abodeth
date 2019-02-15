@@ -112,7 +112,7 @@ public class Game {
         int clocker = 0;
         Button time = new Button(120, 40, (Settings.WINDOW_WIDTH / 2) - 60, 10, "0");
         time.setTextXOffset(8);
-        while (gameRunning) {
+        while (gameRunning && player.isCharacterAlive()) {
             window.clear();
 
             // Draw the room
@@ -224,8 +224,6 @@ public class Game {
             if (Settings.MOVE_RIGHT_SET.contains(moveValues) && Keyboard.isKeyPressed(Keyboard.Key.D)) {
                 player.moveRight();
             }
-
-            gameRunning = player.isCharacterAlive(); //remove gameRunning and replace which this in while loop condition?
             clocker++;
         }
         //Don't know this should be in Game.java or elsewhere?(:)
@@ -433,11 +431,14 @@ public class Game {
         ingame.displayMenu();
         Button b = ingame.getChosenButton();
         if (b == null) {
+            System.out.println("Returned button was null");
             return;
         }
+
         switch (b.getText().toLowerCase()) {
             case "quit to menu":
                 gameRunning = false;
+                System.out.println("Game no longer running");
                 break;
             case "continue":
                 // Continue playing the game
