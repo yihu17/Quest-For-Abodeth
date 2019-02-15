@@ -72,8 +72,8 @@ public class Room implements Drawable {
         // Now that the room has been generated make some doors
         if (up) {
             int topDoorStart = Settings.GENERATOR.nextInt(10) + 10;
-            roomImages[0][topDoorStart] = new Door(Settings.ROOM_DIVISION_SIZE * topDoorStart, 0, "res/assets/environment/door1.png", -2);
-            roomImages[0][topDoorStart + 1] = new Door(Settings.ROOM_DIVISION_SIZE * (topDoorStart + 1), 0, "res/assets/environment/door1.png", -2);
+            roomImages[0][topDoorStart] = new Door(Settings.ROOM_DIVISION_SIZE * topDoorStart, 0, "res/assets/environment/leftDoor.png", -2);
+            roomImages[0][topDoorStart + 1] = new Door(Settings.ROOM_DIVISION_SIZE * (topDoorStart + 1), 0, "res/assets/environment/rightDoor.png", -2);
 
             roomImages[1][topDoorStart] = new Environment(
                     Settings.ROOM_DIVISION_SIZE * topDoorStart,
@@ -91,8 +91,8 @@ public class Room implements Drawable {
             );
         } if (down) {
             int bottomDoorStart = Settings.GENERATOR.nextInt(10) + 10;
-            roomImages[Settings.ROOM_DIVISION_ROWS - 1][bottomDoorStart] = new Door(Settings.ROOM_DIVISION_SIZE * bottomDoorStart, Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_ROWS - 1), "res/assets/environment/door1.png", -4);
-            roomImages[Settings.ROOM_DIVISION_ROWS - 1][bottomDoorStart + 1] = new Door(Settings.ROOM_DIVISION_SIZE * (bottomDoorStart + 1), Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_ROWS - 1), "res/assets/environment/door1.png", -4);
+            roomImages[Settings.ROOM_DIVISION_ROWS - 1][bottomDoorStart] = new Door(Settings.ROOM_DIVISION_SIZE * bottomDoorStart, Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_ROWS - 1), "res/assets/environment/leftDoor.png", -4);
+            roomImages[Settings.ROOM_DIVISION_ROWS - 1][bottomDoorStart + 1] = new Door(Settings.ROOM_DIVISION_SIZE * (bottomDoorStart + 1), Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_ROWS - 1), "res/assets/environment/rightDoor.png", -4);
 
             roomImages[Settings.ROOM_DIVISION_ROWS - 2][bottomDoorStart] = new Environment(
                     Settings.ROOM_DIVISION_SIZE * bottomDoorStart,
@@ -110,8 +110,8 @@ public class Room implements Drawable {
             );
         } if (left) {
             int leftDoorStart = Settings.GENERATOR.nextInt(10) + 5;
-            roomImages[leftDoorStart][0] = new Door(0, Settings.ROOM_DIVISION_SIZE * leftDoorStart, "res/assets/environment/door1.png", -1);
-            roomImages[leftDoorStart + 1][0] = new Door(0, Settings.ROOM_DIVISION_SIZE * (leftDoorStart + 1), "res/assets/environment/door1.png", -1);
+            roomImages[leftDoorStart][0] = new Door(0, Settings.ROOM_DIVISION_SIZE * leftDoorStart, "res/assets/environment/topDoor.png", -1);
+            roomImages[leftDoorStart + 1][0] = new Door(0, Settings.ROOM_DIVISION_SIZE * (leftDoorStart + 1), "res/assets/environment/bottomDoor.png", -1);
 
             roomImages[leftDoorStart][1] = new Environment(
                     Settings.ROOM_DIVISION_SIZE,
@@ -129,8 +129,8 @@ public class Room implements Drawable {
             );
         } if (right) {
             int rightDoorStart = Settings.GENERATOR.nextInt(10) + 5;
-            roomImages[rightDoorStart][Settings.ROOM_DIVISION_COLUMNS - 1] = new Door(Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_COLUMNS - 1), Settings.ROOM_DIVISION_SIZE * rightDoorStart, "res/assets/environment/door1.png", -3);
-            roomImages[rightDoorStart + 1][Settings.ROOM_DIVISION_COLUMNS - 1] = new Door(Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_COLUMNS - 1), Settings.ROOM_DIVISION_SIZE * (rightDoorStart + 1), "res/assets/environment/door1.png", -3);
+            roomImages[rightDoorStart][Settings.ROOM_DIVISION_COLUMNS - 1] = new Door(Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_COLUMNS - 1), Settings.ROOM_DIVISION_SIZE * rightDoorStart, "res/assets/environment/topDoor.png", -3);
+            roomImages[rightDoorStart + 1][Settings.ROOM_DIVISION_COLUMNS - 1] = new Door(Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_COLUMNS - 1), Settings.ROOM_DIVISION_SIZE * (rightDoorStart + 1), "res/assets/environment/bottomDoor.png", -3);
 
             roomImages[rightDoorStart][Settings.ROOM_DIVISION_COLUMNS - 2] = new Environment(
                     Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_COLUMNS - 2),
