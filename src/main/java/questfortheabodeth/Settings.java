@@ -126,5 +126,5 @@ public class Settings {
     public static final int ROOM_DIVISION_COLUMNS = WINDOW_WIDTH / ROOM_DIVISION_SIZE;
     public static final int ROOM_DIVISION_ROWS = WINDOW_HEIGHT / ROOM_DIVISION_SIZE;
 
-    public static StopClock GAME_TIME = new StopClock();
+    public static StopClock GAME_TIME;
 }
