@@ -85,7 +85,6 @@ public class Enemy extends Character implements Movable {
                 Constructor struct = c.getDeclaredConstructors()[0];
                 Interactable i = (Interactable) struct.newInstance(0, 0, "");
                 i.removeEnemyBuff(this);
-                System.out.println(i + " is removing the buff from enemy");
             } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
                 e.printStackTrace();
             }

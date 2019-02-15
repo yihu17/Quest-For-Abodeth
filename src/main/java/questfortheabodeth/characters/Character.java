@@ -203,13 +203,23 @@ public abstract class Character extends Thread implements Drawable, Collidable {
         }
     }
 
+    /**
+     * Increase the health of the character by the specified amount
+     *
+     * @param amount (int) Amount to increase by
+     */
+    public void increaseHealth(int amount) {
+        int newValue = health.get() + amount;
+        if (newValue > 100) {
+            newValue = 100;
+        }
+        this.health.set(newValue < 0 ? 0 : newValue);
+    }
+
     public int getHealth() {
         return health.get();
     }
 
-    public void addHealth(int healthBoost) {
-        health.add(healthBoost);
-    }
 
     public int getShield() {
         return shield;
@@ -219,14 +229,7 @@ public abstract class Character extends Thread implements Drawable, Collidable {
         this.shield += shieldAmount;
     }
 
-    /**
-     * Increase the health of the character by the specified amount
-     *
-     * @param amount (int) Amount to increase by
-     */
-    public void increaseHealth(int amount) {
-        this.health.add(amount);
-    }
+
 
     /**
      * "Kill" the character

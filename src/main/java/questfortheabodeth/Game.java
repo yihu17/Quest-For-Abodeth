@@ -6,11 +6,10 @@ import main.java.questfortheabodeth.characters.Player;
 import main.java.questfortheabodeth.environments.Environment;
 import main.java.questfortheabodeth.environments.Interactables.Door;
 import main.java.questfortheabodeth.environments.Room;
+import main.java.questfortheabodeth.environments.traps.ShootingArrows;
+import main.java.questfortheabodeth.environments.traps.TrapZone;
 import main.java.questfortheabodeth.hud.*;
-import main.java.questfortheabodeth.interfaces.Collidable;
-import main.java.questfortheabodeth.interfaces.Interactable;
-import main.java.questfortheabodeth.interfaces.Movable;
-import main.java.questfortheabodeth.interfaces.Powerup;
+import main.java.questfortheabodeth.interfaces.*;
 import main.java.questfortheabodeth.menus.Button;
 import main.java.questfortheabodeth.menus.GameMenu;
 import main.java.questfortheabodeth.menus.PlayerDiedMenu;
@@ -347,7 +346,12 @@ public class Game {
         HashSet<Class<? extends Interactable>> currentInteracts = new HashSet<>();
         boolean localDoorRange = false;
         for (Interactable i : interactables) {
-            int overlap = Helper.checkOverlap(player, i);
+            int overlap;
+            if(i instanceof TrapZone) {
+                overlap = Helper.checkOverlap(player,((TrapZone)i).getGlobalBounds());
+            } else {
+                overlap = Helper.checkOverlap(player, i);
+            }
             if (0 < overlap) {
                 // Player is on top of something
                 if (i instanceof WeaponPickup) {
@@ -368,7 +372,10 @@ public class Game {
                 } else if (i instanceof Door) {
                     doorInRange = (Door) i;
                     localDoorRange = true;
-                } else {
+                } else if(i instanceof TrapZone) {
+                    ((TrapZone)i).trigger();
+                }
+                else {
                     i.interact(player);
                     currentInteracts.add(i.getClass());
                 }

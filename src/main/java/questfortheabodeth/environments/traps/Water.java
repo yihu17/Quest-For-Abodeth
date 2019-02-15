@@ -29,7 +29,7 @@ public class Water extends InteractableEnvironment {
     }
 
     public void removeEnemyBuff(Enemy e) {
-        if (e.getName().equals("crocodile")) {
+        if (e.getEnemyName().equals("crocodile")) {
             System.out.println(e.getName());
             e.setMovementSpeed(e.getMovementSpeed() / 2);
         }
