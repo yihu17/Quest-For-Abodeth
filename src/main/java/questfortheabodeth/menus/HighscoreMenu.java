@@ -18,15 +18,13 @@ public class HighscoreMenu implements Menu {
     private RenderWindow window;
     private Image background;
     private ArrayList<Clickable> buttons = new ArrayList<>();
-    private Button chosenButton = null;
+    private Clickable chosenButton = null;
     private boolean menuOpen = true;
     private Text title;
 
     public HighscoreMenu(RenderWindow window) {
         this.window = window;
-        Button back = new Button(100, 50, 10, 10, "Back");
-        back.setTextYOffset(5);
-        back.setTextXOffset(22);
+        ClickableImage back = new ClickableImage(6, 6, "res/assets/menus/button_back.png", "highscores");
         back.setOnPress(new EventHandler() {
             @Override
             public void run() {
@@ -34,7 +32,7 @@ public class HighscoreMenu implements Menu {
                 chosenButton = back;
             }
         });
-        buttons.addAll(Arrays.asList(back));
+        buttons.add(back);
 
         Text t = new Text("HIGHSCORES", Settings.MAIN_MENU_FONT, 64);
         t.setColor(Color.BLACK);
@@ -87,7 +85,7 @@ public class HighscoreMenu implements Menu {
      * @return (main.java.questfortheabodeth.menus.Button) Clicked button
      */
     @Override
-    public Button getChosenButton() {
+    public Clickable getChosenButton() {
         return chosenButton;
     }
 
