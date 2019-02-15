@@ -550,10 +550,10 @@ public class Game {
                     player.setPosition((int) (d.getX() - 100), (int) d.getY());
                     break;
                 } else if (d.getLinkedDoor() == -2 && doorInRange.getLinkedDoor() == -4) {
-                    player.setPosition((int) d.getX(), (int) (d.getY() - 100));
+                    player.setPosition((int) d.getX(), (int) (d.getY() + 100));
                     break;
                 } else if (d.getLinkedDoor() == -4 && doorInRange.getLinkedDoor() == -2) {
-                    player.setPosition((int) d.getX(), (int) (d.getY() + 100));
+                    player.setPosition((int) d.getX(), (int) (d.getY() - 100));
                     break;
                 }
             }
