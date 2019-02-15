@@ -1,6 +1,5 @@
 package main.java.questfortheabodeth;
 
-import main.java.questfortheabodeth.characters.Player;
 import main.java.questfortheabodeth.interfaces.Clickable;
 import main.java.questfortheabodeth.interfaces.Collidable;
 import main.java.questfortheabodeth.weapons.Melee;
@@ -96,7 +95,7 @@ public class Helper {
         for (int i = 0; i < object.length; i++) {
             Object[] row = object[i];
             for (int j = 0; j < row.length; j++) {
-                System.out.print(object[i][j] + " ");
+                System.out.print(String.format("%-35s", object[i][j]) + " ");
             }
             System.out.println("\n");
         }

@@ -42,6 +42,7 @@ public class Main {
             switch (chosenOption.getText().toLowerCase()) {
                 case "play":
                     System.out.println("Spawning new game instance");
+                    Settings.GAME_TIME = new StopClock();
                     Game game = new Game(window);
                     game.run();
                     break;
