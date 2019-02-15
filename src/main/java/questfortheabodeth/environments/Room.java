@@ -83,7 +83,7 @@ public class Room implements Drawable {
                     false
             );
             roomImages[1][topDoorStart + 1] = new Environment(
-                    Settings.ROOM_DIVISION_SIZE + (topDoorStart + 1),
+                    Settings.ROOM_DIVISION_SIZE * (topDoorStart + 1),
                     Settings.ROOM_DIVISION_SIZE,
                     "res/assets/environment/floor/floor1.png",
                     false,
