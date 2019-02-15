@@ -259,7 +259,7 @@ public class Game {
         //FileOperator scores = new FileOperator("res/assets/CSVs/scores.csv");
         //scores.writeNewLine(Settings.GAME_TIME.getFormattedTime());
 
-        openPlayerDiedMenu();
+        if (!player.isCharacterAlive()) { openPlayerDiedMenu(); }
         Settings.GAME_TIME = null;
 
     }
