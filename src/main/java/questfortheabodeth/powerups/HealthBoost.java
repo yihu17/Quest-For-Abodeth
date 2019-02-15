@@ -12,9 +12,7 @@ public class HealthBoost extends Pickup {
     //function for when picked up/ used:
     @Override
     public void applyBuff(Player p) {
-        System.out.println("Getting buffed by Health");
-        p.addHealth(healthBoostage);
-        System.out.println("Health is now " + p.getHealth());
+        p.increaseHealth(healthBoostage);
     }
 
 
