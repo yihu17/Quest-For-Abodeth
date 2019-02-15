@@ -210,6 +210,9 @@ public abstract class Character extends Thread implements Drawable, Collidable {
      */
     public void increaseHealth(int amount) {
         int newValue = health.get() + amount;
+        if (newValue > 100) {
+            newValue = 100;
+        }
         this.health.set(newValue < 0 ? 0 : newValue);
     }
 
