@@ -91,19 +91,19 @@ public class Room implements Drawable {
             );
         } if (down) {
             int bottomDoorStart = Settings.GENERATOR.nextInt(10) + 10;
-            roomImages[Settings.ROOM_DIVISION_ROWS - 1][bottomDoorStart] = new Door(Settings.ROOM_DIVISION_SIZE * bottomDoorStart, Settings.ROOM_DIVISION_SIZE * Settings.ROOM_DIVISION_ROWS, "res/assets/environment/door.png", -4);
-            roomImages[Settings.ROOM_DIVISION_ROWS - 1][bottomDoorStart + 1] = new Door(Settings.ROOM_DIVISION_SIZE * (bottomDoorStart + 1), Settings.ROOM_DIVISION_SIZE * Settings.ROOM_DIVISION_ROWS, "res/assets/environment/door.png", -4);
+            roomImages[Settings.ROOM_DIVISION_ROWS - 1][bottomDoorStart] = new Door(Settings.ROOM_DIVISION_SIZE * bottomDoorStart, Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_ROWS - 1), "res/assets/environment/door1.png", -4);
+            roomImages[Settings.ROOM_DIVISION_ROWS - 1][bottomDoorStart + 1] = new Door(Settings.ROOM_DIVISION_SIZE * (bottomDoorStart + 1), Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_ROWS - 1), "res/assets/environment/door1.png", -4);
 
             roomImages[Settings.ROOM_DIVISION_ROWS - 2][bottomDoorStart] = new Environment(
                     Settings.ROOM_DIVISION_SIZE * bottomDoorStart,
-                    Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_ROWS - 1),
+                    Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_ROWS - 2),
                     "res/assets/environment/floor/floor1.png",
                     false,
                     false
             );
             roomImages[Settings.ROOM_DIVISION_ROWS - 2][bottomDoorStart + 1] = new Environment(
                     Settings.ROOM_DIVISION_SIZE * (bottomDoorStart + 1),
-                    Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_ROWS - 1),
+                    Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_ROWS - 2),
                     "res/assets/environment/floor/floor1.png",
                     false,
                     false
