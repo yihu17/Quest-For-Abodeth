@@ -30,6 +30,8 @@ public class Settings
     public static final Color LIGHT_GREY = new Color(231, 231, 231);
     public static final Color GREY = new Color(169, 169, 169);
     public static final Color DARK_GREY = new Color(105, 105, 105);
+    public static final Color SAND = new Color(255, 178, 127);
+    public static final Color DARK_SAND = new Color(127, 51, 0);
 
     // Cached objects
     public static HashMap<String, Texture> LOADED_IMAGES = new HashMap<>();

@@ -13,8 +13,8 @@ import org.jsfml.system.Vector2f;
  */
 public class Button extends RectangleShape implements Clickable
 {
-    private Color normalColor = Settings.LIGHT_GREY;
-    private Color outlineColor = Settings.DARK_GREY;
+    private Color normalColor = Settings.SAND;
+    private Color outlineColor = Settings.DARK_SAND;
     private Color onPressColor = Settings.GREY;
     private int borderThickness = 5;
 
