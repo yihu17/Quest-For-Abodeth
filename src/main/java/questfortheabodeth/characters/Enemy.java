@@ -17,6 +17,7 @@ public class Enemy extends Character implements Movable
     private String name;
     private int attackSpeed;
     private int attackPower;
+    private long lastTimeHit;
 
     public Enemy(int xPos, int yPos, int health, String imageFilePath, int movementSpeed, String name, int attackSpeed, int attackPower)
     {
@@ -116,5 +117,16 @@ public class Enemy extends Character implements Movable
     {
         return this.attackPower;
     }
+
+    public void setLastTimeAttack(long time)
+    {
+        this.lastTimeHit = time;
+    }
+
+    public long getLastTimeAttack()
+    {
+        return this.lastTimeHit;
+    }
+
 
 }

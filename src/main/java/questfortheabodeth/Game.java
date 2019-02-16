@@ -297,9 +297,9 @@ public class Game
             if (c instanceof Enemy) {
                 int overlap = Helper.checkOverlap(player, c);
                 if (0 < overlap) {
-                    if (System.currentTimeMillis() - player.getLastTimeHit() >= ((Enemy) c).getAttackSpeed()) {
+                    if (System.currentTimeMillis() - ((Enemy)c).getLastTimeAttack() >= ((Enemy) c).getAttackSpeed()) {
                         player.decreaseHealth(((Enemy) c).getAttackPower());
-                        player.setLastTimeHit(System.currentTimeMillis());
+                        ((Enemy)c).setLastTimeAttack(System.currentTimeMillis());
                     }
                 }
             }
@@ -432,6 +432,12 @@ public class Game
         bullets.clear();
 
         collidables.addAll(currentRoom.getCollidables());
+
+        for (WeaponPickup w : currentRoom.getWeapons()) {
+            interactables.add(w);
+            drawables.add(w);
+        }
+
         for (Enemy e : currentRoom.getEnemies()) {
             e.setPlayer(player);
             movables.add(e);
@@ -442,11 +448,6 @@ public class Game
         for (Pickup p : currentRoom.getPickups()) {
             collidables.add(p);
             drawables.add(p);
-        }
-
-        for (WeaponPickup w : currentRoom.getWeapons()) {
-            interactables.add(w);
-            drawables.add(w);
         }
 
         interactables.addAll(currentRoom.getInteractables());
