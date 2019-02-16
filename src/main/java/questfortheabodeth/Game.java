@@ -164,8 +164,9 @@ public class Game
                 if (
                         e.type == MouseEvent.Type.MOUSE_BUTTON_PRESSED &&
                                 Mouse.isButtonPressed(Mouse.Button.LEFT) &&
-                                (System.currentTimeMillis() - player.getLastTimeAttack()) >= player.getCurrentWeapon().getFireRate() &&
-                                player.getCurrentWeapon() != null) {
+                                player.getCurrentWeapon() != null &&
+                                (System.currentTimeMillis() - player.getLastTimeAttack()) >= player.getCurrentWeapon().getFireRate()
+                ) {
                     if (!(player.getCurrentWeapon() instanceof Melee)) {
                         // The player character has fired a bullet
                         player.setLastTimeAttack(System.currentTimeMillis());
