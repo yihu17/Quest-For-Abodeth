@@ -4,8 +4,8 @@ public abstract class Gun extends Weapon {
     private int bulletsPerShot;
     private int maxAmmo;
 
-    public Gun(String name, int bulletsPerShot, int maxAmmo, int fireRate) {
-        super(name, fireRate);
+    public Gun(String name, int bulletsPerShot, int maxAmmo, int fireRate, int damage) {
+        super(name, fireRate ,damage);
         this.bulletsPerShot = bulletsPerShot;
         this.maxAmmo = maxAmmo;
     }

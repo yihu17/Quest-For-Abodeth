@@ -17,8 +17,10 @@ import main.java.questfortheabodeth.menus.GameMenu;
 import main.java.questfortheabodeth.menus.PlayerDiedMenu;
 import main.java.questfortheabodeth.powerups.Pickup;
 import main.java.questfortheabodeth.weapons.Bullet;
+import main.java.questfortheabodeth.weapons.Melee;
 import main.java.questfortheabodeth.weapons.WeaponPickup;
 import org.jsfml.graphics.Drawable;
+import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
@@ -34,6 +36,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.function.Consumer;
 
 
 public class Game {
@@ -138,51 +141,64 @@ public class Game {
         Button time = new Button(120, 40, (Settings.WINDOW_WIDTH / 2) - 60, 10, "0");
         time.setTextXOffset(8);
         while (gameRunning && player.isCharacterAlive()) {
-            window.clear();
+            time.setText(Settings.GAME_TIME.getFormattedTime());
 
+            window.clear();
             // Draw the room
             window.draw(currentRoom);
             window.draw(player);
-            // Draw all the drawable objects
-
-
             drawables.forEach(window::draw);
             window.draw(hud);
-
-            //Update timer
-            time.setText(Settings.GAME_TIME.getFormattedTime());
             window.draw(time);
-
-            // Update the window
             window.display();
-
 
             // Move every single movable object (enemy movements, bullets etc.)
             // Once they have moved check to ensure they are still in the bounds of the window
             this.moveMovables();
 
-
             // Check for close events
             for (Event e : window.pollEvents()) {
                 Helper.checkCloseEvents(e, window);
-                if (e.type == MouseEvent.Type.MOUSE_BUTTON_PRESSED && Mouse.isButtonPressed(Mouse.Button.LEFT) && player.getCurrentWeapon() != null && System.currentTimeMillis() - player.getLastTimeAttack() >= player.getCurrentWeapon().getFireRate()) {
-                    // The player character has fired a bullet
-                    player.setLastTimeAttack(System.currentTimeMillis());
-                    if (0 < player.ammoProperty().getValue()) {
-                        int max = player.getCurrentWeapon().getName().equals("shotgun") ? 3 : 1;
-                        int[] angles = {0, -6, 6};
-                        for (int i = 0; i < max; i++) {
-                            Bullet b = new Bullet(
-                                    (int) player.getPlayerCenter().x,
-                                    (int) player.getPlayerCenter().y,
-                                    Helper.getAngleBetweenPoints(new Vector2i(player.getVectorPosition()), e.asMouseEvent().position) + angles[i]
-                            );
+                if (e.type == MouseEvent.Type.MOUSE_BUTTON_PRESSED  && (System.currentTimeMillis() - player.getLastTimeAttack()) >= player.getCurrentWeapon().getFireRate() && player.getCurrentWeapon() != null) {
+                    if ( Mouse.isButtonPressed(Mouse.Button.LEFT) && !(player.getCurrentWeapon() instanceof Melee)) {
+                        // The player character has fired a bullet
+                        player.setLastTimeAttack(System.currentTimeMillis());
+                        if (0 < player.ammoProperty().getValue()) {
+                            int max = player.getCurrentWeapon().getName().equals("shotgun") ? 3 : 1;
+                            int[] angles = {0, -6, 6};
+                            for (int i = 0; i < max; i++) {
+                                Bullet b = new Bullet(
+                                        (int) player.getPlayerCenter().x,
+                                        (int) player.getPlayerCenter().y,
+                                        Helper.getAngleBetweenPoints(new Vector2i(player.getVectorPosition()), e.asMouseEvent().position) + angles[i],
+                                        player.getCurrentWeapon().getDamageDealt()
+                                );
 
-                            movables.add(b);
-                            drawables.add(b);
-                            collidables.add(b);
-                            bullets.add(b);
-                            player.decreaseAmmo();
+                                movables.add(b);
+                                drawables.add(b);
+                                collidables.add(b);
+                                bullets.add(b);
+                                player.decreaseAmmo();
+                            }
+                        } else if (Mouse.isButtonPressed(Mouse.Button.LEFT) && player.getCurrentWeapon() instanceof Melee) {
+                            // Create a larger than normal FloatRect for the player
+                            FloatRect meleeRange = new FloatRect(
+                                    player.getX() - player.getWidth(),
+                                    player.getY() - player.getHeight(),
+                                    3 * player.getWidth(),
+                                    3 * player.getHeight()
+                            );
+                            // Damage an enemy
+                            enemies.forEach(new Consumer<Enemy>()
+                            {
+                                @Override
+                                public void accept(Enemy enemy)
+                                {
+                                    enemy.decreaseHealth(
+                                            0 < Helper.checkOverlap(enemy, meleeRange) ? player.getCurrentWeapon().getDamageDealt() : 0
+                                    );
+                                }
+                            });
                         }
                     }
                 } else if (e.type == Event.Type.KEY_PRESSED) {
