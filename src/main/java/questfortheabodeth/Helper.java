@@ -227,7 +227,7 @@ public class Helper {
     {
         switch (weapon) {
             case "machete":
-                return new Melee("machete", 3, 5);
+                return new Melee("machete", 50, 5);
             case "revolver":
                 return new OneHandedWeapon("revolver", 1, 50, 333, 5);
             case "shotgun":

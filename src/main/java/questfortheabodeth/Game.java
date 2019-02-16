@@ -36,7 +36,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.concurrent.CopyOnWriteArraySet;
-import java.util.function.Consumer;
 
 
 public class Game {
@@ -159,8 +158,12 @@ public class Game {
             // Check for close events
             for (Event e : window.pollEvents()) {
                 Helper.checkCloseEvents(e, window);
-                if (e.type == MouseEvent.Type.MOUSE_BUTTON_PRESSED  && (System.currentTimeMillis() - player.getLastTimeAttack()) >= player.getCurrentWeapon().getFireRate() && player.getCurrentWeapon() != null) {
-                    if ( Mouse.isButtonPressed(Mouse.Button.LEFT) && !(player.getCurrentWeapon() instanceof Melee)) {
+                if (
+                        e.type == MouseEvent.Type.MOUSE_BUTTON_PRESSED &&
+                        Mouse.isButtonPressed(Mouse.Button.LEFT) &&
+                        (System.currentTimeMillis() - player.getLastTimeAttack()) >= player.getCurrentWeapon().getFireRate() &&
+                        player.getCurrentWeapon() != null) {
+                    if (!(player.getCurrentWeapon() instanceof Melee)) {
                         // The player character has fired a bullet
                         player.setLastTimeAttack(System.currentTimeMillis());
                         if (0 < player.ammoProperty().getValue()) {
@@ -180,26 +183,19 @@ public class Game {
                                 bullets.add(b);
                                 player.decreaseAmmo();
                             }
-                        } else if (Mouse.isButtonPressed(Mouse.Button.LEFT) && player.getCurrentWeapon() instanceof Melee) {
-                            // Create a larger than normal FloatRect for the player
-                            FloatRect meleeRange = new FloatRect(
-                                    player.getX() - player.getWidth(),
-                                    player.getY() - player.getHeight(),
-                                    3 * player.getWidth(),
-                                    3 * player.getHeight()
-                            );
-                            // Damage an enemy
-                            enemies.forEach(new Consumer<Enemy>()
-                            {
-                                @Override
-                                public void accept(Enemy enemy)
-                                {
-                                    enemy.decreaseHealth(
-                                            0 < Helper.checkOverlap(enemy, meleeRange) ? player.getCurrentWeapon().getDamageDealt() : 0
-                                    );
-                                }
-                            });
                         }
+                    } else {
+                        // Create a larger than normal FloatRect for the player
+                        FloatRect meleeRange = new FloatRect(
+                                player.getX() - player.getWidth(),
+                                player.getY() - player.getHeight(),
+                                3 * player.getWidth(),
+                                3 * player.getHeight()
+                        );
+                        // Damage an enemy
+                        enemies.forEach(enemy -> enemy.decreaseHealth(
+                                0 < Helper.checkOverlap(enemy, meleeRange) ? player.getCurrentWeapon().getDamageDealt() : 0
+                        ));
                     }
                 } else if (e.type == Event.Type.KEY_PRESSED) {
                     if (e.asKeyEvent().key == Keyboard.Key.NUM1) {
