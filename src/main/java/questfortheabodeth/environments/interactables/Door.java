@@ -1,4 +1,4 @@
-package main.java.questfortheabodeth.environments.Interactables;
+package main.java.questfortheabodeth.environments.interactables;
 
 import main.java.questfortheabodeth.characters.Enemy;
 import main.java.questfortheabodeth.characters.Player;

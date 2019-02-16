@@ -3,7 +3,7 @@ package main.java.questfortheabodeth.environments;
 import main.java.questfortheabodeth.FileOperator;
 import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.characters.Enemy;
-import main.java.questfortheabodeth.environments.Interactables.Door;
+import main.java.questfortheabodeth.environments.interactables.Door;
 import main.java.questfortheabodeth.environments.traps.Quicksand;
 import main.java.questfortheabodeth.environments.traps.SpikeTrap;
 import main.java.questfortheabodeth.environments.traps.Water;

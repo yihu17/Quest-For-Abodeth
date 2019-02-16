@@ -4,12 +4,14 @@ import main.java.questfortheabodeth.characters.Character;
 import main.java.questfortheabodeth.characters.Enemy;
 import main.java.questfortheabodeth.characters.Player;
 import main.java.questfortheabodeth.environments.Environment;
-import main.java.questfortheabodeth.environments.Interactables.Door;
 import main.java.questfortheabodeth.environments.Room;
-import main.java.questfortheabodeth.environments.traps.ShootingArrows;
+import main.java.questfortheabodeth.environments.interactables.Door;
 import main.java.questfortheabodeth.environments.traps.TrapZone;
 import main.java.questfortheabodeth.hud.*;
-import main.java.questfortheabodeth.interfaces.*;
+import main.java.questfortheabodeth.interfaces.Collidable;
+import main.java.questfortheabodeth.interfaces.Interactable;
+import main.java.questfortheabodeth.interfaces.Movable;
+import main.java.questfortheabodeth.interfaces.Powerup;
 import main.java.questfortheabodeth.menus.Button;
 import main.java.questfortheabodeth.menus.GameMenu;
 import main.java.questfortheabodeth.menus.PlayerDiedMenu;
@@ -167,26 +169,13 @@ public class Game {
                     // The player character has fired a bullet
                     player.setLastTimeAttack(System.currentTimeMillis());
                     if (0 < player.ammoProperty().getValue()) {
-                        if (player.getCurrentWeapon().getName().equals("shotgun")) {
-                            int[] angles = {-6, 0, 6};
-                            for (int i = 0; i < 3; i++) {
-                                Bullet b = new Bullet(
-                                        (int) player.getPlayerCenter().x,
-                                        (int) player.getPlayerCenter().y,
-                                        Helper.getAngleBetweenPoints(new Vector2i(player.getVectorPosition()), e.asMouseEvent().position) + angles[i]
-                                );
-
-                                movables.add(b);
-                                drawables.add(b);
-                                collidables.add(b);
-                                bullets.add(b);
-                                player.decreaseAmmo();
-                            }
-                        } else {
+                        int max = player.getCurrentWeapon().getName().equals("shotgun") ? 3 : 1;
+                        int[] angles = {0, -6, 6};
+                        for (int i = 0; i < max; i++) {
                             Bullet b = new Bullet(
                                     (int) player.getPlayerCenter().x,
                                     (int) player.getPlayerCenter().y,
-                                    Helper.getAngleBetweenPoints(new Vector2i(player.getVectorPosition()), e.asMouseEvent().position)
+                                    Helper.getAngleBetweenPoints(new Vector2i(player.getVectorPosition()), e.asMouseEvent().position) + angles[i]
                             );
 
                             movables.add(b);
