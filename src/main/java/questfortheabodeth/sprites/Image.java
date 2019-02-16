@@ -13,7 +13,8 @@ import java.nio.file.Paths;
  * If the image has not already been loaded it is added to a static array
  * in the settings file to save on memory when loading again
  */
-public class Image implements Drawable {
+public class Image implements Drawable
+{
     private Sprite image = null;
     private Vector2f position;
 
@@ -24,7 +25,8 @@ public class Image implements Drawable {
      * @param y        (int) Y coordinate of the top left of the image
      * @param filename (String) Filename of the image to load
      */
-    public Image(int x, int y, String filename) {
+    public Image(int x, int y, String filename)
+    {
         if (filename.equals("")) {
             return;
         }
@@ -36,7 +38,8 @@ public class Image implements Drawable {
         }
     }
 
-    public void flipHorizontal() {
+    public void flipHorizontal()
+    {
         this.image.setTexture(Helper.flipTexture(this.image.getTexture()));
     }
 
@@ -45,7 +48,8 @@ public class Image implements Drawable {
      *
      * @param filename (String) Image name to load
      */
-    public void loadImageFromFile(String filename) {
+    public void loadImageFromFile(String filename)
+    {
         Texture imageTexture = new Texture();
         try {
             imageTexture.loadFromFile(Paths.get(filename));
@@ -64,7 +68,8 @@ public class Image implements Drawable {
      *
      * @param texture (Texture) The loaded image
      */
-    private void loadImageFromTexture(Texture texture) {
+    private void loadImageFromTexture(Texture texture)
+    {
         image = new Sprite(texture);
         image.setPosition(position);
     }
@@ -74,7 +79,8 @@ public class Image implements Drawable {
      *
      * @param scaleFactor (Vector2f) A vector of the scale factors
      */
-    public void setScale(Vector2f scaleFactor) {
+    public void setScale(Vector2f scaleFactor)
+    {
         image.setScale(scaleFactor);
     }
 
@@ -83,7 +89,8 @@ public class Image implements Drawable {
      *
      * @return (FloatRect) main.java.questfortheabodeth.sprites.Image bounds
      */
-    public FloatRect getGlobalBounds() {
+    public FloatRect getGlobalBounds()
+    {
         return image.getGlobalBounds();
     }
 
@@ -105,7 +112,8 @@ public class Image implements Drawable {
      * @throws NullPointerException Thrown if the image failed to load correctly
      */
     @Override
-    public void draw(RenderTarget renderTarget, RenderStates renderStates) {
+    public void draw(RenderTarget renderTarget, RenderStates renderStates)
+    {
         if (image == null) {
             throw new NullPointerException("No image has been loaded");
         }
@@ -117,7 +125,8 @@ public class Image implements Drawable {
      *
      * @param x (float) New X position
      */
-    public void setXPosition(float x) {
+    public void setXPosition(float x)
+    {
         float y = this.image.getPosition().y;
         this.image.setPosition(x, y);
     }
@@ -127,7 +136,8 @@ public class Image implements Drawable {
      *
      * @param y (float) New Y position
      */
-    public void setYPosition(float y) {
+    public void setYPosition(float y)
+    {
         float x = this.image.getPosition().x;
         this.image.setPosition(x, y);
     }
@@ -138,7 +148,8 @@ public class Image implements Drawable {
      * @param x (float) New X position
      * @param y (float) New Y position
      */
-    public void setPosition(float x, float y) {
+    public void setPosition(float x, float y)
+    {
         this.image.setPosition(x, y);
     }
 }

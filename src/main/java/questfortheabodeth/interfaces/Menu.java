@@ -4,7 +4,8 @@ import main.java.questfortheabodeth.sprites.Image;
 
 import java.util.List;
 
-public interface Menu {
+public interface Menu
+{
     /**
      * A list of all the clickable object in the menu
      * A clickable object is probably going to be a main.java.questfortheabodeth.menus.ClickableImage

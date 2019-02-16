@@ -1,5 +1,6 @@
 package main.java.questfortheabodeth.interfaces;
 
-public interface Trap {
+public interface Trap
+{
     void effect();
 }

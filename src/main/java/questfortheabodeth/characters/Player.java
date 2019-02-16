@@ -5,7 +5,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import main.java.questfortheabodeth.Helper;
 import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.interfaces.Interactable;
-import main.java.questfortheabodeth.interfaces.Menu;
 import main.java.questfortheabodeth.interfaces.Powerup;
 import main.java.questfortheabodeth.sprites.Image;
 import main.java.questfortheabodeth.weapons.*;
@@ -20,7 +19,8 @@ import java.util.HashSet;
 /**
  * The main.java.questfortheabodeth.characters
  */
-public class Player extends Character {
+public class Player extends Character
+{
     private static String imageName = "res/assets/player/player.png";
     private Powerup currentPowerup = null;
     private long lastTimeHit;
@@ -38,16 +38,19 @@ public class Player extends Character {
     /**
      * Creates a new Player instance based off of the imageName image
      */
-    public Player() {
+    public Player()
+    {
         super(250, 250, 100, imageName, Settings.PLAYER_SPEED);
     }
 
-    public ReadOnlyIntegerProperty ammoProperty() {
+    public ReadOnlyIntegerProperty ammoProperty()
+    {
         return ammo;
     }
 
-    public boolean switchWeapon(int weaponNumber) {
-        switch(weaponNumber) {
+    public boolean switchWeapon(int weaponNumber)
+    {
+        switch (weaponNumber) {
             case 1:
                 if (meleeWeapon == null) {
                     return false;
@@ -74,15 +77,17 @@ public class Player extends Character {
         }
     }
 
-    public void setWeaponImage(String weapon) {
-        Image img = new Image((int)getX(), (int)getY(), "res/assets/player/player-" + weapon +".png");
+    public void setWeaponImage(String weapon)
+    {
+        Image img = new Image((int) getX(), (int) getY(), "res/assets/player/player-" + weapon + ".png");
         if (getFace() == Character.Facing.LEFT) {
             img.flipHorizontal();
         }
         setImage(img);
     }
 
-    public void resetInteracts(HashSet<Class<? extends Interactable>> current) {
+    public void resetInteracts(HashSet<Class<? extends Interactable>> current)
+    {
         appliedInteracts.removeAll(current);
 
         for (Class<? extends Interactable> c : appliedInteracts) {
@@ -108,7 +113,8 @@ public class Player extends Character {
      * rather than just closing the menu
      */
     @Override
-    public void kill() {
+    public void kill()
+    {
         System.out.println("I died!");
     }
 
@@ -119,23 +125,27 @@ public class Player extends Character {
      * @param renderStates (RenderStates) I really should figure out what these are
      */
     @Override
-    public void draw(RenderTarget renderTarget, RenderStates renderStates) {
+    public void draw(RenderTarget renderTarget, RenderStates renderStates)
+    {
         renderTarget.draw(this.getImage());
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return String.format("<Player @ [%.0f, %.0f]>", this.getX(), this.getY());
     }
 
-    public Vector2f getPlayerCenter() {
+    public Vector2f getPlayerCenter()
+    {
         return new Vector2f(
                 (float) (this.getX() + (0.5 * this.getWidth())),
                 (float) (this.getY() + (0.5 * this.getHeight()))
         );
     }
 
-    public boolean applyInteract(Interactable interactClass) {
+    public boolean applyInteract(Interactable interactClass)
+    {
         if (appliedInteracts.contains(interactClass.getClass())) {
             // Do not allow the interact to work
             return false;
@@ -145,15 +155,18 @@ public class Player extends Character {
         }
     }
 
-    public void setLastTimeHit(long time) {
+    public void setLastTimeHit(long time)
+    {
         this.lastTimeHit = time;
     }
 
-    public long getLastTimeHit() {
+    public long getLastTimeHit()
+    {
         return this.lastTimeHit;
     }
 
-    public void setLastTimeAttack(long time) {
+    public void setLastTimeAttack(long time)
+    {
         this.lastTimeAttack = time;
     }
 
@@ -164,31 +177,36 @@ public class Player extends Character {
 
     public Weapon pickUpWeapon(WeaponPickup weapon)
     {
-        if(!hasWeapon(weapon.getName())) {
+        if (!hasWeapon(weapon.getName())) {
             Weapon cw = Helper.stringToWeapon(weapon.getName());
             if (cw instanceof Melee) {
-                meleeWeapon = (Melee)cw;
+                meleeWeapon = (Melee) cw;
                 currentWeapon = meleeWeapon;
             } else if (cw instanceof OneHandedWeapon) {
-                oneHandedWeapon = (OneHandedWeapon)cw;
+                oneHandedWeapon = (OneHandedWeapon) cw;
                 currentWeapon = oneHandedWeapon;
             } else if (cw instanceof TwoHandedWeapon) {
-                twoHandedWeapon = (TwoHandedWeapon)cw;
+                twoHandedWeapon = (TwoHandedWeapon) cw;
                 currentWeapon = twoHandedWeapon;
             }
-        } if((Helper.stringToWeapon(weapon.getName()).getName().equals("revolver"))) {
+        }
+        if ((Helper.stringToWeapon(weapon.getName()).getName().equals("revolver"))) {
             this.ammo.setValue(ammo.get() + 20);
-        } if((Helper.stringToWeapon(weapon.getName()).getName().equals("shotgun"))) {
+        }
+        if ((Helper.stringToWeapon(weapon.getName()).getName().equals("shotgun"))) {
             this.ammo.setValue(ammo.get() + 40);
-        } if((Helper.stringToWeapon(weapon.getName()).getName().equals("ar15"))) {
+        }
+        if ((Helper.stringToWeapon(weapon.getName()).getName().equals("ar15"))) {
             this.ammo.setValue(ammo.get() + 15);
-        } if((Helper.stringToWeapon(weapon.getName()).getName().equals("uzi"))) {
+        }
+        if ((Helper.stringToWeapon(weapon.getName()).getName().equals("uzi"))) {
             this.ammo.setValue(ammo.get() + 45);
         }
         return currentWeapon;
     }
 
-    public boolean hasWeapon(String weaponSearching) {
+    public boolean hasWeapon(String weaponSearching)
+    {
         if (meleeWeapon != null && meleeWeapon.getName().equals(weaponSearching)) {
             return true;
         }
@@ -201,7 +219,8 @@ public class Player extends Character {
         return false;
     }
 
-    public int amountOfWeaponsCarrying() {
+    public int amountOfWeaponsCarrying()
+    {
         int carry = 0;
         carry += (meleeWeapon == null) ? 0 : 1;
         carry += (oneHandedWeapon == null) ? 0 : 1;
@@ -210,15 +229,18 @@ public class Player extends Character {
         return carry;
     }
 
-    public void decreaseAmmo() {
+    public void decreaseAmmo()
+    {
         this.ammo.set(ammo.get() - 1);
     }
 
-    public void increaseAmmo(int amount) {
+    public void increaseAmmo(int amount)
+    {
         this.ammo.set(ammo.get() + amount);
     }
 
-    public Weapon getCurrentWeapon() {
+    public Weapon getCurrentWeapon()
+    {
         return currentWeapon;
     }
 

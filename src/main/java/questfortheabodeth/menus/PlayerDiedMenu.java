@@ -14,7 +14,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class PlayerDiedMenu implements Menu {
+public class PlayerDiedMenu implements Menu
+{
     private RenderWindow window;
     private Image background;
     private ArrayList<Clickable> buttons = new ArrayList<>();
@@ -22,15 +23,18 @@ public class PlayerDiedMenu implements Menu {
     private boolean menuOpen = true;
     private Text title, time;
 
-    public PlayerDiedMenu(RenderWindow window, String time) {
+    public PlayerDiedMenu(RenderWindow window, String time)
+    {
         this.window = window;
         Button back = new Button(250, 75, Settings.WINDOW_WIDTH / 2 - 75, 500, "MAIN MENU");
         back.setTextXOffset(
                 250 / 2 - (back.getText().length() / 2) * 14
         );
-        back.setOnPress(new EventHandler() {
+        back.setOnPress(new EventHandler()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 menuOpen = false;
                 chosenButton = back;
             }
@@ -57,7 +61,8 @@ public class PlayerDiedMenu implements Menu {
      * @return (List) List of clickables in the menu
      */
     @Override
-    public List<Clickable> getButtons() {
+    public List<Clickable> getButtons()
+    {
         return buttons;
     }
 
@@ -65,7 +70,8 @@ public class PlayerDiedMenu implements Menu {
      * Displays the menu on the screen
      */
     @Override
-    public void displayMenu() {
+    public void displayMenu()
+    {
         menuOpen = true;
         while (menuOpen && window.isOpen()) {
             // Clear the window
@@ -94,7 +100,8 @@ public class PlayerDiedMenu implements Menu {
      * @return (main.java.questfortheabodeth.menus.Button) Clicked button
      */
     @Override
-    public Button getChosenButton() {
+    public Button getChosenButton()
+    {
         return chosenButton;
     }
 
@@ -105,7 +112,8 @@ public class PlayerDiedMenu implements Menu {
      * @return (null) No image
      */
     @Override
-    public main.java.questfortheabodeth.sprites.Image getBackground() {
+    public main.java.questfortheabodeth.sprites.Image getBackground()
+    {
         return null;
     }
 }

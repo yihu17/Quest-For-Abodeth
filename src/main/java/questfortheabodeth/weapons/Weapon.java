@@ -1,21 +1,25 @@
 package main.java.questfortheabodeth.weapons;
 
-public abstract class Weapon {
+public abstract class Weapon
+{
     private int damageDealt;
     private int fireRate;
     private String name;
 
-    public Weapon(String name, int fireRate, int damage) {
+    public Weapon(String name, int fireRate, int damage)
+    {
         this.name = name;
         this.fireRate = fireRate;
         this.damageDealt = damage;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return this.name;
     }
 
-    public int getFireRate() {
+    public int getFireRate()
+    {
         return this.fireRate;
     }
 

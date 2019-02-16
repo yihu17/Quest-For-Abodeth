@@ -10,7 +10,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-public class Settings {
+public class Settings
+{
     public static final Random GENERATOR = new Random();
 
     // Stuff to do with the window

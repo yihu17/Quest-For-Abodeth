@@ -10,11 +10,13 @@ import org.jsfml.system.Vector2f;
  * The HealthBar class is based in a character health of 100
  * This 100 points is divided into 20 sections each 5 pixels wide
  */
-public class HealthBar implements Drawable {
+public class HealthBar implements Drawable
+{
     private RectangleShape background;
     private RectangleShape health;
 
-    public HealthBar(Player player) {
+    public HealthBar(Player player)
+    {
         background = new RectangleShape();
         background.setPosition(5, 1055);
         background.setSize(new Vector2f(200, 20));
@@ -41,7 +43,8 @@ public class HealthBar implements Drawable {
     }
 
     @Override
-    public void draw(RenderTarget renderTarget, RenderStates renderStates) {
+    public void draw(RenderTarget renderTarget, RenderStates renderStates)
+    {
         renderTarget.draw(background);
         renderTarget.draw(health);
     }

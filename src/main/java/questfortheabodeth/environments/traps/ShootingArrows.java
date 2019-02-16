@@ -3,14 +3,17 @@ package main.java.questfortheabodeth.environments.traps;
 import main.java.questfortheabodeth.environments.CollidableEnvironment;
 import org.jsfml.graphics.FloatRect;
 
-public class ShootingArrows extends CollidableEnvironment implements TrapZone {
+public class ShootingArrows extends CollidableEnvironment implements TrapZone
+{
 
-    public ShootingArrows(int xPos, int yPos, String imageFilePath) {
+    public ShootingArrows(int xPos, int yPos, String imageFilePath)
+    {
         super(xPos, yPos, imageFilePath);
     }
 
     @Override
-    public void effect() {
+    public void effect()
+    {
         //if
     }
 
@@ -22,7 +25,8 @@ public class ShootingArrows extends CollidableEnvironment implements TrapZone {
     }
 
     @Override
-    public void trigger() {
+    public void trigger()
+    {
         System.out.println("Shooting arrow trap triggered!");
     }
 }

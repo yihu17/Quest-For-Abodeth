@@ -22,7 +22,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-public class Room implements Drawable {
+public class Room implements Drawable
+{
     private int type;
     private FileOperator roomFile;
     private ArrayList<ArrayList<String>> roomLayout = new ArrayList<>();
@@ -41,13 +42,15 @@ public class Room implements Drawable {
 
     /**
      * Creates a new room of the specified type
-     * @param type (int) Room type
-     * @param up (boolean) Is the a door at the top of the room
-     * @param down (boolean) Is the a door at the bottom of the room
-     * @param left (boolean) Is the a door at the left of the room
+     *
+     * @param type  (int) Room type
+     * @param up    (boolean) Is the a door at the top of the room
+     * @param down  (boolean) Is the a door at the bottom of the room
+     * @param left  (boolean) Is the a door at the left of the room
      * @param right (boolean) Is the a door at the right of the room
      */
-    public Room(int type, boolean up, boolean down, boolean left, boolean right) {
+    public Room(int type, boolean up, boolean down, boolean left, boolean right)
+    {
         doors[0] = up;
         doors[1] = down;
         doors[2] = left;
@@ -58,7 +61,7 @@ public class Room implements Drawable {
             roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomDataA.csv"); //needs to get path dynamically...
         } else if (type < 0) {
             return;
-        } else{
+        } else {
             String[] rooms = new String[]{"A", "B"};
             int index = Settings.GENERATOR.nextInt(rooms.length);
             roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomData" + rooms[index] + ".csv"); //needs to get path dynamically...
@@ -89,7 +92,8 @@ public class Room implements Drawable {
                     false,
                     false
             );
-        } if (down) {
+        }
+        if (down) {
             int bottomDoorStart = Settings.GENERATOR.nextInt(10) + 10;
             roomImages[Settings.ROOM_DIVISION_ROWS - 1][bottomDoorStart] = new Door(Settings.ROOM_DIVISION_SIZE * bottomDoorStart, Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_ROWS - 1), "res/assets/environment/leftDoor.png", -4);
             roomImages[Settings.ROOM_DIVISION_ROWS - 1][bottomDoorStart + 1] = new Door(Settings.ROOM_DIVISION_SIZE * (bottomDoorStart + 1), Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_ROWS - 1), "res/assets/environment/rightDoor.png", -4);
@@ -108,7 +112,8 @@ public class Room implements Drawable {
                     false,
                     false
             );
-        } if (left) {
+        }
+        if (left) {
             int leftDoorStart = Settings.GENERATOR.nextInt(10) + 5;
             roomImages[leftDoorStart][0] = new Door(0, Settings.ROOM_DIVISION_SIZE * leftDoorStart, "res/assets/environment/topDoor.png", -1);
             roomImages[leftDoorStart + 1][0] = new Door(0, Settings.ROOM_DIVISION_SIZE * (leftDoorStart + 1), "res/assets/environment/bottomDoor.png", -1);
@@ -127,7 +132,8 @@ public class Room implements Drawable {
                     false,
                     false
             );
-        } if (right) {
+        }
+        if (right) {
             int rightDoorStart = Settings.GENERATOR.nextInt(10) + 5;
             roomImages[rightDoorStart][Settings.ROOM_DIVISION_COLUMNS - 1] = new Door(Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_COLUMNS - 1), Settings.ROOM_DIVISION_SIZE * rightDoorStart, "res/assets/environment/topDoor.png", -3);
             roomImages[rightDoorStart + 1][Settings.ROOM_DIVISION_COLUMNS - 1] = new Door(Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_COLUMNS - 1), Settings.ROOM_DIVISION_SIZE * (rightDoorStart + 1), "res/assets/environment/bottomDoor.png", -3);
@@ -154,7 +160,8 @@ public class Room implements Drawable {
         return this.type;
     }
 
-    public ArrayList<Collidable> getCollidables() {
+    public ArrayList<Collidable> getCollidables()
+    {
         ArrayList<Collidable> c = new ArrayList<>();
         for (int i = 0; i < Settings.ROOM_DIVISION_ROWS; i++) {
             for (int j = 0; j < Settings.ROOM_DIVISION_COLUMNS; j++) {
@@ -169,11 +176,12 @@ public class Room implements Drawable {
                         y = door.getY();
                     } else {
                         x = door.getX();
-                        y = door.getLinkedDoor() == -2 ? (door.getY() - Settings.ROOM_DIVISION_SIZE) : (door.getY() + Settings.ROOM_DIVISION_SIZE);;
+                        y = door.getLinkedDoor() == -2 ? (door.getY() - Settings.ROOM_DIVISION_SIZE) : (door.getY() + Settings.ROOM_DIVISION_SIZE);
+                        ;
                     }
                     c.add(new CollidableEnvironment(
-                            (int)x,
-                            (int)y,
+                            (int) x,
+                            (int) y,
                             "res/assets/environment/wall.png"
                     ));
                 }
@@ -187,7 +195,8 @@ public class Room implements Drawable {
         return c;
     }
 
-    public ArrayList<Interactable> getInteractables() {
+    public ArrayList<Interactable> getInteractables()
+    {
         ArrayList<Interactable> iList = new ArrayList<>();
         for (int i = 0; i < Settings.ROOM_DIVISION_ROWS; i++) {
             for (int j = 0; j < Settings.ROOM_DIVISION_COLUMNS; j++) {
@@ -200,7 +209,8 @@ public class Room implements Drawable {
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "<Room " + type + " with doors " + (doors[0] ? "top, " : "") + (doors[1] ? "bottom, " : "") + (doors[2] ? "left, " : "") +
                 (doors[3] ? "right, " : "") + ">";
     }
@@ -213,7 +223,8 @@ public class Room implements Drawable {
      * @param renderStates (RenderStates) Again, what are these
      */
     @Override
-    public void draw(RenderTarget renderTarget, RenderStates renderStates) {
+    public void draw(RenderTarget renderTarget, RenderStates renderStates)
+    {
         for (int i = 0; i < Settings.ROOM_DIVISION_ROWS; i++) {
             for (int j = 0; j < Settings.ROOM_DIVISION_COLUMNS; j++) {
                 renderTarget.draw(roomImages[i][j]);
@@ -221,7 +232,8 @@ public class Room implements Drawable {
         }
     }
 
-    private void readRoomData() {
+    private void readRoomData()
+    {
         readToLayout();
         int startOfData = Settings.WINDOW_HEIGHT / Settings.ROOM_DIVISION_SIZE;
         int[] enemyTypes = Arrays.stream(roomFile.readLine(startOfData)).mapToInt(Integer::parseInt).toArray(); //read string array as int array
@@ -244,7 +256,8 @@ public class Room implements Drawable {
         }
     }
 
-    private void readToLayout() {
+    private void readToLayout()
+    {
         roomLayout.clear(); //resets layout
         for (int i = 0; i < Settings.ROOM_DIVISION_ROWS; i++) {
             roomLayout.add(new ArrayList<>());
@@ -255,7 +268,8 @@ public class Room implements Drawable {
         }
     }
 
-    private void loadRoomImages() {
+    private void loadRoomImages()
+    {
         int spacing = Settings.ROOM_DIVISION_SIZE;
         for (int i = 0; i < Settings.ROOM_DIVISION_ROWS; i++) {
             for (int j = 0; j < Settings.ROOM_DIVISION_COLUMNS; j++) {
@@ -324,7 +338,8 @@ public class Room implements Drawable {
         }
     }
 
-    private void spawnEnemies() {
+    private void spawnEnemies()
+    {
         for (int i = 0; i < enemyInfo.size(); i++) {
             String enemyRead = Settings.CSV_KEYS.get(enemyInfo.get(i)[0]);
             String filePath = "res/assets/enemies/" + enemyRead + ".png";
@@ -363,7 +378,8 @@ public class Room implements Drawable {
         }
     }
 
-    private int[] generateSpawnLocation() {
+    private int[] generateSpawnLocation()
+    {
         int[] spawnPositionGenerated = new int[2];
         Random rand = new Random();
         spawnPositionGenerated[0] = rand.nextInt(Settings.WINDOW_WIDTH) + Settings.ROOM_DIVISION_SIZE;
@@ -375,11 +391,13 @@ public class Room implements Drawable {
         return spawnPositionGenerated;
     }
 
-    private boolean spawnLocationGeneratedIsValid(int[] generatedPositions) {
+    private boolean spawnLocationGeneratedIsValid(int[] generatedPositions)
+    {
         return !spawnPointOverlapEnvironment(generatedPositions[0], generatedPositions[1]) && !nearDoor(generatedPositions[0], generatedPositions[1]);
     }
 
-    private boolean spawnPointOverlapEnvironment(int x, int y) {
+    private boolean spawnPointOverlapEnvironment(int x, int y)
+    {
         for (int i = 0; i < roomImages.length; i++) {
             for (int j = 0; j < roomImages[i].length; j++) {
                 int[] posA = {(int) roomImages[i][j].getX(), (int) roomImages[i][j].getY()}; //upper left point of environment object
@@ -399,7 +417,8 @@ public class Room implements Drawable {
         return false;
     }
 
-    private boolean nearDoor(int x, int y) {
+    private boolean nearDoor(int x, int y)
+    {
         for (int i = 0; i < roomLayout.size(); i++) {
             for (int j = 0; j < roomLayout.get(i).size(); j++) {
                 if (roomLayout.get(i).get(j).equals("3")) { //find door object
@@ -415,7 +434,8 @@ public class Room implements Drawable {
         return false;
     }
 
-    private void spawnPickups() {
+    private void spawnPickups()
+    {
         for (int i = 0; i < pickupInfo.size(); i++) {
             String pickupRead = Settings.CSV_KEYS.get(pickupInfo.get(i)[0]);
             for (int y = 0; y < pickupInfo.get(i)[1]; y++) {
@@ -444,7 +464,8 @@ public class Room implements Drawable {
         }
     }
 
-    private void spawnWeapons() {
+    private void spawnWeapons()
+    {
         for (int i = 0; i < weaponInfo.size(); i++) {
             String weaponRead = Settings.CSV_KEYS.get(weaponInfo.get(i)[0]);
             String baseFilePath = "res/assets/weapons/";
@@ -471,19 +492,23 @@ public class Room implements Drawable {
         }
     }
 
-    public ArrayList<Enemy> getEnemies() {
+    public ArrayList<Enemy> getEnemies()
+    {
         return enemies;
     }
 
-    public ArrayList<Pickup> getPickups() {
+    public ArrayList<Pickup> getPickups()
+    {
         return pickups;
     }
 
-    public ArrayList<WeaponPickup> getWeapons() {
+    public ArrayList<WeaponPickup> getWeapons()
+    {
         return weapons;
     }
 
-    public void playMusic() {
+    public void playMusic()
+    {
         try {
             int r = Settings.GENERATOR.nextInt(16) + 1;
             System.out.println(r);

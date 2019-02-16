@@ -7,7 +7,8 @@ import org.jsfml.graphics.Drawable;
  * so that all objects on the screen can be moved as part of
  * one single loop in the main class
  */
-public interface Movable extends Drawable {
+public interface Movable extends Drawable
+{
     /**
      * Moves the object
      */

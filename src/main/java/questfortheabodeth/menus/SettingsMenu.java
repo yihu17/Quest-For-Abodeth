@@ -13,7 +13,8 @@ import org.jsfml.window.event.Event;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SettingsMenu implements Menu {
+public class SettingsMenu implements Menu
+{
     private RenderWindow window;
     private ArrayList<Clickable> buttons = new ArrayList<>();
     private Clickable chosenButton;
@@ -23,16 +24,19 @@ public class SettingsMenu implements Menu {
     private int buttonHeight = 50;
     private Text title;
 
-    public SettingsMenu(RenderWindow window) {
+    public SettingsMenu(RenderWindow window)
+    {
         this.window = window;
         Text t = new Text("SETTINGS", Settings.MAIN_MENU_FONT, 56);
         t.setColor(Color.BLACK);
         t.setPosition(300, 50);
         title = t;
         ClickableImage back = new ClickableImage(6, 6, "res/assets/menus/button_back.png", "highscores");
-        back.setOnPress(new EventHandler() {
+        back.setOnPress(new EventHandler()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 menuOpen = false;
                 chosenButton = back;
             }
@@ -52,9 +56,11 @@ public class SettingsMenu implements Menu {
             b.setTextXOffset(
                     buttonWidth / 2 - (s.length() / 2) * 14
             );
-            b.setOnPress(new EventHandler() {
+            b.setOnPress(new EventHandler()
+            {
                 @Override
-                public void run() {
+                public void run()
+                {
                     menuOpen = false;
                     chosenButton = b;
                 }
@@ -68,12 +74,14 @@ public class SettingsMenu implements Menu {
     }
 
     @Override
-    public List<Clickable> getButtons() {
+    public List<Clickable> getButtons()
+    {
         return this.buttons;
     }
 
     @Override
-    public void displayMenu() {
+    public void displayMenu()
+    {
         menuOpen = true;
         while (menuOpen && window.isOpen()) {
             // Clear the window
@@ -96,13 +104,15 @@ public class SettingsMenu implements Menu {
     }
 
     @Override
-    public Clickable getChosenButton() {
+    public Clickable getChosenButton()
+    {
         return chosenButton;
     }
 
 
     @Override
-    public Image getBackground() {
+    public Image getBackground()
+    {
         return null;
     }
 }

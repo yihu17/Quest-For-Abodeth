@@ -8,7 +8,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 
-public class Enemy extends Character implements Movable {
+public class Enemy extends Character implements Movable
+{
     private String type;
     private Player player = null;
     private int moveValue = 0;
@@ -17,7 +18,8 @@ public class Enemy extends Character implements Movable {
     private int attackSpeed;
     private int attackPower;
 
-    public Enemy(int xPos, int yPos, int health, String imageFilePath, int movementSpeed, String name, int attackSpeed, int attackPower) {
+    public Enemy(int xPos, int yPos, int health, String imageFilePath, int movementSpeed, String name, int attackSpeed, int attackPower)
+    {
         super(xPos, yPos, health, imageFilePath, movementSpeed);
         this.type = imageFilePath.split("/")[imageFilePath.split("/").length - 1];
         this.name = name;
@@ -26,22 +28,26 @@ public class Enemy extends Character implements Movable {
     }
 
     @Override
-    public void kill() {
+    public void kill()
+    {
         setPosition(2 * Settings.WINDOW_WIDTH, 2 * Settings.WINDOW_HEIGHT);
         System.out.println(this + " died");
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "<Enemy (" + this.hashCode() + ") " + this.type + " @ [" + getX() + ", " + getY() + "] with " + getHealth() + "hp and speed " + getMovementSpeed() + ">";
     }
 
-    public void setPlayer(Player p) {
+    public void setPlayer(Player p)
+    {
         this.player = p;
     }
 
     @Override
-    public void move() {
+    public void move()
+    {
         String printout = this + " has moved ";
         if (this.getX() <= player.getX() && Settings.MOVE_RIGHT_SET.contains(moveValue)) {
             this.moveRight();
@@ -62,11 +68,13 @@ public class Enemy extends Character implements Movable {
 //        System.out.println(printout + " towards " + player + " due to a move value of " + moveValue + "(" + appliedInteracts.size() + " interacts)");
     }
 
-    public void setMoveValue(int moveValue) {
+    public void setMoveValue(int moveValue)
+    {
         this.moveValue = moveValue;
     }
 
-    public boolean applyInteract(Interactable interactClass) {
+    public boolean applyInteract(Interactable interactClass)
+    {
         if (appliedInteracts.contains(interactClass.getClass()) || (!name.equals("crocodile"))) {
             // Do not allow the interact to work
             return false;
@@ -76,7 +84,8 @@ public class Enemy extends Character implements Movable {
         }
     }
 
-    public void resetInteracts(HashSet<Class<? extends Interactable>> current) {
+    public void resetInteracts(HashSet<Class<? extends Interactable>> current)
+    {
         appliedInteracts.removeAll(current);
 
         for (Class<? extends Interactable> c : appliedInteracts) {
@@ -93,7 +102,8 @@ public class Enemy extends Character implements Movable {
         appliedInteracts = current;
     }
 
-    public String getEnemyName() {
+    public String getEnemyName()
+    {
         return name;
     }
 
@@ -102,7 +112,8 @@ public class Enemy extends Character implements Movable {
         return this.attackSpeed;
     }
 
-    public int getAttackPower() {
+    public int getAttackPower()
+    {
         return this.attackPower;
     }
 

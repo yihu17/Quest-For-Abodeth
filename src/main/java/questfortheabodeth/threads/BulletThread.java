@@ -8,23 +8,27 @@ import main.java.questfortheabodeth.weapons.Bullet;
 
 import java.util.concurrent.CopyOnWriteArraySet;
 
-public class BulletThread extends Thread {
+public class BulletThread extends Thread
+{
     private CopyOnWriteArraySet<Bullet> bullets;
     private CopyOnWriteArraySet<Collidable> collidables;
 
-    public BulletThread(CopyOnWriteArraySet<Bullet> b, CopyOnWriteArraySet<Collidable> c) {
+    public BulletThread(CopyOnWriteArraySet<Bullet> b, CopyOnWriteArraySet<Collidable> c)
+    {
         this.bullets = b;
         this.collidables = c;
     }
 
     @Override
-    public void run() {
+    public void run()
+    {
         for (Bullet b : bullets) {
             checkBullet(b);
         }
     }
 
-    private void checkBullet(Bullet b) {
+    private void checkBullet(Bullet b)
+    {
         for (Collidable c : collidables) {
             if (c instanceof Bullet) {
                 continue;

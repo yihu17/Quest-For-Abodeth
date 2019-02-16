@@ -5,7 +5,8 @@ import org.jsfml.graphics.Drawable;
 import org.jsfml.system.Vector2f;
 
 
-public interface Clickable extends Drawable {
+public interface Clickable extends Drawable
+{
     /**
      * Bind a function to the button so that it runs when this button
      * is pressed

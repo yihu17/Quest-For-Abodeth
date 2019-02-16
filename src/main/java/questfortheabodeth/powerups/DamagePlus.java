@@ -2,19 +2,22 @@ package main.java.questfortheabodeth.powerups;
 
 import main.java.questfortheabodeth.characters.Player;
 
-public class DamagePlus extends Pickup {
+public class DamagePlus extends Pickup
+{
     private int damageBoost = 10;
     private int timeout;
     private Player p;
 
-    public DamagePlus(int x, int y, int timeout) {
+    public DamagePlus(int x, int y, int timeout)
+    {
         super(x, y, "res/assets/pickups/damagePickup.png");
         this.timeout = timeout;
     }
 
     //function for when picked up/ used:
     @Override
-    public void applyBuff(Player p) {
+    public void applyBuff(Player p)
+    {
         this.p = p;
         System.out.println("Getting buffed by damage boost");
         p.addDamage(damageBoost);
@@ -23,12 +26,14 @@ public class DamagePlus extends Pickup {
     }
 
     @Override
-    public void removeBuff(Player p) {
+    public void removeBuff(Player p)
+    {
         p.addDamage(-damageBoost);
         System.out.println("Damage is now " + p.getAdditionalDamage());
     }
 
-    public void run() {
+    public void run()
+    {
         try {
             Thread.sleep(timeout);
         } catch (Exception e) {

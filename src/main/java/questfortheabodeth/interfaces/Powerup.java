@@ -8,7 +8,8 @@ import org.jsfml.graphics.Drawable;
  * All main.java.questfortheabodeth.powerups implement this so that their special effect can be applied
  * to the main.java.questfortheabodeth.characters
  */
-public interface Powerup extends Drawable, Collidable {
+public interface Powerup extends Drawable, Collidable
+{
     /**
      * Applies this main.java.questfortheabodeth.powerups special effect to the given
      * main.java.questfortheabodeth.characters object

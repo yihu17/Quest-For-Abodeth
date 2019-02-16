@@ -5,37 +5,45 @@ import main.java.questfortheabodeth.characters.Player;
 import main.java.questfortheabodeth.environments.InteractableEnvironment;
 import org.jsfml.graphics.FloatRect;
 
-public class Door extends InteractableEnvironment {
+public class Door extends InteractableEnvironment
+{
     private int linkedDoor;
-    public Door(int xPos, int yPos, String imageFilePath, int linkedDoor) {
+
+    public Door(int xPos, int yPos, String imageFilePath, int linkedDoor)
+    {
         super(xPos, yPos, imageFilePath);
         this.linkedDoor = linkedDoor;
     }
 
 
     @Override
-    public void interact(Player p) {
+    public void interact(Player p)
+    {
 
     }
 
     @Override
-    public void remove(Player p) {
+    public void remove(Player p)
+    {
 
     }
 
     @Override
-    public void buffEnemy(Enemy e) {
+    public void buffEnemy(Enemy e)
+    {
 
     }
 
     @Override
-    public void removeEnemyBuff(Enemy e) {
+    public void removeEnemyBuff(Enemy e)
+    {
 
     }
 
     /**
      * Returns a bounds of 3 times the width and 3 times the height of the door so
      * that a player can interact with without having to overlap it
+     *
      * @return (FloatRect) Door bounds
      */
     @Override
@@ -49,7 +57,8 @@ public class Door extends InteractableEnvironment {
         );
     }
 
-    public int getLinkedDoor() {
+    public int getLinkedDoor()
+    {
         return linkedDoor;
     }
 }

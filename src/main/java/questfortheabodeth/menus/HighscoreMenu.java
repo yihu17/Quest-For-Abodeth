@@ -11,10 +11,10 @@ import org.jsfml.graphics.Text;
 import org.jsfml.window.event.Event;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class HighscoreMenu implements Menu {
+public class HighscoreMenu implements Menu
+{
     private RenderWindow window;
     private Image background;
     private ArrayList<Clickable> buttons = new ArrayList<>();
@@ -22,12 +22,15 @@ public class HighscoreMenu implements Menu {
     private boolean menuOpen = true;
     private Text title;
 
-    public HighscoreMenu(RenderWindow window) {
+    public HighscoreMenu(RenderWindow window)
+    {
         this.window = window;
         ClickableImage back = new ClickableImage(6, 6, "res/assets/menus/button_back.png", "highscores");
-        back.setOnPress(new EventHandler() {
+        back.setOnPress(new EventHandler()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 menuOpen = false;
                 chosenButton = back;
             }
@@ -49,7 +52,8 @@ public class HighscoreMenu implements Menu {
      * @return (List) List of clickables in the menu
      */
     @Override
-    public List<Clickable> getButtons() {
+    public List<Clickable> getButtons()
+    {
         return buttons;
     }
 
@@ -57,7 +61,8 @@ public class HighscoreMenu implements Menu {
      * Displays the menu on the screen
      */
     @Override
-    public void displayMenu() {
+    public void displayMenu()
+    {
         menuOpen = true;
         while (menuOpen && window.isOpen()) {
             // Clear the window
@@ -85,7 +90,8 @@ public class HighscoreMenu implements Menu {
      * @return (main.java.questfortheabodeth.menus.Button) Clicked button
      */
     @Override
-    public Clickable getChosenButton() {
+    public Clickable getChosenButton()
+    {
         return chosenButton;
     }
 
@@ -96,7 +102,8 @@ public class HighscoreMenu implements Menu {
      * @return (null) No image
      */
     @Override
-    public main.java.questfortheabodeth.sprites.Image getBackground() {
+    public main.java.questfortheabodeth.sprites.Image getBackground()
+    {
         return null;
     }
 }

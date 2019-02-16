@@ -38,7 +38,8 @@ import java.util.HashSet;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 
-public class Game {
+public class Game
+{
     private RenderWindow window;
     private boolean gameRunning;
 
@@ -64,7 +65,8 @@ public class Game {
     private CopyOnWriteArraySet<Interactable> interactables = new CopyOnWriteArraySet<>();
 
 
-    public Game(RenderWindow window) {
+    public Game(RenderWindow window)
+    {
         if (Settings.AUDIO_STREAMER != null) {
             Settings.AUDIO_STREAMER.stop();
         }
@@ -109,9 +111,9 @@ public class Game {
                 }
                 rooms[i][j] = new Room(
                         rooms[i][j].getType() * -1,
-                        (i - 1 >= 0    && rooms[i - 1][j] != null) ? true : false, // up
-                        (i + 1 < rows && rooms[i +1 ][j] != null) ? true : false, // down
-                        (j - 1 >= 0    && rooms[i][j - 1] != null) ? true : false, // left
+                        (i - 1 >= 0 && rooms[i - 1][j] != null) ? true : false, // up
+                        (i + 1 < rows && rooms[i + 1][j] != null) ? true : false, // down
+                        (j - 1 >= 0 && rooms[i][j - 1] != null) ? true : false, // left
                         (j + 1 < cols && rooms[i][j + 1] != null) ? true : false  // right
                 );
             }
@@ -135,7 +137,8 @@ public class Game {
         this.scanRoom();
     }
 
-    public void run() {
+    public void run()
+    {
         int clocker = 0;
         Button time = new Button(120, 40, (Settings.WINDOW_WIDTH / 2) - 60, 10, "0");
         time.setTextXOffset(8);
@@ -160,9 +163,9 @@ public class Game {
                 Helper.checkCloseEvents(e, window);
                 if (
                         e.type == MouseEvent.Type.MOUSE_BUTTON_PRESSED &&
-                        Mouse.isButtonPressed(Mouse.Button.LEFT) &&
-                        (System.currentTimeMillis() - player.getLastTimeAttack()) >= player.getCurrentWeapon().getFireRate() &&
-                        player.getCurrentWeapon() != null) {
+                                Mouse.isButtonPressed(Mouse.Button.LEFT) &&
+                                (System.currentTimeMillis() - player.getLastTimeAttack()) >= player.getCurrentWeapon().getFireRate() &&
+                                player.getCurrentWeapon() != null) {
                     if (!(player.getCurrentWeapon() instanceof Melee)) {
                         // The player character has fired a bullet
                         player.setLastTimeAttack(System.currentTimeMillis());
@@ -259,12 +262,15 @@ public class Game {
         //FileOperator scores = new FileOperator("res/assets/CSVs/scores.csv");
         //scores.writeNewLine(Settings.GAME_TIME.getFormattedTime());
 
-        if (!player.isCharacterAlive()) { openPlayerDiedMenu(); }
+        if (!player.isCharacterAlive()) {
+            openPlayerDiedMenu();
+        }
         Settings.GAME_TIME = null;
 
     }
 
-    private int runPlayerCollisions() {
+    private int runPlayerCollisions()
+    {
         int moveValues = 0;
         HashSet<Integer> playerCanMove = new HashSet<>();
         for (Collidable c : collidables) {
@@ -303,7 +309,8 @@ public class Game {
         return moveValues;
     }
 
-    private void runBulletCollisions() {
+    private void runBulletCollisions()
+    {
         for (Bullet b : bullets) {
             for (Collidable c : collidables) {
                 if (c instanceof Bullet || c instanceof Powerup || c instanceof WeaponPickup) {
@@ -325,7 +332,8 @@ public class Game {
         }
     }
 
-    private void runEnemyCollisions() {
+    private void runEnemyCollisions()
+    {
         for (Enemy e : enemies) {
             HashSet<Integer> values = new HashSet<>();
             for (Collidable c : collidables) {
@@ -343,13 +351,14 @@ public class Game {
         }
     }
 
-    private void runPlayerInteracts() {
+    private void runPlayerInteracts()
+    {
         HashSet<Class<? extends Interactable>> currentInteracts = new HashSet<>();
         boolean localDoorRange = false;
         for (Interactable i : interactables) {
             int overlap;
-            if(i instanceof TrapZone) {
-                overlap = Helper.checkOverlap(player,((TrapZone)i).getGlobalBounds());
+            if (i instanceof TrapZone) {
+                overlap = Helper.checkOverlap(player, ((TrapZone) i).getGlobalBounds());
             } else {
                 overlap = Helper.checkOverlap(player, i);
             }
@@ -373,10 +382,9 @@ public class Game {
                 } else if (i instanceof Door) {
                     doorInRange = (Door) i;
                     localDoorRange = true;
-                } else if(i instanceof TrapZone) {
-                    ((TrapZone)i).trigger();
-                }
-                else {
+                } else if (i instanceof TrapZone) {
+                    ((TrapZone) i).trigger();
+                } else {
                     i.interact(player);
                     currentInteracts.add(i.getClass());
                 }
@@ -389,7 +397,8 @@ public class Game {
         player.resetInteracts(currentInteracts);
     }
 
-    private void runEnemyInteracts() {
+    private void runEnemyInteracts()
+    {
         for (Enemy e : enemies) {
             HashSet<Class<? extends Interactable>> currentInteracts = new HashSet<>();
             for (Interactable i : interactables) {
@@ -407,7 +416,8 @@ public class Game {
         }
     }
 
-    private void scanRoom() {
+    private void scanRoom()
+    {
 
         if (Settings.AUDIO_STREAMER != null && !Settings.AUDIO_STREAMER.isActive()) {
             currentRoom.playMusic();
@@ -441,7 +451,8 @@ public class Game {
         interactables.addAll(currentRoom.getInteractables());
     }
 
-    private void moveMovables() {
+    private void moveMovables()
+    {
         movables.forEach(Movable::move);
         movables.forEach(movable -> {
             if (movable.getX() < -50 || Settings.WINDOW_WIDTH + 50 < movable.getX()) {
@@ -460,7 +471,8 @@ public class Game {
         });
     }
 
-    private void openInGameMenu() {
+    private void openInGameMenu()
+    {
         GameMenu ingame = new GameMenu(window /*, screenshotSaved*/);
         ingame.displayMenu();
         Button b = ingame.getChosenButton();
@@ -482,7 +494,8 @@ public class Game {
         }
     }
 
-    private void openPlayerDiedMenu() {
+    private void openPlayerDiedMenu()
+    {
         PlayerDiedMenu playerDiedMenu = new PlayerDiedMenu(window /*, screenshotSaved*/, Settings.GAME_TIME.getFormattedTime());
         playerDiedMenu.displayMenu();
         Button b = playerDiedMenu.getChosenButton();
@@ -491,7 +504,8 @@ public class Game {
         }
     }
 
-    public boolean saveGameScreenshot() {
+    public boolean saveGameScreenshot()
+    {
         try {
             Robot robot = new Robot();
             String fileName = "gamePausedScreenshot.jpg";
@@ -505,7 +519,8 @@ public class Game {
         }
     }
 
-    private void switchRoom(int direction) {
+    private void switchRoom(int direction)
+    {
         switch (direction) {
             case -1:
                 // Going left

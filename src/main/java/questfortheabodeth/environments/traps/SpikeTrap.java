@@ -4,15 +4,18 @@ import main.java.questfortheabodeth.characters.Enemy;
 import main.java.questfortheabodeth.characters.Player;
 import main.java.questfortheabodeth.environments.InteractableEnvironment;
 
-public class SpikeTrap extends InteractableEnvironment {
+public class SpikeTrap extends InteractableEnvironment
+{
     private boolean activated = false;
 
-    public SpikeTrap(int xPos, int yPos, String imageFilePath) {
+    public SpikeTrap(int xPos, int yPos, String imageFilePath)
+    {
         super(xPos, yPos, imageFilePath);
     }
 
     @Override
-    public void interact(Player p) {
+    public void interact(Player p)
+    {
         if (p.applyInteract(this) && activated == false) {
             p.decreaseHealth(50);
             loadImageFromFile("res/assets/environment/spikeTrap2.png");
@@ -20,27 +23,32 @@ public class SpikeTrap extends InteractableEnvironment {
         }
     }
 
-    public void reset() {
+    public void reset()
+    {
         activated = false;
         loadImageFromFile("res/assets/environment/spikeTrap.png");
     }
 
-    public boolean isActivated() {
+    public boolean isActivated()
+    {
         return activated;
     }
 
     @Override
-    public void remove(Player p) {
+    public void remove(Player p)
+    {
 
     }
 
     @Override
-    public void buffEnemy(Enemy e) {
+    public void buffEnemy(Enemy e)
+    {
 
     }
 
     @Override
-    public void removeEnemyBuff(Enemy e) {
+    public void removeEnemyBuff(Enemy e)
+    {
 
     }
 }

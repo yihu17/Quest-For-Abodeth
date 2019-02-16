@@ -14,14 +14,16 @@ import org.jsfml.window.event.Event;
 
 import java.util.List;
 
-public class Helper {
+public class Helper
+{
     /**
      * Checks the given event to check whether or not the user is interacting with any of the button on the screen
      *
      * @param e       (Event) Generated event object
      * @param buttons (List) List of buttons to check
      */
-    public static void checkButtons(Event e, List<Clickable> buttons) {
+    public static void checkButtons(Event e, List<Clickable> buttons)
+    {
         Vector2f mousePosition;
         if (e.type == Event.Type.MOUSE_BUTTON_PRESSED) {
             Vector2i pos = e.asMouseEvent().position;
@@ -40,7 +42,8 @@ public class Helper {
      * @param e      (Event) Generated event object
      * @param window (RenderWindow) Window object to close
      */
-    public static void checkCloseEvents(Event e, RenderWindow window) {
+    public static void checkCloseEvents(Event e, RenderWindow window)
+    {
         if (e.type == Event.Type.CLOSED) {
             window.close();
         } else if (e.type == Event.Type.KEY_PRESSED) {
@@ -62,7 +65,8 @@ public class Helper {
      * @param height (float) Height of the image
      * @return (Vector2f) Scale factor to be applied
      */
-    public static Vector2f getScaleValueToWindowSize(float width, float height) {
+    public static Vector2f getScaleValueToWindowSize(float width, float height)
+    {
         return new Vector2f(
                 Settings.WINDOW_WIDTH / width,
                 Settings.WINDOW_HEIGHT / height
@@ -79,7 +83,8 @@ public class Helper {
      * @param targetHeight (float) The target height of the image
      * @return (Vector2f) Scale factor to be applied
      */
-    public static Vector2f getScaleValue(float width, float height, float targetWidth, float targetHeight) {
+    public static Vector2f getScaleValue(float width, float height, float targetWidth, float targetHeight)
+    {
         return new Vector2f(
                 targetWidth / width,
                 targetHeight / height
@@ -91,7 +96,8 @@ public class Helper {
      *
      * @param object (Object[][]) The object to print
      */
-    public static void printMatrix(Object[][] object) {
+    public static void printMatrix(Object[][] object)
+    {
         for (int i = 0; i < object.length; i++) {
             Object[] row = object[i];
             for (int j = 0; j < row.length; j++) {
@@ -126,7 +132,8 @@ public class Helper {
         return checkOverlap(o1Bound, o2Bound);
     }
 
-    public static int checkOverlap(FloatRect o1Bound, FloatRect o2Bound) {
+    public static int checkOverlap(FloatRect o1Bound, FloatRect o2Bound)
+    {
         Vector2i o1Center = new Vector2i(
                 (int) (o1Bound.left + (o1Bound.width / 2)),
                 (int) (o1Bound.top + (o1Bound.height / 2))
@@ -165,7 +172,8 @@ public class Helper {
      * @param p2 (Vector2i) Point 2
      * @return (float) Angle about the vertical
      */
-    public static double getAngleBetweenPoints(Vector2i p1, Vector2i p2) {
+    public static double getAngleBetweenPoints(Vector2i p1, Vector2i p2)
+    {
         double xDiff = p1.x - p2.x;     // = 691 - 200 = 491
         double yDiff = p1.y - p2.y;     // = 200 - 393 = -193
         int quadrant;
@@ -209,7 +217,8 @@ public class Helper {
      * @param t (ConstTexture) Texture to flip
      * @return (Texture) Flipped texture
      */
-    public static Texture flipTexture(ConstTexture t) {
+    public static Texture flipTexture(ConstTexture t)
+    {
         org.jsfml.graphics.Image i = t.copyToImage();
         i.flipHorizontally();
         Texture n = new Texture();

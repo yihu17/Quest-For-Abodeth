@@ -11,7 +11,8 @@ import org.jsfml.system.Vector2f;
  * Binding an main.java.questfortheabodeth.menus.EventHandler to a button allows it to perform
  * an action when clicked
  */
-public class Button extends RectangleShape implements Clickable {
+public class Button extends RectangleShape implements Clickable
+{
     private Color normalColor = Settings.LIGHT_GREY;
     private Color outlineColor = Settings.DARK_GREY;
     private Color onPressColor = Settings.GREY;
@@ -28,7 +29,8 @@ public class Button extends RectangleShape implements Clickable {
      * @param x      (int) X position of the top left of the button
      * @param y      (int) Y position of the top left of the button
      */
-    public Button(int width, int height, int x, int y) {
+    public Button(int width, int height, int x, int y)
+    {
         this(width, height, x, y, "");
     }
 
@@ -41,7 +43,8 @@ public class Button extends RectangleShape implements Clickable {
      * @param y      (int) Y position of the top left of the button
      * @param text   (String) Text to place on the button
      */
-    public Button(int width, int height, int x, int y, String text) {
+    public Button(int width, int height, int x, int y, String text)
+    {
         // Create the button background
         super();
         this.setSize(new Vector2f(width, height));
@@ -63,7 +66,8 @@ public class Button extends RectangleShape implements Clickable {
      *
      * @param c (Color) Color of the text
      */
-    public void setTextColor(Color c) {
+    public void setTextColor(Color c)
+    {
         this.text.setColor(c);
     }
 
@@ -72,7 +76,8 @@ public class Button extends RectangleShape implements Clickable {
      *
      * @param t (String) Text
      */
-    public void setText(String t) {
+    public void setText(String t)
+    {
         text.setString(t);
     }
 
@@ -81,7 +86,8 @@ public class Button extends RectangleShape implements Clickable {
      *
      * @param color (Color) New background color
      */
-    public void setColor(Color color) {
+    public void setColor(Color color)
+    {
         this.normalColor = color;
         this.setFillColor(normalColor);
     }
@@ -92,7 +98,8 @@ public class Button extends RectangleShape implements Clickable {
      * @param color (Color) New border color
      */
     @Override
-    public void setOutlineColor(Color color) {
+    public void setOutlineColor(Color color)
+    {
         this.outlineColor = color;
         super.setOutlineColor(outlineColor);
     }
@@ -102,7 +109,8 @@ public class Button extends RectangleShape implements Clickable {
      *
      * @param color (Color) New down color
      */
-    public void setOnPressColor(Color color) {
+    public void setOnPressColor(Color color)
+    {
         this.onPressColor = color;
     }
 
@@ -112,7 +120,8 @@ public class Button extends RectangleShape implements Clickable {
      *
      * @param offset (int) Amount to move the text left by
      */
-    public void setTextXOffset(int offset) {
+    public void setTextXOffset(int offset)
+    {
         Vector2f f = text.getPosition();
         text.setPosition(new Vector2f(f.x + offset, f.y));
     }
@@ -123,7 +132,8 @@ public class Button extends RectangleShape implements Clickable {
      *
      * @param offset (int) Amount to move the text down by
      */
-    public void setTextYOffset(int offset) {
+    public void setTextYOffset(int offset)
+    {
         Vector2f f = text.getPosition();
         text.setPosition(new Vector2f(f.x, f.y + offset));
     }
@@ -134,7 +144,8 @@ public class Button extends RectangleShape implements Clickable {
      * @param handle (main.java.questfortheabodeth.menus.EventHandler) Function to run
      */
     @Override
-    public void setOnPress(EventHandler handle) {
+    public void setOnPress(EventHandler handle)
+    {
         this.onPress = handle;
     }
 
@@ -144,7 +155,8 @@ public class Button extends RectangleShape implements Clickable {
      * @param mousePos (Vector2f) Current mouse position
      */
     @Override
-    public void press(Vector2f mousePos) {
+    public void press(Vector2f mousePos)
+    {
         if (this.getGlobalBounds().contains(mousePos)) {
             this.setFillColor(onPressColor);
             if (onPress != null) {
@@ -160,7 +172,8 @@ public class Button extends RectangleShape implements Clickable {
      * @param mousePos (Vector2f) Current mouse position
      */
     @Override
-    public void release(Vector2f mousePos) {
+    public void release(Vector2f mousePos)
+    {
         if (this.getFillColor() != normalColor) {
             this.setFillColor(normalColor);
         }
@@ -173,7 +186,8 @@ public class Button extends RectangleShape implements Clickable {
      * @param renderStates (RenderStates) I have no idea what these are...
      */
     @Override
-    public void draw(RenderTarget renderTarget, RenderStates renderStates) {
+    public void draw(RenderTarget renderTarget, RenderStates renderStates)
+    {
         super.draw(renderTarget, renderStates);
         text.draw(renderTarget, renderStates);
     }
@@ -184,7 +198,8 @@ public class Button extends RectangleShape implements Clickable {
      * @return (String) main.java.questfortheabodeth.menus.Button text
      */
     @Override
-    public String getText() {
+    public String getText()
+    {
         return this.text.getString();
     }
 }

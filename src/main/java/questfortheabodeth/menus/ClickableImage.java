@@ -7,7 +7,8 @@ import org.jsfml.system.Vector2f;
 /**
  * An image that can be clicked
  */
-public class ClickableImage extends Image implements Clickable {
+public class ClickableImage extends Image implements Clickable
+{
     private EventHandler handler = null;
     private String text;
 
@@ -19,7 +20,8 @@ public class ClickableImage extends Image implements Clickable {
      * @param filename   (String) main.java.questfortheabodeth.sprites.Image name to load
      * @param buttonText (String) main.java.questfortheabodeth.menus.Button text (Not shown in this class)
      */
-    public ClickableImage(int x, int y, String filename, String buttonText) {
+    public ClickableImage(int x, int y, String filename, String buttonText)
+    {
         super(x, y, filename);
         this.text = buttonText;
     }
@@ -30,7 +32,8 @@ public class ClickableImage extends Image implements Clickable {
      * @param handler (main.java.questfortheabodeth.menus.EventHandler) Function to run on click
      */
     @Override
-    public void setOnPress(EventHandler handler) {
+    public void setOnPress(EventHandler handler)
+    {
         this.handler = handler;
     }
 
@@ -40,7 +43,8 @@ public class ClickableImage extends Image implements Clickable {
      * @param mousePosition (Vector2f) Position of the mouse
      */
     @Override
-    public void press(Vector2f mousePosition) {
+    public void press(Vector2f mousePosition)
+    {
         if (this.getGlobalBounds().contains(mousePosition)) {
             if (handler != null) {
                 handler.run();
@@ -54,7 +58,8 @@ public class ClickableImage extends Image implements Clickable {
      * @param mousePosition (Vector2f) Position of the mouse
      */
     @Override
-    public void release(Vector2f mousePosition) {
+    public void release(Vector2f mousePosition)
+    {
         // No background color to change so do nothing
     }
 
@@ -64,7 +69,8 @@ public class ClickableImage extends Image implements Clickable {
      * @return (String) String representation of the image
      */
     @Override
-    public String getText() {
+    public String getText()
+    {
         return text;
     }
 }

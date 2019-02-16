@@ -17,7 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainMenu implements Menu {
+public class MainMenu implements Menu
+{
     private ArrayList<Clickable> buttons = new ArrayList<>();
     private Clickable chosenButton;
     private boolean menuOpen = false;
@@ -28,7 +29,8 @@ public class MainMenu implements Menu {
     private Text title;
 
 
-    public MainMenu(RenderWindow window) {
+    public MainMenu(RenderWindow window)
+    {
 
         this.window = window;
         Text t = new Text("THE QUEST FOR THE ABODETH", Settings.MAIN_MENU_FONT, 82);
@@ -49,9 +51,11 @@ public class MainMenu implements Menu {
             b.setTextXOffset(
                     buttonWidth / 2 - (s.length() / 2) * 14
             );
-            b.setOnPress(new EventHandler() {
+            b.setOnPress(new EventHandler()
+            {
                 @Override
-                public void run() {
+                public void run()
+                {
                     menuOpen = false;
                     chosenButton = b;
                 }
@@ -61,27 +65,33 @@ public class MainMenu implements Menu {
         }
 
         ClickableImage highscores = new ClickableImage(6, 6, "res/assets/menus/button_highscores.png", "highscores");
-        highscores.setOnPress(new EventHandler() {
+        highscores.setOnPress(new EventHandler()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 menuOpen = false;
                 chosenButton = highscores;
             }
         });
         buttons.add(highscores);
         ClickableImage settings = new ClickableImage(1850, 6, "res/assets/menus/button_settings.png", "settings");
-        settings.setOnPress(new EventHandler() {
+        settings.setOnPress(new EventHandler()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 menuOpen = false;
                 chosenButton = settings;
             }
         });
         buttons.add(settings);
         ClickableImage controls = new ClickableImage(1850, 1010, "res/assets/menus/button_controls.png", "controls");
-        controls.setOnPress(new EventHandler() {
+        controls.setOnPress(new EventHandler()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 menuOpen = false;
                 chosenButton = controls;
             }
@@ -96,12 +106,14 @@ public class MainMenu implements Menu {
 
 
     @Override
-    public List<Clickable> getButtons() {
+    public List<Clickable> getButtons()
+    {
         return this.buttons;
     }
 
     @Override
-    public void displayMenu() {
+    public void displayMenu()
+    {
         menuOpen = true;
         while (menuOpen && window.isOpen()) {
             // Clear the window
@@ -124,17 +136,20 @@ public class MainMenu implements Menu {
     }
 
     @Override
-    public Clickable getChosenButton() {
+    public Clickable getChosenButton()
+    {
         return chosenButton;
     }
 
 
     @Override
-    public Image getBackground() {
+    public Image getBackground()
+    {
         return null;
     }
 
-    public void playMusic() {
+    public void playMusic()
+    {
         try {
             File soundFile = new File("res/assets/audio/mainMenu.wav");
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
