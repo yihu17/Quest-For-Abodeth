@@ -432,6 +432,12 @@ public class Game
         bullets.clear();
 
         collidables.addAll(currentRoom.getCollidables());
+
+        for (WeaponPickup w : currentRoom.getWeapons()) {
+            interactables.add(w);
+            drawables.add(w);
+        }
+
         for (Enemy e : currentRoom.getEnemies()) {
             e.setPlayer(player);
             movables.add(e);
@@ -442,11 +448,6 @@ public class Game
         for (Pickup p : currentRoom.getPickups()) {
             collidables.add(p);
             drawables.add(p);
-        }
-
-        for (WeaponPickup w : currentRoom.getWeapons()) {
-            interactables.add(w);
-            drawables.add(w);
         }
 
         interactables.addAll(currentRoom.getInteractables());
