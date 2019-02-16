@@ -62,7 +62,7 @@ public class Room implements Drawable
         } else if (type < 0) {
             return;
         } else {
-            String[] rooms = new String[]{"A", "B"};
+            String[] rooms = new String[]{"A", "B", "C"};
             int index = Settings.GENERATOR.nextInt(rooms.length);
             roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomData" + rooms[index] + ".csv"); //needs to get path dynamically...
         }
@@ -273,7 +273,13 @@ public class Room implements Drawable
         int spacing = Settings.ROOM_DIVISION_SIZE;
         for (int i = 0; i < Settings.ROOM_DIVISION_ROWS; i++) {
             for (int j = 0; j < Settings.ROOM_DIVISION_COLUMNS; j++) {
-                String elementRead = Settings.CSV_KEYS.get(Integer.parseInt(roomLayout.get(i).get(j)));
+                String elementRead;
+                try {
+                    elementRead = Settings.CSV_KEYS.get(Integer.parseInt(roomLayout.get(i).get(j)));
+                } catch (Exception e) {
+                    elementRead = "quicksand";
+                    e.printStackTrace();
+                }
                 String filePath = "res/assets/environment/" + elementRead + ".png";
                 switch (elementRead) {
                     case "wall":
