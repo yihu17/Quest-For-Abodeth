@@ -23,7 +23,6 @@ public class Player extends Character
 {
     private static String imageName = "res/assets/player/player.png";
     private Powerup currentPowerup = null;
-    private long lastTimeHit;
     private long lastTimeAttack;
     private HashSet<Class<? extends Interactable>> appliedInteracts = new HashSet<>();
 
@@ -153,16 +152,6 @@ public class Player extends Character
             appliedInteracts.add(interactClass.getClass());
             return true;
         }
-    }
-
-    public void setLastTimeHit(long time)
-    {
-        this.lastTimeHit = time;
-    }
-
-    public long getLastTimeHit()
-    {
-        return this.lastTimeHit;
     }
 
     public void setLastTimeAttack(long time)

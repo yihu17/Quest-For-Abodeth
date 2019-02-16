@@ -297,9 +297,9 @@ public class Game
             if (c instanceof Enemy) {
                 int overlap = Helper.checkOverlap(player, c);
                 if (0 < overlap) {
-                    if (System.currentTimeMillis() - player.getLastTimeHit() >= ((Enemy) c).getAttackSpeed()) {
+                    if (System.currentTimeMillis() - ((Enemy)c).getLastTimeAttack() >= ((Enemy) c).getAttackSpeed()) {
                         player.decreaseHealth(((Enemy) c).getAttackPower());
-                        player.setLastTimeHit(System.currentTimeMillis());
+                        ((Enemy)c).setLastTimeAttack(System.currentTimeMillis());
                     }
                 }
             }
