@@ -62,7 +62,7 @@ public class Room implements Drawable
         } else if (type < 0) {
             return;
         } else {
-            String[] rooms = new String[]{"A", "B", "C"};
+            String[] rooms = new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
             int index = Settings.GENERATOR.nextInt(rooms.length);
             roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomData" + rooms[index] + ".csv"); //needs to get path dynamically...
         }
@@ -73,85 +73,85 @@ public class Room implements Drawable
         spawnWeapons();
 
         // Now that the room has been generated make some doors
-        if (up) {
-            int topDoorStart = Settings.GENERATOR.nextInt(10) + 10;
+        if (doors[0]) {
+            int topDoorStart = 19;
             roomImages[0][topDoorStart] = new Door(Settings.ROOM_DIVISION_SIZE * topDoorStart, 0, "res/assets/environment/leftDoor.png", -2);
             roomImages[0][topDoorStart + 1] = new Door(Settings.ROOM_DIVISION_SIZE * (topDoorStart + 1), 0, "res/assets/environment/rightDoor.png", -2);
 
-            roomImages[1][topDoorStart] = new Environment(
+            roomImages[1][topDoorStart] = roomImages[1][topDoorStart] instanceof Collidable ? new Environment(
                     Settings.ROOM_DIVISION_SIZE * topDoorStart,
                     Settings.ROOM_DIVISION_SIZE,
                     "res/assets/environment/floor/floor1.png",
                     false,
                     false
-            );
-            roomImages[1][topDoorStart + 1] = new Environment(
+            ) : roomImages[1][topDoorStart];
+            roomImages[1][topDoorStart + 1] = roomImages[1][topDoorStart + 1] instanceof Collidable ? new Environment(
                     Settings.ROOM_DIVISION_SIZE * (topDoorStart + 1),
                     Settings.ROOM_DIVISION_SIZE,
                     "res/assets/environment/floor/floor1.png",
                     false,
                     false
-            );
+            ) : roomImages[1][topDoorStart + 1];
         }
-        if (down) {
-            int bottomDoorStart = Settings.GENERATOR.nextInt(10) + 10;
+        if (doors[1]) {
+            int bottomDoorStart = 19;
             roomImages[Settings.ROOM_DIVISION_ROWS - 1][bottomDoorStart] = new Door(Settings.ROOM_DIVISION_SIZE * bottomDoorStart, Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_ROWS - 1), "res/assets/environment/leftDoor.png", -4);
             roomImages[Settings.ROOM_DIVISION_ROWS - 1][bottomDoorStart + 1] = new Door(Settings.ROOM_DIVISION_SIZE * (bottomDoorStart + 1), Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_ROWS - 1), "res/assets/environment/rightDoor.png", -4);
 
-            roomImages[Settings.ROOM_DIVISION_ROWS - 2][bottomDoorStart] = new Environment(
+            roomImages[Settings.ROOM_DIVISION_ROWS - 2][bottomDoorStart] = roomImages[Settings.ROOM_DIVISION_ROWS - 2][bottomDoorStart] instanceof Collidable ? new Environment(
                     Settings.ROOM_DIVISION_SIZE * bottomDoorStart,
                     Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_ROWS - 2),
                     "res/assets/environment/floor/floor1.png",
                     false,
                     false
-            );
-            roomImages[Settings.ROOM_DIVISION_ROWS - 2][bottomDoorStart + 1] = new Environment(
+            ) : roomImages[Settings.ROOM_DIVISION_ROWS - 2][bottomDoorStart];
+            roomImages[Settings.ROOM_DIVISION_ROWS - 2][bottomDoorStart + 1] = roomImages[Settings.ROOM_DIVISION_ROWS - 2][bottomDoorStart + 1] instanceof Collidable ? new Environment(
                     Settings.ROOM_DIVISION_SIZE * (bottomDoorStart + 1),
                     Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_ROWS - 2),
                     "res/assets/environment/floor/floor1.png",
                     false,
                     false
-            );
+            ) : roomImages[Settings.ROOM_DIVISION_ROWS - 2][bottomDoorStart + 1];
         }
-        if (left) {
-            int leftDoorStart = Settings.GENERATOR.nextInt(10) + 5;
+        if (doors[2]) {
+            int leftDoorStart = 8;
             roomImages[leftDoorStart][0] = new Door(0, Settings.ROOM_DIVISION_SIZE * leftDoorStart, "res/assets/environment/topDoor.png", -1);
             roomImages[leftDoorStart + 1][0] = new Door(0, Settings.ROOM_DIVISION_SIZE * (leftDoorStart + 1), "res/assets/environment/bottomDoor.png", -1);
 
-            roomImages[leftDoorStart][1] = new Environment(
+            roomImages[leftDoorStart][1] = roomImages[leftDoorStart][1] instanceof Collidable ? new Environment(
                     Settings.ROOM_DIVISION_SIZE,
                     Settings.ROOM_DIVISION_SIZE * leftDoorStart,
                     "res/assets/environment/floor/floor1.png",
                     false,
                     false
-            );
-            roomImages[leftDoorStart + 1][1] = new Environment(
+            ) : roomImages[leftDoorStart][1];
+            roomImages[leftDoorStart + 1][1] = roomImages[leftDoorStart + 1][1] instanceof Collidable ? new Environment(
                     Settings.ROOM_DIVISION_SIZE,
                     Settings.ROOM_DIVISION_SIZE * (leftDoorStart + 1),
                     "res/assets/environment/floor/floor1.png",
                     false,
                     false
-            );
+            ) : roomImages[leftDoorStart + 1][1];
         }
-        if (right) {
-            int rightDoorStart = Settings.GENERATOR.nextInt(10) + 5;
+        if (doors[3]) {
+            int rightDoorStart = 8;
             roomImages[rightDoorStart][Settings.ROOM_DIVISION_COLUMNS - 1] = new Door(Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_COLUMNS - 1), Settings.ROOM_DIVISION_SIZE * rightDoorStart, "res/assets/environment/topDoor.png", -3);
             roomImages[rightDoorStart + 1][Settings.ROOM_DIVISION_COLUMNS - 1] = new Door(Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_COLUMNS - 1), Settings.ROOM_DIVISION_SIZE * (rightDoorStart + 1), "res/assets/environment/bottomDoor.png", -3);
 
-            roomImages[rightDoorStart][Settings.ROOM_DIVISION_COLUMNS - 2] = new Environment(
+            roomImages[rightDoorStart][Settings.ROOM_DIVISION_COLUMNS - 2] =  roomImages[rightDoorStart][Settings.ROOM_DIVISION_COLUMNS - 2] instanceof Collidable ? new Environment(
                     Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_COLUMNS - 2),
                     Settings.ROOM_DIVISION_SIZE * rightDoorStart,
                     "res/assets/environment/floor/floor1.png",
                     false,
                     false
-            );
-            roomImages[rightDoorStart + 1][Settings.ROOM_DIVISION_COLUMNS - 2] = new Environment(
+            ) : roomImages[rightDoorStart][Settings.ROOM_DIVISION_COLUMNS - 2];
+            roomImages[rightDoorStart + 1][Settings.ROOM_DIVISION_COLUMNS - 2] = roomImages[rightDoorStart + 1][Settings.ROOM_DIVISION_COLUMNS - 2] instanceof Collidable ? new Environment(
                     Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_COLUMNS - 2),
                     Settings.ROOM_DIVISION_SIZE * (rightDoorStart + 1),
                     "res/assets/environment/floor/floor1.png",
                     false,
                     false
-            );
+            ) : roomImages[rightDoorStart + 1][Settings.ROOM_DIVISION_COLUMNS - 2];
         }
     }
 
