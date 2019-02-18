@@ -5,6 +5,7 @@ import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.characters.Enemy;
 import main.java.questfortheabodeth.environments.interactables.Door;
 import main.java.questfortheabodeth.environments.traps.Quicksand;
+import main.java.questfortheabodeth.environments.traps.ShootingArrows;
 import main.java.questfortheabodeth.environments.traps.SpikeTrap;
 import main.java.questfortheabodeth.environments.traps.Water;
 import main.java.questfortheabodeth.interfaces.Collidable;
@@ -185,13 +186,16 @@ public class Room implements Drawable
                             "res/assets/environment/wall.png"
                     ));
                 }
+                if (roomImages[i][j] instanceof ShootingArrows) {
+                    ShootingArrows shootingArrowTrap = (ShootingArrows) roomImages[i][j];
+                    c.addAll(shootingArrowTrap.getCollidables());
+                }
             }
         }
 
         c.addAll(enemies);
         c.addAll(pickups);
         c.addAll(weapons);
-
         return c;
     }
 

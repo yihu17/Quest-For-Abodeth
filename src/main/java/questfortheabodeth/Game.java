@@ -445,6 +445,8 @@ public class Game
             drawables.add(e);
         }
 
+
+
         for (Pickup p : currentRoom.getPickups()) {
             collidables.add(p);
             drawables.add(p);
