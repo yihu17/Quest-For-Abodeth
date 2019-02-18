@@ -21,6 +21,7 @@ public abstract class Character extends Thread implements Drawable, Collidable
     private float y;
     private SimpleIntegerProperty health = new SimpleIntegerProperty();
     private double movementSpeed;
+    private double finalSpeed;
     private int shield = 0;
     private int ammo = 0;
     private Image image;
@@ -43,6 +44,7 @@ public abstract class Character extends Thread implements Drawable, Collidable
         this.image = new Image(x, y, image);
         this.movementSpeed = movementSpeed;
         this.face = Facing.RIGHT;
+        finalSpeed = movementSpeed;
     }
 
     public ReadOnlyIntegerProperty healthProperty()
@@ -210,6 +212,7 @@ public abstract class Character extends Thread implements Drawable, Collidable
         return movementSpeed;
     }
 
+
     /**
      * Decrease the main.java.questfortheabodeth.characters health by the specified amount. If the health of the character
      * falls below 0 then the kill function is called
@@ -278,14 +281,13 @@ public abstract class Character extends Thread implements Drawable, Collidable
 
     public void run()
     {
-        double prevMovementSpeed = this.movementSpeed;
         this.movementSpeed = 0;
         try {
             Thread.sleep(100);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        this.movementSpeed = prevMovementSpeed;
+        this.movementSpeed = finalSpeed;
     }
 
     public boolean isCharacterAlive()

@@ -323,7 +323,6 @@ public class Game
 
                         new Thread((Character) c).start(); //pauses enemy movement
 
-
                         //System.out.println("Bullet hit an enemy: " + c);
                     }
                     b.setX(2 * Settings.WINDOW_WIDTH);
