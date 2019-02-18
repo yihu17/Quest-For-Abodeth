@@ -16,25 +16,25 @@ public class CollidableInteractableEnvironment extends Environment implements Co
     @Override
     public float getX()
     {
-        return 0;
+        return super.getX();
     }
 
     @Override
     public float getY()
     {
-        return 0;
+        return super.getY();
     }
 
     @Override
     public float getHeight()
     {
-        return 0;
+        return super.getHeight();
     }
 
     @Override
     public float getWidth()
     {
-        return 0;
+        return super.getWidth();
     }
 
     @Override

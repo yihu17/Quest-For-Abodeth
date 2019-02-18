@@ -178,7 +178,6 @@ public class Room implements Drawable
                     } else {
                         x = door.getX();
                         y = door.getLinkedDoor() == -2 ? (door.getY() - Settings.ROOM_DIVISION_SIZE) : (door.getY() + Settings.ROOM_DIVISION_SIZE);
-                        ;
                     }
                     c.add(new CollidableEnvironment(
                             (int) x,
@@ -186,10 +185,7 @@ public class Room implements Drawable
                             "res/assets/environment/wall.png"
                     ));
                 }
-                if (roomImages[i][j] instanceof ShootingArrows) {
-                    ShootingArrows shootingArrowTrap = (ShootingArrows) roomImages[i][j];
-                    c.addAll(shootingArrowTrap.getCollidables());
-                }
+
             }
         }
 
@@ -314,7 +310,9 @@ public class Room implements Drawable
                         roomImages[i][j] = new CollidableInteractableEnvironment(spacing * j, spacing * i, filePath);
                         break;
                     case "shootingArrowTrap":
-                        roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
+                        System.out.println("Creating an arrow trap");
+                        roomImages[i][j] = new ShootingArrows(spacing * j, spacing * i, filePath);
+                        System.out.println("Created trap at " + i + " " + j);
                         break;
                     case "swingingAxeTrap":
                         roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
