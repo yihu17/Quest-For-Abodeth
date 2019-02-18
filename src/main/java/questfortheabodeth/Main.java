@@ -7,6 +7,7 @@ import main.java.questfortheabodeth.menus.MainMenu;
 import main.java.questfortheabodeth.menus.SettingsMenu;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.window.VideoMode;
+import org.jsfml.window.WindowStyle;
 
 
 public class Main
@@ -21,8 +22,8 @@ public class Main
 
     public void run()
     {
-        //this.window.create(VideoMode.getDesktopMode(), Settings.WINDOW_TITLE, WindowStyle.FULLSCREEN);
-/*        for (VideoMode v: VideoMode.getFullscreenModes()) {
+        /*this.window.create(VideoMode.getDesktopMode(), Settings.WINDOW_TITLE, WindowStyle.FULLSCREEN);
+        for (VideoMode v: VideoMode.getFullscreenModes()) {
             System.out.println(v);
         }*/
         this.window.create(new VideoMode(1366, 768, 32), main.java.questfortheabodeth.Settings.WINDOW_TITLE);

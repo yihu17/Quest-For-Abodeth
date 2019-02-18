@@ -6,6 +6,7 @@ import main.java.questfortheabodeth.characters.Player;
 import main.java.questfortheabodeth.environments.Environment;
 import main.java.questfortheabodeth.environments.Room;
 import main.java.questfortheabodeth.environments.interactables.Door;
+import main.java.questfortheabodeth.environments.traps.ShootingArrows;
 import main.java.questfortheabodeth.hud.*;
 import main.java.questfortheabodeth.interfaces.*;
 import main.java.questfortheabodeth.menus.Button;
@@ -70,6 +71,7 @@ public class Game
         this.window.clear();
         this.gameRunning = true;
         this.player = new Player();
+        collidables.add(this.player);
 
         // Read the CSV file
         FileOperator ops = new FileOperator("res/assets/CSVs/roomLayout.csv");
@@ -174,7 +176,8 @@ public class Game
                                         (int) player.getPlayerCenter().x,
                                         (int) player.getPlayerCenter().y,
                                         Helper.getAngleBetweenPoints(new Vector2i(player.getVectorPosition()), e.asMouseEvent().position) + angles[i],
-                                        player.getCurrentWeapon().getDamageDealt()
+                                        player.getCurrentWeapon().getDamageDealt(),
+                                        false
                                 );
 
                                 movables.add(b);
@@ -314,13 +317,14 @@ public class Game
                     continue;
                 }
                 if (0 < Helper.checkOverlap(b, c)) {
-                    if (c instanceof Enemy) {
+                    if (c instanceof Enemy && !b.isHurtsPlayer()) {
                         ((Enemy) c).decreaseHealth(player.getAdditionalDamage());
 
                         new Thread((Character) c).start(); //pauses enemy movement
-
-
-                        //System.out.println("Bullet hit an enemy: " + c);
+                    }
+                    if (c instanceof Player && b.isHurtsPlayer()) {
+                        ((Player) c).decreaseHealth(b.getDamage());
+                        System.out.println("Player hit");
                     }
                     b.setX(2 * Settings.WINDOW_WIDTH);
                     b.setY(2 * Settings.WINDOW_HEIGHT);
@@ -379,7 +383,10 @@ public class Game
                     doorInRange = (Door) i;
                     localDoorRange = true;
                 } else if (i instanceof TrapZone) {
-                    ((TrapZone) i).trigger(movables, collidables, drawables, bullets);
+                    if(System.currentTimeMillis() - ((ShootingArrows)i).getLastTimeTriggered() >= ((ShootingArrows)i).getFireRate()) {
+                        ((TrapZone) i).trigger(movables, collidables, drawables, bullets, player);
+                        ((ShootingArrows)i).setLastTimeTriggered(System.currentTimeMillis());
+                    }
                 } else {
                     i.interact(player);
                     currentInteracts.add(i.getClass());

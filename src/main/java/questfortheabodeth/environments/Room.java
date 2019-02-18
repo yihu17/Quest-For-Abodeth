@@ -297,7 +297,6 @@ public class Room implements Drawable
                         roomImages[i][j] = new Door(spacing * j, spacing * i, "res/assets/environment/door.png", -4);
                         break;
                     case "water":
-                        //roomImages[i][j] = new InteractableEnvironment(spacing * j, spacing * i, filePath);
                         roomImages[i][j] = new Water(spacing * j, spacing * i, filePath);
                         break;
                     case "quicksand":
