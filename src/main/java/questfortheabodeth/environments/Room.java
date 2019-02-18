@@ -4,6 +4,7 @@ import main.java.questfortheabodeth.FileOperator;
 import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.characters.Enemy;
 import main.java.questfortheabodeth.environments.interactables.Door;
+import main.java.questfortheabodeth.environments.traps.Lava;
 import main.java.questfortheabodeth.environments.traps.Quicksand;
 import main.java.questfortheabodeth.environments.traps.SpikeTrap;
 import main.java.questfortheabodeth.environments.traps.Water;
@@ -321,8 +322,8 @@ public class Room implements Drawable
                     case "swingingAxeTrap":
                         roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
                         break;
-                    case "boilingOil":
-                        roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
+                    case "lava":
+                        roomImages[i][j] = new Lava(spacing * j, spacing * i, filePath);
                         break;
                     case "rollingBoulderTrap":
                         roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);

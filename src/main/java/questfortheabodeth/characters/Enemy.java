@@ -127,6 +127,4 @@ public class Enemy extends Character implements Movable
     {
         return this.lastTimeHit;
     }
-
-
 }

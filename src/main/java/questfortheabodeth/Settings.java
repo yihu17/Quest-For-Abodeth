@@ -90,7 +90,7 @@ public class Settings
         CSV_KEYS.put(7, "switchPuzzle"); //(C?)I
         CSV_KEYS.put(8, "shootingArrowTrap"); //I
         CSV_KEYS.put(9, "swingingAxeTrap"); //I
-        CSV_KEYS.put(10, "boilingOil"); //I
+        CSV_KEYS.put(10, "lava"); //I
         CSV_KEYS.put(11, "rollingBoulder"); //(ENEMY)
         CSV_KEYS.put(12, "fierySphinx"); //I
         CSV_KEYS.put(13, "graveyard"); //I
