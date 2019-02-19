@@ -4,10 +4,7 @@ import main.java.questfortheabodeth.FileOperator;
 import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.characters.Enemy;
 import main.java.questfortheabodeth.environments.interactables.Door;
-import main.java.questfortheabodeth.environments.traps.Lava;
-import main.java.questfortheabodeth.environments.traps.Quicksand;
-import main.java.questfortheabodeth.environments.traps.SpikeTrap;
-import main.java.questfortheabodeth.environments.traps.Water;
+import main.java.questfortheabodeth.environments.traps.*;
 import main.java.questfortheabodeth.interfaces.Collidable;
 import main.java.questfortheabodeth.interfaces.Interactable;
 import main.java.questfortheabodeth.powerups.*;
@@ -178,7 +175,6 @@ public class Room implements Drawable
                     } else {
                         x = door.getX();
                         y = door.getLinkedDoor() == -2 ? (door.getY() - Settings.ROOM_DIVISION_SIZE) : (door.getY() + Settings.ROOM_DIVISION_SIZE);
-                        ;
                     }
                     c.add(new CollidableEnvironment(
                             (int) x,
@@ -186,13 +182,13 @@ public class Room implements Drawable
                             "res/assets/environment/wall.png"
                     ));
                 }
+
             }
         }
 
         c.addAll(enemies);
         c.addAll(pickups);
         c.addAll(weapons);
-
         return c;
     }
 
@@ -304,7 +300,6 @@ public class Room implements Drawable
                         roomImages[i][j] = new Door(spacing * j, spacing * i, "res/assets/environment/door.png", -4);
                         break;
                     case "water":
-                        //roomImages[i][j] = new InteractableEnvironment(spacing * j, spacing * i, filePath);
                         roomImages[i][j] = new Water(spacing * j, spacing * i, filePath);
                         break;
                     case "quicksand":
@@ -317,7 +312,9 @@ public class Room implements Drawable
                         roomImages[i][j] = new CollidableInteractableEnvironment(spacing * j, spacing * i, filePath);
                         break;
                     case "shootingArrowTrap":
-                        roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
+                        System.out.println("Creating an arrow trap");
+                        roomImages[i][j] = new ShootingArrows(spacing * j, spacing * i, filePath);
+                        System.out.println("Created trap at " + i + " " + j);
                         break;
                     case "swingingAxeTrap":
                         roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
