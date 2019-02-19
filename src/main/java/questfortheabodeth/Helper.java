@@ -242,7 +242,7 @@ public class Helper
             case "shotgun":
                 return new TwoHandedWeapon("shotgun", 5, 20, 1000, 5);
             case "ar15":
-                return new TwoHandedWeapon("ar15", 1, 25, 500, 5);
+                return new TwoHandedWeapon("ar15", 1, 25, 500, 50);
             case "uzi":
                 return new OneHandedWeapon("uzi", 3, 60, 75, 5);
         }

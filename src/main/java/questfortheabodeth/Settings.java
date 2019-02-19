@@ -53,7 +53,7 @@ public class Settings
 
     // main.java.questfortheabodeth.Game variables
     public static final int BULLET_SPEED = 20;
-    public static final int PLAYER_SPEED = 6;
+    public static final int PLAYER_SPEED = 5;
     public static final Set<String> MELEE_WEAPONS = new HashSet<>(Arrays.asList("machete"));
     public static final Set<String> ONE_HANDED_WEAPONS = new HashSet<>(Arrays.asList("revolver", "uzi"));
     public static final Set<String> TWO_HANDED_WEAPONS = new HashSet<>(Arrays.asList("shotgun", "ar15"));
