@@ -124,6 +124,7 @@ public class Settings
         CSV_KEYS.put(37, "ar15");
         CSV_KEYS.put(38, "uzi");
         // Bosses
+        CSV_KEYS.put(98, "abodeth");
         CSV_KEYS.put(99, "edemy");
     }
 

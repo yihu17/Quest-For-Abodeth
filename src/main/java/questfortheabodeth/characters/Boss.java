@@ -1,10 +1,15 @@
 package main.java.questfortheabodeth.characters;
 
-import javafx.beans.property.SimpleBooleanProperty;
+import main.java.questfortheabodeth.interfaces.Collidable;
+import main.java.questfortheabodeth.powerups.TheAbodeth;
+import org.jsfml.graphics.Drawable;
+
+import java.util.concurrent.CopyOnWriteArraySet;
 
 public class Boss extends Enemy
 {
-    private SimpleBooleanProperty gameOver = null;
+    private CopyOnWriteArraySet<Drawable> drawables = null;
+    private CopyOnWriteArraySet<Collidable> interactables = null;
 
     public Boss(int xPos, int yPos, int health, String imageFilePath, int movementSpeed, String name, int attackSpeed, int attackPower)
     {
@@ -12,9 +17,10 @@ public class Boss extends Enemy
         System.out.println("Created the boss from path " + imageFilePath);
     }
 
-    public void setGameOver(SimpleBooleanProperty property)
+    public void setGameOver(CopyOnWriteArraySet<Drawable> d, CopyOnWriteArraySet<Collidable> i)
     {
-        this.gameOver = property;
+        this.drawables = d;
+        this.interactables = i;
     }
 
     @Override
@@ -29,9 +35,12 @@ public class Boss extends Enemy
     public void kill()
     {
         // TODO: Do a weird fancy thing to the image
-        if (gameOver == null) {
-            throw new IllegalStateException("Game cannot end");
-        }
-        gameOver.set(true);
+        TheAbodeth abodeth = new TheAbodeth(
+                (float)(getX() + 0.5 * getWidth()),
+                (float)(getY() + 0.5 * getHealth()),
+                "res/assets/enemies/bat.png"
+        );
+        drawables.add(abodeth);
+        interactables.add(abodeth);
     }
 }

@@ -383,7 +383,7 @@ public class Room implements Drawable
                         enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath, 1, "crocodile", 550, 13));
                         break;
                     case "edemy":
-                        enemies.add(new Boss(950, 1000, 400, filePath, 4, "edemy", 400, 40));
+                        enemies.add(new Boss(400, 400, 10, filePath, 0, "edemy", 400, 40));
                         break;
                 }
             }
@@ -471,6 +471,9 @@ public class Room implements Drawable
                     case "damagePickup":
                         pickups.add(new DamagePlus(generatedSpawnLocation[0], generatedSpawnLocation[1], 10000));
                         break;
+                    default:
+                        break;
+
                 }
             }
         }

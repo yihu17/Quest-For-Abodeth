@@ -18,6 +18,7 @@ import main.java.questfortheabodeth.menus.GameMenu;
 import main.java.questfortheabodeth.menus.PlayerDiedMenu;
 import main.java.questfortheabodeth.menus.PlayerWinMenu;
 import main.java.questfortheabodeth.powerups.Pickup;
+import main.java.questfortheabodeth.powerups.TheAbodeth;
 import main.java.questfortheabodeth.weapons.Bullet;
 import main.java.questfortheabodeth.weapons.Melee;
 import main.java.questfortheabodeth.weapons.WeaponPickup;
@@ -294,6 +295,12 @@ public class Game
             if (c instanceof Player || c instanceof Bullet) {
                 continue;
             }
+            if (c instanceof TheAbodeth) {
+                int overlap = Helper.checkOverlap(player, c);
+                if (0 < overlap) {
+                    gameWon.set(true);
+                }
+            }
             if (c instanceof Environment) {
                 int overlap = Helper.checkOverlap(player, c);
                 if (0 < overlap) {
@@ -459,7 +466,7 @@ public class Game
 
         for (Enemy e : currentRoom.getEnemies()) {
             if (e instanceof Boss) {
-                ((Boss) e).setGameOver(gameWon);
+                ((Boss) e).setGameOver(drawables, collidables);
             }
             e.setPlayer(player);
             movables.add(e);
