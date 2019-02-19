@@ -17,7 +17,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 public class ShootingArrows extends CollidableInteractableEnvironment implements TrapZone
 {
     private long lastTimeTriggered;
-    private int fireRate = 1500;
+    private int fireRate = 1000;
     public ShootingArrows(int xPos, int yPos, String imageFilePath)
     {
         super(xPos, yPos, imageFilePath);
@@ -41,9 +41,9 @@ public class ShootingArrows extends CollidableInteractableEnvironment implements
     public void trigger(CopyOnWriteArraySet<Movable> movables, CopyOnWriteArraySet<Collidable> collidables, CopyOnWriteArraySet<Drawable> drawables, CopyOnWriteArraySet<Bullet> bullets, Player player)
     {
         Bullet b = new Bullet(
-                (int) this.getX(),
-                (int) this.getY(),
-                Helper.getAngleBetweenPoints(new Vector2i(new Vector2f(super.getX() + (super.getWidth() / 2), super.getY() + (super.getHeight() / 2))), new Vector2i(player.getVectorPosition())), 10, true);
+                (int) this.getX() + (int)(getWidth()/2),
+                (int) this.getY() + (int)(getHeight()/2),
+                Helper.getAngleBetweenPoints(new Vector2i(new Vector2f(super.getX() + (super.getWidth() / 2), super.getY() + (super.getHeight() / 2))), new Vector2i(player.getVectorPosition())), 10, true, "arrow");
 
         movables.add(b);
         drawables.add(b);

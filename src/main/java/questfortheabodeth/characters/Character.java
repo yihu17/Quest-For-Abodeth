@@ -205,6 +205,7 @@ public abstract class Character extends Thread implements Drawable, Collidable
     public void setMovementSpeed(double speed)
     {
         this.movementSpeed = speed;
+        finalSpeed = speed;
     }
 
     public double getMovementSpeed()
@@ -282,11 +283,13 @@ public abstract class Character extends Thread implements Drawable, Collidable
     public void run()
     {
         this.movementSpeed = 0;
+
         try {
             Thread.sleep(100);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         this.movementSpeed = finalSpeed;
     }
 

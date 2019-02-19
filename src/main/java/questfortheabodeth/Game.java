@@ -177,7 +177,8 @@ public class Game
                                         (int) player.getPlayerCenter().y,
                                         Helper.getAngleBetweenPoints(new Vector2i(player.getVectorPosition()), e.asMouseEvent().position) + angles[i],
                                         player.getCurrentWeapon().getDamageDealt(),
-                                        false
+                                        false,
+                                        "bullet"
                                 );
 
                                 movables.add(b);
@@ -320,13 +321,14 @@ public class Game
                 if (0 < Helper.checkOverlap(b, c)) {
                     if (c instanceof Enemy && !b.isHurtsPlayer()) {
                         ((Enemy) c).decreaseHealth(player.getAdditionalDamage());
-
                         new Thread((Character) c).start(); //pauses enemy movement
                     }
                     if (c instanceof Player && b.isHurtsPlayer()) {
                         ((Player) c).decreaseHealth(b.getDamage());
-                        System.out.println("Player hit");
+                    } else if (c instanceof Player) {
+                        continue;
                     }
+
                     b.setX(2 * Settings.WINDOW_WIDTH);
                     b.setY(2 * Settings.WINDOW_HEIGHT);
                 }
@@ -453,6 +455,8 @@ public class Game
             collidables.add(p);
             drawables.add(p);
         }
+
+        collidables.add(player);
 
         interactables.addAll(currentRoom.getInteractables());
     }
