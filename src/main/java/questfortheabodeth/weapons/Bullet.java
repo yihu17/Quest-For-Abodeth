@@ -39,6 +39,8 @@ public class Bullet extends Image implements Movable, Collidable
         this.y = y;
         this.damage = damage;
         this.hurtsPlayer = hurtsPlayer;
+
+        setRotation((float) angle);
     }
 
     public void setX(float x)
@@ -128,4 +130,5 @@ public class Bullet extends Image implements Movable, Collidable
     {
         return this.hurtsPlayer;
     }
+
 }

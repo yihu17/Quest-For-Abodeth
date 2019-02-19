@@ -152,4 +152,8 @@ public class Image implements Drawable
     {
         this.image.setPosition(x, y);
     }
+
+    public void setRotation(float angle) {
+        this.image.setRotation(angle);
+    }
 }
