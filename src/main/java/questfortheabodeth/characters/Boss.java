@@ -42,5 +42,7 @@ public class Boss extends Enemy
         );
         drawables.add(abodeth);
         interactables.add(abodeth);
+
+        super.kill();
     }
 }
