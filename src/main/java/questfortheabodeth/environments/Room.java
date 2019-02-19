@@ -57,9 +57,9 @@ public class Room implements Drawable
 
         this.type = type;
         // TODO: Change this back to original numbers
-        if (type == 3) {
+        if (type == 1) {
             roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomDataA.csv"); //needs to get path dynamically...
-        } else if (type == 1) {
+        } else if (type == 3) {
             roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomDataZ.csv");
             doors = new boolean[]{false, false, false, false};
         } else if (type < 0) {
