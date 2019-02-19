@@ -322,11 +322,11 @@ public class Game
                     if (c instanceof Enemy && !b.isHurtsPlayer()) {
                         ((Enemy) c).decreaseHealth(player.getAdditionalDamage());
                         new Thread((Character) c).start(); //pauses enemy movement
-                        System.out.println("hit enemy");
                     }
                     if (c instanceof Player && b.isHurtsPlayer()) {
                         ((Player) c).decreaseHealth(b.getDamage());
-                        System.out.println("hit player");
+                    } else if (c instanceof Player) {
+                        continue;
                     }
 
                     b.setX(2 * Settings.WINDOW_WIDTH);
