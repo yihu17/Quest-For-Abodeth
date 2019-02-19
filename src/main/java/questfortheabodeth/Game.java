@@ -3,6 +3,7 @@ package main.java.questfortheabodeth;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import main.java.questfortheabodeth.characters.Boss;
 import main.java.questfortheabodeth.characters.Character;
 import main.java.questfortheabodeth.characters.Enemy;
 import main.java.questfortheabodeth.characters.Player;
@@ -457,6 +458,9 @@ public class Game
         }
 
         for (Enemy e : currentRoom.getEnemies()) {
+            if (e instanceof Boss) {
+                ((Boss) e).setGameOver(gameWon);
+            }
             e.setPlayer(player);
             movables.add(e);
             enemies.add(e);
