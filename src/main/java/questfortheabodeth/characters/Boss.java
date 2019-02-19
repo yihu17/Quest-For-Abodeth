@@ -9,6 +9,7 @@ public class Boss extends Enemy
     public Boss(int xPos, int yPos, int health, String imageFilePath, int movementSpeed, String name, int attackSpeed, int attackPower)
     {
         super(xPos, yPos, health, imageFilePath, movementSpeed, name, attackSpeed, attackPower);
+        System.out.println("Created the boss from path " + imageFilePath);
     }
 
     public void setGameOver(SimpleBooleanProperty property)
