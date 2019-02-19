@@ -55,8 +55,12 @@ public class Room implements Drawable
         doors[3] = right;
 
         this.type = type;
-        if (type == 1) {
+        // TODO: Change this back to original numbers
+        if (type == 3) {
             roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomDataA.csv"); //needs to get path dynamically...
+        } else if (type == 1) {
+            roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomDataZ.csv");
+            doors = new boolean[]{false, false, false, false};
         } else if (type < 0) {
             return;
         } else {

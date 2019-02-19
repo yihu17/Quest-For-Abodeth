@@ -1,5 +1,8 @@
 package main.java.questfortheabodeth;
 
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import main.java.questfortheabodeth.characters.Character;
 import main.java.questfortheabodeth.characters.Enemy;
 import main.java.questfortheabodeth.characters.Player;
@@ -12,6 +15,7 @@ import main.java.questfortheabodeth.interfaces.*;
 import main.java.questfortheabodeth.menus.Button;
 import main.java.questfortheabodeth.menus.GameMenu;
 import main.java.questfortheabodeth.menus.PlayerDiedMenu;
+import main.java.questfortheabodeth.menus.PlayerWinMenu;
 import main.java.questfortheabodeth.powerups.Pickup;
 import main.java.questfortheabodeth.weapons.Bullet;
 import main.java.questfortheabodeth.weapons.Melee;
@@ -44,6 +48,7 @@ public class Game
     private Room currentRoom;
     private int roomCol = -1;
     private int roomRow = -1;
+    private SimpleBooleanProperty gameWon = new SimpleBooleanProperty(false);
 
     private Player player;
     private Door doorInRange = null;
@@ -72,6 +77,17 @@ public class Game
         this.gameRunning = true;
         this.player = new Player();
         collidables.add(this.player);
+
+        gameWon.addListener(new ChangeListener<Boolean>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue)
+            {
+                gameRunning = false;
+                PlayerWinMenu winMenu = new PlayerWinMenu(window, Settings.GAME_TIME.getFormattedTime());
+                winMenu.displayMenu();
+            }
+        });
 
         // Read the CSV file
         FileOperator ops = new FileOperator("res/assets/CSVs/roomLayout.csv");
