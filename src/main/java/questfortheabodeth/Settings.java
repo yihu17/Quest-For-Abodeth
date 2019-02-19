@@ -129,7 +129,9 @@ public class Settings
         AUDIO_KEYS.put("shotgun","weapons/shotgun");
         AUDIO_KEYS.put("revolver","weapons/revolver");
         AUDIO_KEYS.put("uzi","weapons/uzi");
-        AUDIO_KEYS.put("ar15","weapons/ar15");
+        AUDIO_KEYS.put("ar15","weapons/dar15");
+        AUDIO_KEYS.put("arrow","traps/arrow");
+        AUDIO_KEYS.put("lava","environment/lava");
     }
 
     public static final int ROOM_DIVISION_SIZE = 40;

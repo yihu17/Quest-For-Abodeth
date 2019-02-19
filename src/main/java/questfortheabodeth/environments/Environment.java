@@ -3,6 +3,8 @@ package main.java.questfortheabodeth.environments;
 import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.sprites.Image;
 
+import javax.sound.sampled.Clip;
+
 public class Environment extends Image
 {
     private int xPos, yPos;
@@ -10,6 +12,7 @@ public class Environment extends Image
     private int height = Settings.ROOM_DIVISION_SIZE;
     private boolean collidiable;
     private boolean interactable;
+    private long lastAudioTrigger;
 
     public Environment(int xPos, int yPos, String imageFilePath, boolean collidiable, boolean interactable)
     {
@@ -54,5 +57,15 @@ public class Environment extends Image
     public String toString()
     {
         return "<" + getClass() + " @ [" + getX() + ", " + getY() + "]>";
+    }
+
+    public long getLastAudioTrigger()
+    {
+        return lastAudioTrigger;
+    }
+
+    public void setLastAudioTrigger(long time)
+    {
+        lastAudioTrigger = time;
     }
 }

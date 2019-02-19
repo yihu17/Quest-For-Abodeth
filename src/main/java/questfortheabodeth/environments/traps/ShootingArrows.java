@@ -49,6 +49,7 @@ public class ShootingArrows extends CollidableInteractableEnvironment implements
         drawables.add(b);
         collidables.add(b);
         bullets.add(b);
+        Helper.playAudio("arrow");
     }
 
     public int getFireRate()

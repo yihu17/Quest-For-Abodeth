@@ -12,6 +12,7 @@ import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.event.Event;
 
+import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -265,6 +266,21 @@ public class Helper
         } catch (Exception e) {
             System.out.println("Audio error");
             e.printStackTrace();
+        }
+    }
+
+    public static double getLengthOfAudioFile(String sound)
+    {
+        try {
+            File file = new File("res/assets/audio/" + Settings.AUDIO_KEYS.get(sound) + ".wav");
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
+            AudioFormat format = audioInputStream.getFormat();
+            long frames = audioInputStream.getFrameLength();
+            double length  = (frames + 0.0) / format.getFrameRate() * 1000;
+            return length;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
         }
     }
 }
