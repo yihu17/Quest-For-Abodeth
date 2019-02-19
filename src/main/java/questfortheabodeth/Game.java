@@ -6,12 +6,9 @@ import main.java.questfortheabodeth.characters.Player;
 import main.java.questfortheabodeth.environments.Environment;
 import main.java.questfortheabodeth.environments.Room;
 import main.java.questfortheabodeth.environments.interactables.Door;
-import main.java.questfortheabodeth.environments.traps.TrapZone;
+import main.java.questfortheabodeth.environments.traps.ShootingArrows;
 import main.java.questfortheabodeth.hud.*;
-import main.java.questfortheabodeth.interfaces.Collidable;
-import main.java.questfortheabodeth.interfaces.Interactable;
-import main.java.questfortheabodeth.interfaces.Movable;
-import main.java.questfortheabodeth.interfaces.Powerup;
+import main.java.questfortheabodeth.interfaces.*;
 import main.java.questfortheabodeth.menus.Button;
 import main.java.questfortheabodeth.menus.GameMenu;
 import main.java.questfortheabodeth.menus.PlayerDiedMenu;
@@ -74,6 +71,7 @@ public class Game
         this.window.clear();
         this.gameRunning = true;
         this.player = new Player();
+        collidables.add(this.player);
 
         // Read the CSV file
         FileOperator ops = new FileOperator("res/assets/CSVs/roomLayout.csv");
@@ -111,10 +109,10 @@ public class Game
                 }
                 rooms[i][j] = new Room(
                         rooms[i][j].getType() * -1,
-                        (i - 1 >= 0 && rooms[i - 1][j] != null) ? true : false, // up
-                        (i + 1 < rows && rooms[i + 1][j] != null) ? true : false, // down
-                        (j - 1 >= 0 && rooms[i][j - 1] != null) ? true : false, // left
-                        (j + 1 < cols && rooms[i][j + 1] != null) ? true : false  // right
+                        i - 1 >= 0 && rooms[i - 1][j] != null, // up
+                        i + 1 < rows && rooms[i + 1][j] != null, // down
+                        j - 1 >= 0 && rooms[i][j - 1] != null, // left
+                        j + 1 < cols && rooms[i][j + 1] != null  // right
                 );
             }
         }
@@ -178,7 +176,8 @@ public class Game
                                         (int) player.getPlayerCenter().x,
                                         (int) player.getPlayerCenter().y,
                                         Helper.getAngleBetweenPoints(new Vector2i(player.getVectorPosition()), e.asMouseEvent().position) + angles[i],
-                                        player.getCurrentWeapon().getDamageDealt()
+                                        player.getCurrentWeapon().getDamageDealt(),
+                                        false
                                 );
 
                                 movables.add(b);
@@ -318,12 +317,14 @@ public class Game
                     continue;
                 }
                 if (0 < Helper.checkOverlap(b, c)) {
-                    if (c instanceof Enemy) {
+                    if (c instanceof Enemy && !b.isHurtsPlayer()) {
                         ((Enemy) c).decreaseHealth(player.getAdditionalDamage());
 
                         new Thread((Character) c).start(); //pauses enemy movement
-
-                        //System.out.println("Bullet hit an enemy: " + c);
+                    }
+                    if (c instanceof Player && b.isHurtsPlayer()) {
+                        ((Player) c).decreaseHealth(b.getDamage());
+                        System.out.println("Player hit");
                     }
                     b.setX(2 * Settings.WINDOW_WIDTH);
                     b.setY(2 * Settings.WINDOW_HEIGHT);
@@ -377,13 +378,15 @@ public class Game
                         ((WeaponPickup) i).remove();
                     } else {
                         // Player does not have the weapon and does not want it
-                        ;
                     }
                 } else if (i instanceof Door) {
                     doorInRange = (Door) i;
                     localDoorRange = true;
                 } else if (i instanceof TrapZone) {
-                    ((TrapZone) i).trigger();
+                    if (System.currentTimeMillis() - ((ShootingArrows) i).getLastTimeTriggered() >= ((ShootingArrows) i).getFireRate()) {
+                        ((TrapZone) i).trigger(movables, collidables, drawables, bullets, player);
+                        ((ShootingArrows) i).setLastTimeTriggered(System.currentTimeMillis());
+                    }
                 } else {
                     i.interact(player);
                     currentInteracts.add(i.getClass());
@@ -443,6 +446,7 @@ public class Game
             enemies.add(e);
             drawables.add(e);
         }
+
 
         for (Pickup p : currentRoom.getPickups()) {
             collidables.add(p);

@@ -19,6 +19,7 @@ public class Bullet extends Image implements Movable, Collidable
     private double ySpeed;
     private double angle;
     private int damage;
+    private boolean hurtsPlayer;
 
     /**
      * Creates a new image object.
@@ -27,7 +28,7 @@ public class Bullet extends Image implements Movable, Collidable
      * @param y     (int) Y coordinate of the top left of the image
      * @param angle (double) Angle the bullet is travelling at clockwise about the vertical
      */
-    public Bullet(int x, int y, double angle, int damage)
+    public Bullet(int x, int y, double angle, int damage, boolean hurtsPlayer)
     {
         super(x, y, "res/assets/weapons/bullet.png");
         this.setScale(Helper.getScaleValue(64, 64, 16, 16));
@@ -37,6 +38,7 @@ public class Bullet extends Image implements Movable, Collidable
         this.x = x;
         this.y = y;
         this.damage = damage;
+        this.hurtsPlayer = hurtsPlayer;
     }
 
     public void setX(float x)
@@ -120,5 +122,10 @@ public class Bullet extends Image implements Movable, Collidable
     public int getDamage()
     {
         return damage;
+    }
+
+    public boolean isHurtsPlayer()
+    {
+        return this.hurtsPlayer;
     }
 }
