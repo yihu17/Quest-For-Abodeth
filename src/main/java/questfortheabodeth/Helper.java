@@ -12,6 +12,10 @@ import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.event.Event;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.io.File;
 import java.util.List;
 
 public class Helper
@@ -247,5 +251,20 @@ public class Helper
                 return new OneHandedWeapon("uzi", 3, 60, 75, 5);
         }
         throw new AssertionError("Unknown weapon encountered: " + weapon);
+    }
+
+    public static void playAudio(String sound)
+    {
+        Clip AudioPlayer;
+        try {
+            File soundFile = new File("res/assets/audio/"+ Settings.AUDIO_KEYS.get(sound)+".wav");
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+            AudioPlayer = AudioSystem.getClip();
+            AudioPlayer.open(audioInputStream);
+            AudioPlayer.start();
+        } catch (Exception e) {
+            System.out.println("Audio error");
+            e.printStackTrace();
+        }
     }
 }

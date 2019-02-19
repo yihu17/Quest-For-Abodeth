@@ -50,6 +50,7 @@ public class Settings
 
     // Values in CSV files mapped to game objects
     public static HashMap<Integer, String> CSV_KEYS = new HashMap<>();
+    public static HashMap<String, String> AUDIO_KEYS = new HashMap<>();
 
     // main.java.questfortheabodeth.Game variables
     public static final int BULLET_SPEED = 20;
@@ -123,6 +124,12 @@ public class Settings
         CSV_KEYS.put(36, "shotgun");
         CSV_KEYS.put(37, "ar15");
         CSV_KEYS.put(38, "uzi");
+
+
+        AUDIO_KEYS.put("shotgun","weapons/shotgun");
+        AUDIO_KEYS.put("revolver","weapons/revolver");
+        AUDIO_KEYS.put("uzi","weapons/uzi");
+        AUDIO_KEYS.put("ar15","weapons/ar15");
     }
 
     public static final int ROOM_DIVISION_SIZE = 40;

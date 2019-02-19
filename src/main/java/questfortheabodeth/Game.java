@@ -185,6 +185,7 @@ public class Game
                                 collidables.add(b);
                                 bullets.add(b);
                                 player.decreaseAmmo();
+                                Helper.playAudio(player.getCurrentWeapon().getName());
                             }
                         }
                     } else {
