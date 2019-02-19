@@ -4,12 +4,16 @@ import javafx.beans.property.SimpleBooleanProperty;
 
 public class Boss extends Enemy
 {
-    private SimpleBooleanProperty gameOver;
+    private SimpleBooleanProperty gameOver = null;
 
-    public Boss(int xPos, int yPos, int health, String imageFilePath, int movementSpeed, String name, int attackSpeed, int attackPower, SimpleBooleanProperty gameOver)
+    public Boss(int xPos, int yPos, int health, String imageFilePath, int movementSpeed, String name, int attackSpeed, int attackPower)
     {
         super(xPos, yPos, health, imageFilePath, movementSpeed, name, attackSpeed, attackPower);
-        this.gameOver = gameOver;
+    }
+
+    public void setGameOver(SimpleBooleanProperty property)
+    {
+        this.gameOver = property;
     }
 
     @Override
@@ -24,6 +28,9 @@ public class Boss extends Enemy
     public void kill()
     {
         // TODO: Do a weird fancy thing to the image
+        if (gameOver == null) {
+            throw new IllegalStateException("Game cannot end");
+        }
         gameOver.set(true);
     }
 }

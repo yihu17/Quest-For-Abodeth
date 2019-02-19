@@ -2,6 +2,7 @@ package main.java.questfortheabodeth.environments;
 
 import main.java.questfortheabodeth.FileOperator;
 import main.java.questfortheabodeth.Settings;
+import main.java.questfortheabodeth.characters.Boss;
 import main.java.questfortheabodeth.characters.Enemy;
 import main.java.questfortheabodeth.environments.interactables.Door;
 import main.java.questfortheabodeth.environments.traps.*;
@@ -380,6 +381,9 @@ public class Room implements Drawable
                         break;
                     case "crocodile":
                         enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath, 1, "crocodile", 550, 13));
+                        break;
+                    case "edemy":
+                        enemies.add(new Boss(950, 1000, 400, filePath, 4, "edemy", 400, 40));
                         break;
                 }
             }
