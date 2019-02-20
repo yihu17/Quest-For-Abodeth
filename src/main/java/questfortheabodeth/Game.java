@@ -596,6 +596,14 @@ public class Game
 
         // TODO: Have a flag in the Room class and place the player in a certain position
         currentRoom = rooms[roomRow][roomCol];
+
+        // Test to see if this is the end room
+        if (!currentRoom.getDoors()[0] && !currentRoom.getDoors()[1] && !currentRoom.getDoors()[2] && !currentRoom.getDoors()[3]) {
+            player.setPosition(
+                    200,
+                    (int)(Settings.WINDOW_HEIGHT / 2 - (player.getWidth() / 2))
+            );
+        }
         for (Interactable i : currentRoom.getInteractables()) {
             if (i instanceof Door) {
                 Door d = (Door) i;

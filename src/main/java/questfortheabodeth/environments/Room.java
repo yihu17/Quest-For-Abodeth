@@ -158,6 +158,11 @@ public class Room implements Drawable
         }
     }
 
+    public boolean[] getDoors()
+    {
+        return doors;
+    }
+
     public int getType()
     {
         return this.type;
@@ -383,7 +388,7 @@ public class Room implements Drawable
                         enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath, 1, "crocodile", 550, 13));
                         break;
                     case "edemy":
-                        enemies.add(new Boss(400, 400, 10, filePath, 0, "edemy", 400, 40));
+                        enemies.add(new Boss(1600, Settings.WINDOW_HEIGHT / 2 + 50, 10, filePath, 2, "edemy", 400, 40));
                         break;
                 }
             }
