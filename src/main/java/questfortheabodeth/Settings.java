@@ -62,6 +62,10 @@ public class Settings
     //Audio main.java.questfortheabodeth.characters.Player
     public static Clip AUDIO_STREAMER;
 
+    //Game settings that can be changed in game settings menu
+    public static boolean CROSSHAIR_VISIBLE = true;
+    public static boolean AUDIO_PLAYING = true;
+
 
     static {
         VideoMode desktop = VideoMode.getDesktopMode();

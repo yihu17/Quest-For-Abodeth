@@ -36,8 +36,10 @@ public class HudElements implements Drawable
         if (minimap.getVisibility()) {
             renderTarget.draw(minimap);
         }
-        updateCrosshairPosition();
-        renderTarget.draw(crosshair);
+        if (Settings.CROSSHAIR_VISIBLE) {
+            updateCrosshairPosition();
+            renderTarget.draw(crosshair);
+        }
     }
 
     public void toggleMiniMapVisibility()

@@ -138,7 +138,9 @@ public class Game
     public void run()
     {
         int clocker = 0;
-        window.setMouseCursorVisible(false);
+        if (Settings.CROSSHAIR_VISIBLE) {
+            window.setMouseCursorVisible(false);
+        }
         Button time = new Button(120, 40, (Settings.WINDOW_WIDTH / 2) - 60, 10, "0");
         time.setTextXOffset(8);
         while (gameRunning && player.isCharacterAlive()) {
