@@ -23,6 +23,7 @@ public class GameMenu implements Menu
     private Button chosenButton = null;
     private boolean menuOpen = true;
     private Image backgroundImage;
+    private ClickableImage settings;
 
     /**
      * Creates a new in game menu
@@ -56,6 +57,16 @@ public class GameMenu implements Menu
                 chosenButton = cont;
             }
         });
+        settings = new ClickableImage(1850, 6, "res/assets/menus/button_settings.png", "settings");
+        settings.setOnPress(new EventHandler() {
+            @Override
+            public void run() {
+                SettingsMenu settingsMenu = new SettingsMenu(window);
+                settingsMenu.displayMenu();
+            }
+        });
+        buttons.add(settings);
+
         buttons.addAll(Arrays.asList(quit, cont));
     }
 
@@ -81,6 +92,7 @@ public class GameMenu implements Menu
             window.clear();
             window.draw(backgroundImage);
             buttons.forEach(window::draw);
+            window.draw(settings);
             window.display();
 
             // Check for events
