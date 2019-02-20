@@ -18,7 +18,6 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.io.File;
 import java.util.List;
-import java.util.Set;
 
 public class Helper
 {
@@ -254,7 +253,7 @@ public class Helper
 
     public static void playAudio(String sound)
     {
-        if (Settings.AUDIO_ON) {
+        if (Settings.SOUND_EFFECTS_ON) {
             Clip AudioPlayer;
             try {
                 File soundFile = new File("res/assets/audio/" + Settings.AUDIO_KEYS.get(sound) + ".wav");

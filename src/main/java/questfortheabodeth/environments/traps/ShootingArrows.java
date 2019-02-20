@@ -1,6 +1,7 @@
 package main.java.questfortheabodeth.environments.traps;
 
 import main.java.questfortheabodeth.Helper;
+import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.characters.Player;
 import main.java.questfortheabodeth.environments.CollidableInteractableEnvironment;
 import main.java.questfortheabodeth.interfaces.Collidable;
@@ -48,7 +49,9 @@ public class ShootingArrows extends CollidableInteractableEnvironment implements
         drawables.add(b);
         collidables.add(b);
         bullets.add(b);
-        Helper.playAudio("arrow");
+        if (Settings.SOUND_EFFECTS_ON) {
+            Helper.playAudio("arrow");
+        }
     }
 
     public int getFireRate()

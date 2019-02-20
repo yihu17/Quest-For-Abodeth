@@ -10,8 +10,6 @@ import org.jsfml.graphics.RenderWindow;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.WindowStyle;
 
-import java.util.Set;
-
 
 public class Main
 {
@@ -34,7 +32,7 @@ public class Main
 
         // As long as the window is open run the game loop
         while (window.isOpen()) {
-            if (Settings.AUDIO_ON && !Settings.BACKGROUND_AUDIO_PLAYING) {
+            if (Settings.MUSIC_ON && !Settings.BACKGROUND_AUDIO_PLAYING) {
                 Settings.BACKGROUND_AUDIO_PLAYING = true;
                 Helper.playAudio("mainMenu");
                 new AudioThread("mainMenu");

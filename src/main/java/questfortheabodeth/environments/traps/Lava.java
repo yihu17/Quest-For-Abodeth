@@ -1,6 +1,7 @@
 package main.java.questfortheabodeth.environments.traps;
 
 import main.java.questfortheabodeth.Helper;
+import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.characters.Enemy;
 import main.java.questfortheabodeth.characters.Player;
 import main.java.questfortheabodeth.environments.InteractableEnvironment;
@@ -18,7 +19,7 @@ public class Lava extends InteractableEnvironment{
             p.decreaseHealth(20);
             p.setLastTimeHit(System.currentTimeMillis());
         }
-        if(System.currentTimeMillis() - super.getLastAudioTrigger() >= Helper.getLengthOfAudioFile("lava")) {
+        if (Settings.SOUND_EFFECTS_ON && System.currentTimeMillis() - super.getLastAudioTrigger() >= Helper.getLengthOfAudioFile("lava")) {
             Helper.playAudio("lava");
             super.setLastAudioTrigger(System.currentTimeMillis());
         }

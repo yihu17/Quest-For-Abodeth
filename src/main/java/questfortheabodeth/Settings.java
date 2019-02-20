@@ -64,8 +64,9 @@ public class Settings
     public static ArrayList<Clip> AUDIO_STREAMERS = new ArrayList<Clip>();
 
     //Game settings that can be changed in game settings menu
+    public static boolean MUSIC_ON = true;
+    public static boolean SOUND_EFFECTS_ON = true;
     public static boolean CROSSHAIR_VISIBLE = true;
-    public static boolean AUDIO_ON = true;
 
 
     static {

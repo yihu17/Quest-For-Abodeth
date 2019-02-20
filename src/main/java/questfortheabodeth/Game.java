@@ -34,7 +34,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 
@@ -198,7 +197,9 @@ public class Game
                                 collidables.add(b);
                                 bullets.add(b);
                                 player.decreaseAmmo();
-                                Helper.playAudio(player.getCurrentWeapon().getName());
+                                if (Settings.SOUND_EFFECTS_ON) {
+                                    Helper.playAudio(player.getCurrentWeapon().getName());
+                                }
                             }
                         }
                     } else {
@@ -437,7 +438,7 @@ public class Game
     private void scanRoom()
     {
         Settings.BACKGROUND_AUDIO_PLAYING = false;
-        if (Settings.AUDIO_ON) {
+        if (Settings.MUSIC_ON) {
             Settings.BACKGROUND_AUDIO_PLAYING = true;
             Helper.playAudio("roomA");
             new AudioThread("mainMenu");
