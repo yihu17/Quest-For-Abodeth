@@ -42,32 +42,41 @@ public class SettingsMenu implements Menu
             }
         });
         buttons.add(back);
-        String[] ops = new String[]{"settings", "settings", "settings", "settings", "back"};
-        int i = 0;
-        for (String s : ops) {
-            Button b = new Button(
-                    buttonWidth,
-                    buttonHeight,
-                    (Settings.WINDOW_WIDTH - Settings.WINDOW_X_PADDING * 2) / 2 - 600,
-                    Settings.WINDOW_Y_PADDING + i * (buttonHeight * 2) + 100,
-                    s
-            );
-            b.setTextYOffset(5);
-            b.setTextXOffset(
-                    buttonWidth / 2 - (s.length() / 2) * 14
-            );
-            b.setOnPress(new EventHandler()
-            {
-                @Override
-                public void run()
-                {
-                    menuOpen = false;
-                    chosenButton = b;
-                }
-            });
-            buttons.add(b);
-            i++;
+        String[] ops = new String[]{"MUSIC", "SOUND EFFECTS", "CROSSHAIR"};
+
+        Button crosshair = new Button(
+                buttonWidth,
+                buttonHeight,
+                (Settings.WINDOW_WIDTH - Settings.WINDOW_X_PADDING * 2) / 2 - 600,
+                Settings.WINDOW_Y_PADDING + 0 * (buttonHeight * 2) + 100);
+        crosshair.setText("CROSSHAIR |  " + Settings.CROSSHAIR_VISIBLE);
+        crosshair.setTextYOffset(5);
+        crosshair.setTextXOffset(buttonWidth / 2 - (5 / 2) * 14 - 65);
+        if (Settings.CROSSHAIR_VISIBLE) {
+            crosshair.setOutlineColor(Color.GREEN);
+        } else {
+            crosshair.setOutlineColor(Color.RED);
         }
+        crosshair.setOnPress(new EventHandler() {
+            @Override
+            public void run() {
+                if (Settings.CROSSHAIR_VISIBLE) {
+                    crosshair.setOutlineColor(Color.RED);
+                    crosshair.setText("CROSSHAIR | false");
+                    Settings.CROSSHAIR_VISIBLE = false;
+                } else {
+                    crosshair.setOutlineColor(Color.GREEN);
+                    crosshair.setText("CROSSHAIR | true");
+                    Settings.CROSSHAIR_VISIBLE = true;
+                }
+                chosenButton = crosshair;
+            }
+        });
+
+
+        buttons.add(crosshair);
+
+
         this.background = new Image(0, 0, "res/assets/menus/mainmenu.png");
 
 

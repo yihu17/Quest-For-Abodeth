@@ -10,6 +10,8 @@ import org.jsfml.graphics.RenderWindow;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.WindowStyle;
 
+import java.util.Set;
+
 
 public class Main
 {
@@ -28,6 +30,7 @@ public class Main
             System.out.println(v);
         }
         //this.window.create(new VideoMode(1366, 768, 32), main.java.questfortheabodeth.Settings.WINDOW_TITLE);
+
 
         // As long as the window is open run the game loop
         while (window.isOpen()) {

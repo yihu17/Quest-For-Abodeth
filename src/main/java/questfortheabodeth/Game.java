@@ -152,6 +152,8 @@ public class Game
             time.setText(Settings.GAME_TIME.getFormattedTime());
             if (Settings.CROSSHAIR_VISIBLE) {
                 window.setMouseCursorVisible(false);
+            } else {
+                window.setMouseCursorVisible(true);
             }
             window.clear();
             // Draw the room

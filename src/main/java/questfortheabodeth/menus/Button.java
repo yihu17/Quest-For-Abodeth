@@ -13,10 +13,12 @@ import org.jsfml.system.Vector2f;
  */
 public class Button extends RectangleShape implements Clickable
 {
-    private Color normalColor = Settings.SAND;
-    private Color outlineColor = Settings.DARK_SAND;
-    private Color onPressColor = Settings.GREY;
+    public Color normalColor = Settings.SAND;
+    public Color outlineColor = Settings.DARK_SAND;
+    public Color onPressColor = Settings.GREY;
     private int borderThickness = 5;
+    private boolean pressedFlag = false;
+    private String originalText;
 
     private final Text text;
     private EventHandler onPress = null;
@@ -53,6 +55,7 @@ public class Button extends RectangleShape implements Clickable
         this.setFillColor(normalColor);
         this.setOutlineColor(outlineColor);
         this.setOutlineThickness(borderThickness);
+        this.originalText = text;
 
 
         // Create the text to go inside the button
@@ -201,5 +204,34 @@ public class Button extends RectangleShape implements Clickable
     public String getText()
     {
         return this.text.getString();
+    }
+
+    public void toggle() {
+        if (this.isPressedFlag()) {
+            this.setText(originalText + " | true");
+            //this.setColor(normalColor);
+            this.setPressedFlag(false);
+        } else {
+            this.setText(originalText + " | false");
+            //this.setColor(onPressColor);
+            this.setPressedFlag(true);
+        }
+        switch (originalText) {
+            case "CROSSHAIR":
+                if (isPressedFlag()) {
+                    Settings.CROSSHAIR_VISIBLE = false;
+                } else {
+                    Settings.CROSSHAIR_VISIBLE = true;
+                }
+                break;
+        }
+    }
+
+    public boolean isPressedFlag() {
+        return pressedFlag;
+    }
+
+    public void setPressedFlag(boolean flag) {
+        pressedFlag = flag;
     }
 }
