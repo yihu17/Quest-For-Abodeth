@@ -274,7 +274,7 @@ public class Room implements Drawable
                 try {
                     elementRead = Settings.CSV_KEYS.get(Integer.parseInt(roomLayout.get(i).get(j)));
                 } catch (Exception e) {
-                    elementRead = "quicksand";
+                    elementRead = "wall";
                     e.printStackTrace();
                 }
                 String filePath = "res/assets/environment/" + elementRead + ".png";
@@ -312,9 +312,7 @@ public class Room implements Drawable
                         roomImages[i][j] = new CollidableInteractableEnvironment(spacing * j, spacing * i, filePath);
                         break;
                     case "shootingArrowTrap":
-                        System.out.println("Creating an arrow trap");
                         roomImages[i][j] = new ShootingArrows(spacing * j, spacing * i, filePath);
-                        System.out.println("Created trap at " + i + " " + j);
                         break;
                     case "swingingAxeTrap":
                         roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);

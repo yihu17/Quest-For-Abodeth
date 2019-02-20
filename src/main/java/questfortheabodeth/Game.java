@@ -595,7 +595,7 @@ public class Game
                 }
             }
         }
-
+        Helper.stopAllAudio(); //ensures room audio is stopped before new room is loaded so music doesn't overlay
         scanRoom();
     }
 }
