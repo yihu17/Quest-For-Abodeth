@@ -510,21 +510,4 @@ public class Room implements Drawable
     {
         return weapons;
     }
-
-    public void playMusic()
-    {
-        try {
-            int r = Settings.GENERATOR.nextInt(16) + 1;
-            System.out.println(r);
-            String fileName = "res/assets/audio/roomMusic/" + r + ".wav";
-            File soundFile = new File(fileName);
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-            Settings.AUDIO_STREAMER = AudioSystem.getClip();
-            Settings.AUDIO_STREAMER.open(audioInputStream);
-            Settings.AUDIO_STREAMER.start();
-        } catch (Exception e) {
-            System.out.println("Audio error");
-            e.printStackTrace();
-        }
-    }
 }

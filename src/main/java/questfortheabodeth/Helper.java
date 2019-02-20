@@ -54,9 +54,6 @@ public class Helper
         } else if (e.type == Event.Type.KEY_PRESSED) {
             if (e.asKeyEvent().key == Keyboard.Key.F4) {
                 window.close();
-                if (Settings.AUDIO_STREAMER != null) {
-                    Settings.AUDIO_STREAMER.close();
-                }
                 System.exit(1);
             }
         }
@@ -254,19 +251,23 @@ public class Helper
         throw new AssertionError("Unknown weapon encountered: " + weapon);
     }
 
-    public static void playAudio(String sound)
+    public static Clip playAudio(String sound)
     {
-        Clip AudioPlayer;
-        try {
-            File soundFile = new File("res/assets/audio/"+ Settings.AUDIO_KEYS.get(sound)+".wav");
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-            AudioPlayer = AudioSystem.getClip();
-            AudioPlayer.open(audioInputStream);
-            AudioPlayer.start();
-        } catch (Exception e) {
-            System.out.println("Audio error");
-            e.printStackTrace();
+        if (Settings.AUDIO_ON) {
+            Clip AudioPlayer;
+            try {
+                File soundFile = new File("res/assets/audio/" + Settings.AUDIO_KEYS.get(sound) + ".wav");
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+                AudioPlayer = AudioSystem.getClip();
+                AudioPlayer.open(audioInputStream);
+                AudioPlayer.start();
+                return AudioPlayer;
+            } catch (Exception e) {
+                System.out.println("Audio error");
+                e.printStackTrace();
+            }
         }
+        return null;
     }
 
     public static double getLengthOfAudioFile(String sound)

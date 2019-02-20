@@ -44,6 +44,7 @@ public class Main
             }
             switch (chosenOption.getText().toLowerCase()) {
                 case "play":
+                    menu.getStreamer().stop();
                     System.out.println("Spawning new game instance");
                     Settings.GAME_TIME = new StopClock();
                     Game game = new Game(window);
@@ -69,9 +70,6 @@ public class Main
                     break;
                 case "quit":
                     window.close();
-                    if (Settings.AUDIO_STREAMER != null) {
-                        Settings.AUDIO_STREAMER.close();
-                    }
                     System.exit(0);
                     break;
                 default:

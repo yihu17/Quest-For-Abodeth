@@ -60,11 +60,11 @@ public class Settings
     public static final Set<String> TWO_HANDED_WEAPONS = new HashSet<>(Arrays.asList("shotgun", "ar15"));
 
     //Audio main.java.questfortheabodeth.characters.Player
-    public static Clip AUDIO_STREAMER;
+    public static boolean BACKGROUND_AUDIO_PLAYING = false;
 
     //Game settings that can be changed in game settings menu
     public static boolean CROSSHAIR_VISIBLE = true;
-    public static boolean AUDIO_PLAYING = true;
+    public static boolean AUDIO_ON = true;
 
 
     static {
@@ -136,6 +136,8 @@ public class Settings
         AUDIO_KEYS.put("ar15","weapons/dar15");
         AUDIO_KEYS.put("arrow","traps/arrow");
         AUDIO_KEYS.put("lava","environment/lava");
+        AUDIO_KEYS.put("roomA", "roomMusic/roomA");
+        AUDIO_KEYS.put("mainMenu", "mainMenu");
     }
 
     public static final int ROOM_DIVISION_SIZE = 40;

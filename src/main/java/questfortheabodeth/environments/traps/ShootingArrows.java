@@ -21,7 +21,6 @@ public class ShootingArrows extends CollidableInteractableEnvironment implements
     public ShootingArrows(int xPos, int yPos, String imageFilePath)
     {
         super(xPos, yPos, imageFilePath);
-        System.out.println("Created new Shooting arrow trap");
     }
 
     @Override

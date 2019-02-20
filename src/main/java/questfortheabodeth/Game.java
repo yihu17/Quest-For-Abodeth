@@ -13,6 +13,7 @@ import main.java.questfortheabodeth.menus.Button;
 import main.java.questfortheabodeth.menus.GameMenu;
 import main.java.questfortheabodeth.menus.PlayerDiedMenu;
 import main.java.questfortheabodeth.powerups.Pickup;
+import main.java.questfortheabodeth.threads.AudioThread;
 import main.java.questfortheabodeth.weapons.Bullet;
 import main.java.questfortheabodeth.weapons.Melee;
 import main.java.questfortheabodeth.weapons.WeaponPickup;
@@ -32,6 +33,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 
@@ -64,9 +66,6 @@ public class Game
 
     public Game(RenderWindow window)
     {
-        if (Settings.AUDIO_STREAMER != null) {
-            Settings.AUDIO_STREAMER.stop();
-        }
         this.window = window;
         this.window.clear();
         this.gameRunning = true;
@@ -427,9 +426,11 @@ public class Game
 
     private void scanRoom()
     {
-
-        if (Settings.AUDIO_STREAMER != null && !Settings.AUDIO_STREAMER.isActive()) {
-            currentRoom.playMusic();
+        Settings.BACKGROUND_AUDIO_PLAYING = false;
+        if (Settings.AUDIO_ON) {
+            Settings.BACKGROUND_AUDIO_PLAYING = true;
+            Helper.playAudio("roomA");
+            new AudioThread("mainMenu");
         }
 
         collidables.clear();

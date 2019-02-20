@@ -5,6 +5,7 @@ import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.interfaces.Clickable;
 import main.java.questfortheabodeth.interfaces.Menu;
 import main.java.questfortheabodeth.sprites.Image;
+import main.java.questfortheabodeth.threads.AudioThread;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Text;
@@ -12,6 +13,7 @@ import org.jsfml.window.event.Event;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,7 @@ public class MainMenu implements Menu
     private int buttonWidth = 400;
     private int buttonHeight = 75;
     private Text title;
+    private Clip streamer;
 
 
     public MainMenu(RenderWindow window)
@@ -100,7 +103,12 @@ public class MainMenu implements Menu
 
         this.background = new Image(0, 0, "res/assets/menus/mainmenu.png");
 
-        playMusic();
+        if (Settings.AUDIO_ON && !Settings.BACKGROUND_AUDIO_PLAYING) {
+            Settings.BACKGROUND_AUDIO_PLAYING = true;
+            streamer = Helper.playAudio("mainMenu");
+            new AudioThread("mainMenu");
+        }
+
 
     }
 
@@ -148,17 +156,9 @@ public class MainMenu implements Menu
         return null;
     }
 
-    public void playMusic()
+    public Clip getStreamer()
     {
-        try {
-            File soundFile = new File("res/assets/audio/mainMenu.wav");
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-            Settings.AUDIO_STREAMER = AudioSystem.getClip();
-            Settings.AUDIO_STREAMER.open(audioInputStream);
-            Settings.AUDIO_STREAMER.start();
-        } catch (Exception e) {
-            System.out.println("Audio error");
-            e.printStackTrace();
-        }
+        System.out.println("yeeetesty");
+        return streamer;
     }
 }
