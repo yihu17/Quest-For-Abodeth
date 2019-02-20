@@ -253,19 +253,17 @@ public class Helper
 
     public static void playAudio(String sound)
     {
-        if (Settings.SOUND_EFFECTS_ON) {
-            Clip AudioPlayer;
-            try {
-                File soundFile = new File("res/assets/audio/" + Settings.AUDIO_KEYS.get(sound) + ".wav");
-                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-                AudioPlayer = AudioSystem.getClip();
-                AudioPlayer.open(audioInputStream);
-                AudioPlayer.start();
-                Settings.AUDIO_STREAMERS.add(AudioPlayer);
-            } catch (Exception e) {
-                System.out.println("Audio error");
-                e.printStackTrace();
-            }
+        Clip AudioPlayer;
+        try {
+            File soundFile = new File("res/assets/audio/" + Settings.AUDIO_KEYS.get(sound) + ".wav");
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+            AudioPlayer = AudioSystem.getClip();
+            AudioPlayer.open(audioInputStream);
+            AudioPlayer.start();
+            Settings.AUDIO_STREAMERS.add(AudioPlayer);
+        } catch (Exception e) {
+            System.out.println("Audio error");
+            e.printStackTrace();
         }
     }
 
