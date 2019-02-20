@@ -44,7 +44,7 @@ public class Main
             }
             switch (chosenOption.getText().toLowerCase()) {
                 case "play":
-                    menu.getStreamer().stop();
+                    Helper.stopAllAudio();
                     System.out.println("Spawning new game instance");
                     Settings.GAME_TIME = new StopClock();
                     Game game = new Game(window);

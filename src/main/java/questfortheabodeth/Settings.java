@@ -61,6 +61,7 @@ public class Settings
 
     //Audio main.java.questfortheabodeth.characters.Player
     public static boolean BACKGROUND_AUDIO_PLAYING = false;
+    public static ArrayList<Clip> AUDIO_STREAMERS = new ArrayList<Clip>();
 
     //Game settings that can be changed in game settings menu
     public static boolean CROSSHAIR_VISIBLE = true;

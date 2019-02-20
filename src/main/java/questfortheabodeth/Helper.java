@@ -18,6 +18,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.io.File;
 import java.util.List;
+import java.util.Set;
 
 public class Helper
 {
@@ -251,7 +252,7 @@ public class Helper
         throw new AssertionError("Unknown weapon encountered: " + weapon);
     }
 
-    public static Clip playAudio(String sound)
+    public static void playAudio(String sound)
     {
         if (Settings.AUDIO_ON) {
             Clip AudioPlayer;
@@ -261,13 +262,12 @@ public class Helper
                 AudioPlayer = AudioSystem.getClip();
                 AudioPlayer.open(audioInputStream);
                 AudioPlayer.start();
-                return AudioPlayer;
+                Settings.AUDIO_STREAMERS.add(AudioPlayer);
             } catch (Exception e) {
                 System.out.println("Audio error");
                 e.printStackTrace();
             }
         }
-        return null;
     }
 
     public static double getLengthOfAudioFile(String sound)
@@ -282,6 +282,12 @@ public class Helper
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
+        }
+    }
+
+    public static void stopAllAudio() {
+        for (int i = 0; i < Settings.AUDIO_STREAMERS.size(); i++) {
+            Settings.AUDIO_STREAMERS.get(i).stop();
         }
     }
 }

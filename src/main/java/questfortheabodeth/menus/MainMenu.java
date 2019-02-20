@@ -29,7 +29,6 @@ public class MainMenu implements Menu
     private int buttonWidth = 400;
     private int buttonHeight = 75;
     private Text title;
-    private Clip streamer;
 
 
     public MainMenu(RenderWindow window)
@@ -105,7 +104,7 @@ public class MainMenu implements Menu
 
         if (Settings.AUDIO_ON && !Settings.BACKGROUND_AUDIO_PLAYING) {
             Settings.BACKGROUND_AUDIO_PLAYING = true;
-            streamer = Helper.playAudio("mainMenu");
+            Helper.playAudio("mainMenu");
             new AudioThread("mainMenu");
         }
 
@@ -154,11 +153,5 @@ public class MainMenu implements Menu
     public Image getBackground()
     {
         return null;
-    }
-
-    public Clip getStreamer()
-    {
-        System.out.println("yeeetesty");
-        return streamer;
     }
 }
