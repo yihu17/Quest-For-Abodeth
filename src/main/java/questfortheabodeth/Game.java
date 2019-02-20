@@ -21,10 +21,7 @@ import main.java.questfortheabodeth.powerups.Pickup;
 import main.java.questfortheabodeth.threads.AudioThread;
 import main.java.questfortheabodeth.threads.LoadingScreenThread;
 import main.java.questfortheabodeth.powerups.TheAbodeth;
-import main.java.questfortheabodeth.weapons.Bullet;
-import main.java.questfortheabodeth.weapons.Melee;
-import main.java.questfortheabodeth.weapons.OneHandedWeapon;
-import main.java.questfortheabodeth.weapons.WeaponPickup;
+import main.java.questfortheabodeth.weapons.*;
 import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.RenderWindow;
@@ -423,7 +420,11 @@ public class Game
                     if (Keyboard.isKeyPressed(Keyboard.Key.E) && !player.hasWeapon(((WeaponPickup) i).getName())) {
                         // The player is pressing E and also does not have the weapon
                         if (player.getCurrentWeapon() != null) {
-                            if (player.getCurrentWeapon() instanceof OneHandedWeapon && Helper.getTypeOfWeapon(((WeaponPickup) i).getName()).equals("OneHandedWeapon")) {
+                            if ((player.getCurrentWeapon() instanceof Melee && Helper.getTypeOfWeapon(((WeaponPickup) i).getName()).equals("Melee")) ||
+                                    (player.getCurrentWeapon() instanceof OneHandedWeapon && Helper.getTypeOfWeapon(((WeaponPickup) i).getName()).equals("OneHandedWeapon")) ||
+                                    (player.getCurrentWeapon() instanceof TwoHandedWeapon && Helper.getTypeOfWeapon(((WeaponPickup) i).getName()).equals("TwoHandedWeapon"))
+
+                            ) {
                                 WeaponPickup droppedWeapon = new WeaponPickup((int) player.getX() + (int) player.getWidth() / 2, (int) player.getY() + (int) player.getHeight() / 2, "res/assets/weapons/" + player.getCurrentWeapon().getName() + ".png", player.getCurrentWeapon().getName());
                                 collidables.add(droppedWeapon);
                                 interactables.add(droppedWeapon);
