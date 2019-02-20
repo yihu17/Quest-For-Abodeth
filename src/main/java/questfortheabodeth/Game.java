@@ -14,6 +14,7 @@ import main.java.questfortheabodeth.menus.GameMenu;
 import main.java.questfortheabodeth.menus.PlayerDiedMenu;
 import main.java.questfortheabodeth.powerups.Pickup;
 import main.java.questfortheabodeth.threads.AudioThread;
+import main.java.questfortheabodeth.threads.LoadingScreenThread;
 import main.java.questfortheabodeth.weapons.Bullet;
 import main.java.questfortheabodeth.weapons.Melee;
 import main.java.questfortheabodeth.weapons.WeaponPickup;
@@ -41,6 +42,7 @@ public class Game
 {
     private RenderWindow window;
     private boolean gameRunning;
+    private LoadingScreenThread loadingScreen;
 
     private Room[][] rooms;
     private Room currentRoom;
@@ -67,6 +69,10 @@ public class Game
     public Game(RenderWindow window)
     {
         this.window = window;
+        //loading screen thread
+        loadingScreen = new LoadingScreenThread(this.window);
+        loadingScreen.start();
+
         this.window.clear();
         this.gameRunning = true;
         this.player = new Player();
@@ -136,6 +142,9 @@ public class Game
 
     public void run()
     {
+        //kill loading screen thread
+        loadingScreen.stop();
+
         int clocker = 0;
         Button time = new Button(120, 40, (Settings.WINDOW_WIDTH / 2) - 60, 10, "0");
         time.setTextXOffset(8);
