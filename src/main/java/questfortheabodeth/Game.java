@@ -137,14 +137,13 @@ public class Game
     public void run()
     {
         int clocker = 0;
-        if (Settings.CROSSHAIR_VISIBLE) {
-            window.setMouseCursorVisible(false);
-        }
         Button time = new Button(120, 40, (Settings.WINDOW_WIDTH / 2) - 60, 10, "0");
         time.setTextXOffset(8);
         while (gameRunning && player.isCharacterAlive()) {
             time.setText(Settings.GAME_TIME.getFormattedTime());
-
+            if (Settings.CROSSHAIR_VISIBLE) {
+                window.setMouseCursorVisible(false);
+            }
             window.clear();
             // Draw the room
             window.draw(currentRoom);
