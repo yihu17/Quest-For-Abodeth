@@ -37,6 +37,8 @@ public class Room implements Drawable
     private ArrayList<int[]> weaponInfo = new ArrayList<>();
     private ArrayList<WeaponPickup> weapons = new ArrayList<>();
 
+    private long lastAudioTrigger = 0;
+
 
     /**
      * Creates a new room of the specified type
@@ -507,5 +509,13 @@ public class Room implements Drawable
     public ArrayList<WeaponPickup> getWeapons()
     {
         return weapons;
+    }
+
+    public void setLastAudioTrigger(long time) {
+        this.lastAudioTrigger = time;
+    }
+
+    public long getLastAudioTrigger() {
+        return lastAudioTrigger;
     }
 }

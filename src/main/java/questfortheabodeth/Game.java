@@ -1,5 +1,6 @@
 package main.java.questfortheabodeth;
 
+import javafx.scene.shape.HLineTo;
 import main.java.questfortheabodeth.characters.Character;
 import main.java.questfortheabodeth.characters.Enemy;
 import main.java.questfortheabodeth.characters.Player;
@@ -34,6 +35,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 
@@ -147,6 +149,7 @@ public class Game
         int clocker = 0;
         Button time = new Button(120, 40, (Settings.WINDOW_WIDTH / 2) - 60, 10, "0");
         time.setTextXOffset(8);
+
         while (gameRunning && player.isCharacterAlive()) {
             time.setText(Settings.GAME_TIME.getFormattedTime());
             if (Settings.CROSSHAIR_VISIBLE) {
@@ -154,6 +157,11 @@ public class Game
             } else {
                 window.setMouseCursorVisible(true);
             }
+            if (Settings.MUSIC_ON && !Settings.BACKGROUND_AUDIO_PLAYING) {
+                Settings.BACKGROUND_AUDIO_PLAYING = true;
+                Helper.playAudio("roomA");
+            }
+
             window.clear();
             // Draw the room
             window.draw(currentRoom);
@@ -237,6 +245,11 @@ public class Game
                             // Go through the door
                             System.out.println("Going through the door " + doorInRange);
                             switchRoom(doorInRange.getLinkedDoor());
+                            if (Settings.MUSIC_ON) {
+                                Helper.stopAllAudio();
+                                Settings.BACKGROUND_AUDIO_PLAYING = true;
+                                Helper.playAudio("roomA");
+                            }
                         }
                     } else if (e.asKeyEvent().key == Keyboard.Key.M) {
                         hud.toggleMiniMapVisibility();
@@ -438,12 +451,12 @@ public class Game
     private void scanRoom()
     {
         Settings.BACKGROUND_AUDIO_PLAYING = false;
-        if (Settings.MUSIC_ON) {
+        if (Settings.MUSIC_ON && System.currentTimeMillis() - currentRoom.getLastAudioTrigger() >= Helper.getLengthOfAudioFile("roomA")) {
             Settings.BACKGROUND_AUDIO_PLAYING = true;
             Helper.playAudio("roomA");
-            new AudioThread("mainMenu");
+            new AudioThread("roomA");
+            currentRoom.setLastAudioTrigger(System.currentTimeMillis());
         }
-
         collidables.clear();
         drawables.clear();
         enemies.clear();
