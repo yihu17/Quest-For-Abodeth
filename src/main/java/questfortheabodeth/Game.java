@@ -1,6 +1,9 @@
 package main.java.questfortheabodeth;
 
-import javafx.scene.shape.HLineTo;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import main.java.questfortheabodeth.characters.Boss;
 import main.java.questfortheabodeth.characters.Character;
 import main.java.questfortheabodeth.characters.Enemy;
 import main.java.questfortheabodeth.characters.Player;
@@ -13,9 +16,11 @@ import main.java.questfortheabodeth.interfaces.*;
 import main.java.questfortheabodeth.menus.Button;
 import main.java.questfortheabodeth.menus.GameMenu;
 import main.java.questfortheabodeth.menus.PlayerDiedMenu;
+import main.java.questfortheabodeth.menus.PlayerWinMenu;
 import main.java.questfortheabodeth.powerups.Pickup;
 import main.java.questfortheabodeth.threads.AudioThread;
 import main.java.questfortheabodeth.threads.LoadingScreenThread;
+import main.java.questfortheabodeth.powerups.TheAbodeth;
 import main.java.questfortheabodeth.weapons.Bullet;
 import main.java.questfortheabodeth.weapons.Melee;
 import main.java.questfortheabodeth.weapons.WeaponPickup;
@@ -35,7 +40,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 
@@ -50,6 +54,7 @@ public class Game
     private int roomCol = -1;
     private int roomRow = -1;
     private String currentRoomString;
+    private SimpleBooleanProperty gameWon = new SimpleBooleanProperty(false);
 
     private Player player;
     private Door doorInRange = null;
@@ -79,6 +84,17 @@ public class Game
         this.gameRunning = true;
         this.player = new Player();
         collidables.add(this.player);
+
+        gameWon.addListener(new ChangeListener<Boolean>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue)
+            {
+                gameRunning = false;
+                PlayerWinMenu winMenu = new PlayerWinMenu(window, Settings.GAME_TIME.getFormattedTime());
+                winMenu.displayMenu();
+            }
+        });
 
         // Read the CSV file
         FileOperator ops = new FileOperator("res/assets/CSVs/roomLayout.csv");
@@ -307,6 +323,12 @@ public class Game
             if (c instanceof Player || c instanceof Bullet) {
                 continue;
             }
+            if (c instanceof TheAbodeth) {
+                int overlap = Helper.checkOverlap(player, c);
+                if (0 < overlap) {
+                    gameWon.set(true);
+                }
+            }
             if (c instanceof Environment) {
                 int overlap = Helper.checkOverlap(player, c);
                 if (0 < overlap) {
@@ -474,6 +496,9 @@ public class Game
         }
 
         for (Enemy e : currentRoom.getEnemies()) {
+            if (e instanceof Boss) {
+                ((Boss) e).setGameOver(drawables, collidables);
+            }
             e.setPlayer(player);
             movables.add(e);
             enemies.add(e);
@@ -602,8 +627,17 @@ public class Game
                 throw new AssertionError("Unknown direction to travel in: " + direction);
         }
 
+        // TODO: Have a flag in the Room class and place the player in a certain position
         currentRoom = rooms[roomRow][roomCol];
         currentRoomString = "room[" + roomRow + "][" + roomCol + "]";
+
+        // Test to see if this is the end room
+        if (!currentRoom.getDoors()[0] && !currentRoom.getDoors()[1] && !currentRoom.getDoors()[2] && !currentRoom.getDoors()[3]) {
+            player.setPosition(
+                    200,
+                    (int)(Settings.WINDOW_HEIGHT / 2 - (player.getWidth() / 2))
+            );
+        }
         for (Interactable i : currentRoom.getInteractables()) {
             if (i instanceof Door) {
                 Door d = (Door) i;

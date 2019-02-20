@@ -131,7 +131,9 @@ public class Settings
         CSV_KEYS.put(36, "shotgun");
         CSV_KEYS.put(37, "ar15");
         CSV_KEYS.put(38, "uzi");
-
+        // Bosses
+        CSV_KEYS.put(98, "abodeth");
+        CSV_KEYS.put(99, "edemy");
 
         AUDIO_KEYS.put("shotgun","weapons/shotgun");
         AUDIO_KEYS.put("revolver","weapons/revolver");
@@ -142,6 +144,7 @@ public class Settings
         AUDIO_KEYS.put("room[2][0]", "roomMusic/room[2][0]");
         AUDIO_KEYS.put("room[2][1]", "roomMusic/room[2][1]");
         AUDIO_KEYS.put("mainMenu", "mainMenu");
+
     }
 
     public static final int ROOM_DIVISION_SIZE = 40;

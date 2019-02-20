@@ -24,9 +24,9 @@ public class Main
     public void run()
     {
         this.window.create(VideoMode.getDesktopMode(), Settings.WINDOW_TITLE, WindowStyle.FULLSCREEN);
-        for (VideoMode v: VideoMode.getFullscreenModes()) {
-            System.out.println(v);
-        }
+        //for (VideoMode v: VideoMode.getFullscreenModes()) {
+        //    System.out.println(v);
+        //}
         //this.window.create(new VideoMode(1366, 768, 32), main.java.questfortheabodeth.Settings.WINDOW_TITLE);
 
 

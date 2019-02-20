@@ -2,6 +2,7 @@ package main.java.questfortheabodeth.environments;
 
 import main.java.questfortheabodeth.FileOperator;
 import main.java.questfortheabodeth.Settings;
+import main.java.questfortheabodeth.characters.Boss;
 import main.java.questfortheabodeth.characters.Enemy;
 import main.java.questfortheabodeth.environments.interactables.Door;
 import main.java.questfortheabodeth.environments.traps.*;
@@ -57,8 +58,12 @@ public class Room implements Drawable
         doors[3] = right;
 
         this.type = type;
+        // TODO: Change this back to original numbers
         if (type == 1) {
             roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomDataA.csv"); //needs to get path dynamically...
+        } else if (type == 3) {
+            roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomDataZ.csv");
+            doors = new boolean[]{false, false, false, false};
         } else if (type < 0) {
             return;
         } else {
@@ -153,6 +158,11 @@ public class Room implements Drawable
                     false
             ) : roomImages[rightDoorStart + 1][Settings.ROOM_DIVISION_COLUMNS - 2];
         }
+    }
+
+    public boolean[] getDoors()
+    {
+        return doors;
     }
 
     public int getType()
@@ -377,6 +387,9 @@ public class Room implements Drawable
                     case "crocodile":
                         enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath, 1, "crocodile", 550, 13));
                         break;
+                    case "edemy":
+                        enemies.add(new Boss(1600, Settings.WINDOW_HEIGHT / 2 + 50, 10, filePath, 2, "edemy", 400, 40));
+                        break;
                 }
             }
         }
@@ -463,6 +476,9 @@ public class Room implements Drawable
                     case "damagePickup":
                         pickups.add(new DamagePlus(generatedSpawnLocation[0], generatedSpawnLocation[1], 10000));
                         break;
+                    default:
+                        break;
+
                 }
             }
         }

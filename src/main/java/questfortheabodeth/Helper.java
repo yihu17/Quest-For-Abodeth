@@ -240,7 +240,7 @@ public class Helper
             case "machete":
                 return new Melee("machete", 50, 5);
             case "revolver":
-                return new OneHandedWeapon("revolver", 1, 50, 333, 5);
+                return new OneHandedWeapon("revolver", 1, 50, 333, 50);
             case "shotgun":
                 return new TwoHandedWeapon("shotgun", 5, 20, 1000, 5);
             case "ar15":
