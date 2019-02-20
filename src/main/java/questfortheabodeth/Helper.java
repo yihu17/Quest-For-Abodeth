@@ -293,4 +293,21 @@ public class Helper
         }
         Settings.BACKGROUND_AUDIO_PLAYING = false;
     }
+
+    public static String getTypeOfWeapon(String weapon) {
+        switch (weapon) {
+            case "machete":
+                return "Melee";
+            //break;
+            case "revolver":
+                return "OneHandedWeapon";
+            case "shotgun":
+                return "TwoHandedWeapon";
+            case "ar15":
+                return "TwoHandedWeapon";
+            case "uzi":
+                return "OneHandedWeapon";
+        }
+        return null;
+    }
 }
