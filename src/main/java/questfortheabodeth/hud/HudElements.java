@@ -31,6 +31,7 @@ public class HudElements implements Drawable
     {
         renderTarget.draw(healthbar);
         renderTarget.draw(weaponwheel);
+        renderTarget.draw(ammoCount.getBackground());
         renderTarget.draw(ammoCount);
         if (minimap.getVisibility()) {
             renderTarget.draw(minimap);
