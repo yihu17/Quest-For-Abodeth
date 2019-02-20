@@ -49,6 +49,7 @@ public class Game
     private Room currentRoom;
     private int roomCol = -1;
     private int roomRow = -1;
+    private String currentRoomString;
 
     private Player player;
     private Door doorInRange = null;
@@ -129,6 +130,7 @@ public class Game
             throw new IllegalStateException("Player has no start room");
         }
         currentRoom = rooms[roomRow][roomCol];
+        currentRoomString = "room[" + roomRow + "][" + roomCol + "]";
 
         miniMap = new MiniMap(rows, cols, roomRow, roomCol);
         healthBar = new HealthBar(player);
@@ -159,7 +161,7 @@ public class Game
             }
             if (Settings.MUSIC_ON && !Settings.BACKGROUND_AUDIO_PLAYING) {
                 Settings.BACKGROUND_AUDIO_PLAYING = true;
-                Helper.playAudio("roomA");
+                Helper.playAudio(currentRoomString);
             }
 
             window.clear();
@@ -248,7 +250,7 @@ public class Game
                             if (Settings.MUSIC_ON) {
                                 Helper.stopAllAudio();
                                 Settings.BACKGROUND_AUDIO_PLAYING = true;
-                                Helper.playAudio("roomA");
+                                Helper.playAudio(currentRoomString);
                             }
                         }
                     } else if (e.asKeyEvent().key == Keyboard.Key.M) {
@@ -451,10 +453,10 @@ public class Game
     private void scanRoom()
     {
         Settings.BACKGROUND_AUDIO_PLAYING = false;
-        if (Settings.MUSIC_ON && System.currentTimeMillis() - currentRoom.getLastAudioTrigger() >= Helper.getLengthOfAudioFile("roomA")) {
+        if (Settings.MUSIC_ON && System.currentTimeMillis() - currentRoom.getLastAudioTrigger() >= Helper.getLengthOfAudioFile(currentRoomString)) {
             Settings.BACKGROUND_AUDIO_PLAYING = true;
-            Helper.playAudio("roomA");
-            new AudioThread("roomA");
+            Helper.playAudio(currentRoomString);
+            new AudioThread(currentRoomString);
             currentRoom.setLastAudioTrigger(System.currentTimeMillis());
         }
         collidables.clear();
@@ -601,6 +603,7 @@ public class Game
         }
 
         currentRoom = rooms[roomRow][roomCol];
+        currentRoomString = "room[" + roomRow + "][" + roomCol + "]";
         for (Interactable i : currentRoom.getInteractables()) {
             if (i instanceof Door) {
                 Door d = (Door) i;
