@@ -54,6 +54,11 @@ public class Highscores
         file.writeNewLine(builder.toString());
     }
 
+    public ArrayList<String> getScores()
+    {
+        return scores;
+    }
+
     public static void main(String[] args)
     {
         Highscores h = new Highscores();
