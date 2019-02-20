@@ -122,7 +122,7 @@ public class FileOperator
     {
         try {
             FileWriter newLineWriter = new FileWriter(file, true);
-            newLineWriter.append("\n" + add);
+            newLineWriter.append(add);
             newLineWriter.flush();
             newLineWriter.close();
             return true;

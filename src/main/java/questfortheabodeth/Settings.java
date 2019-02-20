@@ -22,10 +22,10 @@ public class Settings
     public static final int WINDOW_Y_PADDING = 100;
     public static final String WINDOW_TITLE = "Quest for the Abodeth";
     public static final int WINDOW_FPS = 60;
+    public static final int MAX_SCORES = 10;
 
     // The fonts used in various main.java.questfortheabodeth.menus in the game
     public static final Font MAIN_MENU_FONT = new Font();
-    public static final Font HUD_FONT = new Font();
 
     // Custom colors
     public static final Color LIGHT_GREY = new Color(231, 231, 231);
