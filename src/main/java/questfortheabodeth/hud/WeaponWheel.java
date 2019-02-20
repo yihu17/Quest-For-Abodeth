@@ -30,17 +30,17 @@ public class WeaponWheel implements Drawable
         // Assumes no weapons are present
         meleeRect = new RectangleShape();
         meleeRect.setSize(new Vector2f(64, 64));
-        meleeRect.setPosition(new Vector2f(5, 961));
+        meleeRect.setPosition(new Vector2f(7, 1006));
         applyEffects(meleeRect);
 
         oneHandedRect = new RectangleShape();
         oneHandedRect.setSize(new Vector2f(64, 64));
-        oneHandedRect.setPosition(new Vector2f(5, 891));
+        oneHandedRect.setPosition(new Vector2f(7, 936));
         applyEffects(oneHandedRect);
 
         twoHandedRect = new RectangleShape();
         twoHandedRect.setSize(new Vector2f(64, 64));
-        twoHandedRect.setPosition(new Vector2f(5, 822));
+        twoHandedRect.setPosition(new Vector2f(7, 867));
         applyEffects(twoHandedRect);
     }
 
@@ -88,13 +88,13 @@ public class WeaponWheel implements Drawable
         renderTarget.draw(oneHandedRect);
         renderTarget.draw(twoHandedRect);
         if (meleeWeapon != null) {
-            renderTarget.draw(new WeaponPickup(5, 822, "res/assets/weapons/" + meleeWeapon.getName() + ".png", meleeWeapon.getName()));
+            renderTarget.draw(new WeaponPickup(7, 867, "res/assets/weapons/" + meleeWeapon.getName() + ".png", meleeWeapon.getName()));
         }
         if (oneHandedWeapon != null) {
-            renderTarget.draw(new WeaponPickup(5, 891, "res/assets/weapons/" + oneHandedWeapon.getName() + ".png", oneHandedWeapon.getName()));
+            renderTarget.draw(new WeaponPickup(7, 936, "res/assets/weapons/" + oneHandedWeapon.getName() + ".png", oneHandedWeapon.getName()));
         }
         if (twoHandedWeapon != null) {
-            renderTarget.draw(new WeaponPickup(5, 961, "res/assets/weapons/" + twoHandedWeapon.getName() + ".png", twoHandedWeapon.getName()));
+            renderTarget.draw(new WeaponPickup(7, 1006, "res/assets/weapons/" + twoHandedWeapon.getName() + ".png", twoHandedWeapon.getName()));
         }
     }
 

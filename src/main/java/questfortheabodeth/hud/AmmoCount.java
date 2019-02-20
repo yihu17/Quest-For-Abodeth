@@ -17,10 +17,11 @@ public class AmmoCount extends Text
     {
         this.setColor(Color.WHITE);
         this.setFont(Settings.MAIN_MENU_FONT);
-        this.setPosition(new Vector2f(16, 770));
+        this.setScale(new Vector2f(0.75f, 0.75f));
         this.setString(ammo.getValue().toString());
+        this.setPosition(new Vector2f(29, 820));
 
-        background = new Image(3, 758, "res/assets/pickups/ammobox_blank.png");
+        background = new Image(7, 803, "res/assets/pickups/ammobox_blank.png");
         background.setScale(new Vector2f(2, 2));
 
         ammo.addListener(new ChangeListener<Number>()
@@ -29,6 +30,10 @@ public class AmmoCount extends Text
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
             {
                 setString(newValue.toString());
+                setPosition(new Vector2f(
+                        ammo.getValue().toString().length() == 3 ? 23 : 27,
+                        820
+                ));
             }
         });
     }

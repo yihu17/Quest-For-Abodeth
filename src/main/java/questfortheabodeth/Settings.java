@@ -25,6 +25,7 @@ public class Settings
 
     // The fonts used in various main.java.questfortheabodeth.menus in the game
     public static final Font MAIN_MENU_FONT = new Font();
+    public static final Font HUD_FONT = new Font();
 
     // Custom colors
     public static final Color LIGHT_GREY = new Color(231, 231, 231);
