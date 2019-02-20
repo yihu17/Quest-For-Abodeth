@@ -286,9 +286,14 @@ public class Helper
     }
 
     public static void stopAllAudio() {
-        for (int i = 0; i < Settings.AUDIO_STREAMERS.size(); i++) {
-            Settings.AUDIO_STREAMERS.get(i).stop();
-            Settings.AUDIO_STREAMERS.clear();
+        try {
+            for (int i = 0; i < Settings.AUDIO_STREAMERS.size(); i++) {
+                Settings.AUDIO_STREAMERS.get(i).stop();
+                Settings.AUDIO_STREAMERS.clear();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        Settings.BACKGROUND_AUDIO_PLAYING = false;
     }
 }

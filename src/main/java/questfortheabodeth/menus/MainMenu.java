@@ -35,6 +35,7 @@ public class MainMenu implements Menu
     {
 
         this.window = window;
+        this.window.setMouseCursorVisible(true);
         Text t = new Text("THE QUEST FOR THE ABODETH", Settings.MAIN_MENU_FONT, 82);
         t.setColor(Color.BLACK);
         t.setPosition(510, 280);
@@ -101,12 +102,6 @@ public class MainMenu implements Menu
         buttons.add(controls);
 
         this.background = new Image(0, 0, "res/assets/menus/mainmenu.png");
-
-        if (Settings.AUDIO_ON && !Settings.BACKGROUND_AUDIO_PLAYING) {
-            Settings.BACKGROUND_AUDIO_PLAYING = true;
-            Helper.playAudio("mainMenu");
-            new AudioThread("mainMenu");
-        }
 
 
     }

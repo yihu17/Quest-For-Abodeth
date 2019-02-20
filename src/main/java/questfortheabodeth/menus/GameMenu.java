@@ -32,6 +32,7 @@ public class GameMenu implements Menu
     public GameMenu(RenderWindow window/*, boolean screenshotTaken*/)
     {
         this.window = window;
+        this.window.setMouseCursorVisible(true);
 
         backgroundImage = new Image(0, 0, "res/assets/menus/gamePausedBackground.png");
         Button quit = new Button(300, 50, 200, 200, "Quit to menu");
@@ -42,6 +43,7 @@ public class GameMenu implements Menu
             {
                 menuOpen = false;
                 chosenButton = quit;
+                Helper.stopAllAudio();
             }
         });
         Button cont = new Button(300, 50, 200, 300, "Continue");

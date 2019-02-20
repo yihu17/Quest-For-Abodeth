@@ -5,6 +5,7 @@ import main.java.questfortheabodeth.menus.ControlsMenu;
 import main.java.questfortheabodeth.menus.HighscoreMenu;
 import main.java.questfortheabodeth.menus.MainMenu;
 import main.java.questfortheabodeth.menus.SettingsMenu;
+import main.java.questfortheabodeth.threads.AudioThread;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.WindowStyle;
@@ -30,7 +31,11 @@ public class Main
 
         // As long as the window is open run the game loop
         while (window.isOpen()) {
-
+            if (Settings.AUDIO_ON && !Settings.BACKGROUND_AUDIO_PLAYING) {
+                Settings.BACKGROUND_AUDIO_PLAYING = true;
+                Helper.playAudio("mainMenu");
+                new AudioThread("mainMenu");
+            }
             // Display the main menu
             MainMenu menu = new MainMenu(window);
             menu.displayMenu();
