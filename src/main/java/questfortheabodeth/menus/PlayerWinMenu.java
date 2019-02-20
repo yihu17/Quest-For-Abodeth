@@ -1,6 +1,7 @@
 package main.java.questfortheabodeth.menus;
 
 import main.java.questfortheabodeth.Helper;
+import main.java.questfortheabodeth.Highscores;
 import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.interfaces.Clickable;
 import main.java.questfortheabodeth.interfaces.Menu;
@@ -53,6 +54,9 @@ public class PlayerWinMenu implements Menu
 
         this.background = new Image(0, 0, "res/assets/menus/mainmenu.png");
 
+        Highscores scores = new Highscores();
+        scores.addScore(time);
+        scores.save();
     }
 
     /**
