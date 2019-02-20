@@ -4,7 +4,6 @@ import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.sprites.Image;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Text;
-import org.jsfml.system.Vector2f;
 
 public class LoadingScreenThread extends Thread {
     private RenderWindow window;
@@ -20,7 +19,7 @@ public class LoadingScreenThread extends Thread {
     }
 
     public void run() {
-        while (true) {
+        while (!this.isInterrupted()) {
             window.clear();
             rotateCog();
             window.draw(loadingCog);

@@ -18,9 +18,9 @@ import main.java.questfortheabodeth.menus.GameMenu;
 import main.java.questfortheabodeth.menus.PlayerDiedMenu;
 import main.java.questfortheabodeth.menus.PlayerWinMenu;
 import main.java.questfortheabodeth.powerups.Pickup;
+import main.java.questfortheabodeth.powerups.TheAbodeth;
 import main.java.questfortheabodeth.threads.AudioThread;
 import main.java.questfortheabodeth.threads.LoadingScreenThread;
-import main.java.questfortheabodeth.powerups.TheAbodeth;
 import main.java.questfortheabodeth.weapons.*;
 import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.FloatRect;
@@ -160,8 +160,6 @@ public class Game
     public void run()
     {
         //kill loading screen thread
-        loadingScreen.stop();
-
         int clocker = 0;
         Button time = new Button(120, 40, (Settings.WINDOW_WIDTH / 2) - 60, 10, "0");
         time.setTextXOffset(8);
@@ -299,6 +297,10 @@ public class Game
                 player.moveRight();
             }
             clocker++;
+
+            if (!loadingScreen.isInterrupted()) {
+                loadingScreen.interrupt();
+            }
         }
         //Don't know this should be in Game.java or elsewhere?(:)
 
