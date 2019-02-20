@@ -27,6 +27,7 @@ public class PlayerWinMenu implements Menu
     public PlayerWinMenu(RenderWindow window, String time)
     {
         this.window = window;
+        this.window.setMouseCursorVisible(true);
         Button back = new Button(250, 75, Settings.WINDOW_WIDTH / 2 - 75, 500, "MAIN MENU");
         back.setTextXOffset(
                 250 / 2 - (back.getText().length() / 2) * 14

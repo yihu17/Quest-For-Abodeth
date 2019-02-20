@@ -73,6 +73,7 @@ public class Game
 
     public Game(RenderWindow window)
     {
+        Settings.LOADED_IMAGES.clear(); //still needed?
         this.window = window;
         //loading screen thread
         loadingScreen = new LoadingScreenThread(this.window);
