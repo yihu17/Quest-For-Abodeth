@@ -52,6 +52,7 @@ public class Settings
     // Values in CSV files mapped to game objects
     public static HashMap<Integer, String> CSV_KEYS = new HashMap<>();
     public static HashMap<String, String> AUDIO_KEYS = new HashMap<>();
+    public static HashMap<String, String> ROOM_MUSIC_KEYS = new HashMap<>();
 
     // main.java.questfortheabodeth.Game variables
     public static final int BULLET_SPEED = 20;
@@ -144,6 +145,18 @@ public class Settings
         AUDIO_KEYS.put("room[2][0]", "roomMusic/room[2][0]");
         AUDIO_KEYS.put("room[2][1]", "roomMusic/room[2][1]");
         AUDIO_KEYS.put("mainMenu", "mainMenu");
+
+        ROOM_MUSIC_KEYS.put("roomDataA", "track01.wav");
+        ROOM_MUSIC_KEYS.put("roomDataB", "track02.wav");
+        ROOM_MUSIC_KEYS.put("roomDataC", "track03.wav");
+        ROOM_MUSIC_KEYS.put("roomDataD", "track04.wav");
+        ROOM_MUSIC_KEYS.put("roomDataE", "track05.wav");
+        ROOM_MUSIC_KEYS.put("roomDataF", "track06.wav");
+        ROOM_MUSIC_KEYS.put("roomDataG", "track07.wav");
+        ROOM_MUSIC_KEYS.put("roomDataH", "track08.wav");
+        ROOM_MUSIC_KEYS.put("roomDataI", "track09.wav");
+        ROOM_MUSIC_KEYS.put("roomDataJ", "track10.wav");
+        //ROOM_MUSIC_KEYS.put("","");
 
     }
 

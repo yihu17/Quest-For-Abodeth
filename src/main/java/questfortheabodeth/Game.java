@@ -174,7 +174,7 @@ public class Game
             }
             if (Settings.MUSIC_ON && !Settings.BACKGROUND_AUDIO_PLAYING) {
                 Settings.BACKGROUND_AUDIO_PLAYING = true;
-                Helper.playAudio(currentRoomString);
+                Helper.playAudio("res/assets/audio/rooMusic/" + currentRoom.getAudioTrack());
             }
 
             window.clear();
