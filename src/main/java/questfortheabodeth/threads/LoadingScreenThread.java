@@ -26,6 +26,8 @@ public class LoadingScreenThread extends Thread {
             window.draw(loadingText);
             window.display();
         }
+
+        window.clear();
     }
 
     private void rotateCog() {

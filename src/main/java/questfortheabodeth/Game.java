@@ -76,8 +76,8 @@ public class Game
         Settings.LOADED_IMAGES.clear(); //still needed?
         this.window = window;
         //loading screen thread
-        loadingScreen = new LoadingScreenThread(this.window);
-        loadingScreen.start();
+        //loadingScreen = new LoadingScreenThread(this.window);
+        //loadingScreen.start();
 
         this.window.clear();
         this.gameRunning = true;
@@ -156,6 +156,10 @@ public class Game
         new Thread(Settings.GAME_TIME).start();
 
         this.scanRoom();
+
+        /*if (!loadingScreen.isInterrupted()) {
+            loadingScreen.interrupt();
+        }*/
     }
 
     public void run()
@@ -298,10 +302,6 @@ public class Game
                 player.moveRight();
             }
             clocker++;
-
-            if (!loadingScreen.isInterrupted()) {
-                loadingScreen.interrupt();
-            }
         }
         //Don't know this should be in Game.java or elsewhere?(:)
 
