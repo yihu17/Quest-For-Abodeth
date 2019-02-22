@@ -39,7 +39,7 @@ public class Room implements Drawable
     private ArrayList<WeaponPickup> weapons = new ArrayList<>();
 
     private long lastAudioTrigger = 0;
-    private String audioTrack;
+    private String roomName;
 
 
     /**
@@ -62,17 +62,20 @@ public class Room implements Drawable
         // TODO: Change this back to original numbers
         if (type == 1) {
             roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomDataA.csv");
+            roomName = "roomDataA";
         } else if (type == 3) {
             roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomDataZ.csv");
             doors = new boolean[]{false, false, false, false};
+            roomName = "roomDataJ";
         } else if (type < 0) {
             return;
         } else {
             String[] rooms = new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
             int index = Settings.GENERATOR.nextInt(rooms.length);
             roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomData" + rooms[index] + ".csv");
-            audioTrack = Settings.ROOM_MUSIC_KEYS.get(index);
+            roomName = "roomData" + rooms[index];
         }
+        //System.out.println("Audio file selected: "+audioTrack);
         readRoomData();
         loadRoomImages();
         spawnEnemies();
@@ -537,7 +540,7 @@ public class Room implements Drawable
         return lastAudioTrigger;
     }
 
-    public String getAudioTrack() {
-        return audioTrack;
+    public String getRoomName() {
+        return roomName;
     }
 }

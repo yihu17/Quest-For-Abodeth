@@ -51,7 +51,6 @@ public class Game
     private Room currentRoom;
     private int roomCol = -1;
     private int roomRow = -1;
-    private String currentRoomString;
     private SimpleBooleanProperty gameWon = new SimpleBooleanProperty(false);
 
     private Player player;
@@ -145,7 +144,6 @@ public class Game
             throw new IllegalStateException("Player has no start room");
         }
         currentRoom = rooms[roomRow][roomCol];
-        currentRoomString = "room[" + roomRow + "][" + roomCol + "]";
 
         miniMap = new MiniMap(rows, cols, roomRow, roomCol);
         healthBar = new HealthBar(player);
@@ -178,7 +176,7 @@ public class Game
             }
             if (Settings.MUSIC_ON && !Settings.BACKGROUND_AUDIO_PLAYING) {
                 Settings.BACKGROUND_AUDIO_PLAYING = true;
-                Helper.playAudio("res/assets/audio/rooMusic/" + currentRoom.getAudioTrack());
+                Helper.playAudio(currentRoom.getRoomName());
             }
 
             window.clear();
@@ -267,7 +265,7 @@ public class Game
                             if (Settings.MUSIC_ON) {
                                 Helper.stopAllAudio();
                                 Settings.BACKGROUND_AUDIO_PLAYING = true;
-                                Helper.playAudio(currentRoomString);
+                                Helper.playAudio(currentRoom.getRoomName());
                             }
                         }
                     } else if (e.asKeyEvent().key == Keyboard.Key.M) {
@@ -489,10 +487,11 @@ public class Game
     private void scanRoom()
     {
         Settings.BACKGROUND_AUDIO_PLAYING = false;
-        if (Settings.MUSIC_ON && System.currentTimeMillis() - currentRoom.getLastAudioTrigger() >= Helper.getLengthOfAudioFile(currentRoomString)) {
+        String audioPath = currentRoom.getRoomName();
+        if (Settings.MUSIC_ON && System.currentTimeMillis() - currentRoom.getLastAudioTrigger() >= Helper.getLengthOfAudioFile(audioPath)) {
             Settings.BACKGROUND_AUDIO_PLAYING = true;
-            Helper.playAudio(currentRoomString);
-            new AudioThread(currentRoomString);
+            Helper.playAudio(audioPath);
+            new AudioThread(audioPath);
             currentRoom.setLastAudioTrigger(System.currentTimeMillis());
         }
         collidables.clear();
@@ -643,7 +642,6 @@ public class Game
 
         // TODO: Have a flag in the Room class and place the player in a certain position
         currentRoom = rooms[roomRow][roomCol];
-        currentRoomString = "room[" + roomRow + "][" + roomCol + "]";
 
         // Test to see if this is the end room
         if (!currentRoom.getDoors()[0] && !currentRoom.getDoors()[1] && !currentRoom.getDoors()[2] && !currentRoom.getDoors()[3]) {
