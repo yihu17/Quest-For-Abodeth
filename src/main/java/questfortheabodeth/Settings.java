@@ -139,7 +139,7 @@ public class Settings
         AUDIO_KEYS.put("shotgun","weapons/shotgun");
         AUDIO_KEYS.put("revolver","weapons/revolver");
         AUDIO_KEYS.put("uzi","weapons/uzi");
-        AUDIO_KEYS.put("ar15","weapons/dar15");
+        AUDIO_KEYS.put("ar15","weapons/ar15");
         AUDIO_KEYS.put("arrow","traps/arrow");
         AUDIO_KEYS.put("lava","environment/lava");
         AUDIO_KEYS.put("room[2][0]", "roomMusic/room[2][0]");
