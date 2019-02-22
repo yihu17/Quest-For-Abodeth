@@ -20,22 +20,17 @@ import main.java.questfortheabodeth.menus.PlayerWinMenu;
 import main.java.questfortheabodeth.powerups.Pickup;
 import main.java.questfortheabodeth.powerups.TheAbodeth;
 import main.java.questfortheabodeth.threads.AudioThread;
+import main.java.questfortheabodeth.threads.ExpandingWave;
 import main.java.questfortheabodeth.threads.LoadingScreenThread;
 import main.java.questfortheabodeth.weapons.*;
-import org.jsfml.graphics.Drawable;
-import org.jsfml.graphics.FloatRect;
-import org.jsfml.graphics.RenderWindow;
+import org.jsfml.graphics.*;
+import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.Mouse;
 import org.jsfml.window.event.Event;
 import org.jsfml.window.event.MouseEvent;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -62,6 +57,7 @@ public class Game
     private WeaponWheel weaponWheel;
     private AmmoCount ammoCount;
     private HudElements hud;
+    private MeleeRange meleeWave = null;
 
     private CopyOnWriteArraySet<Movable> movables = new CopyOnWriteArraySet<>();
     private CopyOnWriteArraySet<Drawable> drawables = new CopyOnWriteArraySet<>();
@@ -187,6 +183,9 @@ public class Game
             window.draw(player);
             drawables.forEach(window::draw);
             window.draw(hud);
+            if (meleeWave != null && meleeWave.isVisible()) {
+                window.draw(meleeWave);
+            }
             window.draw(time);
             window.display();
 
@@ -241,6 +240,9 @@ public class Game
                         enemies.forEach(enemy -> enemy.decreaseHealth(
                                 0 < Helper.checkOverlap(enemy, meleeRange) ? player.getCurrentWeapon().getDamageDealt() : 0
                         ));
+
+                        meleeWave = new MeleeRange(new Vector2f(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2), player);
+                        new ExpandingWave(meleeWave).start();
                     }
                 } else if (e.type == Event.Type.KEY_PRESSED) {
                     if (e.asKeyEvent().key == Keyboard.Key.NUM1) {
@@ -583,7 +585,7 @@ public class Game
         }
     }
 
-    public boolean saveGameScreenshot()
+    /*public boolean saveGameScreenshot()
     {
         try {
             Robot robot = new Robot();
@@ -596,7 +598,7 @@ public class Game
             System.out.println("Error taking screenshot");
             return false;
         }
-    }
+    }*/
 
     private void switchRoom(int direction)
     {
