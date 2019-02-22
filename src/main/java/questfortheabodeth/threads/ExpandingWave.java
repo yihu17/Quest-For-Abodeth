@@ -22,10 +22,8 @@ public class ExpandingWave extends Thread
                     wave.getPlayer().getY() + wave.getPlayer().getHeight() / 2 - wave.getyOffset()
             );
 
-            Vector2f size = wave.getSize();
-            Vector2f newSize = new Vector2f(size.x + 4 , size.y + 4);
 
-            wave.setSize(newSize);
+            wave.setRadius(wave.getRadius() + 2);
             wave.setPosition(newPosition);
 
             try {
@@ -34,7 +32,7 @@ public class ExpandingWave extends Thread
                 e.printStackTrace();
             }
 
-            if (newSize.x > Settings.ROOM_DIVISION_SIZE * 3) {
+            if (wave.getRadius() > (Settings.ROOM_DIVISION_SIZE * 3 / 2)) {
                 this.interrupt();
             }
             wave.xOffsetIncrease();

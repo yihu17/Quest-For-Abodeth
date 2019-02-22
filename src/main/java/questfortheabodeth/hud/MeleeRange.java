@@ -2,11 +2,11 @@ package main.java.questfortheabodeth.hud;
 
 import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.characters.Player;
+import org.jsfml.graphics.CircleShape;
 import org.jsfml.graphics.Color;
-import org.jsfml.graphics.RectangleShape;
 import org.jsfml.system.Vector2f;
 
-public class MeleeRange extends RectangleShape
+public class MeleeRange extends CircleShape
 {
     private boolean visible = true;
     private Player player;
@@ -19,7 +19,7 @@ public class MeleeRange extends RectangleShape
         this.setPosition(startPosition);
         xOffset = 1;
         yOffset = 1;
-        this.setSize(new Vector2f(1, 1));
+        this.setRadius(1);
         this.setOutlineColor(new Color(Settings.DARK_SAND, 128));
         this.setOutlineThickness(2);
         this.setFillColor(Color.TRANSPARENT);
