@@ -13,6 +13,7 @@ import org.jsfml.graphics.FloatRect;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 
+import java.util.Random;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 public class ShootingArrows extends CollidableInteractableEnvironment implements TrapZone
@@ -33,17 +34,21 @@ public class ShootingArrows extends CollidableInteractableEnvironment implements
     @Override
     public FloatRect getGlobalBounds()
     {
-        return new FloatRect(this.getX() - 100, this.getY() - 100, 240, 240);
+        return new FloatRect(this.getX() - 190, this.getY() - 190, 320, 320);
 
     }
 
     @Override
     public void trigger(CopyOnWriteArraySet<Movable> movables, CopyOnWriteArraySet<Collidable> collidables, CopyOnWriteArraySet<Drawable> drawables, CopyOnWriteArraySet<Bullet> bullets, Player player)
     {
+        double angle = Helper.getAngleBetweenPoints(new Vector2i(new Vector2f(super.getX() + (super.getWidth() / 2), super.getY() + (super.getHeight() / 2))), new Vector2i(player.getVectorPosition()));
+        System.out.println("Angle before: " + angle);
+        angle += Settings.GENERATOR.nextInt(20) - 20;
+        System.out.println("Angle after: " + angle);
         Bullet b = new Bullet(
                 (int) this.getX() + (int)(getWidth()/2),
                 (int) this.getY() + (int)(getHeight()/2),
-                Helper.getAngleBetweenPoints(new Vector2i(new Vector2f(super.getX() + (super.getWidth() / 2), super.getY() + (super.getHeight() / 2))), new Vector2i(player.getVectorPosition())), 10, true, "arrow");
+                angle, 10, true, "arrow");
 
         movables.add(b);
         drawables.add(b);
