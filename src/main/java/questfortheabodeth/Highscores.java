@@ -7,6 +7,7 @@ public class Highscores
     private String filename = "res/assets/highscores.txt";
     private FileOperator file;
     private ArrayList<String> scores = new ArrayList<>();
+    private int NumOfScores;
 
     public Highscores()
     {
@@ -17,6 +18,8 @@ public class Highscores
         }
 
         readHighscores();
+        readNumOfScores();
+        limitHighScores(5);
     }
 
     private void readHighscores()
@@ -80,4 +83,15 @@ public class Highscores
             System.out.println(s);
         }
     }
+
+    public void readNumOfScores() {
+        NumOfScores = file.getNumberOfRows();
+    }
+
+    public void limitHighScores(int amount) {
+        while (file.getNumberOfRows() > amount) {
+            file.removeLine(file.getNumberOfRows() - 1);
+        }
+    }
 }
+
