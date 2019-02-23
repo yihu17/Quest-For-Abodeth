@@ -9,10 +9,13 @@ import main.java.questfortheabodeth.environments.traps.*;
 import main.java.questfortheabodeth.interfaces.Collidable;
 import main.java.questfortheabodeth.interfaces.Interactable;
 import main.java.questfortheabodeth.powerups.*;
+import main.java.questfortheabodeth.sprites.Image;
+import main.java.questfortheabodeth.threads.ImageSwitchThread;
 import main.java.questfortheabodeth.weapons.WeaponPickup;
 import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.RenderStates;
 import org.jsfml.graphics.RenderTarget;
+import org.jsfml.graphics.RenderWindow;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -40,6 +43,8 @@ public class Room implements Drawable
 
     private long lastAudioTrigger = 0;
     private String roomName;
+
+    private ArrayList<Thread> threads = new ArrayList<Thread>();
 
 
     /**
@@ -81,6 +86,7 @@ public class Room implements Drawable
         spawnEnemies();
         spawnPickups();
         spawnWeapons();
+        runThreads(); //an attempt to get threads to start at same time
 
         // Now that the room has been generated make some doors
         if (doors[0]) {
@@ -336,6 +342,7 @@ public class Room implements Drawable
                         break;
                     case "lava":
                         roomImages[i][j] = new Lava(spacing * j, spacing * i, filePath);
+                        threads.add(new ImageSwitchThread(roomImages[i][j], filePath, "res/assets/environment/lavaB.png", 500));
                         break;
                     case "rollingBoulderTrap":
                         roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
@@ -344,7 +351,6 @@ public class Room implements Drawable
                         roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
                         break;
                     case "graveyard":
-                        //roomImages[i][j] = new InteractableEnvironment(spacing * j, spacing * i, filePath);
                         roomImages[i][j] = new Environment(spacing * j, spacing * i, filePath, false, false);
                         break;
                     case "crushingWalls":
@@ -542,5 +548,10 @@ public class Room implements Drawable
 
     public String getRoomName() {
         return roomName;
+    }
+
+    public void runThreads() {
+
+        threads.forEach((i) -> i.start());
     }
 }
