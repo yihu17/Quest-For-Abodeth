@@ -42,9 +42,7 @@ public class ShootingArrows extends CollidableInteractableEnvironment implements
     public void trigger(CopyOnWriteArraySet<Movable> movables, CopyOnWriteArraySet<Collidable> collidables, CopyOnWriteArraySet<Drawable> drawables, CopyOnWriteArraySet<Bullet> bullets, Player player)
     {
         double angle = Helper.getAngleBetweenPoints(new Vector2i(new Vector2f(super.getX() + (super.getWidth() / 2), super.getY() + (super.getHeight() / 2))), new Vector2i(player.getVectorPosition()));
-        System.out.println("Angle before: " + angle);
         angle += Settings.GENERATOR.nextInt(20) - 20;
-        System.out.println("Angle after: " + angle);
         Bullet b = new Bullet(
                 (int) this.getX() + (int)(getWidth()/2),
                 (int) this.getY() + (int)(getHeight()/2),
