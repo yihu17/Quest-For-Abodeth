@@ -44,7 +44,9 @@ public class Room implements Drawable
     private long lastAudioTrigger = 0;
     private String roomName;
 
-    private ArrayList<Thread> threads = new ArrayList<Thread>();
+    private ImageSwitchThread waterAnimationThread = new ImageSwitchThread("res/assets/environment/water.png", "res/assets/environment/waterB.png", 500);
+    private ImageSwitchThread lavaAnimationThread = new ImageSwitchThread("res/assets/environment/lava.png", "res/assets/environment/lavaB.png", 500);
+    private ImageSwitchThread quicksandAnimationThread = new ImageSwitchThread("res/assets/environment/quickSand.png", "res/assets/environment/quicksandB.png", 500);
 
 
     /**
@@ -324,9 +326,11 @@ public class Room implements Drawable
                         break;
                     case "water":
                         roomImages[i][j] = new Water(spacing * j, spacing * i, filePath);
+                        waterAnimationThread.addTrap(roomImages[i][j]);
                         break;
                     case "quicksand":
                         roomImages[i][j] = new Quicksand(spacing * j, spacing * i, filePath);
+                        quicksandAnimationThread.addTrap(roomImages[i][j]);
                         break;
                     case "spikeTrap":
                         roomImages[i][j] = new SpikeTrap(spacing * j, spacing * i, filePath);
@@ -342,7 +346,7 @@ public class Room implements Drawable
                         break;
                     case "lava":
                         roomImages[i][j] = new Lava(spacing * j, spacing * i, filePath);
-                        threads.add(new ImageSwitchThread(roomImages[i][j], filePath, "res/assets/environment/lavaB.png", 500));
+                        lavaAnimationThread.addTrap(roomImages[i][j]);
                         break;
                     case "rollingBoulderTrap":
                         roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
@@ -552,6 +556,8 @@ public class Room implements Drawable
 
     public void runThreads() {
 
-        threads.forEach((i) -> i.start());
+        waterAnimationThread.start();
+        lavaAnimationThread.start();
+        quicksandAnimationThread.start();
     }
 }

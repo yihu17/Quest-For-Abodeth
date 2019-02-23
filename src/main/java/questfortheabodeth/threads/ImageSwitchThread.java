@@ -3,19 +3,18 @@ package main.java.questfortheabodeth.threads;
 import main.java.questfortheabodeth.sprites.Image;
 import org.jsfml.graphics.RenderTarget;
 
+import java.util.ArrayList;
 import java.util.concurrent.CyclicBarrier;
 
 //import java.awt.*;
 
 public class ImageSwitchThread extends Thread {
-    private RenderTarget window;
     private String pathA;
     private String pathB;
     private int interval;
-    private Image trap;
+    private ArrayList<Image> traps = new ArrayList<Image>();
 
-    public ImageSwitchThread(Image trap, String pathA, String pathB, int interval) {
-        this.trap = trap;
+    public ImageSwitchThread(String pathA, String pathB, int interval) {
         this.pathA = pathA;
         this.pathB = pathB;
         this.interval = interval;
@@ -24,14 +23,18 @@ public class ImageSwitchThread extends Thread {
     public void run() {
         while (true) {
             System.out.println("this is running");
-            trap.loadImageFromFile(pathB);
+            traps.forEach((i) -> i.loadImageFromFile(pathB));
             try {
                 Thread.sleep(interval);
-                trap.loadImageFromFile(pathA);
+                traps.forEach((i) -> i.loadImageFromFile(pathA));
                 Thread.sleep(interval);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void addTrap(Image trap) {
+        traps.add(trap);
     }
 }
