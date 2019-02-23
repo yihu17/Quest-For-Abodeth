@@ -132,10 +132,40 @@ public class SettingsMenu implements Menu
             }
         });
 
+        Button dank = new Button(
+                buttonWidth,
+                buttonHeight,
+                (Settings.WINDOW_WIDTH - Settings.WINDOW_X_PADDING * 2) / 2 - 600,
+                Settings.WINDOW_Y_PADDING + 3 * (buttonHeight * 2) + 100);
+        dank.setText("DANK |  " + Settings.DANK_VERSION);
+        dank.setTextYOffset(5);
+        dank.setTextXOffset(buttonWidth / 2 - (5 / 2) * 14 - 65);
+        if (Settings.DANK_VERSION) {
+            dank.setOutlineColor(Color.GREEN);
+        } else {
+            dank.setOutlineColor(Color.RED);
+        }
+        dank.setOnPress(new EventHandler() {
+            @Override
+            public void run() {
+                if (Settings.DANK_VERSION) {
+                    dank.setOutlineColor(Color.RED);
+                    dank.setText("DANK | false");
+                    Settings.DANK_VERSION = false;
+                } else {
+                    dank.setOutlineColor(Color.GREEN);
+                    dank.setText("DANK | true");
+                    Settings.DANK_VERSION = true;
+                }
+                chosenButton = dank;
+            }
+        });
+
 
         buttons.add(music);
         buttons.add(soundEffects);
         buttons.add(crosshair);
+        buttons.add(dank);
 
 
         this.background = new Image(0, 0, "res/assets/menus/mainmenu.png");
