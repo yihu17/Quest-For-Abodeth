@@ -12,7 +12,7 @@ public class Environment extends Image
     private int height = Settings.ROOM_DIVISION_SIZE;
     private boolean collidiable;
     private boolean interactable;
-    private long lastAudioTrigger;
+    private static long lastAudioTrigger;
 
     public Environment(int xPos, int yPos, String imageFilePath, boolean collidiable, boolean interactable)
     {

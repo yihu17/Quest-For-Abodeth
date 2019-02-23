@@ -14,8 +14,7 @@ import org.jsfml.system.Vector2f;
  * An abstract class to define all the common attributes that both the main.java.questfortheabodeth.characters
  * and all monsters will have
  */
-public abstract class Character extends Thread implements Drawable, Collidable
-{
+public abstract class Character extends Thread implements Drawable, Collidable {
     private Facing face;
     private float x;
     private float y;
@@ -36,8 +35,7 @@ public abstract class Character extends Thread implements Drawable, Collidable
      * @param image         (String) Name of the image to load
      * @param movementSpeed (int) Speed of this character for X and Y coordinates
      */
-    public Character(int x, int y, int health, String image, int movementSpeed)
-    {
+    public Character(int x, int y, int health, String image, int movementSpeed) {
         this.x = x;
         this.y = y;
         this.health.set(health);
@@ -47,18 +45,15 @@ public abstract class Character extends Thread implements Drawable, Collidable
         finalSpeed = movementSpeed;
     }
 
-    public ReadOnlyIntegerProperty healthProperty()
-    {
+    public ReadOnlyIntegerProperty healthProperty() {
         return this.health;
     }
 
-    public void addDamage(int damage)
-    {
+    public void addDamage(int damage) {
         this.additionalDamage += damage;
     }
 
-    public int getAdditionalDamage()
-    {
+    public int getAdditionalDamage() {
         return this.additionalDamage;
     }
 
@@ -68,8 +63,7 @@ public abstract class Character extends Thread implements Drawable, Collidable
      *
      * @return (Image) Characters images
      */
-    protected Image getImage()
-    {
+    public Image getImage() {
         return this.image;
     }
 
@@ -79,8 +73,7 @@ public abstract class Character extends Thread implements Drawable, Collidable
      *
      * @param i (Image) Characters image
      */
-    public void setImage(Image i)
-    {
+    public void setImage(Image i) {
         this.image = i;
     }
 
@@ -90,8 +83,7 @@ public abstract class Character extends Thread implements Drawable, Collidable
      *
      * @return (FloatRect) Global bounds of the character
      */
-    public FloatRect getGlobalBounds()
-    {
+    public FloatRect getGlobalBounds() {
         return this.image.getGlobalBounds();
     }
 
@@ -101,8 +93,7 @@ public abstract class Character extends Thread implements Drawable, Collidable
      * @return (int) X Position
      */
     @Override
-    public float getX()
-    {
+    public float getX() {
         return x;
     }
 
@@ -112,33 +103,28 @@ public abstract class Character extends Thread implements Drawable, Collidable
      * @return (int) Y Position
      */
     @Override
-    public float getY()
-    {
+    public float getY() {
         return y;
     }
 
-    public Vector2f getVectorPosition()
-    {
+    public Vector2f getVectorPosition() {
         return new Vector2f(x, y);
     }
 
     @Override
-    public float getWidth()
-    {
+    public float getWidth() {
         return this.image.getGlobalBounds().width;
     }
 
     @Override
-    public float getHeight()
-    {
+    public float getHeight() {
         return this.image.getGlobalBounds().height;
     }
 
     /**
      * Moves this character up by the current movement speed
      */
-    public void moveUp()
-    {
+    public void moveUp() {
         y -= movementSpeed;
         updatePosition();
     }
@@ -146,8 +132,7 @@ public abstract class Character extends Thread implements Drawable, Collidable
     /**
      * Moves this character down by the current movement speed
      */
-    public void moveDown()
-    {
+    public void moveDown() {
         y += movementSpeed;
         updatePosition();
     }
@@ -155,8 +140,7 @@ public abstract class Character extends Thread implements Drawable, Collidable
     /**
      * Moves this character right by the current movement speed
      */
-    public void moveRight()
-    {
+    public void moveRight() {
         if (this.face == Facing.LEFT) {
             this.image.flipHorizontal();
             this.face = Facing.RIGHT;
@@ -168,8 +152,7 @@ public abstract class Character extends Thread implements Drawable, Collidable
     /**
      * Moves this character left by the current movement speed
      */
-    public void moveLeft()
-    {
+    public void moveLeft() {
         if (this.face == Facing.RIGHT) {
             this.image.flipHorizontal();
             this.face = Facing.LEFT;
@@ -178,22 +161,19 @@ public abstract class Character extends Thread implements Drawable, Collidable
         updatePosition();
     }
 
-    public enum Facing
-    {
+    public enum Facing {
         LEFT,
         RIGHT
     }
 
-    public Facing getFace()
-    {
+    public Facing getFace() {
         return face;
     }
 
     /**
      * After any change to the X and Y values
      */
-    private void updatePosition()
-    {
+    private void updatePosition() {
         this.image.setPosition(x, y);
     }
 
@@ -202,14 +182,12 @@ public abstract class Character extends Thread implements Drawable, Collidable
      *
      * @param speed (int) Movement speed
      */
-    public void setMovementSpeed(double speed)
-    {
+    public void setMovementSpeed(double speed) {
         this.movementSpeed = speed;
         finalSpeed = speed;
     }
 
-    public double getMovementSpeed()
-    {
+    public double getMovementSpeed() {
         return movementSpeed;
     }
 
@@ -220,8 +198,7 @@ public abstract class Character extends Thread implements Drawable, Collidable
      *
      * @param amount (int) Amount to decrease by
      */
-    public void decreaseHealth(int amount)
-    {
+    public void decreaseHealth(int amount) {
         int newValue = health.get() - amount;
         this.health.set(newValue < 0 ? 0 : newValue);
         System.out.println("Health decreased to " + this.health.get());
@@ -235,8 +212,7 @@ public abstract class Character extends Thread implements Drawable, Collidable
      *
      * @param amount (int) Amount to increase by
      */
-    public void increaseHealth(int amount)
-    {
+    public void increaseHealth(int amount) {
         int newValue = health.get() + amount;
         if (newValue > 100) {
             newValue = 100;
@@ -244,19 +220,16 @@ public abstract class Character extends Thread implements Drawable, Collidable
         this.health.set(newValue < 0 ? 0 : newValue);
     }
 
-    public int getHealth()
-    {
+    public int getHealth() {
         return health.get();
     }
 
 
-    public int getShield()
-    {
+    public int getShield() {
         return shield;
     }
 
-    public void addShield(int shieldAmount)
-    {
+    public void addShield(int shieldAmount) {
         this.shield += shieldAmount;
     }
 
@@ -268,20 +241,17 @@ public abstract class Character extends Thread implements Drawable, Collidable
     public abstract void kill();
 
     @Override
-    public void draw(RenderTarget renderTarget, RenderStates renderStates)
-    {
+    public void draw(RenderTarget renderTarget, RenderStates renderStates) {
         renderTarget.draw(image);
     }
 
-    public void setPosition(int x, int y)
-    {
+    public void setPosition(int x, int y) {
         this.x = x;
         this.y = y;
         this.image.setPosition(x, y);
     }
 
-    public void run()
-    {
+    public void run() {
         this.movementSpeed = 0;
 
         try {
@@ -293,8 +263,7 @@ public abstract class Character extends Thread implements Drawable, Collidable
         this.movementSpeed = finalSpeed;
     }
 
-    public boolean isCharacterAlive()
-    {
+    public boolean isCharacterAlive() {
         if (this.health.lessThanOrEqualTo(0).getValue()) {
             return false;
         } else {

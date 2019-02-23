@@ -136,14 +136,15 @@ public class Settings
         CSV_KEYS.put(98, "abodeth");
         CSV_KEYS.put(99, "edemy");
 
+        AUDIO_KEYS.put("machete", "weapons/machete");
         AUDIO_KEYS.put("shotgun","weapons/shotgun");
         AUDIO_KEYS.put("revolver","weapons/revolver");
         AUDIO_KEYS.put("uzi","weapons/uzi");
         AUDIO_KEYS.put("ar15","weapons/ar15");
         AUDIO_KEYS.put("arrow","traps/arrow");
         AUDIO_KEYS.put("lava","environment/lava");
-        AUDIO_KEYS.put("room[2][0]", "roomMusic/room[2][0]");
-        AUDIO_KEYS.put("room[2][1]", "roomMusic/room[2][1]");
+        AUDIO_KEYS.put("water", "environment/water");
+        AUDIO_KEYS.put("quicksand", "environment/quicksand");
         AUDIO_KEYS.put("mainMenu", "/mainMenu");
         AUDIO_KEYS.put("roomDataA", "roomMusic/track01");
         AUDIO_KEYS.put("roomDataB", "roomMusic/track02");

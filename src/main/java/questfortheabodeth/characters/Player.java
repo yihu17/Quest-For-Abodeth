@@ -26,7 +26,6 @@ public class Player extends Character
     private long lastTimeAttack;
     private long lastTimeHit;
     private HashSet<Class<? extends Interactable>> appliedInteracts = new HashSet<>();
-
     private Weapon currentWeapon;
     private Melee meleeWeapon = null;
     private OneHandedWeapon oneHandedWeapon = null;

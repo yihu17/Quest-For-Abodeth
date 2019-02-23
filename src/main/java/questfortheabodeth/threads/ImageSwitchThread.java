@@ -22,7 +22,6 @@ public class ImageSwitchThread extends Thread {
 
     public void run() {
         while (true) {
-            System.out.println("this is running");
             traps.forEach((i) -> i.loadImageFromFile(pathB));
             try {
                 Thread.sleep(interval);

@@ -221,9 +221,6 @@ public class Game
                                 collidables.add(b);
                                 bullets.add(b);
                                 player.decreaseAmmo();
-                                if (Settings.SOUND_EFFECTS_ON) {
-                                    Helper.playAudio(player.getCurrentWeapon().getName());
-                                }
                             }
                         }
                     } else {
@@ -241,6 +238,9 @@ public class Game
 
                         meleeWave = new MeleeRange(new Vector2f(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2), player);
                         new ExpandingWave(meleeWave).start();
+                    }
+                    if (Settings.SOUND_EFFECTS_ON) {
+                        Helper.playAudio(player.getCurrentWeapon().getName());
                     }
                 } else if (e.type == Event.Type.KEY_PRESSED) {
                     if (e.asKeyEvent().key == Keyboard.Key.NUM1) {
