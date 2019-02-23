@@ -238,15 +238,15 @@ public class Helper
     {
         switch (weapon) {
             case "machete":
-                return new Melee("machete", 50, 5);
+                return new Melee("machete", 50, 25);
             case "revolver":
-                return new OneHandedWeapon("revolver", 1, 50, 333, 50);
+                return new OneHandedWeapon("revolver", 1, 50, 333, 20);
             case "shotgun":
-                return new TwoHandedWeapon("shotgun", 5, 20, 1000, 5);
+                return new TwoHandedWeapon("shotgun", 5, 20, 1000, 35);
             case "ar15":
-                return new TwoHandedWeapon("ar15", 1, 25, 500, 50);
+                return new TwoHandedWeapon("ar15", 1, 25, 500, 25);
             case "uzi":
-                return new OneHandedWeapon("uzi", 3, 60, 75, 5);
+                return new OneHandedWeapon("uzi", 3, 60, 75, 18);
         }
         throw new AssertionError("Unknown weapon encountered: " + weapon);
     }

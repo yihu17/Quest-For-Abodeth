@@ -190,6 +190,10 @@ public class FileOperator
         }
     }
 
+    public int getNumberOfRows() {
+        return readToList().size();
+    }
+
     public boolean isAvailable()
     {
         return available;
