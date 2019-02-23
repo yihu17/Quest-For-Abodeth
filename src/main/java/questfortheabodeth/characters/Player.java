@@ -8,7 +8,6 @@ import main.java.questfortheabodeth.interfaces.Interactable;
 import main.java.questfortheabodeth.interfaces.Powerup;
 import main.java.questfortheabodeth.sprites.Image;
 import main.java.questfortheabodeth.weapons.*;
-import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderStates;
 import org.jsfml.graphics.RenderTarget;
 import org.jsfml.system.Vector2f;
@@ -83,7 +82,7 @@ public class Player extends Character
     public void setWeaponImage(String weapon)
     {
         Image img = new Image((int) getX(), (int) getY(), "res/assets/player/player-" + weapon + ".png");
-        if (getFace() == Character.Facing.LEFT) {
+        if (getFacingDirection() == Character.Facing.LEFT) {
             img.flipHorizontal();
         }
         setImage(img);

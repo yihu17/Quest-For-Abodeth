@@ -4,7 +4,10 @@ import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import main.java.questfortheabodeth.interfaces.Collidable;
 import main.java.questfortheabodeth.sprites.Image;
-import org.jsfml.graphics.*;
+import org.jsfml.graphics.Drawable;
+import org.jsfml.graphics.FloatRect;
+import org.jsfml.graphics.RenderStates;
+import org.jsfml.graphics.RenderTarget;
 import org.jsfml.system.Vector2f;
 
 /**
@@ -163,7 +166,7 @@ public abstract class Character extends Thread implements Drawable, Collidable {
         RIGHT
     }
 
-    public Facing getFace() {
+    public Facing getFacingDirection() {
         return face;
     }
 

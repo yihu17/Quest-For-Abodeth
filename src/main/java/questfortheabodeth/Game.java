@@ -23,7 +23,9 @@ import main.java.questfortheabodeth.threads.AudioThread;
 import main.java.questfortheabodeth.threads.ExpandingWave;
 import main.java.questfortheabodeth.threads.LoadingScreenThread;
 import main.java.questfortheabodeth.weapons.*;
-import org.jsfml.graphics.*;
+import org.jsfml.graphics.Drawable;
+import org.jsfml.graphics.FloatRect;
+import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
@@ -202,6 +204,11 @@ public class Game
                 ) {
                     if (!(player.getCurrentWeapon() instanceof Melee)) {
                         // The player character has fired a bullet
+                        if (player.getFacingDirection() == Character.Facing.LEFT && e.asMouseEvent().position.x > player.getX()) {
+                            continue;
+                        } else if (player.getFacingDirection() == Character.Facing.RIGHT && e.asMouseEvent().position.x < player.getX()) {
+                            continue;
+                        }
                         player.setLastTimeAttack(System.currentTimeMillis());
                         if (0 < player.ammoProperty().getValue()) {
                             int max = player.getCurrentWeapon().getName().equals("shotgun") ? 3 : 1;
