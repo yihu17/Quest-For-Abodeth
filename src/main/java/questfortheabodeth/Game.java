@@ -371,7 +371,7 @@ public class Game
                 }
                 if (0 < Helper.checkOverlap(b, c)) {
                     if (c instanceof Enemy && !b.isHurtsPlayer()) {
-                        ((Enemy) c).decreaseHealth(player.getAdditionalDamage());
+                        ((Enemy) c).decreaseHealth(player.getCurrentWeapon().getDamageDealt() + player.getAdditionalDamage());
                         new Thread((Character) c).start(); //pauses enemy movement
                     }
                     if (c instanceof Player && b.isHurtsPlayer()) {

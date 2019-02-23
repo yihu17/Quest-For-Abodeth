@@ -376,19 +376,19 @@ public class Room implements Drawable
                 int[] generatedSpawnLocation = generateSpawnLocation();
                 switch (enemyRead) {
                     case "zombie":
-                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath, 2, "zombie", 700, 10));
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 50, filePath, 2, "zombie", 700, 10));
                         break;
                     case "jackal":
-                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath, 3, "jackal", 500, 15));
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 80, filePath, 3, "jackal", 500, 15));
                         break;
                     case "bat":
-                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath, 5, "bat", 400, 3));
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 10, filePath, 5, "bat", 400, 3));
                         break;
                     case "spider":
-                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath, 2, "spider", 650, 8));
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 30, filePath, 2, "spider", 650, 8));
                         break;
                     case "mummifiedSlave":
-                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath, 1, "mummifiedSlave", 900, 12));
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 50, filePath, 1, "mummifiedSlave", 900, 12));
                         break;
                     case "giantSpider":
                         enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath, 1, "giantSpider", 900, 15));
@@ -397,13 +397,13 @@ public class Room implements Drawable
                         enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath, 1, "giantZombie", 1200, 18));
                         break;
                     case "egyptianMummy":
-                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath, 2, "egyptianMummy", 750, 11));
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 70, filePath, 2, "egyptianMummy", 750, 11));
                         break;
                     case "crocodile":
-                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath, 1, "crocodile", 550, 13));
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 65, filePath, 1, "crocodile", 550, 13));
                         break;
                     case "edemy":
-                        enemies.add(new Boss(1600, Settings.WINDOW_HEIGHT / 2 + 50, 10, filePath, 2, "edemy", 400, 40));
+                        enemies.add(new Boss(1600, Settings.WINDOW_HEIGHT / 2 + 50, 1000, filePath, 2, "edemy", 400, 40));
                         break;
                 }
             }
