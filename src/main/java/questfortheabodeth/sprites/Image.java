@@ -156,4 +156,8 @@ public class Image implements Drawable
     public void setRotation(float angle) {
         this.image.setRotation(angle);
     }
+
+    public void setMaskColour(Color color) {
+        image.setColor(color);
+    }
 }

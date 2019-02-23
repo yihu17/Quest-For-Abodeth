@@ -145,6 +145,7 @@ public class Settings
         AUDIO_KEYS.put("lava","environment/lava");
         AUDIO_KEYS.put("water", "environment/water");
         AUDIO_KEYS.put("quicksand", "environment/quicksand");
+        AUDIO_KEYS.put("playerHit", "playerHit");
         AUDIO_KEYS.put("mainMenu", "/mainMenu");
         AUDIO_KEYS.put("roomDataA", "roomMusic/track01");
         AUDIO_KEYS.put("roomDataB", "roomMusic/track02");

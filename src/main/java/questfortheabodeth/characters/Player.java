@@ -8,6 +8,7 @@ import main.java.questfortheabodeth.interfaces.Interactable;
 import main.java.questfortheabodeth.interfaces.Powerup;
 import main.java.questfortheabodeth.sprites.Image;
 import main.java.questfortheabodeth.weapons.*;
+import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderStates;
 import org.jsfml.graphics.RenderTarget;
 import org.jsfml.system.Vector2f;
@@ -21,6 +22,8 @@ import java.util.HashSet;
  */
 public class Player extends Character
 {
+    private RenderTarget window;
+
     private static String imageName = "res/assets/player/player.png";
     private Powerup currentPowerup = null;
     private long lastTimeAttack;
@@ -37,9 +40,10 @@ public class Player extends Character
     /**
      * Creates a new Player instance based off of the imageName image
      */
-    public Player()
+    public Player(RenderTarget window)
     {
         super(250, 250, 100, imageName, Settings.PLAYER_SPEED);
+        this.window = window;
     }
 
     public ReadOnlyIntegerProperty ammoProperty()
@@ -249,5 +253,12 @@ public class Player extends Character
     public Gun getCurrentTwoHandedWeapon()
     {
         return this.twoHandedWeapon;
+    }
+
+    public void hit(int amount) {
+        if (Settings.SOUND_EFFECTS_ON) {
+            Helper.playAudio("playerHit");
+        }
+        super.decreaseHealth(amount);
     }
 }

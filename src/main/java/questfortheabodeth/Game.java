@@ -76,7 +76,7 @@ public class Game
 
         this.window.clear();
         this.gameRunning = true;
-        this.player = new Player();
+        this.player = new Player(window);
         collidables.add(this.player);
 
         gameWon.addListener(new ChangeListener<Boolean>()
@@ -350,7 +350,7 @@ public class Game
                 int overlap = Helper.checkOverlap(player, c);
                 if (0 < overlap) {
                     if (System.currentTimeMillis() - ((Enemy)c).getLastTimeAttack() >= ((Enemy) c).getAttackSpeed()) {
-                        player.decreaseHealth(((Enemy) c).getAttackPower());
+                        player.hit(((Enemy) c).getAttackPower());
                         ((Enemy)c).setLastTimeAttack(System.currentTimeMillis());
                     }
                 }
