@@ -246,7 +246,9 @@ public class Game
                         meleeWave = new MeleeRange(new Vector2f(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2), player);
                         new ExpandingWave(meleeWave).start();
                     }
-                    if (Settings.SOUND_EFFECTS_ON) {
+                    if (Settings.SOUND_EFFECTS_ON && Helper.getTypeOfWeapon(player.getCurrentWeapon().getName()) == "Melee") {
+                        Helper.playAudio(player.getCurrentWeapon().getName());
+                    } else if (Settings.SOUND_EFFECTS_ON && player.getAmmo() > 0) {
                         Helper.playAudio(player.getCurrentWeapon().getName());
                     }
                 } else if (e.type == Event.Type.KEY_PRESSED) {

@@ -260,4 +260,8 @@ public class Player extends Character
         }
         super.decreaseHealth(amount);
     }
+
+    public int getAmmo() {
+        return ammo.intValue();
+    }
 }
