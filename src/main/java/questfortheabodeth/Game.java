@@ -17,6 +17,7 @@ import main.java.questfortheabodeth.menus.Button;
 import main.java.questfortheabodeth.menus.GameMenu;
 import main.java.questfortheabodeth.menus.PlayerDiedMenu;
 import main.java.questfortheabodeth.menus.PlayerWinMenu;
+import main.java.questfortheabodeth.powerups.HealthBoost;
 import main.java.questfortheabodeth.powerups.Pickup;
 import main.java.questfortheabodeth.powerups.TheAbodeth;
 import main.java.questfortheabodeth.threads.AudioThread;
@@ -349,7 +350,11 @@ public class Game
             if (c instanceof Powerup) {
                 int overlap = Helper.checkOverlap(player, c);
                 if (0 < overlap) {
-                    ((Powerup) c).applyBuff(player);
+                    if ((Powerup) c instanceof HealthBoost && player.getHealth() >= 100) {
+                        break;
+                    } else {
+                        ((Powerup) c).applyBuff(player);
+                    }
                     drawables.remove(c);
                     collidables.remove(c);
                 }
