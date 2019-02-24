@@ -650,7 +650,6 @@ public class Game
                 throw new AssertionError("Unknown direction to travel in: " + direction);
         }
 
-        // TODO: Have a flag in the Room class and place the player in a certain position
         currentRoom = rooms[roomRow][roomCol];
 
         // Test to see if this is the end room

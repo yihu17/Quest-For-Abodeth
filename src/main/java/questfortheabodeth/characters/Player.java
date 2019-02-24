@@ -36,17 +36,21 @@ public class Player extends Character
     private TwoHandedWeapon twoHandedWeapon = null;
     private HashMap<String, SimpleIntegerProperty> ammoCounts = new HashMap<>();
 
-    private SimpleIntegerProperty ammo = new SimpleIntegerProperty(25);
+    private SimpleIntegerProperty ammo;
 
 
     /**
      * Creates a new Player instance based off of the imageName image
+     * TODO: When player picks up ammo for a weapon they already have, it changes the ammo counter on screen
+     *       - All numbers are still correct it just displays the wrong one
+     * TODO: When player swaps AR15 for the shotgun the AR15 is not put on the floor (works vice versa)
      */
     public Player(RenderTarget window)
     {
         super(250, 250, 100, imageName, Settings.PLAYER_SPEED);
         this.window = window;
         ammoCounts.put("revolver", new SimpleIntegerProperty(25));
+        ammo = ammoCounts.get("revolver");
         this.switchWeapon(2);
     }
 
@@ -206,6 +210,7 @@ public class Player extends Character
                 ammoCounts.put(weapon.getName(), new SimpleIntegerProperty(weapon.getAmmo()));
             }
             ammo = ammoCounts.get(weapon.getName());
+            System.out.println("Ammo set to " + weapon.getName());
         }
         switch (Helper.stringToWeapon(weapon.getName()).getName()) {
             case "revolver":
@@ -264,6 +269,15 @@ public class Player extends Character
 
     public void increaseAmmo(int amount)
     {
+        for (String k: ammoCounts.keySet()) {
+            String type = Helper.getTypeOfWeapon(k);
+            if (type == null || type.equals("Melee")) {
+                continue;
+            }
+            ammoCounts.get(k).set(
+                    ammoCounts.get(k).get() + 25
+            );
+        }
         this.ammo.set(ammo.get() + amount);
     }
 
