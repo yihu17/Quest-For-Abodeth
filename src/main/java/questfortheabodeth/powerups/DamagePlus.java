@@ -34,12 +34,13 @@ public class DamagePlus extends Pickup
 
     public void run()
     {
+        p.addCurrentPowerup("damagePickup");
         try {
             Thread.sleep(timeout);
         } catch (Exception e) {
             System.out.println(e);
         }
-
+        p.removeCurrentPowerup("damagePickup");
         removeBuff(p);
     }
 }

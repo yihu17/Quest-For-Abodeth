@@ -14,6 +14,7 @@ import org.jsfml.system.Vector2f;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -24,7 +25,7 @@ public class Player extends Character
     private RenderTarget window;
 
     private static String imageName = "res/assets/player/player.png";
-    private Powerup currentPowerup = null;
+    private ArrayList<String> currentPowerups = new ArrayList<>();
     private long lastTimeAttack;
     private long lastTimeHit;
     private HashSet<Class<? extends Interactable>> appliedInteracts = new HashSet<>();
@@ -263,5 +264,22 @@ public class Player extends Character
 
     public int getAmmo() {
         return ammo.intValue();
+    }
+
+    public ArrayList<String> getCurrentPowerupsString() {
+        return currentPowerups;
+    }
+
+    public void addCurrentPowerup(String powerup) {
+        currentPowerups.add(powerup);
+    }
+
+    public void removeCurrentPowerup(String powerup) {
+        for (int i = 0; i < currentPowerups.size(); i++) {
+            if (currentPowerups.get(i) == powerup) {
+                currentPowerups.remove(i);
+                break;
+            }
+        }
     }
 }

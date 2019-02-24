@@ -147,7 +147,7 @@ public class Game
         healthBar = new HealthBar(player);
         weaponWheel = new WeaponWheel();
         ammoCount = new AmmoCount(player.ammoProperty());
-        hud = new HudElements(healthBar, miniMap, weaponWheel, ammoCount);
+        hud = new HudElements(player, healthBar, miniMap, weaponWheel, ammoCount);
 
         new Thread(Settings.GAME_TIME).start();
 

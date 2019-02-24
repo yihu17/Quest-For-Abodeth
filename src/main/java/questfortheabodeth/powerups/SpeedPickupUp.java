@@ -32,12 +32,13 @@ public class SpeedPickupUp extends Pickup
 
     public void run()
     {
+        p.addCurrentPowerup("speedPickup");
         try {
             Thread.sleep(timeout);
         } catch (Exception e) {
             System.out.println(e);
         }
-
+        p.removeCurrentPowerup("speedPickup");
         removeBuff(p);
     }
 }
