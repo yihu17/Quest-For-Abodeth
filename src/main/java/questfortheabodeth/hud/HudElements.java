@@ -62,7 +62,7 @@ public class HudElements implements Drawable
         ArrayList<Image> powerupImages = new ArrayList<>();
         for (int i = 0; i < player.getCurrentPowerupsString().size(); i++) {
             try {
-                powerupImages.add(new Image(Settings.WINDOW_WIDTH - 30, 50 + (10 * i), "res/assets/pickups/" + player.getCurrentPowerupsString().get(i) + ".png"));
+                powerupImages.add(new Image(15, 775 - (30 * (i + 1)), "res/assets/pickups/" + player.getCurrentPowerupsString().get(i) + ".png"));
             } catch (Exception e) {
 
             }
