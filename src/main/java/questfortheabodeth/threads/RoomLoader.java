@@ -10,6 +10,7 @@ import main.java.questfortheabodeth.interfaces.Movable;
 import main.java.questfortheabodeth.powerups.Pickup;
 import main.java.questfortheabodeth.weapons.WeaponPickup;
 import org.jsfml.graphics.Drawable;
+import org.jsfml.graphics.RenderTarget;
 
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -28,6 +29,7 @@ public class RoomLoader extends Thread
     private CopyOnWriteArraySet<Interactable> interactables;
 
     private Player player;
+    private RenderTarget window;
 
     public RoomLoader(
             Room[][] rooms,
@@ -38,7 +40,8 @@ public class RoomLoader extends Thread
             CopyOnWriteArraySet<Collidable> collidables,
             CopyOnWriteArraySet<Enemy> enemies,
             CopyOnWriteArraySet<Interactable> interactables,
-            Player player
+            Player player,
+            RenderTarget window
     )
     {
         this.rooms = rooms;
@@ -52,6 +55,7 @@ public class RoomLoader extends Thread
         this.enemies = enemies;
         this.interactables = interactables;
         this.player = player;
+        this.window = window;
     }
 
     @Override
@@ -99,6 +103,9 @@ public class RoomLoader extends Thread
 
         collidables.add(player);
         interactables.addAll(currentRoom.getInteractables());
+
+        window.draw(currentRoom);
+        drawables.forEach(window::draw);
 
         System.out.println("Interrupting the thread");
         this.interrupt();

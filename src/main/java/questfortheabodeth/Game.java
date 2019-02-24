@@ -22,7 +22,6 @@ import main.java.questfortheabodeth.powerups.TheAbodeth;
 import main.java.questfortheabodeth.sprites.Image;
 import main.java.questfortheabodeth.threads.AudioThread;
 import main.java.questfortheabodeth.threads.ExpandingWave;
-import main.java.questfortheabodeth.threads.LoadingScreenThread;
 import main.java.questfortheabodeth.threads.RoomLoader;
 import main.java.questfortheabodeth.weapons.*;
 import org.jsfml.graphics.Drawable;
@@ -135,7 +134,8 @@ public class Game
                 collidables,
                 enemies,
                 interactables,
-                player
+                player,
+                window
         );
 
         new Thread(Settings.GAME_TIME).start();
@@ -193,16 +193,22 @@ public class Game
                 Helper.playAudio(currentRoom.getRoomName());
             }
 
+            System.out.println("Clearing window");
             window.clear();
             // Draw the room
+            System.out.println("Drawing room");
             window.draw(currentRoom);
+            System.out.println("Drawing player");
             window.draw(player);
+            System.out.println("Drawing drawable");
             drawables.forEach(window::draw);
+            System.out.println("Drawing hud");
             window.draw(hud);
             if (meleeWave != null && meleeWave.isVisible()) {
                 window.draw(meleeWave);
             }
             window.draw(time);
+            System.out.println("Displaying window");
             window.display();
 
             // Move every single movable object (enemy movements, bullets etc.)
