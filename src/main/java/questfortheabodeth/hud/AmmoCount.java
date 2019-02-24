@@ -12,6 +12,7 @@ import org.jsfml.system.Vector2f;
 public class AmmoCount extends Text
 {
     private Image background;
+    private ReadOnlyIntegerProperty ammo;
 
     public AmmoCount(ReadOnlyIntegerProperty ammo)
     {
@@ -20,11 +21,23 @@ public class AmmoCount extends Text
         this.setScale(new Vector2f(0.75f, 0.75f));
         this.setString(ammo.getValue().toString());
         this.setPosition(new Vector2f(29, 820));
+        this.ammo = ammo;
 
         background = new Image(7, 803, "res/assets/pickups/ammobox_blank.png");
         background.setScale(new Vector2f(2, 2));
 
-        ammo.addListener(new ChangeListener<Number>()
+        switchAmmo(ammo);
+    }
+
+    public Image getBackground()
+    {
+        return background;
+    }
+
+    public void switchAmmo(ReadOnlyIntegerProperty ammo)
+    {
+        this.ammo = ammo;
+        this.ammo.addListener(new ChangeListener<Number>()
         {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
@@ -36,10 +49,11 @@ public class AmmoCount extends Text
                 ));
             }
         });
-    }
 
-    public Image getBackground()
-    {
-        return background;
+        setString(String.valueOf(ammo.get()));
+        setPosition(new Vector2f(
+                ammo.getValue().toString().length() == 3 ? 23 : 27,
+                820
+        ));
     }
 }

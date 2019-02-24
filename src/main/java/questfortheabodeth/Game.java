@@ -253,17 +253,17 @@ public class Game
                     if (e.asKeyEvent().key == Keyboard.Key.NUM1) {
                         if (player.switchWeapon(1)) {
                             weaponWheel.selectWeapon(player.getCurrentWeapon());
-                            System.out.println("Player switched to their melee weapon");
-                        } else {
-                            System.out.println("Melee switch not allowed");
+                            ammoCount.switchAmmo(player.getAmmoCount(player.getCurrentWeapon().getName()));
                         }
                     } else if (e.asKeyEvent().key == Keyboard.Key.NUM2) {
                         if (player.switchWeapon(2)) {
                             weaponWheel.selectWeapon(player.getCurrentWeapon());
+                            ammoCount.switchAmmo(player.getAmmoCount(player.getCurrentWeapon().getName()));
                         }
                     } else if (e.asKeyEvent().key == Keyboard.Key.NUM3) {
                         if (player.switchWeapon(3)) {
                             weaponWheel.selectWeapon(player.getCurrentWeapon());
+                            ammoCount.switchAmmo(player.getAmmoCount(player.getCurrentWeapon().getName()));
                         }
                     } else if (e.asKeyEvent().key == Keyboard.Key.E) {
                         // Player attempted to go through a door
@@ -435,7 +435,7 @@ public class Game
                                     (player.getCurrentWeapon() instanceof TwoHandedWeapon && Helper.getTypeOfWeapon(((WeaponPickup) i).getName()).equals("TwoHandedWeapon"))
 
                             ) {
-                                WeaponPickup droppedWeapon = new WeaponPickup((int) player.getX() + (int) player.getWidth() / 2, (int) player.getY() + (int) player.getHeight() / 2, "res/assets/weapons/" + player.getCurrentWeapon().getName() + ".png", player.getCurrentWeapon().getName());
+                                WeaponPickup droppedWeapon = new WeaponPickup((int) player.getX() + (int) player.getWidth() / 2, (int) player.getY() + (int) player.getHeight() / 2, "res/assets/weapons/" + player.getCurrentWeapon().getName() + ".png", player.getCurrentWeapon().getName(), 0);
                                 collidables.add(droppedWeapon);
                                 interactables.add(droppedWeapon);
                                 drawables.add(droppedWeapon);

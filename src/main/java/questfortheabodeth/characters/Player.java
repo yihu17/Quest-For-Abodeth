@@ -46,6 +46,8 @@ public class Player extends Character
     {
         super(250, 250, 100, imageName, Settings.PLAYER_SPEED);
         this.window = window;
+        ammoCounts.put("revolver", new SimpleIntegerProperty(25));
+        this.switchWeapon(2);
     }
 
     public ReadOnlyIntegerProperty ammoProperty()
@@ -55,6 +57,11 @@ public class Player extends Character
 
     public boolean switchWeapon(int weaponNumber)
     {
+        System.out.println("######################");
+        for(String k: ammoCounts.keySet()) {
+            System.out.println("Key: " + k + " = " + ammoCounts.get(k).get());
+        }
+
         switch (weaponNumber) {
             case 1:
                 if (meleeWeapon == null) {
@@ -69,6 +76,7 @@ public class Player extends Character
                 }
                 currentWeapon = oneHandedWeapon;
                 setWeaponImage(currentWeapon.getName());
+                ammo = ammoCounts.get(currentWeapon.getName());
                 return true;
             case 3:
                 if (twoHandedWeapon == null) {
@@ -76,6 +84,7 @@ public class Player extends Character
                 }
                 currentWeapon = twoHandedWeapon;
                 setWeaponImage(currentWeapon.getName());
+                ammo = ammoCounts.get(currentWeapon.getName());
                 return true;
             default:
                 return false;
@@ -192,18 +201,22 @@ public class Player extends Character
                 twoHandedWeapon = (TwoHandedWeapon) cw;
                 currentWeapon = twoHandedWeapon;
             }
+
+            if (!ammoCounts.containsKey(weapon.getName())) {
+                ammoCounts.put(weapon.getName(), new SimpleIntegerProperty(weapon.getAmmo()));
+            }
         }
         if ((Helper.stringToWeapon(weapon.getName()).getName().equals("revolver"))) {
-            this.ammo.setValue(ammo.get() + 20);
+            this.ammoCounts.get("revolver").setValue(ammoCounts.get("revolver").get() + weapon.getAmmo());
         }
         if ((Helper.stringToWeapon(weapon.getName()).getName().equals("shotgun"))) {
-            this.ammo.setValue(ammo.get() + 40);
+            this.ammoCounts.get("shotgun").setValue(ammoCounts.get("shotgun").get() + weapon.getAmmo());
         }
         if ((Helper.stringToWeapon(weapon.getName()).getName().equals("ar15"))) {
-            this.ammo.setValue(ammo.get() + 15);
+            this.ammoCounts.get("ar15").setValue(ammoCounts.get("ar15").get() + weapon.getAmmo());
         }
         if ((Helper.stringToWeapon(weapon.getName()).getName().equals("uzi"))) {
-            this.ammo.setValue(ammo.get() + 45);
+            this.ammoCounts.get("uzi").setValue(ammoCounts.get("uzi").get() + weapon.getAmmo());
         }
         return currentWeapon;
     }
@@ -230,6 +243,15 @@ public class Player extends Character
         carry += (twoHandedWeapon == null) ? 0 : 1;
 
         return carry;
+    }
+
+    public ReadOnlyIntegerProperty getAmmoCount(String name)
+    {
+        if (ammoCounts.containsKey(name)) {
+            return ammoCounts.get(name);
+        }
+
+        throw new AssertionError("Cannot compute the ammo");
     }
 
     public void decreaseAmmo()

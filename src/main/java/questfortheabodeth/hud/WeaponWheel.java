@@ -88,13 +88,13 @@ public class WeaponWheel implements Drawable
         renderTarget.draw(oneHandedRect);
         renderTarget.draw(twoHandedRect);
         if (meleeWeapon != null) {
-            renderTarget.draw(new WeaponPickup(7, 867, "res/assets/weapons/" + meleeWeapon.getName() + ".png", meleeWeapon.getName()));
+            renderTarget.draw(new WeaponPickup(7, 867, "res/assets/weapons/" + meleeWeapon.getName() + ".png", meleeWeapon.getName(), 0));
         }
         if (oneHandedWeapon != null) {
-            renderTarget.draw(new WeaponPickup(7, 936, "res/assets/weapons/" + oneHandedWeapon.getName() + ".png", oneHandedWeapon.getName()));
+            renderTarget.draw(new WeaponPickup(7, 936, "res/assets/weapons/" + oneHandedWeapon.getName() + ".png", oneHandedWeapon.getName(), 0));
         }
         if (twoHandedWeapon != null) {
-            renderTarget.draw(new WeaponPickup(7, 1006, "res/assets/weapons/" + twoHandedWeapon.getName() + ".png", twoHandedWeapon.getName()));
+            renderTarget.draw(new WeaponPickup(7, 1006, "res/assets/weapons/" + twoHandedWeapon.getName() + ".png", twoHandedWeapon.getName(), 0));
         }
     }
 
