@@ -145,7 +145,7 @@ public class Game
 
         miniMap = new MiniMap(rows, cols, roomRow, roomCol);
         healthBar = new HealthBar(player);
-        weaponWheel = new WeaponWheel();
+        weaponWheel = new WeaponWheel(player.getMeleeWeapon(), player.getCurrentOneHandedWeapon(), player.getCurrentTwoHandedWeapon());
         ammoCount = new AmmoCount(player.ammoProperty());
         hud = new HudElements(healthBar, miniMap, weaponWheel, ammoCount);
 

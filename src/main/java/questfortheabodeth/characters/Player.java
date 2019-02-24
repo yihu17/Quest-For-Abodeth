@@ -14,6 +14,7 @@ import org.jsfml.system.Vector2f;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.HashSet;
 
 /**
@@ -28,10 +29,12 @@ public class Player extends Character
     private long lastTimeAttack;
     private long lastTimeHit;
     private HashSet<Class<? extends Interactable>> appliedInteracts = new HashSet<>();
+
     private Weapon currentWeapon;
     private Melee meleeWeapon = null;
-    private OneHandedWeapon oneHandedWeapon = null;
+    private OneHandedWeapon oneHandedWeapon = (OneHandedWeapon)Helper.stringToWeapon("revolver");
     private TwoHandedWeapon twoHandedWeapon = null;
+    private HashMap<String, SimpleIntegerProperty> ammoCounts = new HashMap<>();
 
     private SimpleIntegerProperty ammo = new SimpleIntegerProperty(25);
 
@@ -244,12 +247,17 @@ public class Player extends Character
         return currentWeapon;
     }
 
-    public Gun getCurrentOneHandedWeapon()
+    public Melee getMeleeWeapon()
+    {
+        return this.meleeWeapon;
+    }
+
+    public OneHandedWeapon getCurrentOneHandedWeapon()
     {
         return this.oneHandedWeapon;
     }
 
-    public Gun getCurrentTwoHandedWeapon()
+    public TwoHandedWeapon getCurrentTwoHandedWeapon()
     {
         return this.twoHandedWeapon;
     }
