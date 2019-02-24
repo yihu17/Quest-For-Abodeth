@@ -445,6 +445,7 @@ public class Game
                         weaponWheel.setWeapon(player.pickUpWeapon((WeaponPickup) i));
                         weaponWheel.selectWeapon(player.pickUpWeapon((WeaponPickup) i));
                         player.setWeaponImage(((WeaponPickup) i).getName());
+                        ammoCount.switchAmmo(player.getAmmoCount(player.getCurrentWeapon().getName()));
                         ((WeaponPickup) i).remove();
                     } else if (player.hasWeapon(((WeaponPickup) i).getName())) {
                         // the player already has the weapon so add ammo

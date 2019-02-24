@@ -205,18 +205,21 @@ public class Player extends Character
             if (!ammoCounts.containsKey(weapon.getName())) {
                 ammoCounts.put(weapon.getName(), new SimpleIntegerProperty(weapon.getAmmo()));
             }
+            ammo = ammoCounts.get(weapon.getName());
         }
-        if ((Helper.stringToWeapon(weapon.getName()).getName().equals("revolver"))) {
-            this.ammoCounts.get("revolver").setValue(ammoCounts.get("revolver").get() + weapon.getAmmo());
-        }
-        if ((Helper.stringToWeapon(weapon.getName()).getName().equals("shotgun"))) {
-            this.ammoCounts.get("shotgun").setValue(ammoCounts.get("shotgun").get() + weapon.getAmmo());
-        }
-        if ((Helper.stringToWeapon(weapon.getName()).getName().equals("ar15"))) {
-            this.ammoCounts.get("ar15").setValue(ammoCounts.get("ar15").get() + weapon.getAmmo());
-        }
-        if ((Helper.stringToWeapon(weapon.getName()).getName().equals("uzi"))) {
-            this.ammoCounts.get("uzi").setValue(ammoCounts.get("uzi").get() + weapon.getAmmo());
+        switch (Helper.stringToWeapon(weapon.getName()).getName()) {
+            case "revolver":
+                this.ammoCounts.get("revolver").setValue(ammoCounts.get("revolver").get() + weapon.getAmmo());
+                break;
+            case "shotgun":
+                this.ammoCounts.get("shotgun").setValue(ammoCounts.get("shotgun").get() + weapon.getAmmo());
+                break;
+            case "ar15":
+                this.ammoCounts.get("ar15").setValue(ammoCounts.get("ar15").get() + weapon.getAmmo());
+                break;
+            case "uzi":
+                this.ammoCounts.get("uzi").setValue(ammoCounts.get("uzi").get() + weapon.getAmmo());
+                break;
         }
         return currentWeapon;
     }
