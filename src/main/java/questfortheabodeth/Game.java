@@ -19,13 +19,16 @@ import main.java.questfortheabodeth.menus.PlayerDiedMenu;
 import main.java.questfortheabodeth.menus.PlayerWinMenu;
 import main.java.questfortheabodeth.powerups.Pickup;
 import main.java.questfortheabodeth.powerups.TheAbodeth;
+import main.java.questfortheabodeth.sprites.Image;
 import main.java.questfortheabodeth.threads.AudioThread;
 import main.java.questfortheabodeth.threads.ExpandingWave;
 import main.java.questfortheabodeth.threads.LoadingScreenThread;
+import main.java.questfortheabodeth.threads.RoomLoader;
 import main.java.questfortheabodeth.weapons.*;
 import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.RenderWindow;
+import org.jsfml.graphics.Text;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
@@ -42,12 +45,12 @@ public class Game
 {
     private RenderWindow window;
     private boolean gameRunning;
-    private LoadingScreenThread loadingScreen;
 
     private Room[][] rooms;
     private Room currentRoom;
     private int roomCol = -1;
     private int roomRow = -1;
+    private RoomLoader roomLoader;
     private SimpleBooleanProperty gameWon = new SimpleBooleanProperty(false);
 
     private Player player;
@@ -73,8 +76,6 @@ public class Game
         Settings.LOADED_IMAGES.clear(); //still needed?
         this.window = window;
         //loading screen thread
-        //loadingScreen = new LoadingScreenThread(this.window);
-        //loadingScreen.start();
 
         this.window.clear();
         this.gameRunning = true;
@@ -99,13 +100,6 @@ public class Game
         int cols = file.get(0).split(",").length;
         rooms = new Room[rows][cols];
 
-
-        /*
-        This doesn't work because a lot of the array is null when it is still being generated causing lots of the
-        doors to not appear. I don't think my room logic is wrong
-
-        Probably needs to be done a separate loop
-         */
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 int roomCode = Integer.parseInt(file.get(i).split(",")[j]);
@@ -121,27 +115,9 @@ public class Game
             }
         }
 
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                if (rooms[i][j] == null) {
-                    continue;
-                }
-                rooms[i][j] = new Room(
-                        rooms[i][j].getType() * -1,
-                        i - 1 >= 0 && rooms[i - 1][j] != null, // up
-                        i + 1 < rows && rooms[i + 1][j] != null, // down
-                        j - 1 >= 0 && rooms[i][j - 1] != null, // left
-                        j + 1 < cols && rooms[i][j + 1] != null  // right
-                );
-            }
-        }
-
-        Helper.printMatrix(rooms);
-
         if (roomRow < 0 || roomCol < 0) {
             throw new IllegalStateException("Player has no start room");
         }
-        currentRoom = rooms[roomRow][roomCol];
 
         miniMap = new MiniMap(rows, cols, roomRow, roomCol);
         healthBar = new HealthBar(player);
@@ -149,17 +125,57 @@ public class Game
         ammoCount = new AmmoCount(player.ammoProperty());
         hud = new HudElements(healthBar, miniMap, weaponWheel, ammoCount);
 
+
+        roomLoader = new RoomLoader(
+                rooms,
+                roomRow,
+                roomCol,
+                movables,
+                drawables,
+                collidables,
+                enemies,
+                interactables,
+                player
+        );
+
         new Thread(Settings.GAME_TIME).start();
+    }
 
-        this.scanRoom();
+    public void load()
+    {
+        int loadingCogAngle = 0;
+        Text loadingText = new Text("LOADING GAME", Settings.MAIN_MENU_FONT, 50);
+        Image loadingCog = new Image((Settings.WINDOW_WIDTH / 2) - 50, (Settings.WINDOW_HEIGHT / 2) + 50, "res/assets/loadingScreenCog.png");
+        roomLoader.start();
+        while (roomLoader.isAlive()) {
+            // Update the loading screen
+            window.clear();
+            if (loadingCogAngle >= 360) {
+                loadingCogAngle = -1;
+            }
+            loadingCogAngle++;
+            loadingCog.setRotation(loadingCogAngle);
+            window.draw(loadingCog);
+            window.draw(loadingText);
+            window.display();
+        }
 
-        /*if (!loadingScreen.isInterrupted()) {
-            loadingScreen.interrupt();
-        }*/
+        Helper.printMatrix(rooms);
+        currentRoom = rooms[roomRow][roomCol];
+        Settings.BACKGROUND_AUDIO_PLAYING = false;
+        String audioPath = currentRoom.getRoomName();
+        if (Settings.MUSIC_ON && System.currentTimeMillis() - currentRoom.getLastAudioTrigger() >= Helper.getLengthOfAudioFile(audioPath)) {
+            Settings.BACKGROUND_AUDIO_PLAYING = true;
+            Helper.playAudio(audioPath);
+            new AudioThread(audioPath);
+            currentRoom.setLastAudioTrigger(System.currentTimeMillis());
+        }
     }
 
     public void run()
     {
+        load();
+
         //kill loading screen thread
         int clocker = 0;
         Button time = new Button(120, 40, (Settings.WINDOW_WIDTH / 2) - 60, 10, "0");
@@ -534,7 +550,6 @@ public class Game
         }
 
         collidables.add(player);
-
         interactables.addAll(currentRoom.getInteractables());
     }
 
