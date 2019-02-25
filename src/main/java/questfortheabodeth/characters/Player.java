@@ -237,10 +237,7 @@ public class Player extends Character
         if (oneHandedWeapon != null && oneHandedWeapon.getName().equals(weaponSearching)) {
             return true;
         }
-        if (twoHandedWeapon != null && twoHandedWeapon.getName().equals(weaponSearching)) {
-            return true;
-        }
-        return false;
+        return twoHandedWeapon != null && twoHandedWeapon.getName().equals(weaponSearching);
     }
 
     public int amountOfWeaponsCarrying()
@@ -267,6 +264,10 @@ public class Player extends Character
         this.ammo.set(ammo.get() - 1);
     }
 
+    /**
+     * This function is only used in the applyBuff method of the AmmoPickup
+     * @param amount
+     */
     public void increaseAmmo(int amount)
     {
         for (String k: ammoCounts.keySet()) {
@@ -275,7 +276,7 @@ public class Player extends Character
                 continue;
             }
             ammoCounts.get(k).set(
-                    ammoCounts.get(k).get() + 25
+                    ammoCounts.get(k).get() + (ammoCounts.get(k).get() / 10)
             );
         }
         this.ammo.set(ammo.get() + amount);
