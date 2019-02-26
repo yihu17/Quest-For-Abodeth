@@ -335,20 +335,20 @@ public class Room implements Drawable
                     case "spikeTrap":
                         roomImages[i][j] = new SpikeTrap(spacing * j, spacing * i, filePath);
                         break;
-                    case "switchPuzzle":
+                    /*case "switchPuzzle":
                         roomImages[i][j] = new CollidableInteractableEnvironment(spacing * j, spacing * i, filePath);
-                        break;
+                        break;*/
                     case "shootingArrowTrap":
                         roomImages[i][j] = new ShootingArrows(spacing * j, spacing * i, filePath);
                         break;
-                    case "swingingAxeTrap":
+                    /*case "swingingAxeTrap":
                         roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
-                        break;
+                        break;*/
                     case "lava":
                         roomImages[i][j] = new Lava(spacing * j, spacing * i, filePath);
                         lavaAnimationThread.addTrap(roomImages[i][j]);
                         break;
-                    case "rollingBoulderTrap":
+                    /*case "rollingBoulderTrap":
                         roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
                         break;
                     case "fierySphinx":
@@ -359,7 +359,7 @@ public class Room implements Drawable
                         break;
                     case "crushingWalls":
                         roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
-                        break;
+                        break;*/
                     default:
                         throw new AssertionError("Unknown image" + elementRead);
                 }
