@@ -27,9 +27,9 @@ public class PlayerDiedMenu implements Menu
     {
         this.window = window;
         this.window.setMouseCursorVisible(true);
-        Button back = new Button(250, 75, Settings.WINDOW_WIDTH / 2 - 75, 500, "MAIN MENU");
+        Button back = new Button(250, 75, Settings.WINDOW_WIDTH / 2 - 148, 500, "MAIN MENU");
         back.setTextXOffset(
-                250 / 2 - (back.getText().length() / 2) * 14
+                250 / 2 - (back.getText().length() / 2) * 18
         );
         back.setOnPress(new EventHandler()
         {
@@ -45,12 +45,12 @@ public class PlayerDiedMenu implements Menu
 
         Text t = new Text("YOU DIED", Settings.MAIN_MENU_FONT, 64);
         t.setColor(Color.BLACK);
-        t.setPosition((Settings.WINDOW_WIDTH - Settings.WINDOW_X_PADDING * 2) / 2 - 50, 200);
+        t.setPosition((Settings.WINDOW_WIDTH - Settings.WINDOW_X_PADDING * 2) / 2 - 35, 200);
         title = t;
 
         Text tb = new Text(time, Settings.MAIN_MENU_FONT, 64);
         tb.setColor(Color.BLACK);
-        tb.setPosition((Settings.WINDOW_WIDTH - Settings.WINDOW_X_PADDING * 2) / 2 - 50, 400);
+        tb.setPosition((Settings.WINDOW_WIDTH - Settings.WINDOW_X_PADDING * 2) / 2 - 32, 400);
         this.time = tb;
 
         this.background = new Image(0, 0, "res/assets/menus/mainmenu.png");
