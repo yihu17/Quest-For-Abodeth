@@ -517,10 +517,10 @@ public class Room implements Drawable
                         weapons.add(new WeaponPickup(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png", weaponRead, 25));
                         break;
                     case "sniper":
-                        weapons.add(new WeaponPickup(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png", weaponRead));
+                        weapons.add(new WeaponPickup(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png", weaponRead, 8));
                         break;
                     case "whip":
-                        weapons.add(new WeaponPickup(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png", weaponRead));
+                        weapons.add(new WeaponPickup(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png", weaponRead, 0));
                         break;
                 }
             }
