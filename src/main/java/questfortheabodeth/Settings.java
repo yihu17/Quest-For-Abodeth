@@ -132,6 +132,8 @@ public class Settings
         CSV_KEYS.put(36, "shotgun");
         CSV_KEYS.put(37, "ar15");
         CSV_KEYS.put(38, "uzi");
+        CSV_KEYS.put(39, "sniper");
+        CSV_KEYS.put(40, "whip");
         // Bosses
         CSV_KEYS.put(98, "abodeth");
         CSV_KEYS.put(99, "edemy");
@@ -141,6 +143,8 @@ public class Settings
         AUDIO_KEYS.put("revolver","weapons/revolver");
         AUDIO_KEYS.put("uzi","weapons/uzi");
         AUDIO_KEYS.put("ar15","weapons/ar15");
+        AUDIO_KEYS.put("whip", "weapons/whip");
+        AUDIO_KEYS.put("sniper", "weapons/sniper");
         AUDIO_KEYS.put("arrow","traps/arrow");
         AUDIO_KEYS.put("lava","environment/lava");
         AUDIO_KEYS.put("water", "environment/water");

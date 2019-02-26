@@ -522,6 +522,12 @@ public class Room implements Drawable
                     case "uzi":
                         weapons.add(new WeaponPickup(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png", weaponRead));
                         break;
+                    case "sniper":
+                        weapons.add(new WeaponPickup(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png", weaponRead));
+                        break;
+                    case "whip":
+                        weapons.add(new WeaponPickup(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png", weaponRead));
+                        break;
                 }
             }
         }

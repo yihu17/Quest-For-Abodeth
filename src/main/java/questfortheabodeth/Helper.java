@@ -247,6 +247,10 @@ public class Helper
                 return new TwoHandedWeapon("ar15", 1, 25, 500, 25);
             case "uzi":
                 return new OneHandedWeapon("uzi", 3, 60, 75, 18);
+            case "whip":
+                return new Melee("whip", 50, 25);
+            case "sniper":
+                return new TwoHandedWeapon("sniper", 1, 8, 1500, 55);
         }
         throw new AssertionError("Unknown weapon encountered: " + weapon);
     }
@@ -307,6 +311,10 @@ public class Helper
                 return "TwoHandedWeapon";
             case "uzi":
                 return "OneHandedWeapon";
+            case "whip":
+                return "Melee";
+            case "sniper":
+                return "TwoHandedWeapon";
         }
         return null;
     }
