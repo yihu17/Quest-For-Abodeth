@@ -15,6 +15,7 @@ import org.jsfml.system.Vector2f;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 
 /**
@@ -29,21 +30,28 @@ public class Player extends Character
     private long lastTimeAttack;
     private long lastTimeHit;
     private HashSet<Class<? extends Interactable>> appliedInteracts = new HashSet<>();
+
     private Weapon currentWeapon;
     private Melee meleeWeapon = null;
-    private OneHandedWeapon oneHandedWeapon = null;
+    private OneHandedWeapon oneHandedWeapon = (OneHandedWeapon)Helper.stringToWeapon("revolver");
     private TwoHandedWeapon twoHandedWeapon = null;
+    private HashMap<String, SimpleIntegerProperty> ammoCounts = new HashMap<>();
 
-    private SimpleIntegerProperty ammo = new SimpleIntegerProperty(25);
+    private SimpleIntegerProperty ammo;
 
 
     /**
      * Creates a new Player instance based off of the imageName image
+     * TODO: When player picks up ammo for a weapon they already have, it changes the ammo counter on screen
+     *       - All numbers are still correct it just displays the wrong one
      */
     public Player(RenderTarget window)
     {
         super(250, 250, 100, imageName, Settings.PLAYER_SPEED);
         this.window = window;
+        ammoCounts.put("revolver", new SimpleIntegerProperty(25));
+        ammo = ammoCounts.get("revolver");
+        this.switchWeapon(2);
     }
 
     public ReadOnlyIntegerProperty ammoProperty()
@@ -53,6 +61,11 @@ public class Player extends Character
 
     public boolean switchWeapon(int weaponNumber)
     {
+        System.out.println("######################");
+        for(String k: ammoCounts.keySet()) {
+            System.out.println("Key: " + k + " = " + ammoCounts.get(k).get());
+        }
+
         switch (weaponNumber) {
             case 1:
                 if (meleeWeapon == null) {
@@ -67,6 +80,7 @@ public class Player extends Character
                 }
                 currentWeapon = oneHandedWeapon;
                 setWeaponImage(currentWeapon.getName());
+                ammo = ammoCounts.get(currentWeapon.getName());
                 return true;
             case 3:
                 if (twoHandedWeapon == null) {
@@ -74,6 +88,7 @@ public class Player extends Character
                 }
                 currentWeapon = twoHandedWeapon;
                 setWeaponImage(currentWeapon.getName());
+                ammo = ammoCounts.get(currentWeapon.getName());
                 return true;
             default:
                 return false;
@@ -190,18 +205,26 @@ public class Player extends Character
                 twoHandedWeapon = (TwoHandedWeapon) cw;
                 currentWeapon = twoHandedWeapon;
             }
+
+            if (!ammoCounts.containsKey(weapon.getName())) {
+                ammoCounts.put(weapon.getName(), new SimpleIntegerProperty(weapon.getAmmo()));
+            }
+            ammo = ammoCounts.get(weapon.getName());
+            System.out.println("Ammo set to " + weapon.getName());
         }
-        if ((Helper.stringToWeapon(weapon.getName()).getName().equals("revolver"))) {
-            this.ammo.setValue(ammo.get() + 20);
-        }
-        if ((Helper.stringToWeapon(weapon.getName()).getName().equals("shotgun"))) {
-            this.ammo.setValue(ammo.get() + 40);
-        }
-        if ((Helper.stringToWeapon(weapon.getName()).getName().equals("ar15"))) {
-            this.ammo.setValue(ammo.get() + 15);
-        }
-        if ((Helper.stringToWeapon(weapon.getName()).getName().equals("uzi"))) {
-            this.ammo.setValue(ammo.get() + 45);
+        switch (Helper.stringToWeapon(weapon.getName()).getName()) {
+            case "revolver":
+                this.ammoCounts.get("revolver").setValue(ammoCounts.get("revolver").get() + weapon.getAmmo());
+                break;
+            case "shotgun":
+                this.ammoCounts.get("shotgun").setValue(ammoCounts.get("shotgun").get() + weapon.getAmmo());
+                break;
+            case "ar15":
+                this.ammoCounts.get("ar15").setValue(ammoCounts.get("ar15").get() + weapon.getAmmo());
+                break;
+            case "uzi":
+                this.ammoCounts.get("uzi").setValue(ammoCounts.get("uzi").get() + weapon.getAmmo());
+                break;
         }
         return currentWeapon;
     }
@@ -214,10 +237,7 @@ public class Player extends Character
         if (oneHandedWeapon != null && oneHandedWeapon.getName().equals(weaponSearching)) {
             return true;
         }
-        if (twoHandedWeapon != null && twoHandedWeapon.getName().equals(weaponSearching)) {
-            return true;
-        }
-        return false;
+        return twoHandedWeapon != null && twoHandedWeapon.getName().equals(weaponSearching);
     }
 
     public int amountOfWeaponsCarrying()
@@ -230,13 +250,35 @@ public class Player extends Character
         return carry;
     }
 
+    public ReadOnlyIntegerProperty getAmmoCount(String name)
+    {
+        if (ammoCounts.containsKey(name)) {
+            return ammoCounts.get(name);
+        }
+
+        throw new AssertionError("Cannot compute the ammo");
+    }
+
     public void decreaseAmmo()
     {
         this.ammo.set(ammo.get() - 1);
     }
 
+    /**
+     * This function is only used in the applyBuff method of the AmmoPickup
+     * @param amount
+     */
     public void increaseAmmo(int amount)
     {
+        for (String k: ammoCounts.keySet()) {
+            String type = Helper.getTypeOfWeapon(k);
+            if (type == null || type.equals("Melee")) {
+                continue;
+            }
+            ammoCounts.get(k).set(
+                    ammoCounts.get(k).get() + (ammoCounts.get(k).get() / 10)
+            );
+        }
         this.ammo.set(ammo.get() + amount);
     }
 
@@ -245,12 +287,17 @@ public class Player extends Character
         return currentWeapon;
     }
 
-    public Gun getCurrentOneHandedWeapon()
+    public Melee getMeleeWeapon()
+    {
+        return this.meleeWeapon;
+    }
+
+    public OneHandedWeapon getCurrentOneHandedWeapon()
     {
         return this.oneHandedWeapon;
     }
 
-    public Gun getCurrentTwoHandedWeapon()
+    public TwoHandedWeapon getCurrentTwoHandedWeapon()
     {
         return this.twoHandedWeapon;
     }

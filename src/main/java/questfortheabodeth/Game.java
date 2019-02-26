@@ -20,13 +20,15 @@ import main.java.questfortheabodeth.menus.PlayerWinMenu;
 import main.java.questfortheabodeth.powerups.HealthBoost;
 import main.java.questfortheabodeth.powerups.Pickup;
 import main.java.questfortheabodeth.powerups.TheAbodeth;
+import main.java.questfortheabodeth.sprites.Image;
 import main.java.questfortheabodeth.threads.AudioThread;
 import main.java.questfortheabodeth.threads.ExpandingWave;
-import main.java.questfortheabodeth.threads.LoadingScreenThread;
+import main.java.questfortheabodeth.threads.RoomLoader;
 import main.java.questfortheabodeth.weapons.*;
 import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.RenderWindow;
+import org.jsfml.graphics.Text;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
@@ -43,13 +45,13 @@ public class Game
 {
     private RenderWindow window;
     private boolean gameRunning;
-    private LoadingScreenThread loadingScreen;
 
     private Room[][] rooms;
     private Room currentRoom;
     private int roomCol = -1;
     private int roomRow = -1;
     private int endX, endY;
+    private RoomLoader roomLoader;
     private SimpleBooleanProperty gameWon = new SimpleBooleanProperty(false);
 
     private Player player;
@@ -75,8 +77,6 @@ public class Game
         Settings.LOADED_IMAGES.clear(); //still needed?
         this.window = window;
         //loading screen thread
-        //loadingScreen = new LoadingScreenThread(this.window);
-        //loadingScreen.start();
 
         this.window.clear();
         this.gameRunning = true;
@@ -101,13 +101,6 @@ public class Game
         int cols = file.get(0).split(",").length;
         rooms = new Room[rows][cols];
 
-
-        /*
-        This doesn't work because a lot of the array is null when it is still being generated causing lots of the
-        doors to not appear. I don't think my room logic is wrong
-
-        Probably needs to be done a separate loop
-         */
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 int roomCode = Integer.parseInt(file.get(i).split(",")[j]);
@@ -127,45 +120,68 @@ public class Game
             }
         }
 
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                if (rooms[i][j] == null) {
-                    continue;
-                }
-                rooms[i][j] = new Room(
-                        rooms[i][j].getType() * -1,
-                        i - 1 >= 0 && rooms[i - 1][j] != null, // up
-                        i + 1 < rows && rooms[i + 1][j] != null, // down
-                        j - 1 >= 0 && rooms[i][j - 1] != null, // left
-                        j + 1 < cols && rooms[i][j + 1] != null  // right
-                );
-            }
-        }
-
-        Helper.printMatrix(rooms);
-
         if (roomRow < 0 || roomCol < 0) {
             throw new IllegalStateException("Player has no start room");
         }
-        currentRoom = rooms[roomRow][roomCol];
 
         miniMap = new MiniMap(rows, cols, roomRow, roomCol, endX, endY);
         healthBar = new HealthBar(player);
-        weaponWheel = new WeaponWheel();
+        weaponWheel = new WeaponWheel(player.getMeleeWeapon(), player.getCurrentOneHandedWeapon(), player.getCurrentTwoHandedWeapon());
         ammoCount = new AmmoCount(player.ammoProperty());
         hud = new HudElements(player, healthBar, miniMap, weaponWheel, ammoCount);
 
+
+        roomLoader = new RoomLoader(
+                rooms,
+                roomRow,
+                roomCol,
+                movables,
+                drawables,
+                collidables,
+                enemies,
+                interactables,
+                player,
+                window
+        );
+
         new Thread(Settings.GAME_TIME).start();
+    }
 
-        this.scanRoom();
+    public void load()
+    {
+        int loadingCogAngle = 0;
+        Text loadingText = new Text("LOADING GAME", Settings.MAIN_MENU_FONT, 50);
+        Image loadingCog = new Image((Settings.WINDOW_WIDTH / 2) - 50, (Settings.WINDOW_HEIGHT / 2) + 50, "res/assets/loadingScreenCog.png");
+        roomLoader.start();
+        while (roomLoader.isAlive()) {
+            // Update the loading screen
+            window.clear();
+            if (loadingCogAngle >= 360) {
+                loadingCogAngle = -1;
+            }
+            loadingCogAngle++;
+            loadingCog.setRotation(loadingCogAngle);
+            window.draw(loadingCog);
+            window.draw(loadingText);
+            window.display();
+        }
 
-        /*if (!loadingScreen.isInterrupted()) {
-            loadingScreen.interrupt();
-        }*/
+        Helper.printMatrix(rooms);
+        currentRoom = rooms[roomRow][roomCol];
+        Settings.BACKGROUND_AUDIO_PLAYING = false;
+        String audioPath = currentRoom.getRoomName();
+        if (Settings.MUSIC_ON && System.currentTimeMillis() - currentRoom.getLastAudioTrigger() >= Helper.getLengthOfAudioFile(audioPath)) {
+            Settings.BACKGROUND_AUDIO_PLAYING = true;
+            Helper.playAudio(audioPath);
+            new AudioThread(audioPath);
+            currentRoom.setLastAudioTrigger(System.currentTimeMillis());
+        }
     }
 
     public void run()
     {
+        load();
+
         //kill loading screen thread
         int clocker = 0;
         Button time = new Button(120, 40, (Settings.WINDOW_WIDTH / 2) - 60, 10, "0");
@@ -183,16 +199,22 @@ public class Game
                 Helper.playAudio(currentRoom.getRoomName());
             }
 
+            System.out.println("Clearing window");
             window.clear();
             // Draw the room
+            System.out.println("Drawing room");
             window.draw(currentRoom);
+            System.out.println("Drawing player");
             window.draw(player);
+            System.out.println("Drawing drawable");
             drawables.forEach(window::draw);
+            System.out.println("Drawing hud");
             window.draw(hud);
             if (meleeWave != null && meleeWave.isVisible()) {
                 window.draw(meleeWave);
             }
             window.draw(time);
+            System.out.println("Displaying window");
             window.display();
 
             // Move every single movable object (enemy movements, bullets etc.)
@@ -261,17 +283,17 @@ public class Game
                     if (e.asKeyEvent().key == Keyboard.Key.NUM1) {
                         if (player.switchWeapon(1)) {
                             weaponWheel.selectWeapon(player.getCurrentWeapon());
-                            System.out.println("Player switched to their melee weapon");
-                        } else {
-                            System.out.println("Melee switch not allowed");
+                            ammoCount.switchAmmo(player.getAmmoCount(player.getCurrentWeapon().getName()));
                         }
                     } else if (e.asKeyEvent().key == Keyboard.Key.NUM2) {
                         if (player.switchWeapon(2)) {
                             weaponWheel.selectWeapon(player.getCurrentWeapon());
+                            ammoCount.switchAmmo(player.getAmmoCount(player.getCurrentWeapon().getName()));
                         }
                     } else if (e.asKeyEvent().key == Keyboard.Key.NUM3) {
                         if (player.switchWeapon(3)) {
                             weaponWheel.selectWeapon(player.getCurrentWeapon());
+                            ammoCount.switchAmmo(player.getAmmoCount(player.getCurrentWeapon().getName()));
                         }
                     } else if (e.asKeyEvent().key == Keyboard.Key.E) {
                         // Player attempted to go through a door
@@ -449,7 +471,7 @@ public class Game
                                     (player.getCurrentWeapon() instanceof TwoHandedWeapon && Helper.getTypeOfWeapon(((WeaponPickup) i).getName()).equals("TwoHandedWeapon"))
 
                             ) {
-                                WeaponPickup droppedWeapon = new WeaponPickup((int) player.getX() + (int) player.getWidth() / 2, (int) player.getY() + (int) player.getHeight() / 2, "res/assets/weapons/" + player.getCurrentWeapon().getName() + ".png", player.getCurrentWeapon().getName());
+                                WeaponPickup droppedWeapon = new WeaponPickup((int) player.getX() + (int) player.getWidth() / 2, (int) player.getY() + (int) player.getHeight() / 2, "res/assets/weapons/" + player.getCurrentWeapon().getName() + ".png", player.getCurrentWeapon().getName(), 0);
                                 collidables.add(droppedWeapon);
                                 interactables.add(droppedWeapon);
                                 drawables.add(droppedWeapon);
@@ -459,6 +481,7 @@ public class Game
                         weaponWheel.setWeapon(player.pickUpWeapon((WeaponPickup) i));
                         weaponWheel.selectWeapon(player.pickUpWeapon((WeaponPickup) i));
                         player.setWeaponImage(((WeaponPickup) i).getName());
+                        ammoCount.switchAmmo(player.getAmmoCount(player.getCurrentWeapon().getName()));
                         ((WeaponPickup) i).remove();
                     } else if (player.hasWeapon(((WeaponPickup) i).getName())) {
                         // the player already has the weapon so add ammo
@@ -548,7 +571,6 @@ public class Game
         }
 
         collidables.add(player);
-
         interactables.addAll(currentRoom.getInteractables());
     }
 
@@ -663,7 +685,6 @@ public class Game
                 throw new AssertionError("Unknown direction to travel in: " + direction);
         }
 
-        // TODO: Have a flag in the Room class and place the player in a certain position
         currentRoom = rooms[roomRow][roomCol];
 
         // Test to see if this is the end room
