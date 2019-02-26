@@ -150,10 +150,14 @@ public class Game
     public void load()
     {
         int loadingCogAngle = 0;
+
         Text loadingText = new Text("LOADING GAME", Settings.MAIN_MENU_FONT, 50);
-        Image loadingCog = new Image((Settings.WINDOW_WIDTH / 2) - 50, (Settings.WINDOW_HEIGHT / 2) + 50, "res/assets/loadingScreenCog.png");
+        Image loadingCog = new Image(70, 1000, "res/assets/loadingScreenCog.png");
+        Image background = new Image(0, 0, "res/assets/menus/loadingScreenBackground.png");
+
         roomLoader.start();
-        while (roomLoader.isAlive()) {
+        boolean waiter = true;
+        while (roomLoader.isAlive() || waiter) {
             // Update the loading screen
             window.clear();
             if (loadingCogAngle >= 360) {
@@ -161,9 +165,19 @@ public class Game
             }
             loadingCogAngle++;
             loadingCog.setRotation(loadingCogAngle);
-            window.draw(loadingCog);
+            window.draw(background);
+            if (roomLoader.isAlive() == true) {
+                window.draw(loadingCog);
+            }
             window.draw(loadingText);
             window.display();
+
+            for (Event e : window.pollEvents()) {
+                Helper.checkCloseEvents(e, window);
+                if (e.type == Event.Type.KEY_PRESSED) {
+                    waiter = false;
+                }
+            }
         }
 
         Helper.printMatrix(rooms);
