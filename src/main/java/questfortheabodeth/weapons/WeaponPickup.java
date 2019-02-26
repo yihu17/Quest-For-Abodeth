@@ -16,14 +16,16 @@ public class WeaponPickup implements Drawable, Interactable
     private String name;
     private Image image;
     private String filePath;
+    private int ammo;
 
-    public WeaponPickup(int xPos, int yPos, String filePath, String name)
+    public WeaponPickup(int xPos, int yPos, String filePath, String name, int ammoCount)
     {
         this.xPos = xPos;
         this.yPos = yPos;
         this.name = name;
         this.image = new Image(xPos, yPos, filePath);
         this.filePath = filePath;
+        this.ammo = ammoCount;
     }
 
     @Override
@@ -106,4 +108,8 @@ public class WeaponPickup implements Drawable, Interactable
     }
 
 
+    public int getAmmo()
+    {
+        return ammo;
+    }
 }
