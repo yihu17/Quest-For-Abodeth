@@ -152,6 +152,8 @@ public class Game
         int loadingCogAngle = 0;
 
         Text loadingText = new Text("LOADING GAME", Settings.MAIN_MENU_FONT, 50);
+        Text storyText = new Text("Word has it that the ancient rellic, The Abodeth, lies deep within a hidden Egyptian pyramid. As an archaeologist and adventurer, you arm yourself with a pistol and delve into the darkness. You hear something crawl from the shadows...", Settings.MAIN_MENU_FONT, 50);
+        storyText.setPosition(100,100);
         Image loadingCog = new Image(70, 1000, "res/assets/loadingScreenCog.png");
         Image background = new Image(0, 0, "res/assets/menus/loadingScreenBackground.png");
 
@@ -170,6 +172,7 @@ public class Game
                 window.draw(loadingCog);
             }
             window.draw(loadingText);
+            window.draw(storyText);
             window.display();
 
             for (Event e : window.pollEvents()) {
