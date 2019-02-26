@@ -184,6 +184,7 @@ public class Game
         currentRoom = rooms[roomRow][roomCol];
         Settings.BACKGROUND_AUDIO_PLAYING = false;
         String audioPath = currentRoom.getRoomName();
+        //System.out.println("Audio Path: "+audioPath);
         if (Settings.MUSIC_ON && System.currentTimeMillis() - currentRoom.getLastAudioTrigger() >= Helper.getLengthOfAudioFile(audioPath)) {
             Settings.BACKGROUND_AUDIO_PLAYING = true;
             Helper.playAudio(audioPath);

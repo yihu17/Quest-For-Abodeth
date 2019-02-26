@@ -59,7 +59,7 @@ public class Room implements Drawable
         doors[1] = down;
         doors[2] = left;
         doors[3] = right;
-
+        roomName = "roomDataNull";
         this.type = type;
         if (type == 1) {
             roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomDataA.csv");
@@ -329,9 +329,9 @@ public class Room implements Drawable
                     case "spikeTrap":
                         roomImages[i][j] = new SpikeTrap(spacing * j, spacing * i, filePath);
                         break;
-                    /*case "switchPuzzle":
+                    case "switchPuzzle":
                         roomImages[i][j] = new CollidableInteractableEnvironment(spacing * j, spacing * i, filePath);
-                        break;*/
+                        break;
                     case "shootingArrowTrap":
                         roomImages[i][j] = new ShootingArrows(spacing * j, spacing * i, filePath);
                         break;
