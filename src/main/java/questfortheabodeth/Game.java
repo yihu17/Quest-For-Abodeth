@@ -49,6 +49,7 @@ public class Game
     private Room currentRoom;
     private int roomCol = -1;
     private int roomRow = -1;
+    private int endX, endY;
     private SimpleBooleanProperty gameWon = new SimpleBooleanProperty(false);
 
     private Player player;
@@ -119,6 +120,10 @@ public class Game
                     roomCol = j;
                     roomRow = i;
                 }
+                if (roomCode == 3) {
+                    endX = j;
+                    endY = i;
+                }
             }
         }
 
@@ -144,7 +149,7 @@ public class Game
         }
         currentRoom = rooms[roomRow][roomCol];
 
-        miniMap = new MiniMap(rows, cols, roomRow, roomCol);
+        miniMap = new MiniMap(rows, cols, roomRow, roomCol, endX, endY);
         healthBar = new HealthBar(player);
         weaponWheel = new WeaponWheel();
         ammoCount = new AmmoCount(player.ammoProperty());

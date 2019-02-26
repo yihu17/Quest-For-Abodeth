@@ -14,9 +14,9 @@ public class MiniMap implements Drawable
      * @param rows (int) Number of rows
      * @param cols (int) Number of cols
      */
-    public MiniMap(int rows, int cols)
+    public MiniMap(int rows, int cols, int endX, int endY)
     {
-        this(rows, cols, 0, 0);
+        this(rows, cols, 0, 0, endX, endY);
     }
 
     private int rows;
@@ -41,7 +41,7 @@ public class MiniMap implements Drawable
      * @param startX (int) Where the character starts in X
      * @param startY (int) Where the character start in Y
      */
-    public MiniMap(int rows, int cols, int startX, int startY)
+    public MiniMap(int rows, int cols, int startX, int startY, int endX, int endY)
     {
         this.rows = rows;
         this.cols = cols;
@@ -53,6 +53,8 @@ public class MiniMap implements Drawable
                 rooms[i][j] = false;
             }
         }
+
+        rooms[endX][endY] = true;
 
         // Call the visit room now so the players position in
         // the map is updated
