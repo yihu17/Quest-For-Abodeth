@@ -9,17 +9,12 @@ import main.java.questfortheabodeth.environments.traps.*;
 import main.java.questfortheabodeth.interfaces.Collidable;
 import main.java.questfortheabodeth.interfaces.Interactable;
 import main.java.questfortheabodeth.powerups.*;
-import main.java.questfortheabodeth.sprites.Image;
 import main.java.questfortheabodeth.threads.ImageSwitchThread;
 import main.java.questfortheabodeth.weapons.WeaponPickup;
 import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.RenderStates;
 import org.jsfml.graphics.RenderTarget;
-import org.jsfml.graphics.RenderWindow;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -66,7 +61,6 @@ public class Room implements Drawable
         doors[3] = right;
 
         this.type = type;
-        // TODO: Change this back to original numbers
         if (type == 1) {
             roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomDataA.csv");
             roomName = "roomDataA";
@@ -508,19 +502,19 @@ public class Room implements Drawable
                 int[] generatedSpawnLocation = generateSpawnLocation();
                 switch (weaponRead) {
                     case "machete":
-                        weapons.add(new WeaponPickup(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png", weaponRead));
+                        weapons.add(new WeaponPickup(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png", weaponRead, 0));
                         break;
                     case "revolver":
-                        weapons.add(new WeaponPickup(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png", weaponRead));
+                        weapons.add(new WeaponPickup(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png", weaponRead, 25));
                         break;
                     case "shotgun":
-                        weapons.add(new WeaponPickup(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png", weaponRead));
+                        weapons.add(new WeaponPickup(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png", weaponRead, 25));
                         break;
                     case "ar15":
-                        weapons.add(new WeaponPickup(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png", weaponRead));
+                        weapons.add(new WeaponPickup(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png", weaponRead, 25));
                         break;
                     case "uzi":
-                        weapons.add(new WeaponPickup(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png", weaponRead));
+                        weapons.add(new WeaponPickup(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png", weaponRead, 25));
                         break;
                     case "sniper":
                         weapons.add(new WeaponPickup(generatedSpawnLocation[0], generatedSpawnLocation[1], baseFilePath + weaponRead + ".png", weaponRead));

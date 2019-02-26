@@ -126,7 +126,7 @@ public class Game
 
         miniMap = new MiniMap(rows, cols, roomRow, roomCol, endX, endY);
         healthBar = new HealthBar(player);
-        weaponWheel = new WeaponWheel();
+        weaponWheel = new WeaponWheel(player.getMeleeWeapon(), player.getCurrentOneHandedWeapon(), player.getCurrentTwoHandedWeapon());
         ammoCount = new AmmoCount(player.ammoProperty());
         hud = new HudElements(player, healthBar, miniMap, weaponWheel, ammoCount);
 
@@ -283,17 +283,17 @@ public class Game
                     if (e.asKeyEvent().key == Keyboard.Key.NUM1) {
                         if (player.switchWeapon(1)) {
                             weaponWheel.selectWeapon(player.getCurrentWeapon());
-                            System.out.println("Player switched to their melee weapon");
-                        } else {
-                            System.out.println("Melee switch not allowed");
+                            ammoCount.switchAmmo(player.getAmmoCount(player.getCurrentWeapon().getName()));
                         }
                     } else if (e.asKeyEvent().key == Keyboard.Key.NUM2) {
                         if (player.switchWeapon(2)) {
                             weaponWheel.selectWeapon(player.getCurrentWeapon());
+                            ammoCount.switchAmmo(player.getAmmoCount(player.getCurrentWeapon().getName()));
                         }
                     } else if (e.asKeyEvent().key == Keyboard.Key.NUM3) {
                         if (player.switchWeapon(3)) {
                             weaponWheel.selectWeapon(player.getCurrentWeapon());
+                            ammoCount.switchAmmo(player.getAmmoCount(player.getCurrentWeapon().getName()));
                         }
                     } else if (e.asKeyEvent().key == Keyboard.Key.E) {
                         // Player attempted to go through a door
@@ -471,7 +471,7 @@ public class Game
                                     (player.getCurrentWeapon() instanceof TwoHandedWeapon && Helper.getTypeOfWeapon(((WeaponPickup) i).getName()).equals("TwoHandedWeapon"))
 
                             ) {
-                                WeaponPickup droppedWeapon = new WeaponPickup((int) player.getX() + (int) player.getWidth() / 2, (int) player.getY() + (int) player.getHeight() / 2, "res/assets/weapons/" + player.getCurrentWeapon().getName() + ".png", player.getCurrentWeapon().getName());
+                                WeaponPickup droppedWeapon = new WeaponPickup((int) player.getX() + (int) player.getWidth() / 2, (int) player.getY() + (int) player.getHeight() / 2, "res/assets/weapons/" + player.getCurrentWeapon().getName() + ".png", player.getCurrentWeapon().getName(), 0);
                                 collidables.add(droppedWeapon);
                                 interactables.add(droppedWeapon);
                                 drawables.add(droppedWeapon);
@@ -481,6 +481,7 @@ public class Game
                         weaponWheel.setWeapon(player.pickUpWeapon((WeaponPickup) i));
                         weaponWheel.selectWeapon(player.pickUpWeapon((WeaponPickup) i));
                         player.setWeaponImage(((WeaponPickup) i).getName());
+                        ammoCount.switchAmmo(player.getAmmoCount(player.getCurrentWeapon().getName()));
                         ((WeaponPickup) i).remove();
                     } else if (player.hasWeapon(((WeaponPickup) i).getName())) {
                         // the player already has the weapon so add ammo
@@ -684,7 +685,6 @@ public class Game
                 throw new AssertionError("Unknown direction to travel in: " + direction);
         }
 
-        // TODO: Have a flag in the Room class and place the player in a certain position
         currentRoom = rooms[roomRow][roomCol];
 
         // Test to see if this is the end room
