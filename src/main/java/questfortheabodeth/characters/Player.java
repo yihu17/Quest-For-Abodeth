@@ -43,7 +43,6 @@ public class Player extends Character
      * Creates a new Player instance based off of the imageName image
      * TODO: When player picks up ammo for a weapon they already have, it changes the ammo counter on screen
      *       - All numbers are still correct it just displays the wrong one
-     * TODO: When player swaps AR15 for the shotgun the AR15 is not put on the floor (works vice versa)
      */
     public Player(RenderTarget window)
     {
