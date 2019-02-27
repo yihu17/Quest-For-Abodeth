@@ -17,8 +17,13 @@ import org.jsfml.graphics.RenderTarget;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
 
+/**
+ * Class that models a room object in the game. Every room contains all
+ * the environment objects to draw and any enemies that are to be spawned in the room
+ * <p>
+ * TODO: Check the stopping of the animation threads when a room switch occurs
+ */
 public class Room implements Drawable
 {
     private int type;
@@ -61,6 +66,9 @@ public class Room implements Drawable
         doors[3] = right;
         roomName = "roomDataNull";
         this.type = type;
+
+        // A room type of 1 means it is the start room
+        // A room type of 3 means it is the end room
         if (type == 1) {
             roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomDataA.csv");
             roomName = "roomDataA";
@@ -69,6 +77,8 @@ public class Room implements Drawable
             doors = new boolean[]{false, false, false, false};
             roomName = "roomDataJ";
         } else if (type < 0) {
+            // Allows an array of rooms to be created initially without
+            // having generate the room or load file.
             return;
         } else {
             String[] rooms = new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
@@ -76,7 +86,8 @@ public class Room implements Drawable
             roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomData" + rooms[index] + ".csv");
             roomName = "roomData" + rooms[index];
         }
-        //System.out.println("Audio file selected: "+audioTrack);
+
+        // Load the room
         readRoomData();
         loadRoomImages();
         spawnEnemies();
@@ -86,6 +97,8 @@ public class Room implements Drawable
 
         // Now that the room has been generated make some doors
         if (doors[0]) {
+            // Ensure there is a door at the top and that the blocks immediately below them
+            // are normal environment tiles
             int topDoorStart = 19;
             roomImages[0][topDoorStart] = new Door(Settings.ROOM_DIVISION_SIZE * topDoorStart, 0, "res/assets/environment/leftDoor.png", -2);
             roomImages[0][topDoorStart + 1] = new Door(Settings.ROOM_DIVISION_SIZE * (topDoorStart + 1), 0, "res/assets/environment/rightDoor.png", -2);
@@ -106,6 +119,8 @@ public class Room implements Drawable
             ) : roomImages[1][topDoorStart + 1];
         }
         if (doors[1]) {
+            // Ensure there is a door at the bottom and that the blocks immediately above of them
+            // are normal environment tiles
             int bottomDoorStart = 19;
             roomImages[Settings.ROOM_DIVISION_ROWS - 1][bottomDoorStart] = new Door(Settings.ROOM_DIVISION_SIZE * bottomDoorStart, Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_ROWS - 1), "res/assets/environment/leftDoor.png", -4);
             roomImages[Settings.ROOM_DIVISION_ROWS - 1][bottomDoorStart + 1] = new Door(Settings.ROOM_DIVISION_SIZE * (bottomDoorStart + 1), Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_ROWS - 1), "res/assets/environment/rightDoor.png", -4);
@@ -126,6 +141,8 @@ public class Room implements Drawable
             ) : roomImages[Settings.ROOM_DIVISION_ROWS - 2][bottomDoorStart + 1];
         }
         if (doors[2]) {
+            // Ensure there is a door at the left and that the blocks immediately right of them
+            // are normal environment tiles
             int leftDoorStart = 8;
             roomImages[leftDoorStart][0] = new Door(0, Settings.ROOM_DIVISION_SIZE * leftDoorStart, "res/assets/environment/topDoor.png", -1);
             roomImages[leftDoorStart + 1][0] = new Door(0, Settings.ROOM_DIVISION_SIZE * (leftDoorStart + 1), "res/assets/environment/bottomDoor.png", -1);
@@ -146,6 +163,8 @@ public class Room implements Drawable
             ) : roomImages[leftDoorStart + 1][1];
         }
         if (doors[3]) {
+            // Ensure there is a door at the right and that the blocks immediately left of them
+            // are normal environment tiles
             int rightDoorStart = 8;
             roomImages[rightDoorStart][Settings.ROOM_DIVISION_COLUMNS - 1] = new Door(Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_COLUMNS - 1), Settings.ROOM_DIVISION_SIZE * rightDoorStart, "res/assets/environment/topDoor.png", -3);
             roomImages[rightDoorStart + 1][Settings.ROOM_DIVISION_COLUMNS - 1] = new Door(Settings.ROOM_DIVISION_SIZE * (Settings.ROOM_DIVISION_COLUMNS - 1), Settings.ROOM_DIVISION_SIZE * (rightDoorStart + 1), "res/assets/environment/bottomDoor.png", -3);
@@ -167,25 +186,53 @@ public class Room implements Drawable
         }
     }
 
+    /**
+     * Returns a list of what doors there are in the room
+     * The indexes are as follows:
+     *     0: Top door
+     *     1: Bottom door
+     *     2: Left door
+     *     3: Right door
+     * @return
+     */
     public boolean[] getDoors()
     {
         return doors;
     }
 
+    /**
+     * Returns the type of the room
+     * The types are as follows:
+     *     1: Start room
+     *     2: Intermediate room
+     *     3: End room
+     * @return (int) This rooms tyoe
+     */
     public int getType()
     {
         return this.type;
     }
 
+    /**
+     * Returns a list of all the collidable objects in this room
+     * @see Collidable
+     *
+     * @return (ArrayList) List of Collidable objects
+     */
     public ArrayList<Collidable> getCollidables()
     {
         ArrayList<Collidable> c = new ArrayList<>();
         for (int i = 0; i < Settings.ROOM_DIVISION_ROWS; i++) {
             for (int j = 0; j < Settings.ROOM_DIVISION_COLUMNS; j++) {
                 if (roomImages[i][j] instanceof Collidable && !(roomImages[i][j] instanceof Interactable)) {
+                    // Add any object that is collidable and not interactable
                     c.add((Collidable) roomImages[i][j]);
                 }
                 if (roomImages[i][j] instanceof Door) {
+                    /*
+                     * If a door is found in the room, place two wall blocks directly behind it to prevent
+                     * the player from walking over the door and off the screen
+                     */
                     float x, y;
                     Door door = (Door) roomImages[i][j];
                     if (door.getLinkedDoor() == -1 || door.getLinkedDoor() == -3) {
@@ -201,16 +248,20 @@ public class Room implements Drawable
                             "res/assets/environment/wall.png"
                     ));
                 }
-
             }
         }
 
+        // All enemies, pickups and weapons are seen as collidables
         c.addAll(enemies);
         c.addAll(pickups);
         c.addAll(weapons);
         return c;
     }
 
+    /**
+     * Returns a list of all the interactable objects in this room
+     * @return (ArrayList) List of all interactables in the room
+     */
     public ArrayList<Interactable> getInteractables()
     {
         ArrayList<Interactable> iList = new ArrayList<>();
@@ -224,6 +275,10 @@ public class Room implements Drawable
         return iList;
     }
 
+    /**
+     * Provide a more informational view of the room when it is printed
+     * @return (String) Room information
+     */
     @Override
     public String toString()
     {
@@ -248,33 +303,49 @@ public class Room implements Drawable
         }
     }
 
+    /**
+     * Read the data from the rooms CSV file for this room
+     */
     private void readRoomData()
     {
         readToLayout();
         int startOfData = Settings.WINDOW_HEIGHT / Settings.ROOM_DIVISION_SIZE;
-        int[] enemyTypes = Arrays.stream(roomFile.readLine(startOfData)).mapToInt(Integer::parseInt).toArray(); //read string array as int array
-        int[] enemyQuantities = Arrays.stream(roomFile.readLine(startOfData + 1)).mapToInt(Integer::parseInt).toArray(); //read string array as int array
-        int[] pickupTypes = Arrays.stream(roomFile.readLine(startOfData + 2)).mapToInt(Integer::parseInt).toArray(); //read string array as int array
-        int[] pickupQuantities = Arrays.stream(roomFile.readLine(startOfData + 3)).mapToInt(Integer::parseInt).toArray(); //read string array as int array
-        int[] weaponTypes = Arrays.stream(roomFile.readLine(startOfData + 4)).mapToInt(Integer::parseInt).toArray(); //read string array as int array
-        int[] weaponQuantities = Arrays.stream(roomFile.readLine(startOfData + 5)).mapToInt(Integer::parseInt).toArray(); //read string array as int array
 
+        // Convert all the CSV lines about room meta data into integer arrays
+        // readLine returns an array of Strings so convert it to a stream and convert each
+        // element in the stream to an integer and write it back to an integer array
+        int[] enemyTypes = Arrays.stream(roomFile.readLine(startOfData)).mapToInt(Integer::parseInt).toArray();
+        int[] enemyQuantities = Arrays.stream(roomFile.readLine(startOfData + 1)).mapToInt(Integer::parseInt).toArray();
+        int[] pickupTypes = Arrays.stream(roomFile.readLine(startOfData + 2)).mapToInt(Integer::parseInt).toArray();
+        int[] pickupQuantities = Arrays.stream(roomFile.readLine(startOfData + 3)).mapToInt(Integer::parseInt).toArray();
+        int[] weaponTypes = Arrays.stream(roomFile.readLine(startOfData + 4)).mapToInt(Integer::parseInt).toArray();
+        int[] weaponQuantities = Arrays.stream(roomFile.readLine(startOfData + 5)).mapToInt(Integer::parseInt).toArray();
+
+        // Parse out the enemy types and counts into a new array
         for (int i = 0; i < enemyTypes.length; i++) {
             enemyInfo.add(new int[]{enemyTypes[i], enemyQuantities[i]});
         }
 
+        // Parse out the pickup types and counts into a new array
         for (int i = 0; i < pickupTypes.length; i++) {
             pickupInfo.add(new int[]{pickupTypes[i], pickupQuantities[i]});
         }
 
+        // Parse out the weapon types and counts into a new array
         for (int i = 0; i < weaponTypes.length; i++) {
             weaponInfo.add(new int[]{weaponTypes[i], weaponQuantities[i]});
         }
     }
 
+    /**
+     * Reads the contents of the CSV file into an array of arrays
+     */
     private void readToLayout()
     {
-        roomLayout.clear(); //resets layout
+        // Reset the room layout
+        roomLayout.clear();
+
+        // Read in the map part of the CSV file
         for (int i = 0; i < Settings.ROOM_DIVISION_ROWS; i++) {
             roomLayout.add(new ArrayList<>());
             String[] currentLine = roomFile.readLine(i);
@@ -284,11 +355,18 @@ public class Room implements Drawable
         }
     }
 
+    /**
+     * Iterates over all the Environment objects in this room and loads the images into
+     * a new 2D array of Environment objects
+     */
     private void loadRoomImages()
     {
         int spacing = Settings.ROOM_DIVISION_SIZE;
         for (int i = 0; i < Settings.ROOM_DIVISION_ROWS; i++) {
             for (int j = 0; j < Settings.ROOM_DIVISION_COLUMNS; j++) {
+
+                // Parse the integer value of the block from the CSV file
+                // and convert it into a filename
                 String elementRead;
                 try {
                     elementRead = Settings.CSV_KEYS.get(Integer.parseInt(roomLayout.get(i).get(j)));
@@ -296,6 +374,7 @@ public class Room implements Drawable
                     elementRead = "wall";
                     e.printStackTrace();
                 }
+
                 String filePath = "res/assets/environment/" + elementRead + ".png";
                 switch (elementRead) {
                     case "wall":
@@ -361,12 +440,17 @@ public class Room implements Drawable
         }
     }
 
+    /**
+     * Creates all the enemies from the list of enemies read from the CSV file
+     */
     private void spawnEnemies()
     {
         for (int i = 0; i < enemyInfo.size(); i++) {
+            // Convert the enemy nuber to a filename
             String enemyRead = Settings.CSV_KEYS.get(enemyInfo.get(i)[0]);
             String filePath = "res/assets/enemies/" + enemyRead + ".png";
             for (int y = 0; y < enemyInfo.get(i)[1]; y++) {
+                // Create a random spawn location for enemies
                 int[] generatedSpawnLocation = generateSpawnLocation();
                 switch (enemyRead) {
                     case "zombie":
@@ -404,33 +488,60 @@ public class Room implements Drawable
         }
     }
 
+    /**
+     * Generate a random spawn location for the enemies
+     * @return (int[]) Array of X and Y coordinates
+     */
     private int[] generateSpawnLocation()
     {
         int[] spawnPositionGenerated = new int[2];
-        Random rand = new Random();
-        spawnPositionGenerated[0] = rand.nextInt(Settings.WINDOW_WIDTH) + Settings.ROOM_DIVISION_SIZE;
-        spawnPositionGenerated[1] = rand.nextInt(Settings.WINDOW_HEIGHT) + Settings.ROOM_DIVISION_SIZE;
-        while (!spawnLocationGeneratedIsValid(spawnPositionGenerated)) { //keep trying to create a spawn location until valid
-            spawnPositionGenerated[0] = rand.nextInt(Settings.WINDOW_WIDTH) + Settings.ROOM_DIVISION_SIZE;
-            spawnPositionGenerated[1] = rand.nextInt(Settings.WINDOW_HEIGHT) + Settings.ROOM_DIVISION_SIZE;
+
+        // Create the initial spawn positions
+        spawnPositionGenerated[0] = Settings.GENERATOR.nextInt(Settings.WINDOW_WIDTH) + Settings.ROOM_DIVISION_SIZE;
+        spawnPositionGenerated[1] = Settings.GENERATOR.nextInt(Settings.WINDOW_HEIGHT) + Settings.ROOM_DIVISION_SIZE;
+
+        // Keep generating positions until the position is valid
+        while (!spawnLocationGeneratedIsValid(spawnPositionGenerated)) {
+            spawnPositionGenerated[0] = Settings.GENERATOR.nextInt(Settings.WINDOW_WIDTH) + Settings.ROOM_DIVISION_SIZE;
+            spawnPositionGenerated[1] = Settings.GENERATOR.nextInt(Settings.WINDOW_HEIGHT) + Settings.ROOM_DIVISION_SIZE;
         }
+
         return spawnPositionGenerated;
     }
 
+    /**
+     * Checks whether or not the given spawn position is valid or not.
+     * Validity is checked against:
+     *     - Overlapping part of the environment
+     *     - Too close to a door
+     * @param generatedPositions  (int[]) Array of 2 elements, X and Y positions
+     * @return (boolean) True if the position is valid, false otherwise
+     */
     private boolean spawnLocationGeneratedIsValid(int[] generatedPositions)
     {
         return !spawnPointOverlapEnvironment(generatedPositions[0], generatedPositions[1]) && !nearDoor(generatedPositions[0], generatedPositions[1]);
     }
 
+    /**
+     * Checks whether or not the given coordinates overlap an environment object
+     * @param x (int) X coordinate of enemy
+     * @param y (int) Y coordinate of enemy
+     * @return (boolean) True if the coordinate overlaps or false otherwise
+     */
     private boolean spawnPointOverlapEnvironment(int x, int y)
     {
+        // Iterate over all the room images (the environment objects)
         for (int i = 0; i < roomImages.length; i++) {
             for (int j = 0; j < roomImages[i].length; j++) {
-                int[] posA = {(int) roomImages[i][j].getX(), (int) roomImages[i][j].getY()}; //upper left point of environment object
-                int[] posB = {(int) roomImages[i][j].getX() + Settings.ROOM_DIVISION_SIZE, (int) roomImages[i][j].getY() + Settings.ROOM_DIVISION_SIZE}; //lower right point of environment object
+                // Get the upper left and lower right points of the image
+                int[] posA = {(int) roomImages[i][j].getX(), (int) roomImages[i][j].getY()};
+                int[] posB = {(int) roomImages[i][j].getX() + Settings.ROOM_DIVISION_SIZE, (int) roomImages[i][j].getY() + Settings.ROOM_DIVISION_SIZE};
 
-                int[][] points = {{x, y}, {x + Settings.ROOM_DIVISION_SIZE, y}, {x + Settings.ROOM_DIVISION_SIZE, y + Settings.ROOM_DIVISION_SIZE}, {x, y + Settings.ROOM_DIVISION_SIZE}}; //upper left, upper right, lower right, lower left points of enemy
+                // Create a 2D array of the corners of the enemy
+                // [ [upper left], [upper right], [lower left], [lower right] ]
+                int[][] points = {{x, y}, {x + Settings.ROOM_DIVISION_SIZE, y}, {x + Settings.ROOM_DIVISION_SIZE, y + Settings.ROOM_DIVISION_SIZE}, {x, y + Settings.ROOM_DIVISION_SIZE}};
 
+                // Check to see if there is an overlap between the enemies coordinates and the environment objects coordinates
                 for (int k = 0; k < 4; k++) {
                     if ((posA[0] <= points[k][0] && points[k][0] <= posB[0]) && (posA[1] <= points[k][1] && points[k][1] <= posB[1])) { //is spawn location overlapping with environment object
                         if (roomImages[i][j].isCollidiable() || roomImages[i][j].isInteractable()) {
@@ -443,15 +554,28 @@ public class Room implements Drawable
         return false;
     }
 
+    /**
+     * Checks whether or not the enemies coordinates are close to a door
+     * @param x (int) X coordinate of enemy
+     * @param y (int) Y coordinate of enemy
+     * @return (boolean) True if the enemy is near a door or false otherwise
+     */
     private boolean nearDoor(int x, int y)
     {
+        // Iterate over the room layout
         for (int i = 0; i < roomLayout.size(); i++) {
             for (int j = 0; j < roomLayout.get(i).size(); j++) {
-                if (roomLayout.get(i).get(j).equals("3")) { //find door object
+                // Check for doors
+                if (roomLayout.get(i).get(j).equals("3")) {
+                    // Find the center of the door
                     int[] doorPos = {(Settings.ROOM_DIVISION_SIZE * j) + (Settings.ROOM_DIVISION_SIZE / 2), (Settings.ROOM_DIVISION_SIZE * i) + (Settings.ROOM_DIVISION_SIZE / 2)}; //centre of door
-                    int[] doorPosA = {doorPos[0] - 350, doorPos[1] - 250}; //upper left of no enemy zone/ box
-                    int[] doorPosB = {doorPos[0] + 350, doorPos[1] + 250}; //lower right of no enemy zone/ box
-                    if ((doorPosA[0] <= x && x <= doorPosB[0]) && (doorPosA[1] <= y && y <= doorPosB[1])) { //is spawn location in zone?
+
+                    // Get the upper left and lower right of the door box/zone
+                    int[] doorPosA = {doorPos[0] - 350, doorPos[1] - 250};
+                    int[] doorPosB = {doorPos[0] + 350, doorPos[1] + 250};
+
+                    // Is the spawn location of the door inside the enemy zone
+                    if ((doorPosA[0] <= x && x <= doorPosB[0]) && (doorPosA[1] <= y && y <= doorPosB[1])) {
                         return true;
                     }
                 }
@@ -460,11 +584,20 @@ public class Room implements Drawable
         return false;
     }
 
+    /**
+     * Spawns all the pickups from the CSV file
+     */
     private void spawnPickups()
     {
+        // Iterate over the pickups
         for (int i = 0; i < pickupInfo.size(); i++) {
+            // Convert the pickup integer to a filename
             String pickupRead = Settings.CSV_KEYS.get(pickupInfo.get(i)[0]);
+
+            // Create X number of pickups as specified in the CSV file
             for (int y = 0; y < pickupInfo.get(i)[1]; y++) {
+
+                // Generate a random spawn location
                 int[] generatedSpawnLocation = generateSpawnLocation();
                 switch (pickupRead) {
                     case "healthPickup":
@@ -493,12 +626,21 @@ public class Room implements Drawable
         }
     }
 
+    /**
+     * Spawns all the weapons from the CSV file
+     */
     private void spawnWeapons()
     {
+        // Iterate over the pickups
         for (int i = 0; i < weaponInfo.size(); i++) {
+            // Convert the pickup integer to a filename
             String weaponRead = Settings.CSV_KEYS.get(weaponInfo.get(i)[0]);
             String baseFilePath = "res/assets/weapons/";
+
+            // Create X number of pickups as specified in the CSV file
             for (int y = 0; y < weaponInfo.get(i)[1]; y++) {
+
+                // Generate a random spawn location
                 int[] generatedSpawnLocation = generateSpawnLocation();
                 switch (weaponRead) {
                     case "machete":
@@ -527,33 +669,61 @@ public class Room implements Drawable
         }
     }
 
+    /**
+     * Returns all the enemies in this room in a list
+     * @return (ArrayList) List of enemies
+     */
     public ArrayList<Enemy> getEnemies()
     {
         return enemies;
     }
 
+    /**
+     * Returns all the pickups in this room in a list
+     * @return (ArrayList) List of pickups
+     */
     public ArrayList<Pickup> getPickups()
     {
         return pickups;
     }
 
+    /**
+     * Returns all the weapons in this room in a list
+     * @return (ArrayList) List of weapons
+     */
     public ArrayList<WeaponPickup> getWeapons()
     {
         return weapons;
     }
 
+    /**
+     * Sets the last time the room played an audio file
+     * @param time (long) Last time audio was played
+     */
     public void setLastAudioTrigger(long time) {
         this.lastAudioTrigger = time;
     }
 
+    /**
+     * Returns the last time which this room played an audio file
+     * @return (long) Last time audio was played
+     */
     public long getLastAudioTrigger() {
         return lastAudioTrigger;
     }
 
+    /**
+     * Returns the name of this room. This is the name of the CSV file
+     * that was read to create the room
+     * @return (String) Room name
+     */
     public String getRoomName() {
         return roomName;
     }
 
+    /**
+     * Create the animation threads to run water, quicksand and lava animations
+     */
     public void runThreads() {
 
         //waterAnimationThread.start();
