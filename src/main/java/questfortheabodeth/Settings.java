@@ -26,6 +26,7 @@ public class Settings
 
     // The fonts used in various main.java.questfortheabodeth.menus in the game
     public static final Font MAIN_MENU_FONT = new Font();
+    public static final Font ARIAL_FONT = new Font();
 
     // Custom colors
     public static final Color LIGHT_GREY = new Color(231, 231, 231);
@@ -78,8 +79,10 @@ public class Settings
         WINDOW_BITS_PER_PIXEL = desktop.bitsPerPixel;
 
         File f = new File("res/fonts/pixelated.ttf");
+        File f2 = new File("res/fonts/SHPinscher-Regular.otf");
         try {
             MAIN_MENU_FONT.loadFromFile(f.toPath());
+            ARIAL_FONT.loadFromFile(f2.toPath());
         } catch (IOException e) {
             e.printStackTrace();
         }
