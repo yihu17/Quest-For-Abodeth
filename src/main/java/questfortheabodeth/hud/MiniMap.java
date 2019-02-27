@@ -3,10 +3,17 @@ package main.java.questfortheabodeth.hud;
 import org.jsfml.graphics.*;
 import org.jsfml.system.Vector2f;
 
+/**
+ * Creates the MiniMap object that shows where the player currently is
+ * on the map, what rooms have been visited and where the final room is
+ */
 public class MiniMap implements Drawable
 {
-
     private boolean visibility = false;
+    private int rows;
+    private boolean[][] rooms;
+    private int[] currentRoom;
+    private int cols;
 
     /**
      * Creates a new MiniMap of the given size
@@ -19,8 +26,9 @@ public class MiniMap implements Drawable
         this(rows, cols, 0, 0, endX, endY);
     }
 
-    private int rows;
-
+    /**
+     * Available directions the minimap can move in
+     */
     public enum Directions
     {
         UP,
@@ -28,10 +36,6 @@ public class MiniMap implements Drawable
         LEFT,
         RIGHT
     }
-
-    private boolean[][] rooms;
-    private int[] currentRoom;
-    private int cols;
 
     /**
      * Creates a new MiniMap of the given size
@@ -62,6 +66,13 @@ public class MiniMap implements Drawable
         this.dumpMinimap();
     }
 
+    /**
+     * Makes the MiniMap drawable. It draws lots of semi-transparent squares
+     * in the center of the screen to show where the player is
+     *
+     * @param renderTarget (RenderTarget) Where to draw the minimap
+     * @param renderStates (RenderStates) ???
+     */
     @Override
     public void draw(RenderTarget renderTarget, RenderStates renderStates)
     {
@@ -138,15 +149,18 @@ public class MiniMap implements Drawable
         }
     }
 
+    /**
+     * Toggles the visibility of the minimap on the screen
+     */
     public void toggleVisibility()
     {
-        if (this.visibility) {
-            this.visibility = false;
-        } else {
-            this.visibility = true;
-        }
+        this.visibility = !this.visibility;
     }
 
+    /**
+     * Returns the visibility status of the minimap
+     * @return (boolean) True if the minimap is showing, false otherwise
+     */
     public boolean getVisibility()
     {
         return this.visibility;
