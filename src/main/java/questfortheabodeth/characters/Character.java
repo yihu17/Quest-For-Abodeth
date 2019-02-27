@@ -4,15 +4,12 @@ import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import main.java.questfortheabodeth.interfaces.Collidable;
 import main.java.questfortheabodeth.sprites.Image;
-import org.jsfml.graphics.Drawable;
-import org.jsfml.graphics.FloatRect;
-import org.jsfml.graphics.RenderStates;
-import org.jsfml.graphics.RenderTarget;
+import org.jsfml.graphics.*;
 import org.jsfml.system.Vector2f;
 
 /**
- * An abstract class to define all the common attributes that both the main.java.questfortheabodeth.characters
- * and all monsters will have
+ * An abstract class to define all the common attributes that both the {@link Player} and
+ * all {@link Enemy} objects will have
  */
 public abstract class Character extends Thread implements Drawable, Collidable {
     private Facing face;
@@ -22,7 +19,6 @@ public abstract class Character extends Thread implements Drawable, Collidable {
     private double movementSpeed;
     private double finalSpeed;
     private int shield = 0;
-    private int ammo = 0;
     private Image image;
     private int additionalDamage = 5;
 
@@ -45,14 +41,35 @@ public abstract class Character extends Thread implements Drawable, Collidable {
         finalSpeed = movementSpeed;
     }
 
+    /**
+     * Returns the health of this character as a read only property
+     * This means that the health can onyl be increased and decreased
+     * through the relevant methods
+     *
+     * @return (ReadOnlyIntegerProperty) Health property of this character
+     * @see Character#decreaseHealth(int)
+     * @see Character#increaseHealth(int)
+     */
     public ReadOnlyIntegerProperty healthProperty() {
         return this.health;
     }
 
+    /**
+     * Adds additional damage to this characters normal damage. This is used to
+     * buff the player when they pickup a damage boost as well as buff enemies
+     * when they are over the relevant environment objects
+     *
+     * @param damage (int) Amount to increase the base damage by
+     */
     public void addDamage(int damage) {
         this.additionalDamage += damage;
     }
 
+    /**
+     * Returns the additional damange that this character currently has through various
+     * buffs
+     * @return (int) Additional damage
+     */
     public int getAdditionalDamage() {
         return this.additionalDamage;
     }
@@ -107,15 +124,34 @@ public abstract class Character extends Thread implements Drawable, Collidable {
         return y;
     }
 
+    /**
+     * Returns the current position of this character in vector form
+     *
+     * @see Vector2f
+     *
+     * @return (Vector2f) Current position
+     */
     public Vector2f getVectorPosition() {
         return new Vector2f(x, y);
     }
 
+    /**
+     * Returns the current width of this character as seen by the
+     * {@link Sprite#getGlobalBounds()} method
+     *
+     * @return (float) Width of the character
+     */
     @Override
     public float getWidth() {
         return this.image.getGlobalBounds().width;
     }
 
+    /**
+     * Returns the current height of this character as seen by the
+     * {@link Sprite#getGlobalBounds()} method
+     *
+     * @return (float) Height of the character
+     */
     @Override
     public float getHeight() {
         return this.image.getGlobalBounds().height;
@@ -139,6 +175,10 @@ public abstract class Character extends Thread implements Drawable, Collidable {
 
     /**
      * Moves this character right by the current movement speed
+     * If the character is not currently facing the direction they are moving in
+     * the image will be flipped to represent this
+     *
+     * @see Image#flipHorizontal()
      */
     public void moveRight() {
         if (this.face == Facing.LEFT) {
@@ -151,6 +191,10 @@ public abstract class Character extends Thread implements Drawable, Collidable {
 
     /**
      * Moves this character left by the current movement speed
+     * If the character is not currently facing the direction they are moving in
+     * the image will be flipped to represent this
+     *
+     * @see Image#flipHorizontal()
      */
     public void moveLeft() {
         if (this.face == Facing.RIGHT) {
@@ -161,17 +205,25 @@ public abstract class Character extends Thread implements Drawable, Collidable {
         updatePosition();
     }
 
+    /**
+     * Describes which way the character is currently facing
+     */
     public enum Facing {
         LEFT,
         RIGHT
     }
 
+    /**
+     * Returns the current direction this character is facing
+     * @return (Facing) Direction
+     */
     public Facing getFacingDirection() {
         return face;
     }
 
     /**
-     * After any change to the X and Y values
+     * After any change to the X and Y values of the character the base image
+     * must be updated to reflect this
      */
     private void updatePosition() {
         this.image.setPosition(x, y);
@@ -187,6 +239,10 @@ public abstract class Character extends Thread implements Drawable, Collidable {
         finalSpeed = speed;
     }
 
+    /**
+     * Returns teh current movement speed of this character
+     * @return (double) Movement speed
+     */
     public double getMovementSpeed() {
         return movementSpeed;
     }
@@ -220,19 +276,29 @@ public abstract class Character extends Thread implements Drawable, Collidable {
         this.health.set(newValue < 0 ? 0 : newValue);
     }
 
+    /**
+     * Returns the amount of health this character has as an integer
+     * @return (int) Current health
+     */
     public int getHealth() {
         return health.get();
     }
 
-
+    /**
+     * Returns the current amount of shield a character has
+     * @return (int) Current shield
+     */
     public int getShield() {
         return shield;
     }
 
+    /**
+     * Increases the amount of shield this character currently has
+     * @param shieldAmount (int) How much to increase the shield by
+     */
     public void addShield(int shieldAmount) {
         this.shield += shieldAmount;
     }
-
 
     /**
      * "Kill" the character
@@ -240,17 +306,32 @@ public abstract class Character extends Thread implements Drawable, Collidable {
      */
     public abstract void kill();
 
+    /**
+     * Draws this characters image to the screen
+     * @param renderTarget (RenderTarget) Window to draw the image to
+     * @param renderStates (RenderStates) ???
+     */
     @Override
     public void draw(RenderTarget renderTarget, RenderStates renderStates) {
         renderTarget.draw(image);
     }
 
+    /**
+     * Sets the current position of this character
+     * @param x (int) X coordinate
+     * @param y (int) Y coordinate
+     */
     public void setPosition(int x, int y) {
         this.x = x;
         this.y = y;
         this.image.setPosition(x, y);
     }
 
+    /**
+     * Temporarily stops this character from moving to simulate
+     * a recoil from a {@link main.java.questfortheabodeth.weapons.Bullet}
+     */
+    @Override
     public void run() {
         this.movementSpeed = 0;
 
@@ -263,11 +344,11 @@ public abstract class Character extends Thread implements Drawable, Collidable {
         this.movementSpeed = finalSpeed;
     }
 
+    /**
+     * The character is classes as alive if its health is greater than 0.
+     * @return (boolean) True if alive, false otherwise
+     */
     public boolean isCharacterAlive() {
-        if (this.health.lessThanOrEqualTo(0).getValue()) {
-            return false;
-        } else {
-            return true;
-        }
+        return !this.health.lessThanOrEqualTo(0).getValue();
     }
 }

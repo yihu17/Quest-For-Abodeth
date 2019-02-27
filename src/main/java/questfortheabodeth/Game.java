@@ -405,7 +405,7 @@ public class Game
             if (c instanceof Powerup) {
                 int overlap = Helper.checkOverlap(player, c);
                 if (0 < overlap) {
-                    if ((Powerup) c instanceof HealthBoost && player.getHealth() >= 100) {
+                    if (c instanceof HealthBoost && player.getHealth() >= 100) {
                         break;
                     } else {
                         ((Powerup) c).applyBuff(player);
@@ -584,7 +584,7 @@ public class Game
 
         for (Enemy e : currentRoom.getEnemies()) {
             if (e instanceof Boss) {
-                ((Boss) e).setGameOver(drawables, collidables);
+                ((Boss) e).setLists(drawables, collidables);
             }
             e.setPlayer(player);
             movables.add(e);

@@ -87,7 +87,7 @@ public class RoomLoader extends Thread
 
         for (Enemy e : currentRoom.getEnemies()) {
             if (e instanceof Boss) {
-                ((Boss) e).setGameOver(drawables, collidables);
+                ((Boss) e).setLists(drawables, collidables);
             }
             e.setPlayer(player);
             movables.add(e);
