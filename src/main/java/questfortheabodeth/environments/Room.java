@@ -93,7 +93,6 @@ public class Room implements Drawable
         spawnEnemies();
         spawnPickups();
         spawnWeapons();
-        runThreads(); //an attempt to get threads to start at same time
 
         // Now that the room has been generated make some doors
         if (doors[0]) {
@@ -728,6 +727,13 @@ public class Room implements Drawable
 
         //waterAnimationThread.start();
         lavaAnimationThread.start();
+        //quicksandAnimationThread.start();
+    }
+
+    public void stopThreads()
+    {
+        //waterAnimationThread.start();
+        lavaAnimationThread.interrupt();
         //quicksandAnimationThread.start();
     }
 }

@@ -175,7 +175,7 @@ public class Game
             loadingCogAngle++;
             loadingCog.setRotation(loadingCogAngle);
             window.draw(background);
-            if (roomLoader.isAlive() == true) {
+            if (roomLoader.isAlive()) {
                 window.draw(loadingCog);
             } else {
                 window.draw(continueText);
@@ -205,6 +205,8 @@ public class Game
             new AudioThread(audioPath);
             currentRoom.setLastAudioTrigger(System.currentTimeMillis());
         }
+
+        currentRoom.runThreads();
     }
 
     public void run()
@@ -714,7 +716,9 @@ public class Game
                 throw new AssertionError("Unknown direction to travel in: " + direction);
         }
 
+        currentRoom.stopThreads();
         currentRoom = rooms[roomRow][roomCol];
+        currentRoom.runThreads();
 
         // Test to see if this is the end room
         if (!currentRoom.getDoors()[0] && !currentRoom.getDoors()[1] && !currentRoom.getDoors()[2] && !currentRoom.getDoors()[3]) {
