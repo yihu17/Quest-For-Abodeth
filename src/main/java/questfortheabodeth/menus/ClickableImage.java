@@ -5,7 +5,7 @@ import main.java.questfortheabodeth.sprites.Image;
 import org.jsfml.system.Vector2f;
 
 /**
- * An image that can be clicked
+ * An image that can be clicked like a button
  */
 public class ClickableImage extends Image implements Clickable
 {

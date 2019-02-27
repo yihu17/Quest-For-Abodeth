@@ -14,6 +14,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The menu to show when the player has been killed.Displays their current time and a button
+ * to take them back to the main menu
+ */
 public class PlayerDiedMenu implements Menu
 {
     private RenderWindow window;
@@ -23,6 +27,12 @@ public class PlayerDiedMenu implements Menu
     private boolean menuOpen = true;
     private Text title, time;
 
+    /**
+     * Created a new Player died menu and shows the current time on it
+     *
+     * @param window (RenderWindow) Where to draw the menu
+     * @param time   (String) the time the player has been alive for
+     */
     public PlayerDiedMenu(RenderWindow window, String time)
     {
         this.window = window;
@@ -111,11 +121,11 @@ public class PlayerDiedMenu implements Menu
      * Returns the background image of the menu
      * This menu has no background and so returns null
      *
-     * @return (null) No image
+     * @return (Image) The background image of the menu
      */
     @Override
-    public main.java.questfortheabodeth.sprites.Image getBackground()
+    public Image getBackground()
     {
-        return null;
+        return background;
     }
 }

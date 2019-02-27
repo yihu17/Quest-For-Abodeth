@@ -13,6 +13,9 @@ import org.jsfml.window.event.Event;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Menu that shows all the controls of the game
+ */
 public class ControlsMenu implements Menu
 {
     private RenderWindow window;
@@ -22,6 +25,11 @@ public class ControlsMenu implements Menu
     private boolean menuOpen = true;
     private Text title;
 
+    /**
+     * Creates a new control menu
+     *
+     * @param window (RenderWindow) Where to draw the window
+     */
     public ControlsMenu(RenderWindow window)
     {
         this.window = window;

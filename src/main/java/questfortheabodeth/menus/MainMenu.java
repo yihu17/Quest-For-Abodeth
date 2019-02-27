@@ -5,20 +5,18 @@ import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.interfaces.Clickable;
 import main.java.questfortheabodeth.interfaces.Menu;
 import main.java.questfortheabodeth.sprites.Image;
-import main.java.questfortheabodeth.threads.AudioThread;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Text;
 import org.jsfml.window.event.Event;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * The main menu of the game. This is the starting point and from here
+ * other sub-menus can be launched or the game played
+ */
 public class MainMenu implements Menu
 {
     private ArrayList<Clickable> buttons = new ArrayList<>();
@@ -30,16 +28,19 @@ public class MainMenu implements Menu
     private int buttonHeight = 75;
     private Text title;
 
-
+    /**
+     * Creates a new main menu
+     *
+     * @param window (RenderWindow) Where to draw the menu to
+     */
     public MainMenu(RenderWindow window)
     {
-
         this.window = window;
         this.window.setMouseCursorVisible(true);
-        Text t = new Text("THE QUEST FOR THE ABODETH", Settings.MAIN_MENU_FONT, 82);
-        t.setColor(Color.BLACK);
-        t.setPosition(510, 280);
-        title = t;
+        title = new Text("THE QUEST FOR THE ABODETH", Settings.MAIN_MENU_FONT, 82);
+        title.setColor(Color.BLACK);
+        title.setPosition(510, 280);
+
         String[] ops = new String[]{"Play", "Quit"};
         int i = 0;
         for (String s : ops) {
@@ -106,13 +107,20 @@ public class MainMenu implements Menu
 
     }
 
-
+    /**
+     * Returns a list of all the buttons on this menu
+     * @see Clickable
+     * @return (List) A list of clickable objects
+     */
     @Override
     public List<Clickable> getButtons()
     {
         return this.buttons;
     }
 
+    /**
+     * Takes over the main game loop to display the menu on the scree
+     */
     @Override
     public void displayMenu()
     {
@@ -137,13 +145,20 @@ public class MainMenu implements Menu
         }
     }
 
+    /**
+     * Returns the button that was clicked on the menu
+     * @return (Clickable) The object that was clicked to exit the menu
+     */
     @Override
     public Clickable getChosenButton()
     {
         return chosenButton;
     }
 
-
+    /**
+     * Returns the menus background so that it can be drawn to the screen
+     * @return (Image) Background image of the background
+     */
     @Override
     public Image getBackground()
     {

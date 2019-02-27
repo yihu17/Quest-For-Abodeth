@@ -206,6 +206,9 @@ public class Button extends RectangleShape implements Clickable
         return this.text.getString();
     }
 
+    /**
+     * Toggles the buttons text to simulate it being pressed and changing state
+     */
     public void toggle() {
         if (this.isPressedFlag()) {
             this.setText(originalText + " | true");
@@ -216,21 +219,24 @@ public class Button extends RectangleShape implements Clickable
             //this.setColor(onPressColor);
             this.setPressedFlag(true);
         }
-        switch (originalText) {
-            case "CROSSHAIR":
-                if (isPressedFlag()) {
-                    Settings.CROSSHAIR_VISIBLE = false;
-                } else {
-                    Settings.CROSSHAIR_VISIBLE = true;
-                }
-                break;
+        if ("CROSSHAIR".equals(originalText)) {
+            Settings.CROSSHAIR_VISIBLE = !isPressedFlag();
         }
     }
 
+    /**
+     * Returns true if the button has been pressed
+     *
+     * @return (boolean) True is the button has been pressed
+     */
     public boolean isPressedFlag() {
         return pressedFlag;
     }
 
+    /**
+     * Sets the whether or not the button has been pressed
+     * @param flag (boolean) Has the button been pressed
+     */
     public void setPressedFlag(boolean flag) {
         pressedFlag = flag;
     }

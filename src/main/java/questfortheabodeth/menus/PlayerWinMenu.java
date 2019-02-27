@@ -15,6 +15,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The menu that is displayed when the player has won the game
+ * The players time is shown on the menu and the score is saved
+ * to the list of scores
+ */
 public class PlayerWinMenu implements Menu
 {
     private RenderWindow window;
@@ -24,6 +29,12 @@ public class PlayerWinMenu implements Menu
     private boolean menuOpen = true;
     private Text title, time;
 
+    /**
+     * Creates a new Player wins menu
+     *
+     * @param window (RenderWindow) Where to draw the menu to
+     * @param time   (String) The playes current time
+     */
     public PlayerWinMenu(RenderWindow window, String time)
     {
         this.window = window;
@@ -114,11 +125,11 @@ public class PlayerWinMenu implements Menu
      * Returns the background image of the menu
      * This menu has no background and so returns null
      *
-     * @return (null) No image
+     * @return (Image) The background image of the menu
      */
     @Override
-    public main.java.questfortheabodeth.sprites.Image getBackground()
+    public Image getBackground()
     {
-        return null;
+        return background;
     }
 }

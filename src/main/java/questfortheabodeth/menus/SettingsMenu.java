@@ -13,6 +13,10 @@ import org.jsfml.window.event.Event;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The settings menu. From here the player can toggle various game settings
+ * such as game music
+ */
 public class SettingsMenu implements Menu
 {
     private RenderWindow window;
@@ -24,13 +28,18 @@ public class SettingsMenu implements Menu
     private int buttonHeight = 50;
     private Text title;
 
+    /**
+     * Creates a new settings menu
+     *
+     * @param window (RenderWindow) Where to draw the menu to
+     */
     public SettingsMenu(RenderWindow window)
     {
         this.window = window;
-        Text t = new Text("SETTINGS", Settings.MAIN_MENU_FONT, 56);
-        t.setColor(Color.BLACK);
-        t.setPosition(300, 50);
-        title = t;
+        title = new Text("SETTINGS", Settings.MAIN_MENU_FONT, 56);
+        title.setColor(Color.BLACK);
+        title.setPosition(300, 50);
+
         ClickableImage back = new ClickableImage(6, 6, "res/assets/menus/button_back.png", "highscores");
         back.setOnPress(new EventHandler()
         {
@@ -52,14 +61,11 @@ public class SettingsMenu implements Menu
         music.setText("MUSIC |  " + Settings.MUSIC_ON);
         music.setTextYOffset(5);
         music.setTextXOffset(buttonWidth / 2 - (5 / 2) * 14 - 65);
-        if (Settings.MUSIC_ON) {
-            music.setOutlineColor(Color.GREEN);
-        } else {
-            music.setOutlineColor(Color.RED);
-        }
-        music.setOnPress(new EventHandler() {
+        music.setOnPress(new EventHandler()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 if (Settings.MUSIC_ON) {
                     music.setOutlineColor(Color.RED);
                     music.setText("MUSIC | false");
@@ -74,6 +80,12 @@ public class SettingsMenu implements Menu
             }
         });
 
+        if (Settings.MUSIC_ON) {
+            music.setOutlineColor(Color.GREEN);
+        } else {
+            music.setOutlineColor(Color.RED);
+        }
+
         Button soundEffects = new Button(
                 buttonWidth,
                 buttonHeight,
@@ -82,14 +94,11 @@ public class SettingsMenu implements Menu
         soundEffects.setText("SOUND EFFECTS |  " + Settings.SOUND_EFFECTS_ON);
         soundEffects.setTextYOffset(5);
         soundEffects.setTextXOffset(buttonWidth / 2 - (5 / 2) * 14 - 65);
-        if (Settings.SOUND_EFFECTS_ON) {
-            soundEffects.setOutlineColor(Color.GREEN);
-        } else {
-            soundEffects.setOutlineColor(Color.RED);
-        }
-        soundEffects.setOnPress(new EventHandler() {
+        soundEffects.setOnPress(new EventHandler()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 if (Settings.SOUND_EFFECTS_ON) {
                     soundEffects.setOutlineColor(Color.RED);
                     soundEffects.setText("SOUND EFECTS | false");
@@ -103,6 +112,12 @@ public class SettingsMenu implements Menu
             }
         });
 
+        if (Settings.SOUND_EFFECTS_ON) {
+            soundEffects.setOutlineColor(Color.GREEN);
+        } else {
+            soundEffects.setOutlineColor(Color.RED);
+        }
+
         Button crosshair = new Button(
                 buttonWidth,
                 buttonHeight,
@@ -111,14 +126,11 @@ public class SettingsMenu implements Menu
         crosshair.setText("CROSSHAIR |  " + Settings.CROSSHAIR_VISIBLE);
         crosshair.setTextYOffset(5);
         crosshair.setTextXOffset(buttonWidth / 2 - (5 / 2) * 14 - 65);
-        if (Settings.CROSSHAIR_VISIBLE) {
-            crosshair.setOutlineColor(Color.GREEN);
-        } else {
-            crosshair.setOutlineColor(Color.RED);
-        }
-        crosshair.setOnPress(new EventHandler() {
+        crosshair.setOnPress(new EventHandler()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 if (Settings.CROSSHAIR_VISIBLE) {
                     crosshair.setOutlineColor(Color.RED);
                     crosshair.setText("CROSSHAIR | false");
@@ -131,6 +143,12 @@ public class SettingsMenu implements Menu
                 chosenButton = crosshair;
             }
         });
+
+        if (Settings.CROSSHAIR_VISIBLE) {
+            crosshair.setOutlineColor(Color.GREEN);
+        } else {
+            crosshair.setOutlineColor(Color.RED);
+        }
 
         Button dank = new Button(
                 buttonWidth,
@@ -167,18 +185,23 @@ public class SettingsMenu implements Menu
         buttons.add(crosshair);
         buttons.add(dank);
 
-
         this.background = new Image(0, 0, "res/assets/menus/mainmenu.png");
-
-
     }
 
+    /**
+     * Returns a list of all the clickable objects on this menu
+     * @return (List) List of clickable objects
+     */
     @Override
     public List<Clickable> getButtons()
     {
         return this.buttons;
     }
 
+    /**
+     * Take control of the game loop and display the menu until
+     * a button is pressed
+     */
     @Override
     public void displayMenu()
     {
@@ -203,16 +226,23 @@ public class SettingsMenu implements Menu
         }
     }
 
+    /**
+     * Returns the {@link Clickable} that was clicked
+     * @return (Clickable) The object that was clicked to close the menu
+     */
     @Override
     public Clickable getChosenButton()
     {
         return chosenButton;
     }
 
-
+    /**
+     * Returns the background image of this menu
+     * @return (Image) The background image of the menu
+     */
     @Override
     public Image getBackground()
     {
-        return null;
+        return background;
     }
 }

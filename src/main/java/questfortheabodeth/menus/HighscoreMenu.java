@@ -15,6 +15,10 @@ import org.jsfml.window.event.Event;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A highscore menu that reads the most recent highscores and
+ * displays them on the screen
+ */
 public class HighscoreMenu implements Menu
 {
     private RenderWindow window;
@@ -25,6 +29,11 @@ public class HighscoreMenu implements Menu
     private Text title;
     private ArrayList<Text> scoreText = new ArrayList<>();
 
+    /**
+     * Creates a new highscore menu
+     *
+     * @param window (RenderWindow) Where to draw the menu to
+     */
     public HighscoreMenu(RenderWindow window)
     {
         this.window = window;
@@ -47,6 +56,7 @@ public class HighscoreMenu implements Menu
 
         this.background = new Image(0, 0, "res/assets/menus/mainmenu.png");
 
+        // Create a new highscores object to parse the highscores filee
         Highscores scores = new Highscores();
         int offset = 1;
         int x = (Settings.WINDOW_WIDTH - Settings.WINDOW_X_PADDING * 2) / 2;
