@@ -893,7 +893,7 @@ public class Game
         // Test to see if this is the end room
         if (!currentRoom.getDoors()[0] && !currentRoom.getDoors()[1] && !currentRoom.getDoors()[2] && !currentRoom.getDoors()[3]) {
             player.setPosition(
-                    200,
+                    150,
                     (int)(Settings.WINDOW_HEIGHT / 2 - (player.getWidth() / 2))
             );
         }
