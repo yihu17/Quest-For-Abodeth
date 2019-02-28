@@ -38,6 +38,11 @@ public class Image implements Drawable
         }
     }
 
+    /**
+     * Flips this image in horizontally using the texture
+     *
+     * @see Helper#flipTexture(ConstTexture)
+     */
     public void flipHorizontal()
     {
         this.image.setTexture(Helper.flipTexture(this.image.getTexture()));
