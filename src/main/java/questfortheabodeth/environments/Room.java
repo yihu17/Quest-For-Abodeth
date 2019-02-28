@@ -70,7 +70,7 @@ public class Room implements Drawable
         // A room type of 1 means it is the start room
         // A room type of 3 means it is the end room
         if (type == 1) {
-            roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomDataA.csv");
+            roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomDataD.csv");
             roomName = "roomDataA";
         } else if (type == 3) {
             roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomDataZ.csv");
@@ -744,10 +744,6 @@ public class Room implements Drawable
     }
 
     public boolean areAnimationsRunning() {
-        if (waterAnimationThread.isAlive() && lavaAnimationThread.isAlive() && quicksandAnimationThread.isAlive()) {
-            return true;
-        } else {
-            return false;
-        }
+        return waterAnimationThread.isAlive() && lavaAnimationThread.isAlive() && quicksandAnimationThread.isAlive();
     }
 }
