@@ -290,6 +290,7 @@ public class Game
                     minionSpawning.getMinions().forEach((i) -> drawables.add(i));
                     minionSpawning.getMinions().forEach((i) -> movables.add(i));
                     minionSpawning.getMinions().forEach((i) -> collidables.add(i));
+                    minionSpawning.getMinions().forEach((i) -> enemies.add(i));
                 }
             } catch (Exception e) {
                 //if caught, boss and minions not created yet as not in final room
