@@ -10,17 +10,25 @@ import org.jsfml.graphics.RenderWindow;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.WindowStyle;
 
-
+/**
+ * The main entry point to the game. The window is created here.
+ */
 public class Main
 {
     private RenderWindow window;
 
+    /**
+     * Creates a new instance of The Quest for the Abodeth
+     */
     public Main()
     {
         this.window = new RenderWindow();
         this.window.setFramerateLimit(Settings.WINDOW_FPS);
     }
 
+    /**
+     * Runs the game
+     */
     public void run()
     {
         this.window.create(VideoMode.getDesktopMode(), Settings.WINDOW_TITLE, WindowStyle.FULLSCREEN);
@@ -37,6 +45,7 @@ public class Main
                 Helper.playAudio("mainMenu");
                 new AudioThread("mainMenu");
             }
+
             // Display the main menu
             MainMenu menu = new MainMenu(window);
             menu.displayMenu();
@@ -48,6 +57,8 @@ public class Main
             if (chosenOption == null) {
                 continue;
             }
+
+            // A button was clicked in the menu so decide what to do next
             switch (chosenOption.getText().toLowerCase()) {
                 case "play":
                     Helper.stopAllAudio();
@@ -84,6 +95,11 @@ public class Main
         }
     }
 
+    /**
+     * Game entry point
+     *
+     * @param args (String[]) Any command line arguments passed
+     */
     public static void main(String[] args)
     {
         Main game = new Main();

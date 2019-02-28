@@ -35,8 +35,10 @@ public class Settings
     public static final Color SAND = new Color(255, 178, 127);
     public static final Color DARK_SAND = new Color(127, 51, 0);
 
-    // Cached objects
+    // Cached image objects
     public static HashMap<String, Texture> LOADED_IMAGES = new HashMap<>();
+
+    // Sets that define which directions the player can move in
     public static final Set<Integer> MOVE_LEFT_SET = new HashSet<>(Arrays.asList(
             0, 1, 2, 4, 3, 6
     ));
@@ -54,30 +56,32 @@ public class Settings
     public static HashMap<Integer, String> CSV_KEYS = new HashMap<>();
     public static HashMap<String, String> AUDIO_KEYS = new HashMap<>();
 
-    // main.java.questfortheabodeth.Game variables
+    // Game variables
     public static final int BULLET_SPEED = 20;
     public static final int PLAYER_SPEED = 5;
     public static final Set<String> MELEE_WEAPONS = new HashSet<>(Arrays.asList("machete"));
     public static final Set<String> ONE_HANDED_WEAPONS = new HashSet<>(Arrays.asList("revolver", "uzi"));
     public static final Set<String> TWO_HANDED_WEAPONS = new HashSet<>(Arrays.asList("shotgun", "ar15"));
 
-    //Audio main.java.questfortheabodeth.characters.Player
+    // Audio vairables about what is currently playing
     public static boolean BACKGROUND_AUDIO_PLAYING = false;
     public static ArrayList<Clip> AUDIO_STREAMERS = new ArrayList<Clip>();
 
-    //Game settings that can be changed in game settings menu
+    // Game settings that can be changed in game settings menu
     public static boolean MUSIC_ON = true;
     public static boolean SOUND_EFFECTS_ON = true;
     public static boolean CROSSHAIR_VISIBLE = true;
     public static boolean DANK_VERSION = false;
 
-
+    // Initialise a lot of the variables
     static {
+        // Get the window resolution
         VideoMode desktop = VideoMode.getDesktopMode();
         WINDOW_HEIGHT = desktop.height;
         WINDOW_WIDTH = desktop.width;
         WINDOW_BITS_PER_PIXEL = desktop.bitsPerPixel;
 
+        // Load in the font files
         File f = new File("res/fonts/pixelated.ttf");
         File f2 = new File("res/fonts/SHPinscher-Regular.otf");
         try {
@@ -87,7 +91,7 @@ public class Settings
             e.printStackTrace();
         }
 
-        //main.java.questfortheabodeth.environments.Environment Objects
+        // Environment Objects
         CSV_KEYS.put(-4, "lowerDoor");
         CSV_KEYS.put(-3, "rightDoor");
         CSV_KEYS.put(-2, "topDoor");
@@ -141,6 +145,7 @@ public class Settings
         CSV_KEYS.put(98, "abodeth");
         CSV_KEYS.put(99, "edemy");
 
+        // Audio files
         AUDIO_KEYS.put("machete", "weapons/machete");
         AUDIO_KEYS.put("shotgun","weapons/shotgun");
         AUDIO_KEYS.put("revolver","weapons/revolver");

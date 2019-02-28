@@ -19,6 +19,11 @@ import javax.sound.sampled.Clip;
 import java.io.File;
 import java.util.List;
 
+/**
+ * Contains functions that are required in multiple places throughout the game
+ * and do not modify the games state but instead perform caclulations.
+ * These methods are all static
+ */
 public class Helper
 {
     /**
@@ -126,6 +131,14 @@ public class Helper
         return checkOverlap(o1Bound, o2Bound);
     }
 
+    /**
+     * Checks whether or not 2 character objects are overlapping and where the overlap has
+     * occurred
+     *
+     * @param o1      (Collidable) The character to check against other main.java.questfortheabodeth.characters
+     * @param o2Bound (FloatRect) A float rect object to check against
+     * @return (int) Whether or no the characters are overlapping
+     */
     public static int checkOverlap(Collidable o1, FloatRect o2Bound)
     {
         FloatRect o1Bound = new FloatRect(o1.getX() - 5, o1.getY() - 5, o1.getWidth() + 10, o1.getHeight() + 10);
@@ -134,8 +147,17 @@ public class Helper
         return checkOverlap(o1Bound, o2Bound);
     }
 
+    /**
+     * Checks whether or not 2 character objects are overlapping and where the overlap has
+     * occurred
+     *
+     * @param o1Bound (FloatRect) The first float rect to check for overlap
+     * @param o2Bound (FloatRect) The float rect to check for an overalp against
+     * @return (int) Whether or no the characters are overlapping
+     */
     public static int checkOverlap(FloatRect o1Bound, FloatRect o2Bound)
     {
+        // Find the two centers of each float rect
         Vector2i o1Center = new Vector2i(
                 (int) (o1Bound.left + (o1Bound.width / 2)),
                 (int) (o1Bound.top + (o1Bound.height / 2))
@@ -144,14 +166,16 @@ public class Helper
                 (int) (o2Bound.left + (o2Bound.width / 2)),
                 (int) (o2Bound.top + (o2Bound.height / 2))
         );
+
+        // If they do not overlap return 0
         if (o1Bound.intersection(o2Bound) == null) {
             // If there is no intersection in the 2 collidables then they are not
             // overlapping
             return 0;
         }
 
+        // Depending on where the overlap occured return a different value
         double angle = getAngleBetweenPoints(o1Center, o2Center);
-
         if ((320 <= angle && angle <= 360) || (0 <= angle && angle <= 40)) {
             return 1;
         } else if (50 <= angle && angle <= 130) {
@@ -234,6 +258,11 @@ public class Helper
 
     }
 
+    /**
+     * Converts a weapon name into an actual weapon instance
+     * @param weapon (String) Weapon name
+     * @return (Weapon) Weapon instance of the string given
+     */
     public static Weapon stringToWeapon(String weapon)
     {
         switch (weapon) {
@@ -255,15 +284,23 @@ public class Helper
         throw new AssertionError("Unknown weapon encountered: " + weapon);
     }
 
+    /**
+     * Plays an audio file in the game
+     * @param sound (String) Sound file to play
+     */
     public static void playAudio(String sound)
     {
+        // Create a new audio file
         Clip AudioPlayer;
         try {
+            // Load the audio file and create a new player for it
             File soundFile = new File("res/assets/audio/" + Settings.AUDIO_KEYS.get(sound) + ".wav");
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
             AudioPlayer = AudioSystem.getClip();
             AudioPlayer.open(audioInputStream);
             AudioPlayer.start();
+
+            // Add it to the list of player sounds
             Settings.AUDIO_STREAMERS.add(AudioPlayer);
         } catch (Exception e) {
             System.out.println("Audio error");
@@ -271,6 +308,13 @@ public class Helper
         }
     }
 
+
+    /**
+     * Returns the length of an audio file for use when sleeping threads and
+     * repeating sounds
+     * @param sound (String) Sound file to play
+     * @return (double) Length of wav file
+     */
     public static double getLengthOfAudioFile(String sound)
     {
         try {
@@ -278,31 +322,38 @@ public class Helper
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
             AudioFormat format = audioInputStream.getFormat();
             long frames = audioInputStream.getFrameLength();
-            double length  = (frames + 0.0) / format.getFrameRate() * 1000;
-            return length;
+            return (frames + 0.0) / format.getFrameRate() * 1000;
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
         }
     }
 
+    /**
+     * Stops all the currently playing audio files in the game.
+     * Useful when starting and finishing the game or the user toggling game sounds
+     */
     public static void stopAllAudio() {
         try {
             for (int i = 0; i < Settings.AUDIO_STREAMERS.size(); i++) {
                 Settings.AUDIO_STREAMERS.get(i).stop();
-                Settings.AUDIO_STREAMERS.clear();
             }
+            Settings.AUDIO_STREAMERS.clear();
         } catch (Exception e) {
             e.printStackTrace();
         }
         Settings.BACKGROUND_AUDIO_PLAYING = false;
     }
 
+    /**
+     * Takes a weapon name and returns the type of weapon that it is as a string
+     * @param weapon (String) Weapon name
+     * @return (String) Weapon type
+     */
     public static String getTypeOfWeapon(String weapon) {
         switch (weapon) {
             case "machete":
                 return "Melee";
-            //break;
             case "revolver":
                 return "OneHandedWeapon";
             case "shotgun":

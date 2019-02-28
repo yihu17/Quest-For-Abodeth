@@ -6,19 +6,27 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
+/**
+ * A class that provides methods for reading and writing CSV files
+ * to save and load game data.
+ */
 public class FileOperator
 {
     private File file;
     private boolean available = false;
     private Exception exception = null;
 
+    /**
+     * Creates a new FileOperator on the given file
+     *
+     * @param path (String) File to open
+     */
     public FileOperator(String path)
     {
         try {
             file = new File(path);
             available = true;
         } catch (Exception e) {
-//            System.out.println("ERROR- Could not read file: " + path);
             e.printStackTrace();
             exception = e;
         }
@@ -27,7 +35,7 @@ public class FileOperator
     /**
      * Reads entire file
      *
-     * @return (ArrayList) Contents of file. Element per row
+     * @return (ArrayList) List containing the lines of the file
      */
     public ArrayList<String> readToList()
     {
@@ -180,7 +188,7 @@ public class FileOperator
     }
 
     /**
-     * Prints file
+     * Prints file to the console
      */
     public void printFile()
     {
@@ -190,15 +198,29 @@ public class FileOperator
         }
     }
 
+    /**
+     * Returns the number of lines in the file
+     * @return (int) Number of lines
+     */
     public int getNumberOfRows() {
         return readToList().size();
     }
 
+    /**
+     * Whether or not the file was successfully openend and is ready
+     * for reading
+     * @return (boolean) True if ready, false otherwise
+     */
     public boolean isAvailable()
     {
         return available;
     }
 
+    /**
+     * If an error occurred opening the file this method will return the
+     * exception that was thrown
+     * @return (Exception) Thrown exception
+     */
     public Exception getException()
     {
         return exception;
