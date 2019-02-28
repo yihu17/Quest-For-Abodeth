@@ -241,9 +241,6 @@ public class Game
             new AudioThread(audioPath);
             currentRoom.setLastAudioTrigger(System.currentTimeMillis());
         }
-
-        // Start the rooms animations
-        currentRoom.runThreads();
         // Start the game timer
         new Thread(Settings.GAME_TIME).start();
     }
@@ -265,6 +262,14 @@ public class Game
         while (gameRunning && player.isCharacterAlive()) {
             time.setText(Settings.GAME_TIME.getFormattedTime());
 
+            //Should animations be playing?
+            if (!currentRoom.areAnimationsRunning() && Settings.ANIMATIONS) {
+                currentRoom.runThreads();
+            }
+            if (currentRoom.areAnimationsRunning() && !Settings.ANIMATIONS) {
+                currentRoom.stopThreads();
+            }
+
             // Are we still showing the crosshair
             if (Settings.CROSSHAIR_VISIBLE) {
                 window.setMouseCursorVisible(false);
@@ -272,7 +277,7 @@ public class Game
                 window.setMouseCursorVisible(true);
             }
 
-            // Are we still playin music
+            // Are we still playing music
             if (Settings.MUSIC_ON && !Settings.BACKGROUND_AUDIO_PLAYING) {
                 Settings.BACKGROUND_AUDIO_PLAYING = true;
                 Helper.playAudio(currentRoom.getRoomName());
@@ -847,8 +852,6 @@ public class Game
         currentRoom.stopThreads();
         // Switch the rooms over
         currentRoom = rooms[roomRow][roomCol];
-        // Start animating the new room
-        currentRoom.runThreads();
 
         // Test to see if this is the end room
         if (!currentRoom.getDoors()[0] && !currentRoom.getDoors()[1] && !currentRoom.getDoors()[2] && !currentRoom.getDoors()[3]) {

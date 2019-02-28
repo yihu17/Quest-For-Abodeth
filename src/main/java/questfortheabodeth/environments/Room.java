@@ -733,4 +733,12 @@ public class Room implements Drawable
         lavaAnimationThread.interrupt();
         quicksandAnimationThread.interrupt();
     }
+
+    public boolean areAnimationsRunning() {
+        if (waterAnimationThread.isAlive() && lavaAnimationThread.isAlive() && quicksandAnimationThread.isAlive()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

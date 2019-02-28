@@ -179,11 +179,41 @@ public class SettingsMenu implements Menu
             }
         });
 
+        Button animations = new Button(
+                buttonWidth,
+                buttonHeight,
+                (Settings.WINDOW_WIDTH - Settings.WINDOW_X_PADDING * 2) / 2 - 600,
+                Settings.WINDOW_Y_PADDING + 4 * (buttonHeight * 2) + 100);
+        animations.setText("ANIMATIONS |  " + Settings.ANIMATIONS);
+        animations.setTextYOffset(5);
+        animations.setTextXOffset(buttonWidth / 2 - (5 / 2) * 14 - 65);
+        if (Settings.ANIMATIONS) {
+            animations.setOutlineColor(Color.GREEN);
+        } else {
+            animations.setOutlineColor(Color.RED);
+        }
+        animations.setOnPress(new EventHandler() {
+            @Override
+            public void run() {
+                if (Settings.ANIMATIONS) {
+                    animations.setOutlineColor(Color.RED);
+                    animations.setText("ANIMATIONS | false");
+                    Settings.ANIMATIONS = false;
+                } else {
+                    animations.setOutlineColor(Color.GREEN);
+                    animations.setText("ANIMATIONS | true");
+                    Settings.ANIMATIONS = true;
+                }
+                chosenButton = animations;
+            }
+        });
+
 
         buttons.add(music);
         buttons.add(soundEffects);
         buttons.add(crosshair);
         buttons.add(dank);
+        buttons.add(animations);
 
         this.background = new Image(0, 0, "res/assets/menus/mainmenu.png");
     }
