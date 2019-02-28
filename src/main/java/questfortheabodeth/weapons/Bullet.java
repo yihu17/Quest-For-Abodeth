@@ -22,11 +22,15 @@ public class Bullet extends Image implements Movable, Collidable
     private boolean hurtsPlayer;
 
     /**
-     * Creates a new image object.
+     * Creates a new bullet object. Bullets can differ depending on who fired them
+     * e.g. the {@link main.java.questfortheabodeth.characters.Player} or a {@link main.java.questfortheabodeth.environments.traps.ShootingArrows}
      *
      * @param x     (int) X coordinate of the top left of the image
      * @param y     (int) Y coordinate of the top left of the image
      * @param angle (double) Angle the bullet is travelling at clockwise about the vertical
+     * @param damage (int) Amount of damage this bullet will do
+     * @param hurtsPlayer (boolean) Whether or not this bullet can hurt the player
+     * @param type (String) The tye of bullet to load
      */
     public Bullet(int x, int y, double angle, int damage, boolean hurtsPlayer, String type)
     {
@@ -43,11 +47,20 @@ public class Bullet extends Image implements Movable, Collidable
         setRotation((float) angle);
     }
 
+    /**
+     * Sets the x position of thi bullet
+     *
+     * @param x (float) X position
+     */
     public void setX(float x)
     {
         this.x = x;
     }
 
+    /**
+     * Sets the y position of thi bullet
+     * @param y (float) Y position
+     */
     public void setY(float y)
     {
         this.y = y;
@@ -121,11 +134,21 @@ public class Bullet extends Image implements Movable, Collidable
         return this.getGlobalBounds().width;
     }
 
+    /**
+     * Returns the damage that this bullet does to enemies
+     * @return (int) Damage dealth
+     */
     public int getDamage()
     {
         return damage;
     }
 
+    /**
+     * Returns a boolean of whether or no this bullet can hit the player.
+     * By default bullets fired by the player cannot hit the player whereas
+     * bullets spawned by traps can
+     * @return (boolean) True if the bullets hurts the player or false otherwise
+     */
     public boolean isHurtsPlayer()
     {
         return this.hurtsPlayer;
