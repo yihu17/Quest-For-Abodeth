@@ -2,16 +2,29 @@ package main.java.questfortheabodeth.powerups;
 
 import main.java.questfortheabodeth.characters.Player;
 
+/**
+ * Adds a shield to the player. A shield is fully depleted
+ * before any of the players health is actually depleted
+ */
 public class ShieldPickup extends Pickup
 {
     private int shieldHealth = 50;
 
+    /**
+     * Creates a new shield pickup
+     *
+     * @param x (int) X position of this shield pickup
+     * @param y (int) Y position of this shield pickup
+     */
     public ShieldPickup(int x, int y)
     {
         super(x, y, "res/assets/pickups/shieldPickup.png");
     }
 
-    //function for when picked up/ used:
+    /**
+     * Adds the shield amount to the player
+     * @param p (Player) The player object
+     */
     @Override
     public void applyBuff(Player p)
     {
@@ -20,6 +33,10 @@ public class ShieldPickup extends Pickup
         System.out.println("Shield is now " + p.getShield());
     }
 
+    /**
+     * Shields last until they are depleted and so this function does nothing
+     * @param p (Player) The player object
+     */
     @Override
     public void removeBuff(Player p)
     {

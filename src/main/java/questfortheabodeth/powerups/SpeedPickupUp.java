@@ -2,18 +2,34 @@ package main.java.questfortheabodeth.powerups;
 
 import main.java.questfortheabodeth.characters.Player;
 
-public class SpeedPickupUp extends Pickup
+/**
+ * Increases the players speed for a set amount of time
+ * and automatically changes it back after the time period
+ * has passed
+ */
+public class SpeedPickupUp extends Pickup implements Runnable
 {
     private int timeout;
     private Player p;
 
+    /**
+     * Creates a new speed boost pickup
+     *
+     * @param x       (int) X position of this pickup
+     * @param y       (int) Y position of this pickup
+     * @param timeout (int) Number of milliseconds this boost is applied for
+     */
     public SpeedPickupUp(int x, int y, int timeout)
     {
         super(x, y, "res/assets/pickups/speedPickup.png");
         this.timeout = timeout;
     }
 
-    //function for when picked up/ used:
+    /**
+     * Applies the speed boost to the player and starts the thread
+     * that will eventually remove the buff
+     * @param p (Player) The player object
+     */
     @Override
     public void applyBuff(Player p)
     {
@@ -24,12 +40,21 @@ public class SpeedPickupUp extends Pickup
         new Thread(this).start();
     }
 
+    /**
+     * Sets the player speed back to its original value
+     * @param p (Player) The player object
+     */
     @Override
     public void removeBuff(Player p)
     {
         p.setMovementSpeed(6);
     }
 
+    /**
+     * Waits for a set amount of time when the thread is
+     * run and then removes the speed boost
+     */
+    @Override
     public void run()
     {
         p.addCurrentPowerup("speedPickup");
@@ -37,8 +62,9 @@ public class SpeedPickupUp extends Pickup
             Thread.sleep(timeout);
         } catch (Exception e) {
             System.out.println(e);
+        } finally {
+            p.removeCurrentPowerup("speedPickup");
+            removeBuff(p);
         }
-        p.removeCurrentPowerup("speedPickup");
-        removeBuff(p);
     }
 }
