@@ -69,6 +69,7 @@ public class Game
     private MeleeRange meleeWave = null;
 
     private BossThread minionSpawning;
+    private Boss finalBoss;
 
     private CopyOnWriteArraySet<Movable> movables = new CopyOnWriteArraySet<>();
     private CopyOnWriteArraySet<Drawable> drawables = new CopyOnWriteArraySet<>();
@@ -287,8 +288,11 @@ public class Game
             }
 
             try {
-                minionSpawning.getMinions().forEach((i) -> drawables.add(i));
-                minionSpawning.getMinions().forEach((i) -> movables.add(i));
+                if (finalBoss.getHealth() > 0) {
+                    minionSpawning.getMinions().forEach((i) -> drawables.add(i));
+                    minionSpawning.getMinions().forEach((i) -> movables.add(i));
+                    minionSpawning.getMinions().forEach((i) -> collidables.add(i));
+                }
             } catch (Exception e) {
                 //if caught, boss and minions not created yet as not in final room
             }
@@ -892,8 +896,8 @@ public class Game
         }
 
         if (currentRoom.getType() == 3) {
-            currentRoom.spawnBoss();
-            minionSpawning = new BossThread(player);//every 4 seconds create a bat enemy
+            finalBoss = currentRoom.spawnBoss();
+            minionSpawning = new BossThread(player, finalBoss);//every 4 seconds create a bat enemy
             minionSpawning.start();
         }
 
