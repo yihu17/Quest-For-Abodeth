@@ -4,6 +4,7 @@ import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.interfaces.Collidable;
 import main.java.questfortheabodeth.interfaces.Interactable;
 import main.java.questfortheabodeth.interfaces.Movable;
+import main.java.questfortheabodeth.menus.EventHandler;
 import org.jsfml.graphics.FloatRect;
 
 import java.lang.reflect.Constructor;
@@ -24,6 +25,7 @@ public class Enemy extends Character implements Movable
     private int attackSpeed;
     private int attackPower;
     private long lastTimeHit;
+    private EventHandler event = null;
 
     /**
      * Creates a new enemy
@@ -54,6 +56,10 @@ public class Enemy extends Character implements Movable
     @Override
     public void kill()
     {
+        if (event != null) {
+            event.run();
+            System.out.println("Event handler was run");
+        }
         setPosition(2 * Settings.WINDOW_WIDTH, 2 * Settings.WINDOW_HEIGHT);
         System.out.println(this + " died");
     }
@@ -212,5 +218,14 @@ public class Enemy extends Character implements Movable
     public long getLastTimeAttack()
     {
         return this.lastTimeHit;
+    }
+
+    /**
+     * Sets the event handler to run when this enemy dies
+     * @param event (EventHandler) Event to run whent he enemy dies
+     */
+    public void setEvent(EventHandler event)
+    {
+        this.event = event;
     }
 }

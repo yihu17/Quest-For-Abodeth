@@ -433,7 +433,8 @@ public class Room implements Drawable
                         roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
                         break;*/
                     default:
-                        throw new AssertionError("Unknown image" + elementRead);
+                        roomImages[i][j] = new Environment(spacing * j, spacing * i, "res/assets/environment/wall.png", false, false);
+                        //throw new AssertionError("Unknown image" + elementRead);
                 }
             }
         }
@@ -744,10 +745,6 @@ public class Room implements Drawable
     }
 
     public boolean areAnimationsRunning() {
-        if (waterAnimationThread.isAlive() && lavaAnimationThread.isAlive() && quicksandAnimationThread.isAlive()) {
-            return true;
-        } else {
-            return false;
-        }
+        return waterAnimationThread.isAlive() && lavaAnimationThread.isAlive() && quicksandAnimationThread.isAlive();
     }
 }
