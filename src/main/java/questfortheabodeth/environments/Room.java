@@ -3,6 +3,7 @@ package main.java.questfortheabodeth.environments;
 import main.java.questfortheabodeth.FileOperator;
 import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.characters.Boss;
+import main.java.questfortheabodeth.characters.EgyptianMummy;
 import main.java.questfortheabodeth.characters.Enemy;
 import main.java.questfortheabodeth.environments.interactables.Door;
 import main.java.questfortheabodeth.environments.traps.*;
@@ -70,7 +71,7 @@ public class Room implements Drawable
         // A room type of 1 means it is the start room
         // A room type of 3 means it is the end room
         if (type == 1) {
-            roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomDataD.csv");
+            roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomDataA.csv");
             roomName = "roomDataA";
         } else if (type == 3) {
             roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomDataZ.csv");
@@ -474,7 +475,7 @@ public class Room implements Drawable
                         enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 200, filePath, 1, "giantZombie", 1200, 33));
                         break;
                     case "egyptianMummy":
-                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 120, filePath, 2, "egyptianMummy", 750, 33));
+                        enemies.add(new EgyptianMummy(generatedSpawnLocation[0], generatedSpawnLocation[1], 120, 2, "egyptianMummy", 750, 33));
                         break;
                     case "crocodile":
                         enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 160, filePath, 1, "crocodile", 550, 33));

@@ -3,10 +3,8 @@ package main.java.questfortheabodeth;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import main.java.questfortheabodeth.characters.Boss;
+import main.java.questfortheabodeth.characters.*;
 import main.java.questfortheabodeth.characters.Character;
-import main.java.questfortheabodeth.characters.Enemy;
-import main.java.questfortheabodeth.characters.Player;
 import main.java.questfortheabodeth.environments.Environment;
 import main.java.questfortheabodeth.environments.Room;
 import main.java.questfortheabodeth.environments.interactables.Door;
@@ -638,9 +636,13 @@ public class Game
                     localDoorRange = true;
                 } else if (i instanceof TrapZone) {
                     // If they are in range of a trapzone, trigger the trap
-                    if (System.currentTimeMillis() - ((ShootingArrows) i).getLastTimeTriggered() >= ((ShootingArrows) i).getFireRate()) {
+                    if (i instanceof ShootingArrows) {
+                        if (System.currentTimeMillis() - ((ShootingArrows) i).getLastTimeTriggered() >= ((ShootingArrows) i).getFireRate()) {
+                            ((TrapZone) i).trigger(movables, collidables, drawables, bullets, player);
+                            ((ShootingArrows) i).setLastTimeTriggered(System.currentTimeMillis());
+                        }
+                    } else if (i instanceof EgyptianMummy) {
                         ((TrapZone) i).trigger(movables, collidables, drawables, bullets, player);
-                        ((ShootingArrows) i).setLastTimeTriggered(System.currentTimeMillis());
                     }
                 } else {
                     // Its something else so jsut run the interact function attached to it
@@ -704,6 +706,9 @@ public class Game
                         }
                     }
                 });
+            }
+            if (e instanceof EgyptianMummy) {
+                interactables.add((Interactable) e);
             }
         }
     }
