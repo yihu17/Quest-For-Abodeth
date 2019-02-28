@@ -25,7 +25,7 @@ public class PlayerDiedMenu implements Menu
     private ArrayList<Clickable> buttons = new ArrayList<>();
     private Button chosenButton = null;
     private boolean menuOpen = true;
-    private Text title, time;
+    private Text title, time, credits;
 
     /**
      * Created a new Player died menu and shows the current time on it
@@ -37,10 +37,11 @@ public class PlayerDiedMenu implements Menu
     {
         this.window = window;
         this.window.setMouseCursorVisible(true);
-        Button back = new Button(250, 75, Settings.WINDOW_WIDTH / 2 - 148, 500, "MAIN MENU");
+        Button back = new Button(250, 75, Settings.WINDOW_WIDTH / 2 - 148, 550, "MAIN MENU");
         back.setTextXOffset(
                 250 / 2 - (back.getText().length() / 2) * 18
         );
+        back.setTextYOffset(17);
         back.setOnPress(new EventHandler()
         {
             @Override
@@ -62,6 +63,10 @@ public class PlayerDiedMenu implements Menu
         tb.setColor(Color.BLACK);
         tb.setPosition((Settings.WINDOW_WIDTH - Settings.WINDOW_X_PADDING * 2) / 2 - 32, 400);
         this.time = tb;
+
+        credits = new Text("A GAME DEVELOPED BY: EDWARD CORKE, ETHAN COTTERELL, CHESTER HUANG & TOM DAFFERN", Settings.ARIAL_FONT, 20);
+        credits.setColor(Color.BLACK);
+        credits.setPosition(675, 1000);
 
         this.background = new Image(0, 0, "res/assets/menus/mainmenu.png");
     }
@@ -93,6 +98,7 @@ public class PlayerDiedMenu implements Menu
             window.draw(background);
             window.draw(title);
             window.draw(this.time);
+            window.draw(credits);
             buttons.forEach(window::draw);
 
             // Update the display

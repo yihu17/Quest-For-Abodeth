@@ -27,7 +27,7 @@ public class PlayerWinMenu implements Menu
     private ArrayList<Clickable> buttons = new ArrayList<>();
     private Button chosenButton = null;
     private boolean menuOpen = true;
-    private Text title, time;
+    private Text title, time, credits;
 
     /**
      * Creates a new Player wins menu
@@ -43,6 +43,7 @@ public class PlayerWinMenu implements Menu
         back.setTextXOffset(
                 250 / 2 - (back.getText().length() / 2) * 18
         );
+        back.setTextYOffset(17);
         back.setOnPress(new EventHandler()
         {
             @Override
@@ -63,6 +64,10 @@ public class PlayerWinMenu implements Menu
         tb.setColor(Color.BLACK);
         tb.setPosition((Settings.WINDOW_WIDTH - Settings.WINDOW_X_PADDING * 2) / 2 - 32, 400);
         this.time = tb;
+
+        credits = new Text("A GAME DEVELOPED BY: EDWARD CORKE, ETHAN COTTERELL, CHESTER HUANG & TOM DAFFERN", Settings.ARIAL_FONT, 20);
+        credits.setColor(Color.BLACK);
+        credits.setPosition(675, 1000);
 
         this.background = new Image(0, 0, "res/assets/menus/mainmenu.png");
 
