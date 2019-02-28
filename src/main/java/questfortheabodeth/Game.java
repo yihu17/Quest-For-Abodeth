@@ -565,6 +565,10 @@ public class Game
     private void runEnemyCollisions()
     {
         for (Enemy e : enemies) {
+            // Don't check collisions for the boss
+            if (e instanceof Boss) {
+                continue;
+            }
             HashSet<Integer> values = new HashSet<>();
             for (Collidable c : collidables) {
                 // Enemies don't collide with other enemies, weapon pickups or powerups
