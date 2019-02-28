@@ -309,11 +309,13 @@ public class Game
                 ) {
                     if (!(player.getCurrentWeapon() instanceof Melee)) {
                         // The player character has fired a bullet, check they are firing in the correct direction
+                        /*
                         if (player.getFacingDirection() == Character.Facing.LEFT && e.asMouseEvent().position.x > player.getX()) {
                             continue;
                         } else if (player.getFacingDirection() == Character.Facing.RIGHT && e.asMouseEvent().position.x < player.getX()) {
                             continue;
                         }
+                        */
                         // Update the last time they attacked
                         player.setLastTimeAttack(System.currentTimeMillis());
 

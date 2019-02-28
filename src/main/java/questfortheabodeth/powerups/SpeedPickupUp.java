@@ -1,5 +1,6 @@
 package main.java.questfortheabodeth.powerups;
 
+import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.characters.Player;
 
 /**
@@ -35,7 +36,7 @@ public class SpeedPickupUp extends Pickup implements Runnable
     {
         this.p = p;
         System.out.println("Getting buffed by speed boost");
-        p.setMovementSpeed(10);
+        p.setMovementSpeed(Settings.PLAYER_SPEED * 1.5);
         System.out.println("Speed is now " + p.getMovementSpeed());
         new Thread(this).start();
     }
@@ -47,7 +48,7 @@ public class SpeedPickupUp extends Pickup implements Runnable
     @Override
     public void removeBuff(Player p)
     {
-        p.setMovementSpeed(6);
+        p.setMovementSpeed(Settings.PLAYER_SPEED);
     }
 
     /**

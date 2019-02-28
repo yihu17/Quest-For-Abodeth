@@ -53,7 +53,7 @@ public class ImageSwitchThread extends Thread {
      *
      * @param trap (Trap) The trap object to switches images for
      */
-    public void addTrap(Trap trap)
+    public void addTrap(Image trap)
     {
         traps.add((Image) trap);
     }

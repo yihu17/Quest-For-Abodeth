@@ -453,34 +453,34 @@ public class Room implements Drawable
                 int[] generatedSpawnLocation = generateSpawnLocation();
                 switch (enemyRead) {
                     case "zombie":
-                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 50, filePath, 2, "zombie", 700, 10));
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath, 2, "zombie", 700, 20));
                         break;
                     case "jackal":
-                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 80, filePath, 3, "jackal", 500, 15));
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 60, filePath, 4, "jackal", 500, 20));
                         break;
                     case "bat":
-                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 10, filePath, 5, "bat", 400, 3));
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 40, filePath, 4, "bat", 400, 20));
                         break;
                     case "spider":
-                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 30, filePath, 2, "spider", 650, 8));
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 20, filePath, 3, "spider", 650, 14));
                         break;
                     case "mummifiedSlave":
-                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 50, filePath, 1, "mummifiedSlave", 900, 12));
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath, 2, "mummifiedSlave", 900, 25));
                         break;
                     case "giantSpider":
-                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath, 1, "giantSpider", 900, 15));
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 140, filePath, 1, "giantSpider", 900, 25));
                         break;
                     case "giantZombie":
-                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath, 1, "giantZombie", 1200, 18));
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 200, filePath, 1, "giantZombie", 1200, 33));
                         break;
                     case "egyptianMummy":
-                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 70, filePath, 2, "egyptianMummy", 750, 11));
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 120, filePath, 2, "egyptianMummy", 750, 33));
                         break;
                     case "crocodile":
-                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 65, filePath, 1, "crocodile", 550, 13));
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 160, filePath, 1, "crocodile", 550, 33));
                         break;
                     case "edemy":
-                        enemies.add(new Boss(1600, Settings.WINDOW_HEIGHT / 2 + 50, 1000, filePath, 2, "edemy", 400, 40));
+                        enemies.add(new Boss(1600, Settings.WINDOW_HEIGHT / 2 + 50, 1000, filePath, 4, "edemy", 400, 50));
                         break;
                 }
             }
@@ -611,9 +611,6 @@ public class Room implements Drawable
                     case "speedPickupUp":
                         pickups.add(new SpeedPickupUp(generatedSpawnLocation[0], generatedSpawnLocation[1], 15000));
                         break;
-                    case "speedPickupDown":
-                        pickups.add(new SpeedPickupDown(generatedSpawnLocation[0], generatedSpawnLocation[1], 10000));
-                        break;
                     case "damagePickup":
                         pickups.add(new DamagePlus(generatedSpawnLocation[0], generatedSpawnLocation[1], 10000));
                         break;
@@ -725,15 +722,15 @@ public class Room implements Drawable
      */
     public void runThreads() {
 
-        //waterAnimationThread.start();
+        waterAnimationThread.start();
         lavaAnimationThread.start();
-        //quicksandAnimationThread.start();
+        quicksandAnimationThread.start();
     }
 
     public void stopThreads()
     {
-        //waterAnimationThread.start();
+        waterAnimationThread.interrupt();
         lavaAnimationThread.interrupt();
-        //quicksandAnimationThread.start();
+        quicksandAnimationThread.interrupt();
     }
 }
