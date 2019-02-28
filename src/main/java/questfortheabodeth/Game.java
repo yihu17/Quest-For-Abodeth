@@ -13,10 +13,7 @@ import main.java.questfortheabodeth.environments.interactables.Door;
 import main.java.questfortheabodeth.environments.traps.ShootingArrows;
 import main.java.questfortheabodeth.hud.*;
 import main.java.questfortheabodeth.interfaces.*;
-import main.java.questfortheabodeth.menus.Button;
-import main.java.questfortheabodeth.menus.GameMenu;
-import main.java.questfortheabodeth.menus.PlayerDiedMenu;
-import main.java.questfortheabodeth.menus.PlayerWinMenu;
+import main.java.questfortheabodeth.menus.*;
 import main.java.questfortheabodeth.powerups.HealthBoost;
 import main.java.questfortheabodeth.powerups.Pickup;
 import main.java.questfortheabodeth.powerups.TheAbodeth;
@@ -245,6 +242,7 @@ public class Game
             new AudioThread(audioPath);
             currentRoom.setLastAudioTrigger(System.currentTimeMillis());
         }
+        createEnemyEvents();
         // Start the game timer
         new Thread(Settings.GAME_TIME).start();
     }
@@ -687,6 +685,29 @@ public class Game
         }
     }
 
+    private void createEnemyEvents()
+    {
+        for (Enemy e: enemies) {
+            if (e.getEnemyName().toLowerCase().equals("giantspider")) {
+                e.setEvent(new EventHandler()
+                {
+                    @Override
+                    public void run()
+                    {
+                        for (int i = 0; i < 3; i++) {
+                            Enemy miniSpider = new Enemy((int)e.getX() + i * 10, (int)e.getY() + i * 10, 20, "res/assets/enemies/spider.png", 3, "spider", 650, 14);
+                            miniSpider.setPlayer(player);
+                            movables.add(miniSpider);
+                            enemies.add(miniSpider);
+                            drawables.add(miniSpider);
+                            collidables.add(miniSpider);
+                        }
+                    }
+                });
+            }
+        }
+    }
+
     /**
      * Called when the player moves between rooms. This method
      * updates all the lists of objects currently visible and
@@ -722,11 +743,13 @@ public class Game
             if (e instanceof Boss) {
                 ((Boss) e).setLists(drawables, collidables);
             }
+
             e.setPlayer(player);
             movables.add(e);
             enemies.add(e);
             drawables.add(e);
         }
+        createEnemyEvents();
         for (Pickup p : currentRoom.getPickups()) {
             collidables.add(p);
             drawables.add(p);
