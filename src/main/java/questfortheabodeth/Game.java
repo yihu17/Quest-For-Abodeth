@@ -881,6 +881,10 @@ public class Game
             }
         }
 
+        if (currentRoom.getType() == 3) {
+            currentRoom.spawnBoss();
+        }
+
         // Stop the current rooms audio
         Helper.stopAllAudio();
 
