@@ -642,7 +642,10 @@ public class Game
                             ((ShootingArrows) i).setLastTimeTriggered(System.currentTimeMillis());
                         }
                     } else if (i instanceof EgyptianMummy) {
-                        ((TrapZone) i).trigger(movables, collidables, drawables, bullets, player);
+                        if (System.currentTimeMillis() - ((TrapZone) i).getLastTimeTriggered() >= 6000) {
+                            ((TrapZone) i).trigger(movables, collidables, drawables, bullets, player);
+                            ((TrapZone) i).setLastTimeTriggered(System.currentTimeMillis());
+                        }
                     }
                 } else {
                     // Its something else so jsut run the interact function attached to it

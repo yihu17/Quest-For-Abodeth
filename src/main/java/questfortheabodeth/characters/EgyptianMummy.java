@@ -12,6 +12,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 public class EgyptianMummy extends Enemy implements TrapZone, Interactable
 {
+    private long lastTimeTriggered;
     /**
      * Creates a new enemy
      *
@@ -57,6 +58,28 @@ public class EgyptianMummy extends Enemy implements TrapZone, Interactable
                 }
             }
         }).start();
+    }
+
+    /**
+     * Returns the last time that the arrow trap was triggered
+     *
+     * @return (long) Last time the trap was triggered
+     */
+    @Override
+    public long getLastTimeTriggered()
+    {
+        return lastTimeTriggered;
+    }
+
+    /**
+     * Sets the time that this trap was triggered last
+     *
+     * @param lastTimeTriggered (long) Last time triggered
+     */
+    @Override
+    public void setLastTimeTriggered(long lastTimeTriggered)
+    {
+        this.lastTimeTriggered = lastTimeTriggered;
     }
 
     @Override

@@ -162,6 +162,9 @@ public class Enemy extends Character implements Movable
 
         for (Class<? extends Interactable> c : appliedInteracts) {
             //undo the interact
+            if (c.getName().equals("EgyptianMummy")) {
+                continue;
+            }
             try {
                 Constructor struct = c.getDeclaredConstructors()[0];
                 Interactable i = (Interactable) struct.newInstance(0, 0, "");
