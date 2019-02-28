@@ -22,6 +22,7 @@ import main.java.questfortheabodeth.powerups.Pickup;
 import main.java.questfortheabodeth.powerups.TheAbodeth;
 import main.java.questfortheabodeth.sprites.Image;
 import main.java.questfortheabodeth.threads.AudioThread;
+import main.java.questfortheabodeth.threads.BossThread;
 import main.java.questfortheabodeth.threads.ExpandingWave;
 import main.java.questfortheabodeth.threads.RoomLoader;
 import main.java.questfortheabodeth.weapons.*;
@@ -66,6 +67,8 @@ public class Game
     private AmmoCount ammoCount;
     private HudElements hud;
     private MeleeRange meleeWave = null;
+
+    private BossThread minionSpawning;
 
     private CopyOnWriteArraySet<Movable> movables = new CopyOnWriteArraySet<>();
     private CopyOnWriteArraySet<Drawable> drawables = new CopyOnWriteArraySet<>();
@@ -281,6 +284,13 @@ public class Game
             if (Settings.MUSIC_ON && !Settings.BACKGROUND_AUDIO_PLAYING) {
                 Settings.BACKGROUND_AUDIO_PLAYING = true;
                 Helper.playAudio(currentRoom.getRoomName());
+            }
+
+            try {
+                minionSpawning.getMinions().forEach((i) -> drawables.add(i));
+                minionSpawning.getMinions().forEach((i) -> movables.add(i));
+            } catch (Exception e) {
+                //if caught, boss and minions not created yet as not in final room
             }
 
             window.clear();
@@ -883,6 +893,8 @@ public class Game
 
         if (currentRoom.getType() == 3) {
             currentRoom.spawnBoss();
+            minionSpawning = new BossThread(player);//every 4 seconds create a bat enemy
+            minionSpawning.start();
         }
 
         // Stop the current rooms audio

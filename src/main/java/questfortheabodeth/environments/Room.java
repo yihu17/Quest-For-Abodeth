@@ -485,11 +485,13 @@ public class Room implements Drawable
     }
 
     public void spawnBoss() {
+        String fPath;
         if (Settings.DANK_VERSION) {
-            enemies.add(new Boss(1600, Settings.WINDOW_HEIGHT / 2 + 50, 1000, "res/assets/enemies/supremeOverlord.png", 4, "edemy", 400, 50));
+            fPath = "res/assets/enemies/supremeOverlord.png";
         } else {
-            enemies.add(new Boss(1600, Settings.WINDOW_HEIGHT / 2 + 50, 1000, "res/assets/enemies/edemy.png", 4, "edemy", 400, 50));
+            fPath = "res/assets/enemies/edemy.png";
         }
+        enemies.add(new Boss(1600, Settings.WINDOW_HEIGHT / 2 + 50, 1000, fPath, 2, "edemy", 400, 50));
     }
 
     /**
