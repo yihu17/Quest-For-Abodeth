@@ -25,7 +25,7 @@ public class BossThread extends Thread {
                 String fPath;
                 if (Settings.DANK_VERSION) {
                     String[] memes = {"chester", "ethan", "tom"};
-                    fPath = "res/assets/enemies/" + memes[Settings.GENERATOR.nextInt(2)] + ".png";
+                    fPath = "res/assets/enemies/" + memes[Settings.GENERATOR.nextInt(3)] + ".png";
                 } else {
                     fPath = "res/assets/enemies/bat.png";
                 }
