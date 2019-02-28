@@ -479,11 +479,16 @@ public class Room implements Drawable
                     case "crocodile":
                         enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 160, filePath, 1, "crocodile", 550, 33));
                         break;
-                    case "edemy":
-                        enemies.add(new Boss(1600, Settings.WINDOW_HEIGHT / 2 + 50, 1000, filePath, 4, "edemy", 400, 50));
-                        break;
                 }
             }
+        }
+    }
+
+    public void spawnBoss() {
+        if (Settings.DANK_VERSION) {
+            enemies.add(new Boss(1600, Settings.WINDOW_HEIGHT / 2 + 50, 1000, "res/assets/enemies/supremeOverlord.png", 4, "edemy", 400, 50));
+        } else {
+            enemies.add(new Boss(1600, Settings.WINDOW_HEIGHT / 2 + 50, 1000, "res/assets/enemies/edemy.png", 4, "edemy", 400, 50));
         }
     }
 
