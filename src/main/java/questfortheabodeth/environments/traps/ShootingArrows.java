@@ -84,6 +84,7 @@ public class ShootingArrows extends CollidableInteractableEnvironment implements
      * Returns the last time that the arrow trap was triggered
      * @return (long) Last time the trap was triggered
      */
+    @Override
     public long getLastTimeTriggered()
     {
         return lastTimeTriggered;
@@ -93,6 +94,7 @@ public class ShootingArrows extends CollidableInteractableEnvironment implements
      * Sets the time that this trap was triggered last
      * @param lastTimeTriggered (long) Last time triggered
      */
+    @Override
     public void setLastTimeTriggered(long lastTimeTriggered)
     {
         this.lastTimeTriggered = lastTimeTriggered;

@@ -31,4 +31,16 @@ public interface TrapZone extends Trap
      * @param player (Player) The player object
      */
     void trigger(CopyOnWriteArraySet<Movable> movables, CopyOnWriteArraySet<Collidable> collidables, CopyOnWriteArraySet<Drawable> drawables, CopyOnWriteArraySet<Bullet> bullets, Player player);
+
+    /**
+     * Returns the last time that the arrow trap was triggered
+     * @return (long) Last time the trap was triggered
+     */
+    long getLastTimeTriggered();
+
+    /**
+     * Sets the time that this trap was triggered last
+     * @param lastTimeTriggered (long) Last time triggered
+     */
+    void setLastTimeTriggered(long lastTimeTriggered);
 }

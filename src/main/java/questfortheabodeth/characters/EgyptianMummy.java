@@ -6,6 +6,7 @@ import main.java.questfortheabodeth.interfaces.Movable;
 import main.java.questfortheabodeth.interfaces.TrapZone;
 import main.java.questfortheabodeth.weapons.Bullet;
 import org.jsfml.graphics.Drawable;
+import org.jsfml.graphics.FloatRect;
 
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -56,6 +57,17 @@ public class EgyptianMummy extends Enemy implements TrapZone, Interactable
                 }
             }
         }).start();
+    }
+
+    @Override
+    public FloatRect getGlobalBounds()
+    {
+        return new FloatRect(
+                getX() - getWidth(),
+                getY() - getHeight(),
+                3 * getWidth(),
+                3 * getHeight()
+        );
     }
 
     /**
