@@ -18,7 +18,7 @@ public abstract class Character extends Thread implements Drawable, Collidable {
     private SimpleIntegerProperty health = new SimpleIntegerProperty();
     private double movementSpeed;
     private double finalSpeed;
-    private int shield = 0;
+    private boolean shield = false;
     private Image image;
     private int additionalDamage = 5;
 
@@ -255,11 +255,14 @@ public abstract class Character extends Thread implements Drawable, Collidable {
      * @param amount (int) Amount to decrease by
      */
     public void decreaseHealth(int amount) {
-        int newValue = health.get() - amount;
-        this.health.set(newValue < 0 ? 0 : newValue);
-        System.out.println("Health decreased to " + this.health.get());
-        if (health.get() <= 0) {
-            this.kill();
+        System.out.println(shield);
+        if (shield == false) {
+            int newValue = health.get() - amount;
+            this.health.set(newValue < 0 ? 0 : newValue);
+            System.out.println("Health decreased to " + this.health.get());
+            if (health.get() <= 0) {
+                this.kill();
+            }
         }
     }
 
@@ -285,19 +288,27 @@ public abstract class Character extends Thread implements Drawable, Collidable {
     }
 
     /**
-     * Returns the current amount of shield a character has
-     * @return (int) Current shield
+     * Returns if character has shield
+     * @return (boolean) shield active
      */
-    public int getShield() {
+    public boolean getShield() {
         return shield;
     }
 
     /**
-     * Increases the amount of shield this character currently has
-     * @param shieldAmount (int) How much to increase the shield by
+     * Turns on shield
      */
-    public void addShield(int shieldAmount) {
-        this.shield += shieldAmount;
+    public void activateShield() {
+        System.out.println("Activated");
+        shield = true;
+    }
+
+    /**
+     * Turns off shield
+     */
+    public void deactivateShield() {
+        System.out.println("Deactivated");
+        shield = false;
     }
 
     /**
