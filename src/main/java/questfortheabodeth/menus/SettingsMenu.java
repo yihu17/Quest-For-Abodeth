@@ -24,7 +24,7 @@ public class SettingsMenu implements Menu
     private Clickable chosenButton;
     private boolean menuOpen = false;
     private Image background;
-    private int buttonWidth = 300;
+    private int buttonWidth = 350;
     private int buttonHeight = 50;
     private Text title;
 
@@ -60,7 +60,7 @@ public class SettingsMenu implements Menu
                 Settings.WINDOW_Y_PADDING + 0 * (buttonHeight * 2) + 100);
         music.setText("MUSIC |  " + Settings.MUSIC_ON);
         music.setTextYOffset(5);
-        music.setTextXOffset(buttonWidth / 2 - (5 / 2) * 14 - 65);
+        music.setTextXOffset(buttonWidth / 2 - (5 / 2) * 14 - 105);
         music.setOnPress(new EventHandler()
         {
             @Override
@@ -93,7 +93,7 @@ public class SettingsMenu implements Menu
                 Settings.WINDOW_Y_PADDING + 1 * (buttonHeight * 2) + 100);
         soundEffects.setText("SOUND EFFECTS |  " + Settings.SOUND_EFFECTS_ON);
         soundEffects.setTextYOffset(5);
-        soundEffects.setTextXOffset(buttonWidth / 2 - (5 / 2) * 14 - 65);
+        soundEffects.setTextXOffset(buttonWidth / 2 - (5 / 2) * 14 - 105);
         soundEffects.setOnPress(new EventHandler()
         {
             @Override
@@ -125,7 +125,7 @@ public class SettingsMenu implements Menu
                 Settings.WINDOW_Y_PADDING + 2 * (buttonHeight * 2) + 100);
         crosshair.setText("CROSSHAIR |  " + Settings.CROSSHAIR_VISIBLE);
         crosshair.setTextYOffset(5);
-        crosshair.setTextXOffset(buttonWidth / 2 - (5 / 2) * 14 - 65);
+        crosshair.setTextXOffset(buttonWidth / 2 - (5 / 2) * 14 - 105);
         crosshair.setOnPress(new EventHandler()
         {
             @Override
@@ -157,7 +157,7 @@ public class SettingsMenu implements Menu
                 Settings.WINDOW_Y_PADDING + 3 * (buttonHeight * 2) + 100);
         dank.setText("DANK |  " + Settings.DANK_VERSION);
         dank.setTextYOffset(5);
-        dank.setTextXOffset(buttonWidth / 2 - (5 / 2) * 14 - 65);
+        dank.setTextXOffset(buttonWidth / 2 - (5 / 2) * 14 - 105);
         if (Settings.DANK_VERSION) {
             dank.setOutlineColor(Color.GREEN);
         } else {
@@ -186,7 +186,7 @@ public class SettingsMenu implements Menu
                 Settings.WINDOW_Y_PADDING + 4 * (buttonHeight * 2) + 100);
         animations.setText("ANIMATIONS |  " + Settings.ANIMATIONS);
         animations.setTextYOffset(5);
-        animations.setTextXOffset(buttonWidth / 2 - (5 / 2) * 14 - 65);
+        animations.setTextXOffset(buttonWidth / 2 - (5 / 2) * 14 - 105);
         if (Settings.ANIMATIONS) {
             animations.setOutlineColor(Color.GREEN);
         } else {
