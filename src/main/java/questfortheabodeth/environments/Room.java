@@ -70,7 +70,7 @@ public class Room implements Drawable
         // A room type of 1 means it is the start room
         // A room type of 3 means it is the end room
         if (type == 1) {
-            roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomDataD.csv");
+            roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomDataA.csv");
             roomName = "roomDataA";
         } else if (type == 3) {
             roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomDataZ.csv");
@@ -433,7 +433,8 @@ public class Room implements Drawable
                         roomImages[i][j] = new CollidableEnvironment(spacing * j, spacing * i, filePath);
                         break;*/
                     default:
-                        throw new AssertionError("Unknown image" + elementRead);
+                        roomImages[i][j] = new Environment(spacing * j, spacing * i, "res/assets/environment/wall.png", false, false);
+                        //throw new AssertionError("Unknown image" + elementRead);
                 }
             }
         }
