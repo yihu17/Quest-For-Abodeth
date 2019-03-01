@@ -580,8 +580,8 @@ public class Room implements Drawable
                     int[] doorPos = {(Settings.ROOM_DIVISION_SIZE * j) + (Settings.ROOM_DIVISION_SIZE / 2), (Settings.ROOM_DIVISION_SIZE * i) + (Settings.ROOM_DIVISION_SIZE / 2)}; //centre of door
 
                     // Get the upper left and lower right of the door box/zone
-                    int[] doorPosA = {doorPos[0] - 350, doorPos[1] - 250};
-                    int[] doorPosB = {doorPos[0] + 350, doorPos[1] + 250};
+                    int[] doorPosA = {doorPos[0] - 600, doorPos[1] - 600};
+                    int[] doorPosB = {doorPos[0] + 600, doorPos[1] + 600};
 
                     // Is the spawn location of the door inside the enemy zone
                     if ((doorPosA[0] <= x && x <= doorPosB[0]) && (doorPosA[1] <= y && y <= doorPosB[1])) {
