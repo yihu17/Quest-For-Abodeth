@@ -71,7 +71,7 @@ public class Settings
     public static boolean MUSIC_ON = true;
     public static boolean SOUND_EFFECTS_ON = true;
     public static boolean CROSSHAIR_VISIBLE = true;
-    public static boolean ANIMATIONS = true;
+    public static boolean ANIMATIONS = false;
     public static boolean DANK_VERSION = false;
 
     // Initialise a lot of the variables
