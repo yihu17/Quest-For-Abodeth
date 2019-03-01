@@ -38,7 +38,7 @@ public class SettingsMenu implements Menu
         this.window = window;
         title = new Text("SETTINGS", Settings.MAIN_MENU_FONT, 56);
         title.setColor(Color.BLACK);
-        title.setPosition(300, 50);
+        title.setPosition(830, 50);
 
         ClickableImage back = new ClickableImage(6, 6, "res/assets/menus/button_back.png", "highscores");
         back.setOnPress(new EventHandler()
@@ -56,7 +56,7 @@ public class SettingsMenu implements Menu
         Button music = new Button(
                 buttonWidth,
                 buttonHeight,
-                (Settings.WINDOW_WIDTH - Settings.WINDOW_X_PADDING * 2) / 2 - 600,
+                (Settings.WINDOW_WIDTH - Settings.WINDOW_X_PADDING * 2) / 2 - 100,
                 Settings.WINDOW_Y_PADDING + 0 * (buttonHeight * 2) + 100);
         music.setText("MUSIC |  " + Settings.MUSIC_ON);
         music.setTextYOffset(5);
@@ -89,7 +89,7 @@ public class SettingsMenu implements Menu
         Button soundEffects = new Button(
                 buttonWidth,
                 buttonHeight,
-                (Settings.WINDOW_WIDTH - Settings.WINDOW_X_PADDING * 2) / 2 - 600,
+                (Settings.WINDOW_WIDTH - Settings.WINDOW_X_PADDING * 2) / 2 - 100,
                 Settings.WINDOW_Y_PADDING + 1 * (buttonHeight * 2) + 100);
         soundEffects.setText("SOUND EFFECTS |  " + Settings.SOUND_EFFECTS_ON);
         soundEffects.setTextYOffset(5);
@@ -121,7 +121,7 @@ public class SettingsMenu implements Menu
         Button crosshair = new Button(
                 buttonWidth,
                 buttonHeight,
-                (Settings.WINDOW_WIDTH - Settings.WINDOW_X_PADDING * 2) / 2 - 600,
+                (Settings.WINDOW_WIDTH - Settings.WINDOW_X_PADDING * 2) / 2 - 100,
                 Settings.WINDOW_Y_PADDING + 2 * (buttonHeight * 2) + 100);
         crosshair.setText("CROSSHAIR |  " + Settings.CROSSHAIR_VISIBLE);
         crosshair.setTextYOffset(5);
@@ -153,7 +153,7 @@ public class SettingsMenu implements Menu
         Button dank = new Button(
                 buttonWidth,
                 buttonHeight,
-                (Settings.WINDOW_WIDTH - Settings.WINDOW_X_PADDING * 2) / 2 - 600,
+                (Settings.WINDOW_WIDTH - Settings.WINDOW_X_PADDING * 2) / 2 - 100,
                 Settings.WINDOW_Y_PADDING + 3 * (buttonHeight * 2) + 100);
         dank.setText("DANK |  " + Settings.DANK_VERSION);
         dank.setTextYOffset(5);
@@ -182,7 +182,7 @@ public class SettingsMenu implements Menu
         Button animations = new Button(
                 buttonWidth,
                 buttonHeight,
-                (Settings.WINDOW_WIDTH - Settings.WINDOW_X_PADDING * 2) / 2 - 600,
+                (Settings.WINDOW_WIDTH - Settings.WINDOW_X_PADDING * 2) / 2 - 100,
                 Settings.WINDOW_Y_PADDING + 4 * (buttonHeight * 2) + 100);
         animations.setText("ANIMATIONS |  " + Settings.ANIMATIONS);
         animations.setTextYOffset(5);

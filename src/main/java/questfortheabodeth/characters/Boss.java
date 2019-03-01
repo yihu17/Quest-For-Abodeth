@@ -1,8 +1,13 @@
 package main.java.questfortheabodeth.characters;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import main.java.questfortheabodeth.Settings;
+import main.java.questfortheabodeth.hud.HealthBar;
 import main.java.questfortheabodeth.interfaces.Collidable;
 import main.java.questfortheabodeth.powerups.TheAbodeth;
-import org.jsfml.graphics.Drawable;
+import org.jsfml.graphics.*;
+import org.jsfml.system.Vector2f;
 
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -18,6 +23,7 @@ public class Boss extends Enemy
 {
     private CopyOnWriteArraySet<Drawable> drawables = null;
     private CopyOnWriteArraySet<Collidable> interactables = null;
+    private Text healthText = new Text();
 
     /**
      * Creates a new Boss character
@@ -35,6 +41,15 @@ public class Boss extends Enemy
     {
         super(xPos, yPos, health, imageFilePath, movementSpeed, name, attackSpeed, attackPower);
         System.out.println("Created the boss from path " + imageFilePath);
+        healthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                healthText.setString(newValue.toString());
+            }
+        });
+        healthText.setColor(Color.WHITE);
+        healthText.setFont(Settings.MAIN_MENU_FONT);
+        healthText.setString(String.valueOf(health));
     }
 
     /**
@@ -78,5 +93,19 @@ public class Boss extends Enemy
         interactables.add(abodeth);
 
         super.kill();
+    }
+
+    /**
+     * Draws this characters image to the screen
+     *
+     * @param renderTarget (RenderTarget) Window to draw the image to
+     * @param renderStates (RenderStates) ???
+     */
+    @Override
+    public void draw(RenderTarget renderTarget, RenderStates renderStates) {
+
+        renderTarget.draw(getImage());
+        healthText.setPosition(new Vector2f(getX() + 10, getY() + 145));
+        renderTarget.draw(healthText);
     }
 }

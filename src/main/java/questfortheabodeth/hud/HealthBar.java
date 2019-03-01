@@ -1,5 +1,6 @@
 package main.java.questfortheabodeth.hud;
 
+import javafx.beans.property.ReadOnlyIntegerProperty;
 import main.java.questfortheabodeth.Settings;
 import main.java.questfortheabodeth.characters.Player;
 import org.jsfml.graphics.*;
@@ -18,9 +19,9 @@ public class HealthBar implements Drawable
     /**
      * Creates a new Health bar for the player
      *
-     * @param player (Player) The player object
+     * @param player (ReadOnlyIntegerProperty) The player health property
      */
-    public HealthBar(Player player)
+    public HealthBar(ReadOnlyIntegerProperty player, int[] textPos, int[] barPos)
     {
         // Draw some text
         healthText = new Text();
@@ -31,7 +32,7 @@ public class HealthBar implements Drawable
 
         // Draw a black bar to emphasis the red bar
         background = new RectangleShape();
-        background.setPosition(98, 10);
+        background.setPosition(barPos[0], barPos[1]);
         background.setSize(new Vector2f(200, 20));
         background.setFillColor(Color.BLACK);
         background.setOutlineColor(Color.WHITE);
@@ -39,12 +40,12 @@ public class HealthBar implements Drawable
 
         // The red bar that is bound to the player health
         health = new RectangleShape();
-        health.setPosition(98, 10);
+        health.setPosition(barPos[0], barPos[1]);
         health.setSize(new Vector2f(200, 20));
         health.setFillColor(Color.RED);
 
         // Bind the players health to the
-        player.healthProperty().addListener((observable, oldValue, newValue) -> {
+        player.addListener((observable, oldValue, newValue) -> {
             if (newValue.intValue() >= 0) {
                 health.setSize(new Vector2f(2 * newValue.intValue(), 20));
             }

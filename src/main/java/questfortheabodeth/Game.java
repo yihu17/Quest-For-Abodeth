@@ -150,7 +150,7 @@ public class Game
 
         // Create all the elements required for the players HUD
         miniMap = new MiniMap(rows, cols, roomRow, roomCol, endX, endY);
-        healthBar = new HealthBar(player);
+        healthBar = new HealthBar(player.healthProperty(), new int[]{5, 0}, new int[]{98, 10});
         weaponWheel = new WeaponWheel(player.getMeleeWeapon(), player.getCurrentOneHandedWeapon(), player.getCurrentTwoHandedWeapon());
         ammoCount = new AmmoCount(player.ammoProperty());
         hud = new HudElements(player, healthBar, miniMap, weaponWheel, ammoCount);
