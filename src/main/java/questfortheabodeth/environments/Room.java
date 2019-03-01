@@ -81,7 +81,7 @@ public class Room implements Drawable
             // having generate the room or load file.
             return;
         } else {
-            String[] rooms = new String[]{"D"};
+            String[] rooms = new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
             int index = Settings.GENERATOR.nextInt(rooms.length);
             roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomData" + rooms[index] + ".csv");
             roomName = "roomData" + rooms[index];
