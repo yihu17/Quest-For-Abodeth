@@ -36,7 +36,7 @@ public class SpeedPickupUp extends Pickup implements Runnable
     {
         this.p = p;
         System.out.println("Getting buffed by speed boost");
-        p.setMovementSpeed(Settings.PLAYER_SPEED * 1.5);
+        p.setMovementSpeed(7);
         System.out.println("Speed is now " + p.getMovementSpeed());
         new Thread(this).start();
     }

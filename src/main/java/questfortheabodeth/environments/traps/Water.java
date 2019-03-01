@@ -63,7 +63,7 @@ public class Water extends InteractableEnvironment
     {
         if (e.applyInteract(this)) {
             System.out.println(e.getName());
-            e.setMovementSpeed(e.getMovementSpeed() * 2);
+            e.setMovementSpeed(e.getMovementSpeed() * 3);
         }
     }
 
@@ -77,7 +77,7 @@ public class Water extends InteractableEnvironment
     {
         if (e.getEnemyName().equals("crocodile")) {
             System.out.println(e.getName());
-            e.setMovementSpeed(e.getMovementSpeed() / 2);
+            e.setMovementSpeed(e.getMovementSpeed() / 3);
         }
     }
 }
