@@ -33,7 +33,7 @@ public class SpikeTrap extends InteractableEnvironment
     public void interact(Player p)
     {
         if (p.applyInteract(this) && !activated) {
-            p.decreaseHealth(50);
+            p.decreaseHealth(15);
             loadImageFromFile("res/assets/environment/spikeTrap2.png");
             activated = true;
         }
