@@ -275,7 +275,7 @@ public class Helper
             case "ar15":
                 return new TwoHandedWeapon("ar15", 1, 25, 500, 60);
             case "uzi":
-                return new OneHandedWeapon("uzi", 3, 60, 75, 20);
+                return new OneHandedWeapon("uzi", 3, 60, 75, 15);
             case "whip":
                 return new Melee("whip", 50, 15);
             case "sniper":

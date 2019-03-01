@@ -81,7 +81,7 @@ public class Room implements Drawable
             // having generate the room or load file.
             return;
         } else {
-            String[] rooms = new String[]{"D"};
+            String[] rooms = new String[]{"B","C","D","F","G","H","I","J"};
             int index = Settings.GENERATOR.nextInt(rooms.length);
             roomFile = new FileOperator("res/assets/CSVs/roomCSVs/roomData" + rooms[index] + ".csv");
             roomName = "roomData" + rooms[index];
@@ -454,31 +454,31 @@ public class Room implements Drawable
                 int[] generatedSpawnLocation = generateSpawnLocation();
                 switch (enemyRead) {
                     case "zombie":
-                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath, 2, "zombie", 600, 20));
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath, 2, "zombie", 600, 15));
                         break;
                     case "jackal":
-                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 60, filePath, 4, "jackal", 500, 20));
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 60, filePath, 4, "jackal", 500, 15));
                         break;
                     case "bat":
-                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 40, filePath, 4, "bat", 400, 20));
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 40, filePath, 4, "bat", 400, 15));
                         break;
                     case "spider":
-                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 20, filePath, 3, "spider", 400, 10));
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 10, filePath, 3, "spider", 400, 5));
                         break;
                     case "mummifiedSlave":
-                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath, 2, "mummifiedSlave", 900, 25));
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 100, filePath, 2, "mummifiedSlave", 900, 20));
                         break;
                     case "giantSpider":
-                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 140, filePath, 1, "giantSpider", 900, 25));
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 140, filePath, 1, "giantSpider", 900, 20));
                         break;
                     case "giantZombie":
-                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 200, filePath, 1, "giantZombie", 1200, 33));
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 200, filePath, 1, "giantZombie", 1200, 25));
                         break;
                     case "egyptianMummy":
-                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 120, filePath, 2, "egyptianMummy", 750, 33));
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 120, filePath, 2, "egyptianMummy", 750, 25));
                         break;
                     case "crocodile":
-                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 160, filePath, 1, "crocodile", 1000, 33));
+                        enemies.add(new Enemy(generatedSpawnLocation[0], generatedSpawnLocation[1], 160, filePath, 1, "crocodile", 1000, 25));
                         break;
                 }
             }
